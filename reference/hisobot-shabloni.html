@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Test hisoboti shabloni — Learn-QA</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<p class="crumbs"><a href="../lessons/index.html">Darslar</a> ·
+<a href="./lugat.html">Lug'at</a></p>
+
+<p class="eyebrow">Reference · chop etsa bo'ladi</p>
+<h1>Test hisoboti shabloni</h1>
+<p class="subtitle">Ish tugagach yoki har kuni hisobot berish kerak
+bo'lganda shu sahifani oching.</p>
+
+<h2>Yakuniy hisobot (bir bet)</h2>
+
+<div class="report">
+  <dl>
+    <dt>Nima sinaldi</dt>
+    <dd>Qismlar bo'yicha ro'yxat: nima qamrab olindi</dd>
+
+    <dt>Nima sinalmadi — va nima uchun</dt>
+    <dd><strong>Eng muhim bo'lim.</strong> Vaqt yetmadi? Muhit yo'q edi?
+        Ongli qaror edi?</dd>
+
+    <dt>Topilgan buglar</dt>
+    <dd>Prioritet bo'yicha guruhlangan; ochiq va yopilganlar alohida</dd>
+
+    <dt>Rejadan chetlanishlar</dt>
+    <dd>Nima ko'proq vaqt oldi, nima kutilganidan boshqacha bo'ldi</dd>
+
+    <dt>Qoldiq risklar</dt>
+    <dd>Sinalmagan joylardan kelib chiqadigan xavflar</dd>
+
+    <dt>Tavsiya</dt>
+    <dd>Bir jumla. Qaror biznesniki</dd>
+  </dl>
+</div>
+
+<h2>Kundalik javob (uch jumla)</h2>
+
+<div class="report">
+  <dl>
+    <dt>1. Kecha nima tugadi</dt>
+    <dd>Natija bilan: «checkout to'lov qismi — 2 ta bug, biri High»</dd>
+
+    <dt>2. Bugun nima qilinadi</dt>
+    <dd>Aniq qism nomi bilan</dd>
+
+    <dt>3. Nima to'sib turibdi</dt>
+    <dd>Yo'q bo'lsa ham ayting: «to'siq yo'q»</dd>
+  </dl>
+</div>
+
+<h2>Uch savol</h2>
+
+<p>Har qanday hisobot shu uchtaga javob bersin:</p>
+
+<ul class="checklist">
+  <li>Nima sinaldi va natija qanday?</li>
+  <li>Nima sinalmadi va nima uchun?</li>
+  <li>Meni nima to'sib turibdi?</li>
+</ul>
+
+<h2>Foydali metrikalar</h2>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Metrika</th><th>Nimani ko'rsatadi</th></tr></thead>
+  <tbody>
+    <tr><td>Risk qamrovi</td><td>Yuqori riskli joylarning qanchasi
+        sinaldi</td></tr>
+    <tr><td>Acceptance criteria qamrovi</td><td>Story talablari
+        tekshirildimi</td></tr>
+    <tr><td>Ochiq buglar (prioritet bo'yicha)</td><td>Hozirgi holat</td></tr>
+    <tr><td>Retest natijalari</td><td>Tuzatishlar haqiqatan
+        ishladimi</td></tr>
+    <tr><td>Bloklangan testlar</td><td>Nima ishni to'sib turibdi</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Xavfli metrikalar</h2>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Metrika</th><th>Nimani buzadi</th></tr></thead>
+  <tbody>
+    <tr><td>Tester topgan buglar soni</td>
+        <td>Arzimas xatolarni rag'batlantiradi; oldini olishni
+            qadrsizlantiradi</td></tr>
+    <tr><td>Test case'lar soni</td>
+        <td>Bitta testni beshga bo'lishga undaydi</td></tr>
+    <tr><td>O'tgan testlar foizi</td>
+        <td>Eng riskli joy sinalmagan bo'lsa ham 100 % bo'lishi
+            mumkin</td></tr>
+    <tr><td>Avtomatlashtirish foizi</td>
+        <td>Avtomatlashtirish maqsadga aylanadi</td></tr>
+    <tr><td>Tuzatilgan buglar soni</td>
+        <td>Arzimas xatolarni tuzatish foydaliroq ko'rinadi</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="box box--warn">
+  <p class="box-title">Raqamni yolg'iz qoldirmang</p>
+  <p>«12 ta bug» emas — «12 ta, ulardan 2 tasi to'lov oqimida edi va
+  reliz to'xtatildi». Kontekstsiz raqam noto'g'ri qaror keltirib
+  chiqaradi.</p>
+</div>
+
+<h2>Reliz haqidagi gap</h2>
+
+<div class="compare">
+  <div class="box box--bad">
+    <p class="box-title">✗ Aytmang</p>
+    <p>«Hammasi joyida, xato yo'q»</p>
+    <p class="cite">Xato yo'qligini isbotlab bo'lmaydi.</p>
+  </div>
+  <div class="box box--good">
+    <p class="box-title">✓ Ayting</p>
+    <p>«Rejalashtirilgan tekshiruvlar bajarildi. Ochiq jiddiy xato yo'q.
+    Sinalmagan joylar: … Tavsiyam: … Qaror sizniki.»</p>
+  </div>
+</div>
+
+<p class="cite">Manba:
+<a href="https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf">ISTQB
+CTFL Syllabus</a>, test monitoring va reporting bo'limlari.</p>
+
+<div class="ask-teacher">
+  <p><strong>Hisobotingizni yuboring.</strong> Men «sinalmadi» bo'limiga
+  qarayman — u to'ldirilgan bo'lsa, hisobot ishlaydi.</p>
+</div>
+
+<nav class="nav">
+  <a href="../lessons/0023-hisobot-va-metrikalar.html">23-dars</a>
+  <a href="./test-plan-shabloni.html">Test plan shabloni</a>
+  <a href="./bug-report-shabloni.html">Bug report shabloni</a>
+  <a href="./lugat.html">Lug'at</a>
+</nav>
+
+</body>
+</html>

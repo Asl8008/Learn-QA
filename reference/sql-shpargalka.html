@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SQL shpargalkasi — Learn-QA</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<p class="crumbs"><a href="../lessons/index.html">Darslar</a> ·
+<a href="./lugat.html">Lug'at</a></p>
+
+<p class="eyebrow">Reference · chop etsa bo'ladi</p>
+<h1>SQL shpargalkasi (testerlar uchun)</h1>
+<p class="subtitle">Bazani tekshirayotganda shu sahifani oching. Bu yerda
+faqat testerga kerak bo'ladigan qism bor.</p>
+
+<div class="box box--bad">
+  <p class="box-title">⚠ Birinchi qoida</p>
+  <p>Tester bazada <strong>faqat o'qiydi</strong>. <code>UPDATE</code>,
+  <code>DELETE</code>, <code>DROP</code>, <code>TRUNCATE</code> — umumiy
+  bazada ishlatmang. Unutilgan <code>WHERE</code> butun jadvalni o'chiradi va
+  orqaga qaytarib bo'lmaydi.</p>
+</div>
+
+<h2>Asosiy shakl</h2>
+
+<pre><code>SELECT ustunlar
+FROM jadval
+WHERE shart
+ORDER BY ustun DESC
+LIMIT 10;</code></pre>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Qism</th><th>Vazifasi</th></tr></thead>
+  <tbody>
+    <tr><td><code>SELECT</code></td><td>Qaysi ustunlar kerak
+        (<code>*</code> — hammasi)</td></tr>
+    <tr><td><code>FROM</code></td><td>Qaysi jadvaldan</td></tr>
+    <tr><td><code>WHERE</code></td><td>Qaysi qatorlar kerak</td></tr>
+    <tr><td><code>ORDER BY</code></td><td>Tartiblash
+        (<code>ASC</code> o'sish, <code>DESC</code> kamayish)</td></tr>
+    <tr><td><code>LIMIT</code></td><td>Nechta qator qaytarilsin</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>WHERE operatorlari</h2>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Operator</th><th>Namuna</th></tr></thead>
+  <tbody>
+    <tr><td><code>=</code> / <code>&lt;&gt;</code></td>
+        <td><code>status = 'paid'</code></td></tr>
+    <tr><td><code>&gt;</code> <code>&lt;</code> <code>&gt;=</code> <code>&lt;=</code></td>
+        <td><code>total &gt;= 100000</code></td></tr>
+    <tr><td><code>BETWEEN</code></td><td><code>total BETWEEN 100 AND 500</code></td></tr>
+    <tr><td><code>IN</code></td><td><code>status IN ('new','paid')</code></td></tr>
+    <tr><td><code>LIKE</code></td><td><code>email LIKE '%@mail.uz'</code></td></tr>
+    <tr><td><code>LIKE ' %'</code></td><td>Bo'sh joy bilan boshlanadigan matn</td></tr>
+    <tr><td><code>IS NULL</code> / <code>IS NOT NULL</code></td>
+        <td><code>phone IS NULL</code></td></tr>
+    <tr><td><code>AND</code> <code>OR</code> <code>NOT</code></td>
+        <td><code>status = 'new' AND total &gt; 0</code></td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="box box--warn">
+  <p class="box-title">NULL qoidasi</p>
+  <p><code>= NULL</code> hech qachon ishlamaydi — faqat <code>IS NULL</code>.
+  Va esda tuting: <code>NULL</code>, <code>0</code> va <code>''</code> —
+  uchta boshqa-boshqa holat. Uchalasini ham alohida tekshiring.</p>
+</div>
+
+<h2>Testerning doimiy so'rovlari</h2>
+
+<pre><code>-- Test yozuvim saqlandimi?
+SELECT * FROM users WHERE email = 'test01@mail.uz';
+
+-- Oxirgi yaratilgan yozuv
+SELECT * FROM orders ORDER BY id DESC LIMIT 1;
+
+-- Dublikat bormi?
+SELECT email, COUNT(*) FROM users
+GROUP BY email HAVING COUNT(*) &gt; 1;
+
+-- Majburiy maydon bo'sh qolganmi?
+SELECT * FROM orders WHERE user_id IS NULL;
+
+-- Nechta yozuv bor?
+SELECT COUNT(*) FROM orders WHERE status = 'pending';
+
+-- Ortiqcha bo'sh joy bilan saqlangan ismlar
+SELECT * FROM users
+WHERE full_name LIKE ' %' OR full_name LIKE '% ';
+
+-- Ikki jadvalni birga ko'rish
+SELECT o.id, o.total, u.email
+FROM orders o
+JOIN users u ON o.user_id = u.id
+WHERE o.status = 'pending';</code></pre>
+
+<h2>Baza atamalari</h2>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Atama</th><th>Ma'nosi</th></tr></thead>
+  <tbody>
+    <tr><td>Jadval <span class="cite">table</span></td>
+        <td>Bir turdagi yozuvlar to'plami</td></tr>
+    <tr><td>Ustun <span class="cite">column</span></td>
+        <td>Bitta xususiyat</td></tr>
+    <tr><td>Qator <span class="cite">row</span></td>
+        <td>Bitta yozuv</td></tr>
+    <tr><td>Primary key</td><td>Qatorni yagona qiladigan ustun
+        (<code>id</code>)</td></tr>
+    <tr><td>Foreign key</td><td>Boshqa jadvalga havola
+        (<code>user_id</code>)</td></tr>
+    <tr><td>NULL</td><td>Qiymat yo'q — nol ham, bo'sh matn ham emas</td></tr>
+    <tr><td>JOIN</td><td>Ikki jadvalni bog'lab o'qish</td></tr>
+    <tr><td>COUNT / GROUP BY / HAVING</td>
+        <td>Sanash, guruhlash, guruhlarni filtrlash</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Bazani tekshirish odati</h2>
+
+<ul class="checklist">
+  <li>Yozuv umuman yaratildimi?</li>
+  <li>Har bir maydonga <em>aynan</em> kiritganingiz tushdimi?</li>
+  <li>Bo'sh joylar qirqilganmi (<code>LIKE ' %'</code>)?</li>
+  <li>Uzun matn kesilib qolmadimi?</li>
+  <li>Sana va vaqt to'g'ri zonada saqlandimi?</li>
+  <li>Bog'langan jadvalda ham yozuv paydo bo'ldimi?</li>
+  <li>O'chirilganda haqiqatan o'chdimi yoki faqat belgilandimi?</li>
+</ul>
+
+<p class="cite">Manba: <a href="https://www.postgresql.org/docs/current/tutorial-select.html">PostgreSQL
+Documentation — Querying a Table</a>. Mashq:
+<a href="https://sqlbolt.com/">SQLBolt</a>.</p>
+
+<div class="ask-teacher">
+  <p><strong>So'rovlaringizni yuboring.</strong> Sintaksis xatosini
+  tuzataman, lekin asosiy e'tibor — qaysi tekshiruvni o'ylab
+  topganingizda.</p>
+</div>
+
+<nav class="nav">
+  <a href="../lessons/0011-sql-testerlar-uchun.html">11-dars</a>
+  <a href="./bug-report-shabloni.html">Bug report shabloni</a>
+  <a href="./devtools-shpargalka.html">DevTools shpargalkasi</a>
+  <a href="./lugat.html">Lug'at</a>
+</nav>
+
+</body>
+</html>

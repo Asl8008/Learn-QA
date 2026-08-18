@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>23-dars: Test hisoboti va metrikalar — Learn-QA</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<p class="crumbs"><a href="./index.html">Darslar</a> ·
+<a href="./0022-lokalizatsiya.html">← 22-dars</a></p>
+
+<p class="eyebrow">23-dars · taxminan 30 daqiqa</p>
+<h1>Ishingiz ko'rinmasa, u bajarilmagan hisoblanadi</h1>
+<p class="subtitle">Uch kun test qildingiz. «Nima qilding?» degan savolga
+«test qildim» deb javob bersangiz — hech kim sizning hissangizni ko'rmaydi.
+Bu darsda ishingizni ko'rsatishni va noto'g'ri raqamlardan himoyalanishni
+o'rganamiz.</p>
+
+<h2>Ikki xil hisobot</h2>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Turi</th><th>Qachon</th><th>Nima uchun</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><strong>Jarayon hisoboti</strong><br>
+          <span class="cite">test progress report</span></td>
+      <td>Ish davomida — har kuni yoki har hafta</td>
+      <td>Hozir qayerdamiz, nima to'sib turibdi</td>
+    </tr>
+    <tr>
+      <td><strong>Yakuniy hisobot</strong><br>
+          <span class="cite">test summary report</span></td>
+      <td>Chiqish mezonlariga yetganda</td>
+      <td>Nima qilindi, sifat qanday, qanday risk qoldi</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>ISTQB bo'yicha yakuniy hisobotda odatda quyidagilar bo'ladi:</p>
+
+<ul>
+  <li>Bajarilgan testning xulosasi</li>
+  <li>Rejadan chetlanishlar (muddat, hajm, sarflangan kuch)</li>
+  <li>Chiqish mezonlariga nisbatan test va mahsulot sifatining holati</li>
+  <li>Ishni to'sgan yoki to'sib turgan omillar</li>
+  <li>Nuqson, test case, qamrov va resurs metrikalari</li>
+  <li><strong>Qoldiq risklar</strong></li>
+  <li>Qayta ishlatiladigan test mahsulotlari</li>
+</ul>
+
+<p class="cite">Manba: ISTQB CTFL Syllabus, 5.3.2.</p>
+
+<div class="box box--key">
+  <p class="box-title">Eng muhim band — qoldiq risk</p>
+  <p>Hisobotning qiymati «biz nima qildik» da emas, <strong>«biz nimani
+  qilmadik»</strong> da. Sinalmagan joylar ro'yxati — bu biznes uchun
+  qaror qabul qilish uchun kerak bo'lgan yagona narsa.</p>
+  <p>Bu 9-darsdagi «qamrovdan tashqarida» bo'limining mantiqiy davomi.</p>
+</div>
+
+<h2>ISTQB sanaydigan metrikalar</h2>
+
+<ul>
+  <li>Test case tayyorlashda rejalashtirilgan ishning necha foizi
+      bajarilgani</li>
+  <li>Test muhitini tayyorlashda bajarilgan ish ulushi</li>
+  <li>Test bajarilishi: yurgizilgan/yurgizilmagan, o'tgan/yiqilgan</li>
+  <li>Nuqson ma'lumoti: topilgan va tuzatilgan, retest natijalari</li>
+  <li>Talab, user story, acceptance criteria, risk yoki kod qamrovi</li>
+  <li>Sarflangan vaqt va resurs</li>
+</ul>
+
+<h2>Xavfli metrikalar</h2>
+
+<p>Endi bu darsning eng muhim qismi. Ba'zi raqamlar foydali ko'rinadi,
+lekin o'lchanadigan narsaga aylanishi bilan <strong>xulqni
+buzadi</strong>.</p>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Metrika</th><th>Nima uchun buziladi</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Tester topgan buglar soni</strong></td>
+      <td>Arzimas xatolarni yozishga undaydi (rang, bo'sh joy), jiddiy
+          xatolarni izlashga emas. Va testerni dasturchiga yordam
+          berishdan qaytaradi — <em>oldini olingan</em> xato
+          hisoblanmaydi</td>
+    </tr>
+    <tr>
+      <td><strong>Yozilgan test case'lar soni</strong></td>
+      <td>Bitta testni beshta qilib bo'lishga undaydi. Hujjat o'sadi,
+          qamrov o'smaydi</td>
+    </tr>
+    <tr>
+      <td><strong>O'tgan testlar foizi</strong></td>
+      <td>100 % ko'rinishi mumkin, lekin eng riskli joy umuman
+          sinalmagan bo'ladi. Raqam sifatni emas, tanlovni
+          aks ettiradi</td>
+    </tr>
+    <tr>
+      <td><strong>Avtomatlashtirilgan testlar foizi</strong></td>
+      <td>Avtomatlashtirishning o'zi maqsadga aylanadi — 14-darsdagi
+          «qo'lda qilish yaxshiroq» holatlar ham avtomatlashtiriladi</td>
+    </tr>
+    <tr>
+      <td><strong>Dasturchi tuzatgan buglar soni</strong></td>
+      <td>Bitta jiddiy xatoni tuzatgandan ko'ra o'nta arzimasini
+          tuzatish foydaliroq ko'rinadi</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="box box--warn">
+  <p class="box-title">Umumiy qonuniyat</p>
+  <p>Har qanday o'lchov maqsadga aylantirilsa, u o'lchov sifatida
+  ishlashdan to'xtaydi — chunki odamlar raqamni yaxshilashni boshlaydi,
+  raqam ko'rsatayotgan narsani emas.</p>
+  <p>Agar sizdan «bu oy nechta bug topding?» deb so'ralsa, javob bering,
+  lekin yoningizda kontekst qo'shing: <em>«12 ta, ulardan 2 tasi to'lov
+  oqimida edi va reliz to'xtatildi»</em>. Raqam yolg'iz qolmasin.</p>
+</div>
+
+<h2>Nima haqida hisobot berish kerak</h2>
+
+<div class="compare">
+  <div class="box box--bad">
+    <p class="box-title">✗ Foydasiz</p>
+    <p>«47 ta test bajardim, 44 tasi o'tdi»</p>
+    <p>«Testing 80 % tugadi»</p>
+    <p>«5 ta bug topdim»</p>
+  </div>
+  <div class="box box--good">
+    <p class="box-title">✓ Qaror qabul qilishga yaraydi</p>
+    <p>«To'lov va savat to'liq sinaldi — jiddiy muammo yo'q»</p>
+    <p>«Chegirma mantiqi sinalmadi: test ma'lumoti yo'q. Bu eng katta
+    qoldiq risk»</p>
+    <p>«Ikkita bug ochiq: biri to'lovda (High), biri filtrda (Low)»</p>
+  </div>
+</div>
+
+<div class="box box--key">
+  <p class="box-title">Uch savolga javob bering</p>
+  <p>Har qanday hisobot — bir qatorli bo'lsa ham — shu uchtaga javob
+  bersin:</p>
+  <ol>
+    <li><strong>Nima sinaldi va natija qanday?</strong></li>
+    <li><strong>Nima sinalmadi va nima uchun?</strong></li>
+    <li><strong>Meni nima to'sib turibdi?</strong></li>
+  </ol>
+</div>
+
+<h2>Kundalik yig'ilishdagi javob</h2>
+
+<p>Agile jamoalarda har kuni qisqa yig'ilish bo'ladi. Ko'p yangi tester
+u yerda «kecha test qildim, bugun ham test qilaman» deydi — bu hech
+qanday ma'lumot bermaydi.</p>
+
+<div class="report">
+  <dl>
+    <dt>Zaif javob</dt>
+    <dd>«Kecha checkout'ni test qildim, bugun davom ettiraman.»</dd>
+
+    <dt>Kuchli javob</dt>
+    <dd>«Kecha checkout'ning to'lov qismini tugatdim — ikkita bug
+        yozdim, biri High (chegirma ikki marta qo'llanadi). Bugun
+        yetkazish manzillariga o'taman. To'siq: staging'da test kartalari
+        ishlamayapti, dasturchidan yordam kerak.»</dd>
+  </dl>
+</div>
+
+<p>Farq uzunlikda emas — <strong>aniqlikda</strong>. Ikkinchi javobdan
+jamoa nima qilish kerakligini biladi.</p>
+
+<h2>Reliz haqidagi qaror</h2>
+
+<p>Sizdan «chiqaraveramizmi?» deb so'raladi. Bu joyda kasbiy chegara bor:</p>
+
+<div class="box">
+  <p class="box-title">Tester tavsiya beradi, biznes qaror qiladi</p>
+  <p>Sizning vazifangiz — <strong>holatni aniq ko'rsatish</strong>:
+  nima sinaldi, nima sinalmadi, qanday xatolar ochiq, ular kimga
+  qanday ta'sir qiladi.</p>
+  <p>«Chiqarish mumkin» yoki «mumkin emas» degan yakuniy qaror biznesniki:
+  chunki u tijoriy tomonni ham biladi (shartnoma, muddat, raqobat).</p>
+  <p>To'g'ri shakl: <em>«Ochiq holat shunday. Mening tavsiyam —
+  chegirma bug'i tuzatilmaguncha kutish, chunki u har bir buyurtmaga
+  ta'sir qiladi. Qaror sizniki.»</em></p>
+</div>
+
+<div class="box box--warn">
+  <p class="box-title">Nima qilmaslik kerak</p>
+  <p><strong>«Hammasi joyida, chiqaraverish mumkin»</strong> deb
+  aytmang — testing hech qachon xato yo'qligini isbotlay olmaydi
+  (9-dars). To'g'ri gap: «Rejalashtirilgan tekshiruvlar bajarildi,
+  ochiq jiddiy xato yo'q, sinalmagan joylar shular».</p>
+</div>
+
+<h2>Tekshirib ko'ramiz</h2>
+
+<section class="quiz">
+  <p class="quiz-prompt">1. Rahbar «har bir testerning topgan buglari
+  sanab boriladi va oyiga taqqoslanadi» dedi. Nima bo'ladi?</p>
+  <div class="quiz-options">
+    <button class="quiz-option" data-explain="Motivatsiya oshishi mumkin, lekin yo'nalishi noto'g'ri bo'ladi.">Testerlar ko'proq jiddiy xato topadi</button>
+    <button class="quiz-option" data-correct data-explain="To'g'ri. Arzimas xatolarni yozish osonroq, shuning uchun raqam o'sadi — sifat esa o'smaydi. Bundan tashqari xatoning oldini olish (7-dars) umuman hisoblanmaydi.">Arzimas xatolar ko'payadi, oldini olish esa qadrsizlanadi</button>
+    <button class="quiz-option" data-explain="Hujjatlar sifati bu metrikadan bevosita o'smaydi.">Hisobotlar sifati oshadi</button>
+    <button class="quiz-option" data-explain="Ta'sir bo'ladi — o'lchanadigan narsa xulqni o'zgartiradi.">Hech narsa o'zgarmaydi</button>
+  </div>
+  <p class="quiz-feedback" hidden></p>
+</section>
+
+<section class="quiz">
+  <p class="quiz-prompt">2. Test hisobotining eng qimmatli qismi qaysi?</p>
+  <div class="quiz-options">
+    <button class="quiz-option" data-explain="Bajarilgan testlar soni kontekstsiz kam narsa aytadi.">Bajarilgan testlar soni</button>
+    <button class="quiz-option" data-correct data-explain="To'g'ri. Qoldiq risk — sinalmagan joylar ro'yxati — biznesga qaror qabul qilish uchun kerak bo'lgan asosiy ma'lumot.">Sinalmagan joylar va qoldiq risklar</button>
+    <button class="quiz-option" data-explain="O'tish foizi eng riskli joy sinalmagan bo'lsa ham 100 % bo'lishi mumkin.">Testlarning o'tish foizi</button>
+    <button class="quiz-option" data-explain="Sarflangan vaqt boshqaruv uchun foydali, lekin sifat haqida kam narsa aytadi.">Sarflangan vaqt</button>
+  </div>
+  <p class="quiz-feedback" hidden></p>
+</section>
+
+<section class="quiz">
+  <p class="quiz-prompt">3. «Chiqaraveramizmi?» degan savolga eng to'g'ri
+  javob qaysi?</p>
+  <div class="quiz-options">
+    <button class="quiz-option" data-explain="«Hammasi joyida» deb kafolat berib bo'lmaydi — testing xato yo'qligini isbotlamaydi.">«Ha, hammasi joyida, xato yo'q»</button>
+    <button class="quiz-option" data-correct data-explain="To'g'ri. Holatni aniq ko'rsatasiz va tavsiya berasiz; yakuniy qaror biznesniki, chunki u tijoriy tomonni ham biladi.">Holatni ko'rsatib, tavsiya berish — qaror biznesniki</button>
+    <button class="quiz-option" data-explain="Javobdan qochish testerning qiymatini yo'qotadi — sizdan aynan baho kutiladi.">«Bilmadim, bu mening ishim emas»</button>
+    <button class="quiz-option" data-explain="Bir necha bug har doim ochiq qoladi — mutlaq talab reliz qilishni imkonsiz qiladi.">«Bitta ham bug qolmaguncha chiqarmaymiz»</button>
+  </div>
+  <p class="quiz-feedback" hidden></p>
+</section>
+
+<section class="recall">
+  <p class="recall-q">Eslab ko'ring — <em>22-darsdan</em>: sana formatini
+  tekshirish uchun nima uchun aynan «3-may» kabi qiymat tanlanadi?</p>
+  <button class="recall-btn">Javobni ko'rsatish</button>
+  <p class="recall-a" hidden>Chunki kun ham, oy ham <strong>12 dan
+  kichik</strong> — shuning uchun <code>dd.mm</code> va
+  <code>mm/dd</code> chalkashligi yashirin qoladi: noto'g'ri format ham
+  haqiqiy sanaga o'xshab ko'rinadi. <code>25.12</code> bilan tekshirsangiz,
+  xato o'z-o'zidan ko'zga tashlanadi va siz uni topmaysiz.</p>
+</section>
+
+<h2>Amaliyot</h2>
+
+<h3>A — Yakuniy hisobot yozing (30 daqiqa)</h3>
+
+<p>9-darsdagi saucedemo test rejangizni bajarganingizdan keyingi holat
+bo'yicha bir betlik yakuniy hisobot tuzing:</p>
+
+<ol class="steps">
+  <li>Nima sinaldi — qismlar bo'yicha</li>
+  <li>Nima sinalmadi va nima uchun (eng muhim bo'lim)</li>
+  <li>Topilgan buglar — prioritet bo'yicha guruhlangan</li>
+  <li>Rejadan chetlanishlar: nima ko'proq vaqt oldi</li>
+  <li>Qoldiq risklar</li>
+  <li>Tavsiyangiz — bir jumla</li>
+</ol>
+
+<h3>B — Uch kunlik yig'ilish javobi (20 daqiqa)</h3>
+
+<p>Sessiyalaringiz asosida uchta kundalik javob yozing. Har birida:
+kecha nima tugadi, bugun nima qilinadi, nima to'sib turibdi. Har biri
+uch jumladan oshmasin — qisqalik ham ko'nikma.</p>
+
+<h3>C — Metrikani tanqid qiling (15 daqiqa)</h3>
+
+<p>Tasavvur qiling, sizga aytishdi: <em>«Har hafta avtomatlashtirilgan
+testlar sonini 10 taga oshiring»</em>.</p>
+
+<p>Bu metrika nimani buzishi mumkinligini yozing va uning o'rniga
+qanday o'lchov taklif qilgan bo'lardingiz. Javobingizni asoslang —
+bu suhbatda ham beriladigan savol turi.</p>
+
+<div class="box box--key">
+  <p class="box-title">Nima uchun C qismi muhim</p>
+  <p>Junior tester berilgan metrikani bajaradi. Tajribali tester
+  metrikaning nimani rag'batlantirayotganini ko'radi va kerak bo'lsa
+  uni muhokama qiladi. Bu — mustaqil fikrlashning aniq belgisi va u
+  suhbatda darhol sezilib qoladi.</p>
+</div>
+
+<h2>O'qish uchun (birlamchi manba)</h2>
+
+<blockquote>
+  <a href="https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf">ISTQB
+  CTFL Syllabus</a> — «Test Monitoring and Control» bo'limi
+  <cite>Metrikalar, jarayon hisoboti va yakuniy hisobotning rasmiy
+  tarkibi. Ingliz tilida.</cite>
+</blockquote>
+
+<div class="ask-teacher">
+  <p><strong>Yakuniy hisobotingizni yuboring.</strong> Men bitta narsaga
+  qarayman: «sinalmadi» bo'limi to'ldirilganmi va sabablari
+  yozilganmi. Ko'p tester bu bo'limni bo'sh qoldiradi — va aynan shu
+  bo'lim hisobotni qimmatli qiladi.</p>
+</div>
+
+<nav class="nav">
+  <a href="../reference/hisobot-shabloni.html">Reference: Hisobot shabloni</a>
+  <a href="../reference/test-plan-shabloni.html">Reference: Test plan shabloni</a>
+  <a href="../reference/lugat.html">Reference: Lug'at</a>
+</nav>
+
+<nav class="lesson-nav">
+  <a class="lesson-nav-link lesson-nav-prev" href="./0022-lokalizatsiya.html">
+    <span class="lesson-nav-dir">← Oldingi dars</span>
+    <span class="lesson-nav-title">22. Bizning tilimiz — tayyor test maydoni</span>
+  </a>
+  <a class="lesson-nav-link lesson-nav-next" href="./0024-ai-asboblari.html">
+    <span class="lesson-nav-dir">Keyingi dars →</span>
+    <span class="lesson-nav-title">24. AI: kuchli yordamchi, yomon guvoh</span>
+  </a>
+  <a class="lesson-nav-home" href="./index.html">Barcha darslar</a>
+</nav>
+
+<script src="../assets/lesson.js"></script>
+</body>
+</html>

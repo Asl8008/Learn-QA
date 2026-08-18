@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>14-dars: Avtomatlashtirish — Learn-QA</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<p class="crumbs"><a href="./index.html">Darslar</a> ·
+<a href="./0013-mobil-testing.html">← 13-dars</a></p>
+
+<p class="eyebrow">14-dars · taxminan 30 daqiqa</p>
+<h1>Avtomatlashtirish: nima, qachon va qachon emas</h1>
+<p class="subtitle">Bu darsda kod yozmaymiz. Undan muhimroq narsani
+qilamiz — <em>qachon</em> avtomatlashtirish foyda berishini va qachon pul
+isrofi ekanini aniqlaymiz. Kod yozishni bilgan, lekin bu savolga javob
+bera olmaydigan odam yomon avtomatlashtiruvchi bo'ladi.</p>
+
+<h2>Eng keng tarqalgan yanglish tasavvur</h2>
+
+<div class="compare">
+  <div class="box box--bad">
+    <p class="box-title">✗ Ko'p eshitiladigan gap</p>
+    <p>«Avtomatlashtirish — bu testerning keyingi darajasi. Hammasini
+    avtomatlashtirsak, qo'l bilan test qilish kerak bo'lmaydi.»</p>
+  </div>
+  <div class="box box--good">
+    <p class="box-title">✓ Haqiqat</p>
+    <p>Avtomatlashtirish — <em>boshqa kasb</em> emas, <em>boshqa asbob</em>.
+    U xato <strong>topmaydi</strong>; u siz allaqachon bilgan narsani
+    qayta-qayta tekshiradi.</p>
+  </div>
+</div>
+
+<p>Buni aniq ajratib olish kerak:</p>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th></th><th>Odam qiladi</th><th>Dastur qiladi</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Savol</strong></td>
+      <td>«Bu yerda nima noto'g'ri bo'lishi mumkin?»</td>
+      <td>«Kutilgan natija chiqdimi?»</td>
+    </tr>
+    <tr>
+      <td><strong>Natija</strong></td>
+      <td>Yangi, hech kim o'ylamagan xato</td>
+      <td>Ma'lum tekshiruvning ha/yo'q javobi</td>
+    </tr>
+    <tr>
+      <td><strong>Kuchli tomoni</strong></td>
+      <td>Shubha, tajriba, kontekst</td>
+      <td>Tezlik, takrorlanuvchanlik, charchamaslik</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="box box--key">
+  <p class="box-title">Asosiy fikr</p>
+  <p>Avtomatlashtirilgan test — <strong>oldindan yozib qo'yilgan
+  tekshiruv</strong>. U faqat siz aytgan narsani ko'radi. Sahifaning yarmi
+  buzilgan bo'lsa ham, agar siz «tugma bosilsin» deb yozgan bo'lsangiz, u
+  tugmani bosadi va «hammasi yaxshi» deydi.</p>
+  <p>Shuning uchun avtomatlashtirish 5-darsdagi exploratory testingning
+  <em>o'rnini bosmaydi</em> — u regressiyani ushlab turadi, siz esa yangi
+  xatolarni qidirasiz.</p>
+</div>
+
+<h2>Foydasi</h2>
+
+<p>ISTQB avtomatlashtirishning aniq foydalarini sanaydi:</p>
+
+<ul>
+  <li><strong>Takroriy qo'l mehnati kamayadi</strong> — regression testlarni
+      yurgizish, muhitni tayyorlash, bir xil ma'lumotni qayta kiritish.</li>
+  <li><strong>Izchillik va takrorlanuvchanlik</strong> — testlar har safar
+      bir xil tartibda, bir xil chastotada bajariladi.</li>
+  <li><strong>Obyektiv baho</strong> — qamrov kabi o'lchamlar.</li>
+  <li><strong>Ma'lumotga oson kirish</strong> — test jarayoni, xato darajasi
+      va unumdorlik bo'yicha statistika va grafiklar.</li>
+</ul>
+
+<p class="cite">Manba: <a href="https://astqb.org/6-1-tool-support-for-testing/">ISTQB
+CTFL Syllabus, 6.1.2</a></p>
+
+<h2>Xarajati va xavflari</h2>
+
+<p>Endi ikkinchi tomoni — bu haqda kamroq gapiriladi. ISTQB xavflar
+ro'yxatidan eng muhimlari:</p>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Xavf</th><th>Amalda nima bo'ladi</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Kutish real emas</td>
+      <td>«Bir oyda hammasini avtomatlashtiramiz» deb boshlanadi, olti oydan
+          keyin 30 ta beqaror test qoladi</td>
+    </tr>
+    <tr>
+      <td>Boshlang'ich xarajat kam baholanadi</td>
+      <td>O'rganish, asbob tanlash, muhit sozlash — hammasi vaqt oladi</td>
+    </tr>
+    <tr>
+      <td><strong>Qo'llab-quvvatlash kam baholanadi</strong></td>
+      <td>Interfeys o'zgarsa, o'nlab test sinadi. Ularni tuzatish
+          — doimiy ish</td>
+    </tr>
+    <tr>
+      <td>Asbobga ortiqcha ishonish</td>
+      <td>Qo'lda test qilish yaxshiroq bo'lgan joyda ham avtomatlashtiriladi</td>
+    </tr>
+    <tr>
+      <td>Egasi yo'q</td>
+      <td>Testlar sinadi, hech kim tuzatmaydi, oxiri hamma ularni
+          e'tiborsiz qoldiradi</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="box box--warn">
+  <p class="box-title">Beqaror test — testsizlikdan yomonroq</p>
+  <p>Goh o'tadigan, goh yiqiladigan testni <strong>flaky</strong> deyishadi.
+  U eng zararli narsa: jamoa qizil natijaga ko'nikadi va bir kun kelib
+  <em>haqiqiy</em> xatoni ham «yana o'sha beqaror test» deb o'tkazib
+  yuboradi. Bunday testni tuzatish yoki o'chirish kerak — oraliq yo'q.</p>
+</div>
+
+<h2>Nimani avtomatlashtirish kerak</h2>
+
+<div class="compare">
+  <div class="box box--good">
+    <p class="box-title">✓ Yaxshi nomzod</p>
+    <ul>
+      <li>Ko'p marta takrorlanadi (regression)</li>
+      <li>Barqaror — interfeysi tez-tez o'zgarmaydi</li>
+      <li>Natija aniq: ha yoki yo'q</li>
+      <li>Riski yuqori (to'lov, avtorizatsiya)</li>
+      <li>Ko'p ma'lumot bilan bir xil qadamlar</li>
+      <li>Qo'lda qilish og'ir yoki imkonsiz (1000 ta yozuv)</li>
+    </ul>
+  </div>
+  <div class="box box--bad">
+    <p class="box-title">✗ Yomon nomzod</p>
+    <ul>
+      <li>Bir marta bajariladi</li>
+      <li>Hali qurilayotgan, tez o'zgaradigan ekran</li>
+      <li>Natijani odam baholaydi (qulaylik, dizayn)</li>
+      <li>Exploratory sessiya</li>
+      <li>Kamdan-kam va past riskli funksiya</li>
+      <li>Murakkab tashqi tizimga bog'liq</li>
+    </ul>
+  </div>
+</div>
+
+<div class="box">
+  <p class="box-title">Oddiy hisob</p>
+  <p>Test qo'lda 10 daqiqa oladi va yiliga 100 marta bajariladi — bu
+  <strong>16 soat</strong>. Uni avtomatlashtirish 6 soat, yiliga
+  qo'llab-quvvatlash 4 soat — jami 10 soat. <strong>Foyda bor.</strong></p>
+  <p>Xuddi shu test yiliga 4 marta bajarilsa — 40 daqiqa. Avtomatlashtirish
+  esa baribir 10 soat. <strong>Zarar.</strong></p>
+  <p>Qaror shu qadar oddiy emas (barqarorlik, risk ham hisobga olinadi),
+  lekin savol har doim shundan boshlanadi.</p>
+</div>
+
+<h2>Qaysi darajada avtomatlashtirish kerak</h2>
+
+<p>10-darsdagi darajalar shu yerda hal qiluvchi ahamiyatga ega. Martin
+Fowler ning mashhur <strong>test piramidasi</strong> shuni aytadi:</p>
+
+<blockquote>
+  Interfeys orqali uchidan uchigacha ishlaydigan testlar mo'rt bo'ladi,
+  yozish qimmatga tushadi va bajarilishi ko'p vaqt oladi.
+  <cite>Martin Fowler — TestPyramid</cite>
+</blockquote>
+
+<figure>
+  <div class="partitions-row">
+    <div class="partition partition--invalid">
+      <span class="partition-name">UI testlar</span>
+      <span class="partition-range">Kam. Sekin, mo'rt, qimmat</span>
+    </div>
+    <div class="partition partition--valid">
+      <span class="partition-name">API testlar</span>
+      <span class="partition-range">O'rtacha. Tez va barqaror</span>
+    </div>
+    <div class="partition partition--valid">
+      <span class="partition-name">Unit testlar</span>
+      <span class="partition-range">Ko'p. Eng tez va eng arzon</span>
+    </div>
+  </div>
+  <figcaption>Piramida: pastda ko'p, tepada kam. Ko'p jamoa buni teskari
+  qiladi — hamma narsani interfeys orqali avtomatlashtiradi va natijada
+  sekin, ishonchsiz to'plamga ega bo'ladi.</figcaption>
+</figure>
+
+<div class="box box--key">
+  <p class="box-title">Sizga eng foydali maslahat</p>
+  <p>Avtomatlashtirishni <strong>API darajasidan boshlang</strong>
+  (12-dars). Sabablari: tezroq ishlaydi, dizayn o'zgarganda sinmaydi,
+  o'rganish osonroq va natija barqaror. Interfeys avtomatlashtirishi eng
+  ko'rinarli, lekin eng qimmat va eng mo'rt qatlam.</p>
+</div>
+
+<h2>Uch xil yondashuv</h2>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Yondashuv</th><th>Qanday ishlaydi</th><th>Muammosi</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Yozib olish</strong><br><span class="cite">capture / record</span></td>
+      <td>Asbob sizning harakatlaringizni yozib oladi va qaytaradi</td>
+      <td>Ko'p sonli testga o'lchovlanmaydi; kutilmagan hodisada beqaror;
+          interfeys o'zgarsa doimiy tuzatish talab qiladi</td>
+    </tr>
+    <tr>
+      <td><strong>Ma'lumotga asoslangan</strong><br><span class="cite">data-driven</span></td>
+      <td>Bitta umumiy skript, ma'lumot jadvaldan olinadi</td>
+      <td>Skript yozish uchun bilim kerak, lekin jadvalni tester
+          to'ldira oladi</td>
+    </tr>
+    <tr>
+      <td><strong>Kalit so'zga asoslangan</strong><br><span class="cite">keyword-driven</span></td>
+      <td>«Kirish», «Savatga qo'shish» kabi so'zlardan test yig'iladi</td>
+      <td>Boshlang'ich qurilishi qimmat, keyin qulay</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p class="cite">Manba: ISTQB CTFL Syllabus, 6.1.3.</p>
+
+<div class="box box--warn">
+  <p class="box-title">Diqqat: «yozib olish» demolari</p>
+  <p>Asbob sotuvchilari aynan shu usulni ko'rsatadi — chunki u demoda
+  hayratlanarli ko'rinadi: besh daqiqada test tayyor. Ikki oydan keyin esa
+  o'sha testlar interfeysning har bir o'zgarishida sinadi. ISTQB buni ochiq
+  ogohlantiradi.</p>
+</div>
+
+<h2>Tekshirib ko'ramiz</h2>
+
+<section class="quiz">
+  <p class="quiz-prompt">1. Nima uchun avtomatlashtirish exploratory
+  testingning o'rnini bosa olmaydi?</p>
+  <div class="quiz-options">
+    <button class="quiz-option" data-explain="Tezlik masala emas — avtomatlashtirilgan test odamdan tezroq ishlaydi.">Chunki u sekinroq ishlaydi</button>
+    <button class="quiz-option" data-correct data-explain="To'g'ri. Avtomatlashtirilgan test faqat oldindan yozilgan tekshiruvni bajaradi — u yangi savol o'ylab topmaydi.">Chunki u faqat oldindan aytilgan narsani tekshiradi</button>
+    <button class="quiz-option" data-explain="Narx muhim, lekin asosiy sabab imkoniyatlar farqida.">Chunki u juda qimmat</button>
+    <button class="quiz-option" data-explain="Zamonaviy asboblar interfeys bilan yaxshi ishlaydi; masala boshqa joyda.">Chunki u interfeys bilan ishlay olmaydi</button>
+  </div>
+  <p class="quiz-feedback" hidden></p>
+</section>
+
+<section class="quiz">
+  <p class="quiz-prompt">2. Qaysi test avtomatlashtirish uchun eng yomon
+  nomzod?</p>
+  <div class="quiz-options">
+    <button class="quiz-option" data-explain="Bu ideal nomzod: takrorlanadi, natijasi aniq, riski yuqori.">Har relizda bajariladigan to'lov regressiyasi</button>
+    <button class="quiz-option" data-explain="Bu ham yaxshi nomzod — ko'p ma'lumot bilan bir xil qadamlar.">200 xil qiymat bilan forma tekshiruvi</button>
+    <button class="quiz-option" data-correct data-explain="To'g'ri. Hali qurilayotgan ekran har kuni o'zgaradi — testlar doimiy sinib turadi va butun vaqt tuzatishga ketadi.">Hali qurilayotgan yangi ekranning dizayni</button>
+    <button class="quiz-option" data-explain="API testlari eng barqaror va eng arzon qatlam — avtomatlashtirish uchun ideal.">Har kuni ishlaydigan API tekshiruvlari</button>
+  </div>
+  <p class="quiz-feedback" hidden></p>
+</section>
+
+<section class="quiz">
+  <p class="quiz-prompt">3. Jamoada goh o'tadigan, goh yiqiladigan
+  («flaky») testlar bor. Nima qilish kerak?</p>
+  <div class="quiz-options">
+    <button class="quiz-option" data-explain="Aynan shu eng xavfli yo'l: jamoa qizil natijaga ko'nikadi va haqiqiy xatoni ham o'tkazib yuboradi.">Ularni e'tiborsiz qoldirish — ba'zan o'tadi-ku</button>
+    <button class="quiz-option" data-correct data-explain="To'g'ri. Beqaror test butun to'plamga bo'lgan ishonchni yo'q qiladi — uni tuzatish yoki o'chirish kerak, oraliq yo'q.">Tuzatish yoki o'chirish</button>
+    <button class="quiz-option" data-explain="Qayta yurgizish muammoni yashiradi, sababini yo'qotmaydi.">Yiqilganda avtomatik qayta yurgizish</button>
+    <button class="quiz-option" data-explain="Test sonini oshirish beqarorlikni ko'paytiradi, kamaytirmaydi.">Ular ustiga yana testlar qo'shish</button>
+  </div>
+  <p class="quiz-feedback" hidden></p>
+</section>
+
+<section class="recall">
+  <p class="recall-q">Eslab ko'ring — <em>13-darsdan</em>: nega ekran
+  burilishi shunchalik ko'p xato ochadi?</p>
+  <button class="recall-btn">Javobni ko'rsatish</button>
+  <p class="recall-a" hidden>Chunki tizim, sukut bo'yicha, konfiguratsiya
+  o'zgarganda ekranni <strong>yo'q qilib qaytadan quradi</strong> va unda
+  saqlangan interfeys holatini o'chiradi. Dasturchi maxsus chora ko'rmasa,
+  to'ldirilgan forma, tanlangan filtr va ro'yxatning o'rni yo'qoladi.</p>
+</section>
+
+<h2>Amaliyot: avtomatlashtirish rejasi</h2>
+
+<p>Junior avtomatlashtiruvchiga beriladigan birinchi topshiriq odatda kod
+yozish emas — <strong>nimani avtomatlashtirish kerakligini aytish</strong>.
+Bugun shuni mashq qilamiz.</p>
+
+<ol class="steps">
+  <li><strong>Ro'yxat tuzing.</strong> saucedemo.com uchun kamida
+      <strong>12 ta</strong> tekshiruvni yozing: kirish, mahsulot tanlash,
+      savat, saralash, checkout, chiqish, xato holatlari.</li>
+  <li><strong>Har birini baholang</strong> — jadval ko'rinishida:
+      <ul>
+        <li>Yiliga necha marta bajariladi?</li>
+        <li>Barqarormi (interfeysi tez-tez o'zgaradimi)?</li>
+        <li>Riski qanday (9-dars bo'yicha)?</li>
+        <li>Natijani dastur baholay oladimi?</li>
+      </ul>
+  </li>
+  <li><strong>Qaror yozing:</strong> avtomatlashtiriladi / qo'lda qoladi.
+      Har bir qarorni <em>bir gap</em> bilan asoslang.</li>
+  <li><strong>Darajani belgilang.</strong> Avtomatlashtiriladiganlarning
+      qaysi biri API darajasida qilinishi mumkin? Piramida bo'yicha
+      ularni pastga tushiring.</li>
+  <li><strong>Birinchi beshtasini tanlang.</strong> Agar sizga faqat bir
+      hafta berilsa, qaysi beshtadan boshlaysiz va nima uchun?</li>
+  <li><strong>Menga yuboring.</strong></li>
+</ol>
+
+<div class="box box--key">
+  <p class="box-title">Bu javob suhbatda qanday baholanadi</p>
+  <p>«Hammasini avtomatlashtiraman» — yomon javob. «Avval to'lov va
+  avtorizatsiya regressiyasini, chunki ular har relizda tekshiriladi va
+  riski eng yuqori; dizayn va exploratory qo'lda qoladi; forma
+  validatsiyasini API darajasida qilaman, chunki u tezroq va barqarorroq» —
+  bu tajribali odamning javobi. Sizda bu javob endi bor.</p>
+</div>
+
+<h2>Keyin nimani o'rganish kerak</h2>
+
+<p>Agar avtomatlashtirishga o'tmoqchi bo'lsangiz, tartib shunday:</p>
+
+<ol class="steps">
+  <li><strong>Bitta dasturlash tili</strong> — Python yoki JavaScript.
+      Chuqur emas: o'zgaruvchi, shart, sikl, funksiya, ro'yxat.</li>
+  <li><strong>API avtomatlashtirish</strong> — 12-darsdagi Postman
+      so'rovlarini skriptga o'tkazish. Eng arzon boshlanish.</li>
+  <li><strong>UI avtomatlashtirish</strong> — Playwright yoki Selenium.</li>
+  <li><strong>CI</strong> — testlarni har o'zgarishda avtomatik
+      yurgizish.</li>
+</ol>
+
+<p>Lekin shoshilmang. <strong>Qo'lda test qila olmaydigan odam yaxshi
+avtomatlashtiruvchi bo'lmaydi</strong> — u nimani tekshirish kerakligini
+bilmaydi. Avval 1–13-darslardagi amaliyotlarni bajaring.</p>
+
+<h2>O'qish uchun (birlamchi manba)</h2>
+
+<blockquote>
+  <a href="https://martinfowler.com/bliki/TestPyramid.html">Martin Fowler —
+  TestPyramid</a>
+  <cite>Nima uchun interfeys orqali avtomatlashtirish mo'rt va qimmat.
+  Qisqa maqola, sohaning asosiy matnlaridan biri. Ingliz tilida.</cite>
+</blockquote>
+
+<p class="cite">Foyda va xavflar ro'yxati:
+<a href="https://astqb.org/6-1-tool-support-for-testing/">ISTQB CTFL
+Syllabus — Test Tool Considerations</a>.</p>
+
+<div class="ask-teacher">
+  <p><strong>Jadvalingizni yuboring.</strong> Men qarorlaringizni
+  tekshiraman — ayniqsa «avtomatlashtirilmaydi» deb belgilaganlaringizni.
+  Yangi boshlovchilar odatda juda ko'p narsani avtomatlashtirishga
+  urinadi.</p>
+</div>
+
+<nav class="nav">
+  <a href="../reference/avtomatlashtirish-qarori.html">Reference: Avtomatlashtirish qarori</a>
+  <a href="../reference/test-darajalari-va-turlari.html">Reference: Darajalar va turlar</a>
+  <a href="../reference/lugat.html">Reference: Lug'at</a>
+</nav>
+
+<nav class="lesson-nav">
+  <a class="lesson-nav-link lesson-nav-prev" href="./0013-mobil-testing.html">
+    <span class="lesson-nav-dir">← Oldingi dars</span>
+    <span class="lesson-nav-title">13. Ilova qurilmaning egasi emas</span>
+  </a>
+  <a class="lesson-nav-link lesson-nav-next" href="./0015-portfolio-va-ish-topish.html">
+    <span class="lesson-nav-dir">Keyingi dars →</span>
+    <span class="lesson-nav-title">15. Bilim bor — endi uni ko'rsatish kerak</span>
+  </a>
+  <a class="lesson-nav-home" href="./index.html">Barcha darslar</a>
+</nav>
+
+<script src="../assets/lesson.js"></script>
+</body>
+</html>

@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Test dizayn texnikalari — Learn-QA</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<p class="crumbs"><a href="../lessons/index.html">Darslar</a> ·
+<a href="./lugat.html">Lug'at</a></p>
+
+<p class="eyebrow">Reference · chop etsa bo'ladi</p>
+<h1>Test dizayn texnikalari</h1>
+<p class="subtitle">«Nimani sinayman?» degan savolga tizimli javob. Har safar
+yangi maydoncha yoki funksiya oldida shu ro'yxatdan yuring.</p>
+
+<h2>Ish tartibi</h2>
+
+<ol class="steps">
+  <li><strong>Talabni o'qing.</strong> Qoida nima? Yozilmagan bo'lsa — taxmin
+      qiling va so'rang.</li>
+  <li><strong>Sinflarni sanang.</strong> Yaroqli va yaroqsizlarini alohida.
+      Bo'sh qiymatni unutmang.</li>
+  <li><strong>Har bir sinfdan bitta qiymat oling.</strong></li>
+  <li><strong>Chegaralarni qo'shing.</strong> Har bir chegara uchun: chegaraning
+      o'zi + tashqi qo'shni.</li>
+  <li><strong>Kutilgan natijani yozing.</strong> Har bir qiymat uchun alohida.</li>
+</ol>
+
+<h2>Ekvivalentlik sinflari (Equivalence Partitioning)</h2>
+
+<p>Dastur bir xil ishlaydigan qiymatlar to'plami. Har bir sinfdan bitta qiymat
+sinaladi.</p>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Maydoncha turi</th><th>Odatdagi sinflar</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Son diapazoni (18–65)</td>
+      <td>past · diapazon ichida · yuqori</td>
+    </tr>
+    <tr>
+      <td>Matn uzunligi (8–20)</td>
+      <td>qisqa · normal · uzun · <strong>bo'sh</strong></td>
+    </tr>
+    <tr>
+      <td>Ro'yxatdan tanlash</td>
+      <td>har bir variant alohida sinf · hech biri tanlanmagan</td>
+    </tr>
+    <tr>
+      <td>Format (email, indeks)</td>
+      <td>to'g'ri format · noto'g'ri format · bo'sh</td>
+    </tr>
+    <tr>
+      <td>Fayl yuklash</td>
+      <td>ruxsat etilgan tur · taqiqlangan tur · juda katta hajm · bo'sh fayl</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Chegara qiymatlari (Boundary Value Analysis)</h2>
+
+<p>Faqat <strong>tartiblangan</strong> sinflarga qo'llanadi (sonlar, sanalar,
+uzunliklar). «Karta / naqd» kabi ro'yxatlarda chegara yo'q.</p>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Usul</th><th>«1 dan 100 gacha» uchun qiymatlar</th><th>Qachon</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>2-value</strong></td>
+      <td><span class="bv">0</span> <span class="bv">1</span> …
+          <span class="bv">100</span> <span class="bv">101</span></td>
+      <td>Kundalik ish. Arzon va odatda yetarli.</td>
+    </tr>
+    <tr>
+      <td><strong>3-value</strong></td>
+      <td><span class="bv">0</span> <span class="bv">1</span> <span class="bv">2</span> …
+          <span class="bv">99</span> <span class="bv">100</span> <span class="bv">101</span></td>
+      <td>Moliya, tibbiyot, xavfsizlik — xato qimmatga tushsa.</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="box box--key">
+  <p class="box-title">Nega aynan chegara?</p>
+  <p>Chegaradagi xatolar kodda <code>&gt;</code> va <code>&gt;=</code> ni
+  chalkashtirishdan kelib chiqadi. ISTQB buni shunday ifodalaydi: nuqsonlar
+  odatda chegara <em>o'z joyidan yuqoriga yoki pastga surilgan</em> yoki
+  <em>umuman qo'yilmagan</em> joylarda bo'ladi.</p>
+  <p class="cite">Manba: ISTQB CTFL Syllabus v4.0, 4.2.2.</p>
+</div>
+
+<h2>Unutilib qoladigan sinflar</h2>
+
+<p>Amalda eng ko'p xato aynan shu ro'yxatdan chiqadi. Har bir matn maydonchasida
+o'tib ko'ring:</p>
+
+<ul class="checklist">
+  <li><strong>Bo'sh</strong> — hech narsa kiritmasdan yuborish</li>
+  <li><strong>Faqat bo'shliq</strong> — probel bosib yuborish</li>
+  <li><strong>Boshida/oxirida bo'shliq</strong> — dastur uni kesadimi?</li>
+  <li><strong>Noto'g'ri tur</strong> — son maydonchasiga harf, harf maydonchasiga son</li>
+  <li><strong>Manfiy son</strong> va <strong>nol</strong></li>
+  <li><strong>Kasr son</strong> — butun son kutilayotgan joyda 1.5</li>
+  <li><strong>Juda katta son</strong> — 999999999999</li>
+  <li><strong>Maxsus belgilar</strong> — <code>' " &lt; &gt; & % \</code></li>
+  <li><strong>Boshqa alifbo</strong> — o'zbek/rus harflari, emoji</li>
+  <li><strong>Juda uzun matn</strong> — 5000 belgi nusxalab qo'yish</li>
+  <li><strong>Takroriy qiymat</strong> — allaqachon ro'yxatdan o'tgan email</li>
+</ul>
+
+<p class="cite">Bu ro'yxat Hendrickson, Lyndsay va Emery ning
+<a href="https://blog.tentamen.eu/testing-heuristics-cheat-sheet/">Test Heuristics
+Cheat Sheet</a> ga asoslangan.</p>
+
+<h2>Xotira uchun shablon</h2>
+
+<div class="report">
+  <dl>
+    <dt>Maydoncha</dt>
+    <dd>Nomi va talabi</dd>
+
+    <dt>Yaroqli sinflar</dt>
+    <dd>… → har biridan bitta qiymat</dd>
+
+    <dt>Yaroqsiz sinflar</dt>
+    <dd>… → har biridan bitta qiymat</dd>
+
+    <dt>Chegaralar</dt>
+    <dd>Har bir chegara uchun: chegara + tashqi qo'shni</dd>
+
+    <dt>Maxsus holatlar</dt>
+    <dd>Bo'sh · bo'shliq · noto'g'ri tur · juda uzun</dd>
+  </dl>
+</div>
+
+<div class="ask-teacher">
+  <p><strong>Jadvalingizni tekshirtiring.</strong> Tuzgan test qiymatlaringizni
+  menga yuboring — qaysi sinfni o'tkazib yuborganingizni aytaman.</p>
+</div>
+
+<nav class="nav">
+  <a href="../lessons/0002-ekvivalentlik-va-chegaralar.html">2-dars</a>
+  <a href="./test-case-shabloni.html">Test case shabloni</a>
+  <a href="./lugat.html">Lug'at</a>
+</nav>
+
+</body>
+</html>

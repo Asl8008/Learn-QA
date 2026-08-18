@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>18-dars: Performance testing — Learn-QA</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<p class="crumbs"><a href="./index.html">Darslar</a> ·
+<a href="./0017-accessibility.html">← 17-dars</a></p>
+
+<p class="eyebrow">18-dars · taxminan 35 daqiqa</p>
+<h1>«Sekin» — bu bug report emas</h1>
+<p class="subtitle">Dasturchi «menda tez ishlayapti» deb javob beradi va
+haq bo'ladi. Testerning ishi — «sekin» degan taassurotni
+<em>shart-sharoitlari ko'rsatilgan raqamga</em> aylantirish.</p>
+
+<h2>Ikki xil performance</h2>
+
+<p>Bu so'z ostida ikki butunlay boshqa narsa nazarda tutiladi:</p>
+
+<div class="compare">
+  <div class="box box--good">
+    <p class="box-title">Bitta foydalanuvchi tajribasi</p>
+    <p>Men sahifani ochdim — u qachon foydalanadigan holatga keldi?
+    Bosganimda qachon javob berdi?</p>
+    <p class="cite">Buni siz mustaqil, bugun, brauzeringiz bilan
+    o'lchay olasiz.</p>
+  </div>
+  <div class="box box--good">
+    <p class="box-title">Yuk ostidagi tizim</p>
+    <p>1000 ta foydalanuvchi bir vaqtda kirsa nima bo'ladi? Server
+    qancha ushlaydi?</p>
+    <p class="cite">Bu alohida asboblar, muhit va ruxsat talab
+    qiladi.</p>
+  </div>
+</div>
+
+<p>Birinchisidan boshlaymiz — chunki u sizning kundalik ishingizga darhol
+qo'shiladi.</p>
+
+<h2>Core Web Vitals — uchta raqam</h2>
+
+<p>Google veb-sahifaning foydalanuvchi uchun qanchalik yaxshi ishlashini
+uchta o'lchov bilan ifodalaydi. Bu ko'rsatkichlar sohada standart bo'lib
+qolgan:</p>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Ko'rsatkich</th><th>Nimani o'lchaydi</th><th>Yaxshi natija</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>LCP</strong><br><span class="cite">Largest Contentful Paint</span></td>
+      <td>Sahifadagi eng katta mazmun bloki qachon ko'rinadi — ya'ni
+          «sahifa yuklandi» degan tuyg'u qachon paydo bo'ladi</td>
+      <td><strong>2.5 soniyagacha</strong></td>
+    </tr>
+    <tr>
+      <td><strong>INP</strong><br><span class="cite">Interaction to Next Paint</span></td>
+      <td>Men bosganimdan keyin ekran qachon o'zgaradi — javob berish
+          tezligi</td>
+      <td><strong>200 ms gacha</strong></td>
+    </tr>
+    <tr>
+      <td><strong>CLS</strong><br><span class="cite">Cumulative Layout Shift</span></td>
+      <td>Sahifa yuklanayotganda elementlar qancha siljiydi</td>
+      <td><strong>0.1 dan kichik</strong></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<blockquote>
+  Ushbu ko'rsatkichlar bo'yicha tavsiya etilgan maqsadga foydalanuvchilar
+  ko'pchiligi uchun erishayotganingizga ishonch hosil qilish uchun
+  o'lchashning yaxshi chegarasi — sahifa yuklanishlarining
+  <strong>75-protsentili</strong>, mobil va desktop bo'yicha ajratilgan
+  holda.
+  <cite>web.dev — Web Vitals</cite>
+</blockquote>
+
+<div class="box box--key">
+  <p class="box-title">75-protsentil nima uchun muhim</p>
+  <p>O'rtacha qiymat aldaydi. Agar 100 ta foydalanuvchidan 75 tasida
+  sahifa 1 soniyada, 25 tasida esa 12 soniyada ochilsa — o'rtacha
+  «3.7 soniya» chiqadi va hammasi yaxshi ko'rinadi. Aslida esa har
+  to'rtinchi foydalanuvchi azob chekyapti.</p>
+  <p>Shuning uchun performance haqida gapirganda <strong>o'rtacha
+  emas, protsentil</strong> ishlatiladi. Bu suhbatda ham juda yaxshi
+  ta'sir qoldiradigan tafsilot.</p>
+</div>
+
+<h3>CLS — testerlar yaxshi ko'radigan ko'rsatkich</h3>
+
+<div class="box">
+  <p class="box-title">Tanish holat</p>
+  <p>Sahifa ochildi, siz «Bekor qilish» tugmasiga barmog'ingizni olib
+  bordingiz. Shu payt yuqorida reklama yoki rasm yuklandi, hamma narsa
+  pastga siljidi — va siz «Sotib olish» ni bosdingiz.</p>
+  <p>Bu — CLS. U shunchaki noqulaylik emas: to'lov sahifasida u
+  haqiqiy pul yo'qotishga olib keladi. Shuning uchun uni
+  hisobotda alohida ko'rsating.</p>
+</div>
+
+<h2>Qanday o'lchaysiz</h2>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Usul</th><th>Nima beradi</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><strong>Lighthouse</strong><br>(DevTools ichida)</td>
+      <td>Ball, ko'rsatkichlar va muammolar ro'yxati. Eng tez
+          boshlanish</td>
+    </tr>
+    <tr>
+      <td><strong>Network paneli</strong> (6-dars)</td>
+      <td>Har bir so'rovning vaqti va hajmi. Aybdorni topish uchun eng
+          foydali joy</td>
+    </tr>
+    <tr>
+      <td><strong>Performance paneli</strong></td>
+      <td>Batafsil vaqt taqsimoti. Chuqurroq tahlil uchun</td>
+    </tr>
+    <tr>
+      <td><strong>Throttling</strong></td>
+      <td>Sekin internet va kuchsiz protsessorni sun'iy yaratish —
+          <em>majburiy qadam</em></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="box box--warn">
+  <p class="box-title">Sizning kompyuteringiz — tipik foydalanuvchi emas</p>
+  <p>Siz tez internet va yaxshi kompyuter bilan test qilasiz. Foydalanuvchi
+  esa eski telefonda, zaif tarmoqda. Shuning uchun DevTools →&nbsp;Network
+  →&nbsp;throttling ni <strong>«Slow 4G»</strong> ga qo'ying va CPU ni
+  4–6 marta sekinlashtiring. Ko'p muammo faqat shu rejimda ko'rinadi.</p>
+  <p>Bu <em>lab</em> o'lchov deyiladi — nazorat qilinadigan sharoitda.
+  Real foydalanuvchilardan yig'ilgani esa <em>field</em> o'lchov. Ikkisi
+  bir xil bo'lmaydi va ikkalasi ham kerak.</p>
+</div>
+
+<h2>Sahifa nega sekin — tekshirish tartibi</h2>
+
+<ol class="steps">
+  <li><strong>Network panelini oching</strong>, sahifani qayta yuklang.</li>
+  <li><strong>Hajm bo'yicha saralang</strong> — eng og'ir fayl qaysi?
+      Odatda bu optimallashtirilmagan rasm.</li>
+  <li><strong>Vaqt bo'yicha saralang</strong> — eng uzun kutilgan so'rov
+      qaysi? Bitta sekin API butun sahifani ushlab turishi mumkin.</li>
+  <li><strong>So'rovlar sonini ko'ring</strong> — 200 ta so'rov o'zi
+      muammo.</li>
+  <li><strong>Qayta yuklang</strong> — ikkinchi marta tezroq bo'ldimi?
+      Bo'lmasa, kesh ishlamayapti.</li>
+  <li><strong>Ma'lumot hajmini oshiring</strong> — savatda 3 ta emas,
+      50 ta mahsulot bo'lsa-chi? Ro'yxatda 1000 ta yozuv bo'lsa?</li>
+</ol>
+
+<p>Oxirgi band eng ko'p unutiladi. Test ma'lumoti odatda kichik bo'ladi,
+real foydalanuvchida esa katta — va sekinlik aynan shunda paydo bo'ladi.</p>
+
+<h2>Yuk testlari: yetti tur</h2>
+
+<p>Ikkinchi dunyoga o'tamiz. ISTQB ta'riflari:</p>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Tur</th><th>Nimaga qaraydi</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Load</strong></td>
+        <td>Tizim <em>kutilayotgan real</em> yukni ko'tara oladimi</td></tr>
+    <tr><td><strong>Stress</strong></td>
+        <td>Kutilgan chegarada yoki undan tashqarida nima bo'ladi;
+            resurs kamayganda qanday ishlaydi</td></tr>
+    <tr><td><strong>Spike</strong></td>
+        <td>To'satdan ko'tarilgan yukka to'g'ri javob berib, keyin
+            normal holatga qaytadimi</td></tr>
+    <tr><td><strong>Endurance</strong></td>
+        <td>Uzoq vaqt davomida barqarormi — xotira sizishi, ulanishlar
+            tugab qolishi</td></tr>
+    <tr><td><strong>Scalability</strong></td>
+        <td>Kelajakdagi o'sishni ko'tara oladimi (ko'proq foydalanuvchi,
+            ko'proq ma'lumot)</td></tr>
+    <tr><td><strong>Concurrency</strong></td>
+        <td>Bir vaqtda sodir bo'ladigan amallar (hamma bir paytda
+            kirsa)</td></tr>
+    <tr><td><strong>Capacity</strong></td>
+        <td>Tizim nechta foydalanuvchi va tranzaksiyani belgilangan
+            talablarga rioya qilgan holda ko'taradi</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p class="cite">Manba: <a href="https://astqb.org/assets/documents/ISTQB-CTFL-PT-Syllabus-2018.pdf">ISTQB
+Certified Tester Foundation Level — Performance Testing (PDF)</a>, 1.2-bo'lim.</p>
+
+<div class="box">
+  <p class="box-title">Amaliy misol bilan farq</p>
+  <p><strong>Load:</strong> odatdagi payshanba kuni — 500 ta foydalanuvchi.
+  Ishlaydimi?</p>
+  <p><strong>Stress:</strong> 2000 ta. Yiqilsa ham mayli — <em>qanday</em>
+  yiqilishi muhim: tushunarli xato beradimi yoki ma'lumot yo'qotadimi?</p>
+  <p><strong>Spike:</strong> reklama efirga chiqdi, 30 soniyada 5000 ta
+  odam kirdi, keyin ketdi. Tizim o'ziga keldimi?</p>
+  <p><strong>Endurance:</strong> uch kun uzluksiz o'rtacha yuk. Uchinchi
+  kuni sekinlashdimi?</p>
+</div>
+
+<div class="box box--bad">
+  <p class="box-title">⚠ Yuk testi — ruxsat talab qiladi</p>
+  <p>Yuk testini <strong>hech qachon</strong> ishlab turgan real tizimda
+  (production) o'z bilganingiz bilan o'tkazmang, va begona tizimda umuman
+  o'tkazmang. Bu tizimni ishdan chiqarishi mumkin — bu esa hujumdan
+  farqlanmaydi.</p>
+  <p>To'g'ri yo'l: alohida test muhiti, kelishilgan vaqt, jamoaning va
+  infratuzilma egasining yozma ruxsati.</p>
+</div>
+
+<h2>Raqamsiz talab — talab emas</h2>
+
+<p>7-darsdagi qoida bu yerda ayniqsa keskin ishlaydi:</p>
+
+<div class="compare">
+  <div class="box box--bad">
+    <p class="box-title">✗ Tekshirib bo'lmaydi</p>
+    <p>«Sahifa tez ochilishi kerak»</p>
+    <p>«Tizim yuqori yukni ko'tarishi kerak»</p>
+  </div>
+  <div class="box box--good">
+    <p class="box-title">✓ Tekshirib bo'ladi</p>
+    <p>«Mahsulotlar sahifasi Slow 4G da, 500 ta mahsulot bilan,
+    75-protsentilda LCP ≤ 3 soniya»</p>
+    <p>«500 ta parallel foydalanuvchida javob vaqti 95-protsentilda
+    ≤ 1 soniya, xatolar ulushi &lt; 1 %»</p>
+  </div>
+</div>
+
+<p>Agar sizga «tez bo'lsin» deyilsa — bu savol berish uchun sabab
+(7-dars): <em>«Necha soniya? Qanday tarmoqda? Qancha ma'lumot bilan?
+Qaysi qurilmada?»</em></p>
+
+<h2>Performance bug report</h2>
+
+<p>Oddiy hisobotdan farqi — unda <strong>o'lchov</strong> bo'ladi:</p>
+
+<div class="report">
+  <dl>
+    <dt>Sarlavha</dt>
+    <dd>Mahsulotlar ro'yxati 50 ta element bilan 11 soniyada ochiladi</dd>
+
+    <dt>Muhit</dt>
+    <dd>Chrome 128, Windows 11, DevTools throttling: Slow 4G, CPU 4×
+        sekinlashtirilgan</dd>
+
+    <dt>Ma'lumot</dt>
+    <dd>Savatda 50 ta mahsulot (odatiy holatda 3 ta)</dd>
+
+    <dt>O'lchov</dt>
+    <dd>LCP: 11.2 s / 10.8 s / 11.5 s (uch marta o'lchandi, o'rtachasi
+        11.2 s). Talab: ≤ 3 s</dd>
+
+    <dt>Aybdor (taxmin)</dt>
+    <dd><code>GET /api/products</code> so'rovi 9.4 soniya kutdi —
+        Network panelidagi skrinshot ilova qilingan</dd>
+  </dl>
+</div>
+
+<div class="box box--key">
+  <p class="box-title">Uch marta o'lchang</p>
+  <p>Bitta o'lchov — tasodif bo'lishi mumkin: fon jarayoni, tarmoq
+  tebranishi, kesh. Kamida uch marta o'lchang va uchalasini ham yozing.
+  Bu hisobotingizni munozarasiz qiladi.</p>
+</div>
+
+<h2>Tekshirib ko'ramiz</h2>
+
+<section class="quiz">
+  <p class="quiz-prompt">1. Nima uchun performance haqida o'rtacha qiymat
+  emas, protsentil ishlatiladi?</p>
+  <div class="quiz-options">
+    <button class="quiz-option" data-explain="Hisoblash murakkabligi masala emas — masala aniqlikda.">Chunki o'rtachani hisoblash qiyin</button>
+    <button class="quiz-option" data-correct data-explain="To'g'ri. O'rtacha eng yomon holatlarni yashiradi: 75 tasi tez, 25 tasi juda sekin bo'lsa ham o'rtacha yaxshi ko'rinadi.">Chunki o'rtacha eng yomon holatlarni yashiradi</button>
+    <button class="quiz-option" data-explain="Ikkalasi ham soniyada o'lchanadi — birlik masalasi emas.">Chunki protsentil boshqa birlikda o'lchanadi</button>
+    <button class="quiz-option" data-explain="Bu shunchaki kelishuv emas — matematik sabab bor.">Chunki shunchaki shunday qabul qilingan</button>
+  </div>
+  <p class="quiz-feedback" hidden></p>
+</section>
+
+<section class="quiz">
+  <p class="quiz-prompt">2. Reklama efirga chiqdi, 30 soniyada 5000 ta
+  odam kirdi va keyin ketdi. Bu qaysi test turi?</p>
+  <div class="quiz-options">
+    <button class="quiz-option" data-explain="Load — kutilayotgan odatiy yuk, to'satdan ko'tarilish emas.">Load testing</button>
+    <button class="quiz-option" data-correct data-explain="To'g'ri. Spike testing — to'satdan ko'tarilgan yukka javob berish va keyin normal holatga qaytish qobiliyati.">Spike testing</button>
+    <button class="quiz-option" data-explain="Endurance — uzoq vaqt davomidagi barqarorlik.">Endurance testing</button>
+    <button class="quiz-option" data-explain="Scalability — kelajakdagi o'sishga tayyorlik.">Scalability testing</button>
+  </div>
+  <p class="quiz-feedback" hidden></p>
+</section>
+
+<section class="quiz">
+  <p class="quiz-prompt">3. Sizga «sahifa tez ochilsin» degan talab
+  berildi. Birinchi qadam?</p>
+  <div class="quiz-options">
+    <button class="quiz-option" data-explain="O'z taxminingizni mezon qilib olish — keyin munozaraga sabab bo'ladi.">O'zim maqbul deb bilgan chegarani belgilash</button>
+    <button class="quiz-option" data-correct data-explain="To'g'ri. Raqamsiz talab — talab emas. Necha soniya, qanday tarmoqda, qancha ma'lumot bilan, qaysi qurilmada?">Aniqlashtiruvchi savollar berish</button>
+    <button class="quiz-option" data-explain="Yuk testi boshqa masala va u ruxsat talab qiladi.">Darhol yuk testi o'tkazish</button>
+    <button class="quiz-option" data-explain="Talab noaniq bo'lsa, o'lchov natijasini nima bilan solishtirasiz?">O'lchab, natijani shunchaki yozib qo'yish</button>
+  </div>
+  <p class="quiz-feedback" hidden></p>
+</section>
+
+<section class="recall">
+  <p class="recall-q">Eslab ko'ring — <em>17-darsdan</em>: nega klaviatura
+  tekshiruvi ekran o'quvchi foydalanuvchilariga ham foyda beradi?</p>
+  <button class="recall-btn">Javobni ko'rsatish</button>
+  <p class="recall-a" hidden>Chunki ekran o'quvchi dasturlar ham asosan
+  <strong>klaviatura bilan boshqariladi</strong>. Klaviatura bilan yetib
+  bo'lmaydigan element ko'rmaydigan foydalanuvchi uchun umuman mavjud
+  emas — bitta tekshiruv, ikki guruhga foyda.</p>
+</section>
+
+<h2>Amaliyot</h2>
+
+<h3>A — Lighthouse va throttling (30 daqiqa)</h3>
+
+<ol class="steps">
+  <li><a href="https://www.saucedemo.com/">saucedemo.com</a> ni oching,
+      DevTools → Lighthouse → Performance ni ishga tushiring. LCP, CLS
+      qiymatlarini yozib oling.</li>
+  <li>Endi Network → throttling ni <strong>Slow 4G</strong> ga qo'ying va
+      qaytadan o'lchang. Farqni yozing.</li>
+  <li><code>performance_glitch_user</code> hisobi bilan kiring va xuddi
+      shu o'lchovni takrorlang. Network panelida qaysi so'rov sekinligini
+      toping.</li>
+  <li>Uchala natijani jadval qilib yozing.</li>
+</ol>
+
+<h3>B — Performance bug report (20 daqiqa)</h3>
+
+<p>Yuqoridagi shablon bo'yicha bitta hisobot yozing: muhit, ma'lumot
+hajmi, <strong>uch marta o'lchangan</strong> natija va Network
+panelidagi taxminiy aybdor.</p>
+
+<h3>C — Performance acceptance criteria (20 daqiqa)</h3>
+
+<p>7-darsdagi «saqlangan manzillar» story'siga qayting va unga
+performance mezonlarini qo'shing. Har birida to'rt element bo'lsin:
+<em>ko'rsatkich, chegara, sharoit (tarmoq va qurilma), ma'lumot
+hajmi</em>. Kamida uchta mezon yozing.</p>
+
+<div class="box box--key">
+  <p class="box-title">C qismi nima uchun eng qimmatli</p>
+  <p>Performance muammolarining katta qismi arxitekturada tug'iladi —
+  ya'ni ular relizdan oldin emas, <em>loyihalash paytida</em> hal
+  qilinadi. Story yozilayotganda «necha soniya?» deb so'ragan tester
+  keyinchalik hech kim tuzatolmaydigan muammoning oldini oladi. Bu —
+  7-darsdagi shift-left ning eng aniq ko'rinishi.</p>
+</div>
+
+<h2>Yuk testi asboblari</h2>
+
+<p>Hozircha o'rganish shart emas — nomlarini bilib qo'ying:</p>
+
+<ul>
+  <li><a href="https://k6.io/">k6</a> — skript JavaScript'da, zamonaviy
+      va o'rganish osonroq</li>
+  <li><a href="https://jmeter.apache.org/">Apache JMeter</a> — eng keng
+      tarqalgani, grafik interfeysi bor</li>
+  <li>Locust — Python bilan yoziladi</li>
+</ul>
+
+<h2>O'qish uchun (birlamchi manba)</h2>
+
+<blockquote>
+  <a href="https://web.dev/articles/vitals">web.dev — Web Vitals</a>
+  <cite>LCP, INP, CLS ta'riflari, chegara qiymatlari va nima uchun
+  75-protsentil ishlatilishi. Ingliz tilida.</cite>
+</blockquote>
+
+<p class="cite">Yuk testi turlari:
+<a href="https://astqb.org/assets/documents/ISTQB-CTFL-PT-Syllabus-2018.pdf">ISTQB
+CTFL — Performance Testing syllabus (PDF)</a>. Chuqurroq:
+<a href="https://developer.chrome.com/docs/devtools/performance">Chrome
+DevTools — Performance panel</a>.</p>
+
+<div class="ask-teacher">
+  <p><strong>A va B qismlarni yuboring.</strong> Men ayniqsa hisobotdagi
+  o'lchov shartlariga qarayman: throttling ko'rsatilganmi, ma'lumot hajmi
+  yozilganmi, necha marta o'lchangan. Aynan shu uchtasi performance
+  hisobotini «menda tez ishlayapti» javobidan himoya qiladi.</p>
+</div>
+
+<nav class="nav">
+  <a href="../reference/performance-shpargalka.html">Reference: Performance shpargalkasi</a>
+  <a href="../reference/devtools-shpargalka.html">Reference: DevTools shpargalkasi</a>
+  <a href="../reference/lugat.html">Reference: Lug'at</a>
+</nav>
+
+<nav class="lesson-nav">
+  <a class="lesson-nav-link lesson-nav-prev" href="./0017-accessibility.html">
+    <span class="lesson-nav-dir">← Oldingi dars</span>
+    <span class="lesson-nav-title">17. Sichqonchasiz o'tib ko'ring</span>
+  </a>
+  <a class="lesson-nav-link lesson-nav-next" href="./0019-playwright.html">
+    <span class="lesson-nav-dir">Keyingi dars →</span>
+    <span class="lesson-nav-title">19. Birinchi avtomatlashtirilgan testingiz</span>
+  </a>
+  <a class="lesson-nav-home" href="./index.html">Barcha darslar</a>
+</nav>
+
+<script src="../assets/lesson.js"></script>
+</body>
+</html>

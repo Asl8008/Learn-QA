@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>11-dars: SQL testerlar uchun — Learn-QA</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<p class="crumbs"><a href="./index.html">Darslar</a> ·
+<a href="./0010-test-darajalari-va-turlari.html">← 10-dars</a></p>
+
+<p class="eyebrow">11-dars · taxminan 35 daqiqa</p>
+<h1>Ekran aldashi mumkin: SQL</h1>
+<p class="subtitle">Interfeys «Buyurtma qabul qilindi» deb yozadi. Lekin
+bazada nima saqlandi? Bu darsdan keyin siz buni o'zingiz tekshira olasiz —
+va bug report'laringiz butunlay boshqa darajaga chiqadi.</p>
+
+<h2>Nima uchun testerga SQL kerak</h2>
+
+<div class="box">
+  <p class="box-title">Real holat</p>
+  <p>Foydalanuvchi ro'yxatdan o'tdi. Ekranda «Muvaffaqiyatli» yozuvi chiqdi.
+  Hammasi yaxshi ko'rinadi.</p>
+  <p>Bazaga qarasangiz: ism maydonida <code>"Asilbek "</code> — oxirida ortiqcha
+  bo'sh joy bilan. Ertaga bu foydalanuvchi qidiruvda topilmaydi, chekda ismi
+  g'alati chiqadi, eksportda ustun siljiydi. Xato bugun tug'ildi, lekin uch
+  oydan keyin «tushunarsiz» muammo sifatida qaytadi.</p>
+</div>
+
+<p>Interfeys — mahsulotning faqat bir qatlami. Ma'lumot esa
+<strong>bazada</strong> yashaydi, va u yerda ko'p narsa noto'g'ri bo'lishi
+mumkin: bo'sh joylar, dublikatlar, <code>NULL</code> qiymatlar, noto'g'ri
+status, kesilgan matn.</p>
+
+<div class="box box--key">
+  <p class="box-title">Ikki foyda</p>
+  <p><strong>1. Kuchli hisobot.</strong> «Ekranda buyurtma "Yetkazildi" deb
+  ko'rinadi, lekin <code>orders</code> jadvalidagi status
+  <code>pending</code>» — bunday hisobotni hech kim qaytarib yubormaydi.</p>
+  <p><strong>2. Ish e'lonlari.</strong> «SQL asoslari» deyarli har bir QA
+  vakansiyasida turadi. Bu — kod yozishni bilmasdan o'rganish mumkin bo'lgan
+  eng foydali texnik ko'nikma.</p>
+</div>
+
+<h2>Baza qanday tuzilgan</h2>
+
+<p>Ma'lumotlar bazasi — jadvallar to'plami. Har bir jadval Excel varag'iga
+o'xshaydi:</p>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Atama</th><th>Ma'nosi</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Jadval</strong> <span class="cite">table</span></td>
+        <td>Bir turdagi ma'lumotlar to'plami: <code>users</code>,
+            <code>orders</code></td></tr>
+    <tr><td><strong>Ustun</strong> <span class="cite">column</span></td>
+        <td>Bitta xususiyat: <code>email</code>, <code>created_at</code></td></tr>
+    <tr><td><strong>Qator</strong> <span class="cite">row</span></td>
+        <td>Bitta yozuv: bitta foydalanuvchi, bitta buyurtma</td></tr>
+    <tr><td><strong>Primary key</strong></td>
+        <td>Qatorni yagona qilib ajratadigan ustun, odatda <code>id</code></td></tr>
+    <tr><td><strong>Foreign key</strong></td>
+        <td>Boshqa jadvalga havola: <code>orders.user_id</code> →
+            <code>users.id</code></td></tr>
+    <tr><td><strong>NULL</strong></td>
+        <td>Qiymat <em>yo'q</em>. Bu nol ham, bo'sh matn ham emas — alohida
+            holat</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="box box--warn">
+  <p class="box-title">NULL — testerning do'sti</p>
+  <p><code>NULL</code>, <code>0</code> va <code>''</code> (bo'sh matn) — uchta
+  <strong>boshqa-boshqa</strong> narsa. Ko'p xato aynan shu farqdan tug'iladi:
+  kod <code>NULL</code> ni kutmaganda sahifa oq bo'lib qoladi. 2-darsdagi
+  «unutilgan sinflar» ro'yxatiga <code>NULL</code> ni ham qo'shing.</p>
+</div>
+
+<h2>Bitta so'rov — ishning 90 %</h2>
+
+<p>Testerga kerakli SQL ning asosi bitta jumla:</p>
+
+<pre><code>SELECT ustunlar
+FROM jadval
+WHERE shart;</code></pre>
+
+<blockquote>
+  So'rovni «cheklash» mumkin — buning uchun qaysi qatorlar kerakligini
+  belgilaydigan <code>WHERE</code> qismi qo'shiladi.
+  <cite>PostgreSQL Documentation — Querying a Table</cite>
+</blockquote>
+
+<p>Amaliy misollar:</p>
+
+<pre><code>-- Barcha ustunlarni ko'rish
+SELECT * FROM users;
+
+-- Faqat kerakli ustunlar
+SELECT id, email, created_at FROM users;
+
+-- O'zimning test yozuvimni topish
+SELECT * FROM users WHERE email = 'test01@mail.uz';
+
+-- Eng oxirgi 10 ta buyurtma
+SELECT * FROM orders ORDER BY created_at DESC LIMIT 10;</code></pre>
+
+<p><code>*</code> — «barcha ustunlar» degan qisqartma.
+<code>ORDER BY</code> natijani tartiblaydi (<code>DESC</code> — teskari
+tartib), <code>LIMIT</code> — nechta qator qaytarishni cheklaydi.</p>
+
+<h2>WHERE ichida nima yozish mumkin</h2>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Operator</th><th>Ma'nosi</th><th>Namuna</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>=</code> <code>&lt;&gt;</code></td><td>Teng / teng emas</td>
+        <td><code>status = 'paid'</code></td></tr>
+    <tr><td><code>&gt;</code> <code>&lt;</code> <code>&gt;=</code></td>
+        <td>Katta / kichik</td><td><code>total &gt; 100000</code></td></tr>
+    <tr><td><code>BETWEEN</code></td><td>Oraliqda</td>
+        <td><code>total BETWEEN 100 AND 500</code></td></tr>
+    <tr><td><code>IN</code></td><td>Ro'yxatdan biri</td>
+        <td><code>status IN ('new','paid')</code></td></tr>
+    <tr><td><code>LIKE</code></td><td>Matn namunasi (<code>%</code> — istalgan
+        belgilar)</td><td><code>email LIKE '%@mail.uz'</code></td></tr>
+    <tr><td><code>IS NULL</code></td><td>Qiymat yo'q</td>
+        <td><code>phone IS NULL</code></td></tr>
+    <tr><td><code>AND</code> <code>OR</code> <code>NOT</code></td>
+        <td>Shartlarni birlashtirish</td>
+        <td><code>status = 'new' AND total &gt; 0</code></td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="box box--warn">
+  <p class="box-title">Eng ko'p qilinadigan xato</p>
+  <p><code>WHERE phone = NULL</code> <strong>hech qachon ishlamaydi</strong> —
+  natija har doim bo'sh bo'ladi. To'g'risi: <code>WHERE phone IS NULL</code>.
+  Sababi: <code>NULL</code> «noma'lum» degani, noma'lum narsa esa hech
+  narsaga, hatto o'ziga ham teng emas.</p>
+</div>
+
+<h2>Testerning beshta doimiy so'rovi</h2>
+
+<pre><code>-- 1. Mening test yozuvim saqlandimi?
+SELECT * FROM users WHERE email = 'test01@mail.uz';
+
+-- 2. Dublikat bormi? (1 dan katta son chiqsa — bug)
+SELECT email, COUNT(*) FROM users
+GROUP BY email HAVING COUNT(*) &gt; 1;
+
+-- 3. Majburiy maydon bo'sh qolganmi?
+SELECT * FROM orders WHERE user_id IS NULL;
+
+-- 4. Nechta yozuv bor?
+SELECT COUNT(*) FROM orders WHERE status = 'pending';
+
+-- 5. Oxirgi yaratilgan yozuvni ko'rish
+SELECT * FROM orders ORDER BY id DESC LIMIT 1;</code></pre>
+
+<p><code>COUNT(*)</code> — qatorlar sonini sanaydi. <code>GROUP BY</code> bir
+xil qiymatlarni guruhlaydi, <code>HAVING</code> esa guruhlarni filtrlaydi —
+ikkinchi so'rov aynan shu tarzda dublikatlarni topadi.</p>
+
+<h2>Ikki jadvalni birlashtirish: JOIN</h2>
+
+<p>Buyurtma <code>orders</code> jadvalida, foydalanuvchi <code>users</code>
+jadvalida. Ikkalasini birga ko'rish uchun:</p>
+
+<pre><code>SELECT orders.id, orders.total, users.email
+FROM orders
+JOIN users ON orders.user_id = users.id
+WHERE orders.status = 'pending';</code></pre>
+
+<p><code>ON</code> qismi ikki jadval qanday bog'langanini aytadi — bu deyarli
+har doim foreign key. Hozircha shu bitta shakl yetadi.</p>
+
+<div class="box box--bad">
+  <p class="box-title">⚠ Xavfsizlik qoidasi — buni yodlang</p>
+  <p>Tester bazada <strong>faqat o'qiydi</strong>. <code>UPDATE</code>,
+  <code>DELETE</code>, <code>DROP</code> buyruqlarini umumiy bazada
+  ishlatmang.</p>
+  <p><code>DELETE FROM users;</code> — bitta unutilgan <code>WHERE</code>
+  butun jadvalni o'chiradi va <strong>orqaga qaytarib bo'lmaydi</strong>.
+  Agar o'zgartirish kerak bo'lsa: avval <code>SELECT</code> bilan qaysi
+  qatorlarga tegishini ko'ring, so'ng dasturchi yoki DBA dan so'rang.</p>
+</div>
+
+<h2>Bu hisobotingizni qanday o'zgartiradi</h2>
+
+<div class="compare">
+  <div class="box box--bad">
+    <p class="box-title">✗ SQL siz</p>
+    <p>«Buyurtma yaratdim, lekin buyurtmalar ro'yxatida ko'rinmayapti.»</p>
+    <p class="cite">Dasturchi: «Menda ko'rinyapti. Cache tozalab ko'ring.»</p>
+  </div>
+  <div class="box box--good">
+    <p class="box-title">✓ SQL bilan</p>
+    <p>«Buyurtma yaratdim. <code>orders</code> jadvalida qator bor
+    (id&nbsp;= 8412), lekin <code>user_id</code> maydoni <code>NULL</code> —
+    shuning uchun ro'yxat filtrida topilmayapti.»</p>
+    <p class="cite">Dasturchi: sababni darhol ko'radi.</p>
+  </div>
+</div>
+
+<h2>Tekshirib ko'ramiz</h2>
+
+<section class="quiz">
+  <p class="quiz-prompt">1. Telefon raqami kiritilmagan foydalanuvchilarni
+  topmoqchisiz. Qaysi so'rov to'g'ri?</p>
+  <div class="quiz-options">
+    <button class="quiz-option" data-explain="NULL hech narsaga, hatto o'ziga ham teng emas — bu so'rov har doim bo'sh natija qaytaradi.">WHERE phone = NULL</button>
+    <button class="quiz-option" data-correct data-explain="To'g'ri. NULL ni faqat IS NULL orqali tekshirish mumkin.">WHERE phone IS NULL</button>
+    <button class="quiz-option" data-explain="Bu bo'sh matnni topadi — bu NULL dan boshqa holat. Ikkalasini ham tekshirish kerak bo'lishi mumkin.">WHERE phone = ''</button>
+    <button class="quiz-option" data-explain="0 — son; telefon maydoni bo'sh bo'lgani NULL bilan ifodalanadi.">WHERE phone = 0</button>
+  </div>
+  <p class="quiz-feedback" hidden></p>
+</section>
+
+<section class="quiz">
+  <p class="quiz-prompt">2. Bir xil email bilan ikkita hisob ochilib
+  qolganini qanday tekshirasiz?</p>
+  <div class="quiz-options">
+    <button class="quiz-option" data-explain="Bu faqat jami sonni beradi — qaysi email takrorlanganini ko'rsatmaydi.">SELECT COUNT(*) FROM users</button>
+    <button class="quiz-option" data-correct data-explain="To'g'ri. GROUP BY bir xil emaillarni guruhlaydi, HAVING COUNT(*) > 1 esa faqat takrorlanganlarini qoldiradi.">GROUP BY email HAVING COUNT(*) &gt; 1</button>
+    <button class="quiz-option" data-explain="ORDER BY faqat tartiblaydi — dublikatni o'zi topib bermaydi.">SELECT * FROM users ORDER BY email</button>
+    <button class="quiz-option" data-explain="DISTINCT takrorlarni yashiradi — aksincha, bizga ular kerak.">SELECT DISTINCT email FROM users</button>
+  </div>
+  <p class="quiz-feedback" hidden></p>
+</section>
+
+<section class="quiz">
+  <p class="quiz-prompt">3. Umumiy test bazasida ishlayapsiz. Qaysi buyruqni
+  hech qachon o'zboshimchalik bilan ishlatmaysiz?</p>
+  <div class="quiz-options">
+    <button class="quiz-option" data-explain="SELECT faqat o'qiydi — ma'lumotni o'zgartirmaydi, xavfsiz.">SELECT</button>
+    <button class="quiz-option" data-correct data-explain="To'g'ri. DELETE ma'lumotni yo'q qiladi va unutilgan WHERE butun jadvalni o'chiradi — orqaga qaytarib bo'lmaydi.">DELETE</button>
+    <button class="quiz-option" data-explain="COUNT — SELECT ning bir qismi, faqat sanaydi.">COUNT</button>
+    <button class="quiz-option" data-explain="JOIN — jadvallarni birlashtirib o'qish usuli, o'zgartirmaydi.">JOIN</button>
+  </div>
+  <p class="quiz-feedback" hidden></p>
+</section>
+
+<section class="recall">
+  <p class="recall-q">Eslab ko'ring — <em>10-darsdan</em>: funksional va
+  nofunksional test orasidagi farq nima? Nofunksional testni qachon boshlash
+  kerak?</p>
+  <button class="recall-btn">Javobni ko'rsatish</button>
+  <p class="recall-a" hidden><strong>Funksional</strong> — tizim <em>nima</em>
+  qilishini baholaydi («ishlaydimi?»). <strong>Nofunksional</strong> —
+  <em>qanchalik yaxshi</em> qilishini (tezlik, qulaylik, xavfsizlik, moslik,
+  ishonchlilik). Uni iloji boricha <strong>erta</strong> va barcha darajalarda
+  boshlash kerak: kech topilgan nofunksional xato juda qimmatga tushadi.</p>
+</section>
+
+<h2>Amaliyot: ikki qismli</h2>
+
+<h3>A qism — SQLBolt (60–90 daqiqa)</h3>
+
+<p><a href="https://sqlbolt.com/">sqlbolt.com</a> — brauzerda ishlaydigan
+interaktiv mashq. Ro'yxatdan o'tish, o'rnatish kerak emas: so'rov yozasiz,
+sayt darhol to'g'ri-noto'g'rini aytadi.</p>
+
+<ol class="steps">
+  <li><strong>1–6-darslarni bajaring.</strong> Bu <code>SELECT</code>,
+      <code>WHERE</code>, <code>ORDER BY</code>, <code>LIMIT</code> va
+      <code>JOIN</code> ni qamraydi — testerga kerakli asos.</li>
+  <li><strong>Har bir mashqda avval o'zingiz yozing</strong>, javobga
+      qaramang. Xato qilish — o'rganishning bir qismi.</li>
+  <li>Vaqtingiz bo'lsa 7–12-darslarni ham davom ettiring
+      (<code>COUNT</code>, <code>GROUP BY</code>, <code>NULL</code>).</li>
+</ol>
+
+<h3>B qism — o'z so'rovlaringizni yozing (30 daqiqa)</h3>
+
+<p>Tasavvur qiling: ro'yxatdan o'tish formasini test qilyapsiz. Baza shunday
+tuzilgan:</p>
+
+<pre><code>users(id, email, full_name, phone, created_at, is_active)</code></pre>
+
+<p>Quyidagi holatlarni tekshirish uchun so'rov yozing:</p>
+
+<ol class="steps">
+  <li>Yangi yaratgan foydalanuvchingiz haqiqatan saqlanganini tekshirish</li>
+  <li>Bir xil email bilan ikkita hisob bor-yo'qligini tekshirish</li>
+  <li>Ismi bo'sh yoki <code>NULL</code> qolgan hisoblarni topish</li>
+  <li>Ismi bo'sh joy bilan boshlanadigan yoki tugaydigan hisoblarni topish
+      (<code>LIKE</code> yordamida)</li>
+  <li>Bugun yaratilgan hisoblarni sanash</li>
+  <li>Faol bo'lmagan (<code>is_active = false</code>) hisoblarni eng
+      yangisidan boshlab ko'rsatish</li>
+</ol>
+
+<p>So'rovlarni yozib menga yuboring — men sintaksisni va, muhimrog'i,
+<em>siz nimani tekshirmoqchi bo'lganingizni</em> tekshiraman.</p>
+
+<div class="box box--key">
+  <p class="box-title">Maqsad — dasturchi bo'lish emas</p>
+  <p>Sizga murakkab so'rovlar yozish kerak emas. Kerak bo'ladigan narsa:
+  <code>SELECT … FROM … WHERE …</code>, oddiy <code>JOIN</code>,
+  <code>COUNT</code> va <code>IS NULL</code>. Shu to'plam bilan siz
+  vakansiyalardagi «SQL asoslari» talabini qoplaysiz va hisobotlaringizga
+  dalil qo'sha olasiz.</p>
+</div>
+
+<h2>O'qish uchun (birlamchi manba)</h2>
+
+<blockquote>
+  <a href="https://www.postgresql.org/docs/current/tutorial-select.html">PostgreSQL
+  Documentation — Querying a Table</a>
+  <cite><code>SELECT</code>, <code>WHERE</code>, <code>ORDER BY</code> va
+  <code>DISTINCT</code> ning rasmiy tushuntirishi. Qisqa va aniq. Ingliz
+  tilida.</cite>
+</blockquote>
+
+<p class="cite">Mashq uchun: <a href="https://sqlbolt.com/">SQLBolt</a> —
+interaktiv darslar, brauzerda ishlaydi, bepul.</p>
+
+<div class="ask-teacher">
+  <p><strong>B qismdagi so'rovlarni yuboring.</strong> Sintaksis xatosi bo'lsa
+  tuzataman; lekin men ko'proq qaraydigan narsa — <em>qaysi tekshiruvni
+  o'ylab topdingiz</em>. Bazani ko'ra bilish odati shu yerdan boshlanadi.</p>
+</div>
+
+<nav class="nav">
+  <a href="../reference/sql-shpargalka.html">Reference: SQL shpargalkasi</a>
+  <a href="../reference/bug-report-shabloni.html">Reference: Bug report shabloni</a>
+  <a href="../reference/lugat.html">Reference: Lug'at</a>
+</nav>
+
+<nav class="lesson-nav">
+  <a class="lesson-nav-link lesson-nav-prev" href="./0010-test-darajalari-va-turlari.html">
+    <span class="lesson-nav-dir">← Oldingi dars</span>
+    <span class="lesson-nav-title">10. Sizning ishingiz qayerda boshlanadi</span>
+  </a>
+  <a class="lesson-nav-link lesson-nav-next" href="./0012-api-testing-postman.html">
+    <span class="lesson-nav-dir">Keyingi dars →</span>
+    <span class="lesson-nav-title">12. Tugmasiz test: API va Postman</span>
+  </a>
+  <a class="lesson-nav-home" href="./index.html">Barcha darslar</a>
+</nav>
+
+<script src="../assets/lesson.js"></script>
+</body>
+</html>

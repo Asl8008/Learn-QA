@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Exploratory sessiya — Learn-QA</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<p class="crumbs"><a href="../lessons/index.html">Darslar</a> ·
+<a href="./lugat.html">Lug'at</a></p>
+
+<p class="eyebrow">Reference · chop etsa bo'ladi</p>
+<h1>Exploratory sessiya</h1>
+<p class="subtitle">Bo'sh ekran oldida «nima qilsam?» degan savol tug'ilganda
+shu hujjatni oching. Evristikalar ro'yxati — tugamaydigan test g'oyalari
+manbai.</p>
+
+<h2>Sessiya varag'i</h2>
+
+<div class="report">
+  <dl>
+    <dt>Charter</dt>
+    <dd>Shu sessiyada nimani o'rganaman — 1–3 gap</dd>
+
+    <dt>Sana va vaqt</dt>
+    <dd>… · Davomiyligi: 30 / 45 / 60 daqiqa</dd>
+
+    <dt>Muhit</dt>
+    <dd>Brauzer, OS, hisob, versiya</dd>
+
+    <dt>Qamrab olingan hudud</dt>
+    <dd>Aslida qaysi joylarni ko'rdim</dd>
+
+    <dt>BUG</dt>
+    <dd>Xato deb hisoblagan narsalarim</dd>
+
+    <dt>SAVOL</dt>
+    <dd>Javobini bilmagan narsalarim — jamoaga beriladi</dd>
+
+    <dt>G'OYA</dt>
+    <dd>Ulgurmagan fikrlarim — keyingi sessiya uchun</dd>
+  </dl>
+</div>
+
+<h2>Charter yozish</h2>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Formula</th><th>Namuna</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>[Hudud] ni [vosita] bilan o'rganish, [nimani] kuzatish</td>
+      <td>Savatni son o'zgartirish orqali o'rganish, narx va jamining
+          yangilanishini kuzatish</td>
+    </tr>
+    <tr>
+      <td>[Funksiya] ni [evristika] bilan sinash</td>
+      <td>Ro'yxatdan o'tishni «nol-bitta-ko'p» bilan sinash</td>
+    </tr>
+    <tr>
+      <td>[Rol] sifatida [maqsad] ga erishishga urinish</td>
+      <td>Shoshqaloq xaridor sifatida buyurtmani eng tez yo'l bilan berish</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="box box--key">
+  <p class="box-title">Charter mezoni</p>
+  <p>Yaxshi charter <strong>bir sessiyaga sig'adi</strong>, lekin javobi
+  oldindan ma'lum emas. «Saytni test qilish» — juda keng. «Continue tugmasini
+  bosish» — juda tor, bu test case. O'rtasini toping.</p>
+</div>
+
+<h2>Evristikalar — nimani sinash kerak</h2>
+
+<h3>Miqdor va chegara</h3>
+
+<div class="table-wrap">
+<table>
+  <tbody>
+    <tr><td><strong>Nol · Bitta · Ko'p</strong></td>
+        <td>Hech nima yo'q · bitta · juda ko'p bo'lganda nima bo'ladi?</td></tr>
+    <tr><td><strong>Goldilocks</strong></td>
+        <td>Juda kichik · aynan to'g'ri · juda katta</td></tr>
+    <tr><td><strong>Chegara</strong></td>
+        <td>Ruxsat etilgan eng past va eng yuqori qiymat, va ulardan bir qadam
+            narisi</td></tr>
+    <tr><td><strong>Toshib ketish</strong></td>
+        <td>Maydonchaga sig'maydigan uzunlikdagi matn; juda katta fayl</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>Harakat va tartib</h3>
+
+<div class="table-wrap">
+<table>
+  <tbody>
+    <tr><td><strong>CRUD</strong></td>
+        <td>Yaratish · ko'rish · o'zgartirish · o'chirish — to'rttalasi ham
+            ishlaydimi? O'chirilgandan keyin nima qoladi?</td></tr>
+    <tr><td><strong>Ketma-ketlik</strong></td>
+        <td>Qadamlarni teskari tartibda yoki oralab bajarish</td></tr>
+    <tr><td><strong>Uzilish</strong></td>
+        <td>O'rtada sahifani yangilash · «orqaga» bosish · tabni yopish ·
+            internetni uzish</td></tr>
+    <tr><td><strong>Takrorlash</strong></td>
+        <td>Bir tugmani ikki marta tez bosish · formani ikki marta yuborish</td></tr>
+    <tr><td><strong>Orqaga qaytish</strong></td>
+        <td>Brauzer «orqaga» tugmasi holatni buzadimi? Takror buyurtma
+            bo'ladimi?</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>Kontekst va muhit</h3>
+
+<div class="table-wrap">
+<table>
+  <tbody>
+    <tr><td><strong>Ikki oyna</strong></td>
+        <td>Ikki tabda bir hisob: biri o'zgartiradi, ikkinchisi eski holatni
+            ko'rsatadimi?</td></tr>
+    <tr><td><strong>Ruxsatlar</strong></td>
+        <td>Boshqa foydalanuvchining havolasini ochish · chiqib ketgandan keyin
+            ichki havolaga kirish</td></tr>
+    <tr><td><strong>Ekran o'lchami</strong></td>
+        <td>Oynani toraytirish · telefon rejimi · matnni kattalashtirish</td></tr>
+    <tr><td><strong>Til va format</strong></td>
+        <td>O'zbek harflari · uzun ismlar · boshqa sana formati</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p class="cite">Bu ro'yxat Elisabeth Hendrickson, James Lyndsay va Dale Emery ning
+<a href="https://blog.tentamen.eu/testing-heuristics-cheat-sheet/">Test Heuristics
+Cheat Sheet</a> iga asoslangan. To'liq varianti
+<a href="https://pragprog.com/titles/ehxta/explore-it/"><em>Explore It!</em></a>
+kitobining ilovasida.</p>
+
+<h2>Oracle — «bu xato» deb qanday hal qilasiz</h2>
+
+<p>Talab yozilmagan bo'lsa, uchta asosga tayanasiz. Hisobotda aynan qaysi
+biriga tayanganingizni yozing:</p>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Asos</th><th>Savol</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Izchillik</strong></td>
+        <td>Mahsulotning boshqa joyida bu boshqacha ishlaydimi?</td></tr>
+    <tr><td><strong>Kutish</strong></td>
+        <td>Oddiy foydalanuvchi bunday bo'lishini kutadimi?</td></tr>
+    <tr><td><strong>Taqqoslash</strong></td>
+        <td>O'xshash mahsulotlarda bu qanday ishlaydi?</td></tr>
+    <tr><td><strong>Ichki mantiq</strong></td>
+        <td>Ko'rsatilgan raqamlar bir-biriga to'g'ri keladimi?</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Sessiya intizomi</h2>
+
+<ul class="checklist">
+  <li>Charter yozildimi — boshlashdan <strong>oldin</strong>?</li>
+  <li>Taymer qo'yildimi?</li>
+  <li>Yozuvlar sessiya <strong>davomida</strong> olinyaptimi?</li>
+  <li>Har bir topilma BUG / SAVOL / G'OYA deb belgilandimi?</li>
+  <li>Taymer tugaganda to'xtadingizmi?</li>
+  <li>BUG lar to'liq <a href="./bug-report-shabloni.html">hisobotga</a>
+      aylantirildimi?</li>
+  <li>Qamrab olingan hudud yozildimi — keyin nima qolgani ko'rinishi uchun?</li>
+</ul>
+
+<div class="ask-teacher">
+  <p><strong>Sessiya varag'ingizni yuboring.</strong> Qaysi evristikani
+  ishlatmaganingizni va qaysi hududni ochmay qolganingizni ko'rsataman.</p>
+</div>
+
+<nav class="nav">
+  <a href="../lessons/0005-exploratory-testing.html">5-dars</a>
+  <a href="./test-dizayn-texnikalari.html">Test dizayn texnikalari</a>
+  <a href="./bug-report-shabloni.html">Bug report shabloni</a>
+  <a href="./lugat.html">Lug'at</a>
+</nav>
+
+</body>
+</html>

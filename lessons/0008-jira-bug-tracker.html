@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>8-dars: Jira — bug tracker bilan ishlash — Learn-QA</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<p class="crumbs"><a href="./index.html">Darslar</a> ·
+<a href="./0007-user-story-va-acceptance-criteria.html">← 7-dars</a></p>
+
+<p class="eyebrow">8-dars · taxminan 30 daqiqa</p>
+<h1>Hisobot qayerda yashaydi: Jira</h1>
+<p class="subtitle">1-darsda bug report yozdingiz, 4-darsda uning hayot siklini
+ko'rdingiz. Endi ikkalasi ham amalda qayerda sodir bo'lishini o'rganamiz.
+Bu darsdan keyin ish e'lonlaridagi «Jira bilan tajriba» talabi sizga
+tegishli bo'ladi.</p>
+
+<h2>Nega alohida tizim kerak</h2>
+
+<p>Xatoni Telegram'ga yozsangiz ham dasturchi ko'radi. Lekin bir oydan keyin
+quyidagi savollarga javob bera olmaysiz:</p>
+
+<ul>
+  <li>O'sha xato tuzatildimi? Kim tuzatdi? Qaysi versiyada?</li>
+  <li>Bu hafta nechta xato topildi, nechtasi ochiq qoldi?</li>
+  <li>To'lov bilan bog'liq xatolar qaysilar?</li>
+  <li>Bu xato oldin ham bo'lganmi?</li>
+</ul>
+
+<p><strong>Bug tracker</strong> (xato kuzatuv tizimi) — shu savollarga javob
+beradigan tizim. Eng ko'p tarqalgani — <strong>Jira</strong>. Prinsiplar esa
+hamma trackerlarda bir xil: Azure DevOps, YouTrack, Redmine, GitHub Issues —
+nomlar boshqa, mantiq o'sha.</p>
+
+<div class="box box--key">
+  <p class="box-title">Asosiy tushuncha: issue</p>
+  <p>Jira'da har bir ish birligi — <strong>issue</strong> (yoki yangi
+  terminologiyada <em>work item</em>). Bu bitta karta: bitta vazifa, bitta
+  xato yoki bitta story. Uning o'z raqami (<code>SWAG-42</code>), o'z egasi va
+  o'z holati bo'ladi.</p>
+</div>
+
+<h2>Issue turlari</h2>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Turi</th><th>Nima uchun</th><th>Kim yaratadi</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Epic</strong></td><td>Katta yo'nalish — o'nlab story'ni
+        birlashtiradi («To'lov tizimi»)</td><td>Product owner</td></tr>
+    <tr><td><strong>Story</strong></td><td>Foydalanuvchi uchun qiymat —
+        <a href="./0007-user-story-va-acceptance-criteria.html">7-darsdagi</a>
+        user story</td><td>Product owner</td></tr>
+    <tr><td><strong>Task</strong></td><td>Texnik ish, foydalanuvchi
+        ko'rmaydi</td><td>Dasturchi, tester</td></tr>
+    <tr><td><strong>Bug</strong></td><td>Ishlamayotgan narsa —
+        <a href="./0001-bug-report-yozish.html">1-darsdagi</a> hisobot</td>
+        <td><strong>Tester</strong></td></tr>
+    <tr><td><strong>Sub-task</strong></td><td>Yuqoridagilarning ichidagi
+        mayda qadam</td><td>Har kim</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>Sizning kundalik ishingiz — <strong>Bug</strong> yaratish va
+<strong>Story</strong>larni o'qish.</p>
+
+<h2>Maydonlar: hisobotingiz qayerga yoziladi</h2>
+
+<p>Yaxshi xabar: siz bularni allaqachon bilasiz. Jira maydonlari —
+1-darsdagi bug report qismlarining aynan o'zi, faqat forma ko'rinishida.</p>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Jira maydoni</th><th>Bizning atama</th><th>Nima yoziladi</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Summary</strong></td><td>Sarlavha</td>
+        <td>Bitta gapda: qayerda + nima bo'ladi</td></tr>
+    <tr><td><strong>Description</strong></td><td>Hisobot tanasi</td>
+        <td>Takrorlash qadamlari, kutilgan va haqiqiy natija</td></tr>
+    <tr><td><strong>Priority</strong></td><td>Prioritet</td>
+        <td>Qachon tuzatilishi kerak</td></tr>
+    <tr><td><strong>Environment</strong></td><td>Muhit</td>
+        <td>Brauzer, OS, qurilma, versiya</td></tr>
+    <tr><td><strong>Attachments</strong></td><td>Dalil</td>
+        <td>Skrinshot, video, konsol logi</td></tr>
+    <tr><td><strong>Labels</strong></td><td>—</td>
+        <td>Erkin teglar: <code>checkout</code>, <code>mobile</code></td></tr>
+    <tr><td><strong>Components</strong></td><td>—</td>
+        <td>Mahsulotning qismi: «Savat», «Avtorizatsiya»</td></tr>
+    <tr><td><strong>Affects version</strong></td><td>—</td>
+        <td>Xato <em>topilgan</em> versiya</td></tr>
+    <tr><td><strong>Fix version</strong></td><td>—</td>
+        <td>Xato <em>tuzatilgan</em> versiya (buni dasturchi qo'yadi)</td></tr>
+    <tr><td><strong>Assignee</strong></td><td>—</td>
+        <td>Hozir kim ishlayapti</td></tr>
+    <tr><td><strong>Reporter</strong></td><td>—</td>
+        <td>Kim yozgan — ya'ni siz</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="box box--warn">
+  <p class="box-title">Eng ko'p qilinadigan xato</p>
+  <p>Yangi testerlar hamma narsani <strong>Summary</strong> ga tiqishga
+  harakat qiladi: «Savatda mahsulot sonini 0 ga o'zgartirsam sahifa oq bo'lib
+  qoladi Chrome 120 da lekin Firefox da ishlaydi». Summary — bitta qisqa gap.
+  Qolgani Description va Environment maydonlariga.</p>
+</div>
+
+<h2>Status va Resolution — bu ikki xil narsa</h2>
+
+<p>Bu joyda deyarli hamma adashadi, shuning uchun sekin o'qing.</p>
+
+<blockquote>
+  Status ish elementining workflow ichida qayerda turganini bildiradi.
+  <cite>Atlassian — Introduction to Jira Workflows</cite>
+</blockquote>
+
+<blockquote>
+  Vazifa tugatilgach va endi ochiq bo'lmaganda, unga resolution qo'yiladi.
+  <cite>Atlassian — Introduction to Jira Workflows</cite>
+</blockquote>
+
+<div class="compare">
+  <div class="box">
+    <p class="box-title">Status — <em>qayerda</em></p>
+    <p>To&nbsp;Do · In&nbsp;Progress · In&nbsp;Review · In&nbsp;Test · Done</p>
+    <p>Ish jarayonining qaysi bosqichida turibdi.</p>
+  </div>
+  <div class="box">
+    <p class="box-title">Resolution — <em>qanday tugadi</em></p>
+    <p>Done · Won't&nbsp;do · Duplicate · Cannot&nbsp;Reproduce</p>
+    <p>Yopilganda nima natija bilan yopildi.</p>
+  </div>
+</div>
+
+<p>Bir xil status ikki xil resolution bilan tugashi mumkin. <code>Closed +
+Done</code> — xato tuzatildi. <code>Closed + Duplicate</code> — xato tuzatilmadi,
+u boshqa issue'ning nusxasi edi. Ikkalasi ham «yopiq», lekin ma'nosi butunlay
+boshqa.</p>
+
+<div class="box box--key">
+  <p class="box-title">4-dars bilan bog'liqlik</p>
+  <p>4-darsdagi bug hayot sikli statuslari — <em>Rejected</em>,
+  <em>Duplicate</em>, <em>Cannot Reproduce</em>, <em>Deferred</em> — Jira'da
+  ko'pincha status emas, <strong>resolution</strong> sifatida yoziladi. Ya'ni
+  issue <code>Done</code> statusiga o'tadi, lekin resolution <code>Won't
+  do</code> bo'ladi. Hisobotingiz shunday yopilsa —
+  <a href="./0004-bug-hayot-sikli.html">4-darsdagi</a> javoblar amal qiladi:
+  rad etilishini muhokama qiling, dalil qo'shing.</p>
+</div>
+
+<h2>Prioritet: Jira'ning standart shkalasi</h2>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Daraja</th><th>Atlassian ta'rifi</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Highest</strong></td><td>Bu muammo ishning oldini
+        to'sadi</td></tr>
+    <tr><td><strong>High</strong></td><td>Jiddiy muammo, ishni to'sishi
+        mumkin</td></tr>
+    <tr><td><strong>Medium</strong></td><td>Ishga ta'sir qilish
+        ehtimoli bor</td></tr>
+    <tr><td><strong>Low</strong></td><td>Kichik muammo yoki oson chetlab
+        o'tiladi</td></tr>
+    <tr><td><strong>Lowest</strong></td><td>Arzimas muammo, ta'siri deyarli
+        yo'q</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p class="cite">Manba: <a href="https://support.atlassian.com/jira-cloud-administration/docs/what-are-issue-statuses-priorities-and-resolutions/">Atlassian
+— What are work item statuses, priorities, and resolutions?</a></p>
+
+<div class="box box--warn">
+  <p class="box-title">Diqqat: Jira'da «Severity» yo'q</p>
+  <p>1-darsda severity (jiddiylik) va priority (navbat) farqini o'rgandik.
+  Jira'ning standart sozlamasida faqat <strong>Priority</strong> maydoni bor —
+  severity alohida maydon sifatida admin tomonidan qo'shiladi. Ba'zi jamoalarda
+  u bor, ba'zilarida yo'q. Ishga kirganingizda birinchi kunlarda so'rang:
+  «Bu yerda severity qayerda yoziladi?»</p>
+</div>
+
+<h2>Issue'larni bog'lash — testerning kuchli quroli</h2>
+
+<p>Har bir bug ni <strong>Link</strong> orqali o'zi tegishli story'ga
+bog'lang. Bu bir necha narsani beradi:</p>
+
+<ul>
+  <li>Dasturchi story'ni ochib, unga tegishli hamma xatoni ko'radi.</li>
+  <li>Story «tayyor» deyilishidan oldin ochiq buglar borligi ko'rinib
+      turadi.</li>
+  <li>Bir necha oydan keyin «bu qism qanchalik muammoli edi?» degan savolga
+      javob bo'ladi.</li>
+</ul>
+
+<p>Ko'p ishlatiladigan bog'lanish turlari: <code>relates to</code> (aloqador),
+<code>blocks</code> / <code>is blocked by</code> (to'sadi / to'silgan),
+<code>duplicates</code> (nusxasi), <code>is caused by</code> (sababi).</p>
+
+<h2>JQL — kerakli issue'ni topish</h2>
+
+<p>Loyihada minglab issue bo'lganda ro'yxatni varaqlab o'tirmaysiz. Jira'da
+<strong>JQL</strong> (Jira Query Language) degan qidiruv tili bor. Uch misol
+sizga ishning 90 % ini qoplaydi:</p>
+
+<div class="report">
+  <dl>
+    <dt>Mening ochiq hisobotlarim</dt>
+    <dd><code>reporter = currentUser() AND statusCategory != Done</code></dd>
+
+    <dt>Retest kutayotganlar</dt>
+    <dd><code>project = SWAG AND status = "In Test" ORDER BY updated DESC</code></dd>
+
+    <dt>Savat bilan bog'liq buglar</dt>
+    <dd><code>type = Bug AND labels = checkout</code></dd>
+  </dl>
+</div>
+
+<p class="cite">To'liq qo'llanma:
+<a href="https://support.atlassian.com/jira-software-cloud/docs/use-advanced-search-with-jira-query-language-jql/">Atlassian
+— Advanced search with JQL</a>. Hozircha yodlash shart emas — shunday
+imkoniyat borligini bilib qo'ying.</p>
+
+<h2>Tekshirib ko'ramiz</h2>
+
+<section class="quiz">
+  <p class="quiz-prompt">1. Issue <code>Closed</code> statusida, resolution
+  esa <code>Duplicate</code>. Bu nimani anglatadi?</p>
+  <div class="quiz-options">
+    <button class="quiz-option" data-explain="Duplicate — xato tuzatilmadi. U boshqa issue'da hal qilinadi.">Xato tuzatildi va tekshirildi</button>
+    <button class="quiz-option" data-correct data-explain="To'g'ri. Ish bu issue'da emas, asl issue'da davom etadi — o'sha issue raqamini so'rang.">Xato boshqa hisobotning nusxasi edi</button>
+    <button class="quiz-option" data-explain="Bu «Cannot Reproduce» resolution'i bo'lardi.">Xatoni takrorlab bo'lmadi</button>
+    <button class="quiz-option" data-explain="Bu «Deferred» yoki «Won't do» bo'lardi.">Xato keyingi relizga qoldirildi</button>
+  </div>
+  <p class="quiz-feedback" hidden></p>
+</section>
+
+<section class="quiz">
+  <p class="quiz-prompt">2. Xatoni topdingiz. Uni Jira'da qaysi tur bilan
+  yaratasiz?</p>
+  <div class="quiz-options">
+    <button class="quiz-option" data-explain="Story — foydalanuvchi uchun yangi imkoniyat, ishlamayotgan narsa emas.">Story</button>
+    <button class="quiz-option" data-correct data-explain="Bug — ishlamayotgan narsa uchun. Uni tegishli story'ga bog'lashni ham unutmang.">Bug</button>
+    <button class="quiz-option" data-explain="Epic — o'nlab story'ni birlashtiruvchi katta yo'nalish.">Epic</button>
+    <button class="quiz-option" data-explain="Task — texnik ish uchun. Xato uchun alohida tur mavjud.">Task</button>
+  </div>
+  <p class="quiz-feedback" hidden></p>
+</section>
+
+<section class="quiz">
+  <p class="quiz-prompt">3. «Chrome 120, Windows 11, sayt versiyasi 2.4.1» —
+  bu ma'lumot qaysi maydonga yoziladi?</p>
+  <div class="quiz-options">
+    <button class="quiz-option" data-explain="Summary bitta qisqa gap bo'lishi kerak — qayerda va nima bo'lgani.">Summary</button>
+    <button class="quiz-option" data-explain="Labels — qisqa teglar uchun, to'liq muhit tavsifi uchun emas.">Labels</button>
+    <button class="quiz-option" data-correct data-explain="Environment — aynan shu ma'lumot uchun mo'ljallangan maydon. Bo'lmasa, Description ichida alohida qator qiling.">Environment</button>
+    <button class="quiz-option" data-explain="Components — mahsulotning qismini bildiradi («Savat»), foydalanuvchi muhitini emas.">Components</button>
+  </div>
+  <p class="quiz-feedback" hidden></p>
+</section>
+
+<section class="recall">
+  <p class="recall-q">Eslab ko'ring — <em>7-darsdan</em>: acceptance criteria'ning
+  uch qismi qanday nomlanadi va ular test case'ning qaysi qismlariga to'g'ri
+  keladi?</p>
+  <button class="recall-btn">Javobni ko'rsatish</button>
+  <p class="recall-a" hidden><strong>Given</strong> — dastlabki shart,
+  <strong>When</strong> — qadamlar, <strong>Then</strong> — kutilgan natija.
+  Shuning uchun yaxshi yozilgan acceptance criteria to'g'ridan-to'g'ri test
+  case'ga aylanadi.</p>
+</section>
+
+<h2>Amaliyot: o'zingizning Jira loyihangiz</h2>
+
+<p>Jira Cloud'ning bepul rejasi bor (10 foydalanuvchigacha). Portfolio uchun
+ham foydali: ish suhbatida «Jira bilan ishlaganman» deyish o'rniga ekranni
+ko'rsatasiz.</p>
+
+<ol class="steps">
+  <li><strong>Ro'yxatdan o'ting</strong> —
+      <a href="https://www.atlassian.com/software/jira/free">atlassian.com/software/jira/free</a>.
+      Bepul reja, karta talab qilinmaydi.</li>
+  <li><strong>Loyiha yarating.</strong> Nomi: <code>Swag Labs Testing</code>,
+      kalit: <code>SWAG</code>. Shablon: Scrum yoki Kanban — hozir farqi
+      yo'q.</li>
+  <li><strong>Bitta Story yarating</strong> — 7-darsdagi saqlangan manzillar
+      story'sini o'sha yerga ko'chiring. Description ga o'zingiz yozgan
+      acceptance criteria'ni qo'ying.</li>
+  <li><strong>saucedemo.com da 30 daqiqalik sessiya o'tkazing</strong>
+      (<a href="./0005-exploratory-testing.html">5-dars</a> bo'yicha, DevTools
+      ochiq holda —
+      <a href="./0006-devtools.html">6-dars</a>).</li>
+  <li><strong>Uchta Bug yarating.</strong> Har birida: Summary bitta gap,
+      Description da qadamlar + kutilgan + haqiqiy natija, Environment,
+      Priority, kamida bitta skrinshot.</li>
+  <li><strong>Bog'lang va harakatlantiring.</strong> Bitta bug ni Story'ga
+      <code>relates to</code> bilan bog'lang. Keyin barcha uchtasini
+      <code>To Do → In Progress → Done</code> orqali o'tkazing — o'zingizni
+      dasturchi o'rniga qo'yib ko'ring.</li>
+  <li><strong>Menga yuboring:</strong> uchta bug'ning matni (skrinshot yoki
+      ko'chirib yozilgan holda). Men ularni dasturchi ko'zi bilan o'qib,
+      qaysi biri qaytarib yuborilishini aytaman.</li>
+</ol>
+
+<div class="box box--key">
+  <p class="box-title">Bu — portfolioyingizning birinchi qismi</p>
+  <p>Tajribasiz nomzodning eng katta muammosi — ko'rsatadigan narsa yo'qligi.
+  Shu loyihada 15–20 ta sifatli bug to'plansa, sizda ko'rsatiladigan ish bor.
+  Har bir sessiyadan keyin shu loyihaga qaytib, yangi xatolarni qo'shib
+  boring.</p>
+</div>
+
+<h2>O'qish uchun (birlamchi manba)</h2>
+
+<blockquote>
+  <a href="https://www.atlassian.com/software/jira/guides/workflows/overview">Introduction
+  to Jira Workflows</a> — Atlassian
+  <cite>Status, transition va resolution tushunchalari rasmiy manbada,
+  qisqa va aniq. Ingliz tilida.</cite>
+</blockquote>
+
+<p class="cite">Prioritet va resolution ro'yxatlari:
+<a href="https://support.atlassian.com/jira-cloud-administration/docs/what-are-issue-statuses-priorities-and-resolutions/">What
+are work item statuses, priorities, and resolutions?</a></p>
+
+<div class="ask-teacher">
+  <p><strong>Loyihangizni yaratganingizda ayting.</strong> Agar biror qadamda
+  to'xtab qolsangiz — shablon tanlash, maydon topilmasligi, workflow'ni
+  o'zgartirish — yozing, birga hal qilamiz. Jira interfeysi birinchi kunda
+  chalkash tuyuladi, bu normal.</p>
+</div>
+
+<nav class="nav">
+  <a href="../reference/jira-shpargalka.html">Reference: Jira shpargalkasi</a>
+  <a href="../reference/bug-report-shabloni.html">Reference: Bug report shabloni</a>
+  <a href="../reference/lugat.html">Reference: Lug'at</a>
+</nav>
+
+<nav class="lesson-nav">
+  <a class="lesson-nav-link lesson-nav-prev" href="./0007-user-story-va-acceptance-criteria.html">
+    <span class="lesson-nav-dir">← Oldingi dars</span>
+    <span class="lesson-nav-title">7. Talab qayerdan keladi</span>
+  </a>
+  <a class="lesson-nav-link lesson-nav-next" href="./0009-test-plan.html">
+    <span class="lesson-nav-dir">Keyingi dars →</span>
+    <span class="lesson-nav-title">9. Vaqt oz, ish ko'p: test plan</span>
+  </a>
+  <a class="lesson-nav-home" href="./index.html">Barcha darslar</a>
+</nav>
+
+<script src="../assets/lesson.js"></script>
+</body>
+</html>

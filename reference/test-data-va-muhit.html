@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Test ma'lumoti va muhit — Learn-QA</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<p class="crumbs"><a href="../lessons/index.html">Darslar</a> ·
+<a href="./lugat.html">Lug'at</a></p>
+
+<p class="eyebrow">Reference · chop etsa bo'ladi</p>
+<h1>Test ma'lumoti va muhit</h1>
+<p class="subtitle">Har bir yangi vazifadan oldin muhit varaqasidan
+yuring, test paytida esa «iflos ma'lumot» kutubxonasidan foydalaning.</p>
+
+<h2>Muhit tekshiruv varaqasi</h2>
+
+<ul class="checklist">
+  <li>Qaysi muhit? Manzili?</li>
+  <li>Qaysi build/versiya turibdi? O'zgarish unga tushganmi?</li>
+  <li>Test hisoblari ishlaydimi? Qaysi rollar bor?</li>
+  <li>Qaysi integratsiyalar haqiqiy, qaysilari soxta (mock)?</li>
+  <li>Kerakli ma'lumot bazada bormi?</li>
+  <li>Bu muhitda yana kim ishlayapti?</li>
+  <li>Muhit qachon qayta o'rnatiladi?</li>
+  <li>Loglarga kirish bormi?</li>
+</ul>
+
+<div class="box box--warn">
+  <p class="box-title">Birinchi qadam har doim bitta</p>
+  <p>Versiya raqamini tekshiring. «Bug topdim → hisobot yozdim →
+  ma'lum bo'ldiki muhitda eski build turgan ekan» — eng ko'p
+  yo'qotiladigan yarim kun shu.</p>
+</div>
+
+<h2>Muhitlar</h2>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Muhit</th><th>Kim</th><th>Nima sinaladi</th></tr></thead>
+  <tbody>
+    <tr><td>Local / Dev</td><td>Dasturchi</td><td>Yozilayotgan kod</td></tr>
+    <tr><td>Test / QA</td><td>Tester</td><td>Yangi funksiyalar, buglar</td></tr>
+    <tr><td>Staging</td><td>Tester, biznes</td><td>Reliz oldi, UAT</td></tr>
+    <tr><td>Production</td><td>Foydalanuvchilar</td><td>Kuzatuv, smoke</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>«Menda ishlayapti» — nimani solishtirish kerak</h2>
+
+<ul class="checklist">
+  <li>Muhit va versiya</li>
+  <li>Ma'lumot hajmi va holati</li>
+  <li>Foydalanuvchi roli va ruxsatlari</li>
+  <li>Integratsiyalar: haqiqiymi yoki soxtami</li>
+  <li>Brauzer, qurilma, ekran o'lchami</li>
+  <li>Kesh va sessiya holati</li>
+</ul>
+
+<h2>Ma'lumot olishning uch yo'li</h2>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Yo'l</th><th>Baho</th></tr></thead>
+  <tbody>
+    <tr><td>Test o'zi yaratadi</td>
+        <td><strong>Eng yaxshisi.</strong> Mustaqil va takrorlanadigan</td></tr>
+    <tr><td>Umumiy tayyor to'plam</td>
+        <td>Tez, lekin mo'rt — boshqalar o'zgartiradi</td></tr>
+    <tr><td>Production nusxasi</td>
+        <td>Faqat anonimlashtirilgan holda</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="box box--bad">
+  <p class="box-title">⚠ Shaxsiy ma'lumot qoidalari</p>
+  <ul>
+    <li>Xom production nusxasini test muhitiga ko'chirmang</li>
+    <li>Real foydalanuvchi hisobiga kirmang</li>
+    <li>Real ma'lumotli skrinshotni hisobot, chat yoki portfolioga
+        qo'ymang</li>
+    <li>Hech narsani shaxsiy kompyuteringizga yuklamang</li>
+  </ul>
+  <p class="cite"><a href="https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/data-sharing/anonymisation/introduction-to-anonymisation/">ICO
+  — Introduction to anonymisation</a></p>
+</div>
+
+<h2>Noyob qiymat</h2>
+
+<pre><code>const email = `test+${Date.now()}@mail.uz`;</code></pre>
+
+<p><code>+</code> belgisi ko'p pochta tizimida ishlaydi: xatlar bir
+manzilga tushadi, tizim uchun esa boshqa-boshqa email.</p>
+
+<h2>«Iflos ma'lumot» kutubxonasi</h2>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Turi</th><th>Namuna</th><th>Nimani sindiradi</th></tr></thead>
+  <tbody>
+    <tr><td>Apostrofli ism</td><td><code>O'ktamov Sa'dulla</code></td>
+        <td>Matn qayta ishlash, so'rovlar — bizning tilimizda doimiy
+            muammo</td></tr>
+    <tr><td>Kirill / lotin</td><td><code>Ўктамов</code></td>
+        <td>Qidiruv, saralash</td></tr>
+    <tr><td>Uzun matn</td><td>300 belgi</td><td>Interfeys, baza
+        ustuni</td></tr>
+    <tr><td>Bo'sh joylar</td><td>Boshida va oxirida probel</td>
+        <td>Qidiruv, taqqoslash</td></tr>
+    <tr><td>Maxsus belgi</td><td><code>&lt;b&gt;</code>, emoji,
+        <code>&amp;</code></td><td>Kodlash, xavfsizlik</td></tr>
+    <tr><td>Nol va manfiy</td><td><code>0</code>, <code>-1</code></td>
+        <td>Hisob-kitob</td></tr>
+    <tr><td>Kasr son</td><td><code>1.5</code>, <code>1,5</code></td>
+        <td>Format va yaxlitlash</td></tr>
+    <tr><td>Chegara sanalari</td><td>29-fevral, oy oxiri, yil
+        almashuvi</td><td>Sana mantiqi</td></tr>
+    <tr><td>Noto'g'ri email</td><td><code>ali@</code>,
+        <code>ali@@mail.uz</code></td><td>Validatsiya</td></tr>
+    <tr><td>Telefon formatlari</td><td><code>+998901234567</code>,
+        <code>90 123 45 67</code></td><td>Format va normalizatsiya</td></tr>
+    <tr><td>Katta hajm</td><td>1000 ta yozuv</td><td>Tezlik</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="box box--key">
+  <p class="box-title">Apostrof — bizning tilimizdagi tayyor qurol</p>
+  <p>O'zbekcha ismlardagi <code>'</code> belgisi ko'p tizimda matn
+  chegarasi sifatida ishlatiladi. Noto'g'ri yozilgan kodni darhol
+  ochib beradi: ism kesiladi, xato chiqadi yoki so'rov buziladi.
+  Har bir matn maydonida sinang.</p>
+</div>
+
+<h2>Tozalash</h2>
+
+<ul class="checklist">
+  <li>Test yaratgan ma'lumotni o'chira oladimi?</li>
+  <li>Nomida aniq belgi bormi (<code>test-</code> prefiksi)?</li>
+  <li>Muhitni kim va qachon tozalaydi?</li>
+  <li>Tozalash haqiqiy ma'lumotga tegmasligiga ishonchmi?</li>
+</ul>
+
+<div class="ask-teacher">
+  <p><strong>Kutubxonangizni yuboring.</strong> Men unga o'zimning
+  qiymatlarimni qo'shaman — ayniqsa sana va format holatlarini.</p>
+</div>
+
+<nav class="nav">
+  <a href="../lessons/0021-test-malumoti-va-muhit.html">21-dars</a>
+  <a href="./test-dizayn-texnikalari.html">Test dizayn texnikalari</a>
+  <a href="./test-plan-shabloni.html">Test plan shabloni</a>
+  <a href="./lugat.html">Lug'at</a>
+</nav>
+
+</body>
+</html>

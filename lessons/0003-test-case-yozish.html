@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>3-dars: Test case yozish — Learn-QA</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<p class="crumbs"><a href="./index.html">Darslar</a> ·
+<a href="./0002-ekvivalentlik-va-chegaralar.html">← 2-dars</a></p>
+
+<p class="eyebrow">3-dars · taxminan 25 daqiqa</p>
+<h1>Boshqa odam ham bajara oladigan test</h1>
+<p class="subtitle">2-darsda qaysi qiymatlarni sinashni topdingiz. Endi ularni
+shunday yozamizki, sizsiz ham, olti oydan keyin ham, boshqa tester aynan shu
+tekshiruvni takrorlay olsin.</p>
+
+<h2>Nega yozib qo'yish kerak</h2>
+
+<p>Boshda hamma narsa yodda turadi. Keyin loyiha o'sadi, siz ta'tilga chiqasiz,
+jamoaga yangi odam keladi — va hech kim «to'lov sahifasi qanday tekshirilgan
+edi?» degan savolga javob bera olmaydi.</p>
+
+<p><strong>Test case</strong> — bitta aniq tekshiruvning yozma shakli. Bug report
+xatoni topgandan <em>keyin</em> yoziladi; test case esa tekshirishdan
+<em>oldin</em>.</p>
+
+<div class="box box--key">
+  <p class="box-title">Bu darsning yagona sinovi</p>
+  <p>Yozgan test case ingizni boshqa odamga bering. Agar u <strong>sizdan hech
+  narsa so'ramasdan</strong> uni bajarib, «o'tdi» yoki «o'tmadi» deb ayta olsa —
+  test case yaxshi. Bitta savol berilsa — yetarli emas.</p>
+</div>
+
+<h2>Test case ning tuzilishi</h2>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Qism</th><th>Vazifasi</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>ID</strong></td>
+        <td>Qisqa raqam — hisobotlarda va bug reportda shunga havola beriladi.</td></tr>
+    <tr><td><strong>Sarlavha</strong></td>
+        <td>Bir qatorda: nima tekshirilyapti. Ro'yxatda ko'rinadigan yagona qism.</td></tr>
+    <tr><td><strong>Dastlabki shart</strong><br><span class="cite">precondition</span></td>
+        <td>Test boshlangunicha nima tayyor bo'lishi kerak: hisob, ma'lumot, holat.</td></tr>
+    <tr><td><strong>Qadamlar</strong></td>
+        <td>Bajariladigan harakatlar. Har bir qadam — bitta harakat.</td></tr>
+    <tr><td><strong>Test ma'lumoti</strong></td>
+        <td>Aniq kiritiladigan qiymatlar. 2-darsda topganlaringiz shu yerga tushadi.</td></tr>
+    <tr><td><strong>Kutilgan natija</strong></td>
+        <td>Nima ko'rinishi kerak. <em>Tekshirib bo'ladigan</em> shaklda.</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p class="cite">Manba: <a href="https://www.testrail.com/blog/effective-test-cases-templates/">TestRail
+— How to Write Effective Test Cases</a> va
+<a href="https://www.qase.io/blog/how-to-write-test-cases/">Qase — How to Write Test Cases</a>.</p>
+
+<h2>Uchta qoida, ular hamma narsani hal qiladi</h2>
+
+<h3>1. Kutilgan natija tekshirib bo'ladigan bo'lsin</h3>
+
+<div class="compare">
+  <div class="box box--bad">
+    <p class="box-title">✗ Tekshirib bo'lmaydi</p>
+    <p>«Sahifa to'g'ri ishlaydi»</p>
+    <p>«Forma normal yuboriladi»</p>
+    <p>«Xato xabari chiqadi»</p>
+  </div>
+  <div class="box box--good">
+    <p class="box-title">✓ Tekshirib bo'ladi</p>
+    <p>«Savat belgisida «1» raqami ko'rinadi»</p>
+    <p>«Buyurtma raqami bilan tasdiq sahifasi ochiladi»</p>
+    <p>«Maydoncha ostida «Parol kamida 8 ta belgidan iborat bo'lsin» matni chiqadi»</p>
+  </div>
+</div>
+
+<p>O'ng tomondagi har bir gapga «ha» yoki «yo'q» deb javob berish mumkin. Chap
+tomondagilarga ikki tester ikki xil javob beradi — demak ular test emas, fikr.</p>
+
+<h3>2. Har bir qadam — bitta harakat, buyruq shaklida</h3>
+
+<div class="compare">
+  <div class="box box--bad">
+    <p class="box-title">✗ Bitta qadamda to'rtta ish</p>
+    <p>1. Saytga kirib, mahsulot tanlab, savatga qo'shib, checkout ga o'tiladi</p>
+  </div>
+  <div class="box box--good">
+    <p class="box-title">✓ Ajratilgan</p>
+    <p>1. <code>standard_user</code> bilan tizimga kiring<br>
+       2. «Sauce Labs Backpack» ni toping<br>
+       3. «Add to cart» tugmasini bosing<br>
+       4. Savat belgisini bosing</p>
+  </div>
+</div>
+
+<p>Sabab amaliy: test «o'tmadi» bo'lganda, <em>qaysi qadamda</em> uzilganini
+aniq aytish kerak. Bitta qadamda to'rt ish bo'lsa, buni ayta olmaysiz.</p>
+
+<h3>3. Test case'lar bir-biriga bog'lanmasin</h3>
+
+<p>«5-test 4-test tugagandan keyin ishlaydi» — bu tuzoq. 4-test yiqilsa, 5-test
+ham yiqiladi va siz ikkita xato bor deb o'ylaysiz. Har bir test case o'z
+<strong>dastlabki shartini</strong> o'zi ta'minlaydi.</p>
+
+<h2>To'liq namuna</h2>
+
+<div class="report">
+  <dl>
+    <dt>ID</dt>
+    <dd>TC-014</dd>
+
+    <dt>Sarlavha</dt>
+    <dd>Checkout: familiya maydonchasi bo'sh bo'lsa xato xabari chiqadi</dd>
+
+    <dt>Dastlabki shart</dt>
+    <dd>Foydalanuvchi <code>standard_user</code> bilan tizimga kirgan;
+        savatda kamida 1 ta mahsulot bor; «Checkout: Your Information»
+        sahifasi ochiq</dd>
+
+    <dt>Test ma'lumoti</dt>
+    <dd>Ism: <code>Asilbek</code> · Familiya: <em>(bo'sh)</em> ·
+        Indeks: <code>100000</code></dd>
+
+    <dt>Qadamlar</dt>
+    <dd>
+      <ol>
+        <li>«First Name» maydonchasiga <code>Asilbek</code> kiriting</li>
+        <li>«Last Name» maydonchasini bo'sh qoldiring</li>
+        <li>«Zip/Postal Code» maydonchasiga <code>100000</code> kiriting</li>
+        <li>«Continue» tugmasini bosing</li>
+      </ol>
+    </dd>
+
+    <dt>Kutilgan natija</dt>
+    <dd>Keyingi sahifaga o'tilmaydi; forma tepasida
+        «Error: Last Name is required» xato xabari ko'rinadi</dd>
+  </dl>
+</div>
+
+<div class="box box--warn">
+  <p class="box-title">Diqqat: bu 2-darsning davomi</p>
+  <p>«Familiya bo'sh» — bu tasodifiy tanlangan holat emas. Bu
+  <a href="./0002-ekvivalentlik-va-chegaralar.html">ekvivalentlik sinfi</a>:
+  «bo'sh qiymat» yaroqsiz sinfi. Har bir test case ortida shunday sinf turishi
+  kerak. Aks holda siz shunchaki taxmin qilyapsiz.</p>
+</div>
+
+<h2>Test case yoki checklist?</h2>
+
+<p>Har doim ham to'liq test case shart emas. Amalda ikkalasi ishlatiladi:</p>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th></th><th>Test case</th><th>Checklist</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Ko'rinishi</td>
+        <td>To'liq qadamlar va kutilgan natija</td>
+        <td>Bir qatorli tekshiruvlar ro'yxati</td></tr>
+    <tr><td>Yozish vaqti</td><td>Sekin</td><td>Tez</td></tr>
+    <tr><td>Kim bajara oladi</td>
+        <td>Loyihani bilmaydigan odam ham</td>
+        <td>Loyihani biladigan odam</td></tr>
+    <tr><td>Qachon</td>
+        <td>Murakkab jarayon, to'lov, hisob-kitob, tartibga solinadigan soha</td>
+        <td>Tez regressiya, oddiy formalar, kichik jamoa</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>Boshlovchi tester uchun tavsiya: <strong>avval test case yozishni
+o'rganing</strong>. Checklist — bu qisqartirilgan test case, va qisqartirish
+uchun avval to'liq shaklini bilish kerak.</p>
+
+<h2>Tekshirib ko'ramiz</h2>
+
+<section class="quiz">
+  <p class="quiz-prompt">1. Qaysi kutilgan natija to'g'ri yozilgan?</p>
+  <div class="quiz-options">
+    <button class="quiz-option" data-explain="«To'g'ri» so'zi tekshirilmaydi. Ikki tester ikki xil qaror qiladi.">Buyurtma to'g'ri rasmiylashtiriladi</button>
+    <button class="quiz-option" data-correct data-explain="Aniq ko'rinadigan natija: sahifa nomi va raqamning mavjudligini tekshirsa bo'ladi.">Buyurtma raqami bilan sahifa ochiladi</button>
+    <button class="quiz-option" data-explain="«Muammosiz» — bu his-tuyg'u, o'lchov emas. Ekranda nima ko'rinadi?">Forma muammosiz yuborilib ketadi</button>
+    <button class="quiz-option" data-explain="Qaysi xabar? Matni aniq yozilmasa, noto'g'ri xabar ham «o'tdi» deb belgilanadi.">Kerakli xato xabari paydo bo'ladi</button>
+  </div>
+  <p class="quiz-feedback" hidden></p>
+</section>
+
+<section class="quiz">
+  <p class="quiz-prompt">2. Dastlabki shart (precondition) nima uchun kerak?</p>
+  <div class="quiz-options">
+    <button class="quiz-option" data-explain="Aksincha — u qadamlarni qisqartiradi, chunki tayyorgarlik alohida yoziladi.">Qadamlar sonini ko'paytirish uchun</button>
+    <button class="quiz-option" data-correct data-explain="Test doim bir xil holatdan boshlansa, natija ham takrorlanadigan bo'ladi.">Testni ma'lum holatdan boshlash uchun</button>
+    <button class="quiz-option" data-explain="Kutilgan natija alohida qismda yoziladi, dastlabki shartda emas.">Kutilgan natijani tasvirlash uchun</button>
+    <button class="quiz-option" data-explain="Bog'liqlik — bu aynan qochish kerak bo'lgan narsa. Har bir test mustaqil bo'lsin.">Testlarni bir-biriga bog'lash uchun</button>
+  </div>
+  <p class="quiz-feedback" hidden></p>
+</section>
+
+<section class="quiz">
+  <p class="quiz-prompt">3. Test case va bug report o'rtasidagi asosiy farq nima?</p>
+  <div class="quiz-options">
+    <button class="quiz-option" data-correct data-explain="Test case — reja (oldindan), bug report — topilma (keyin). Shakli o'xshash, vaqti boshqa.">Biri tekshiruvdan oldin, biri keyin</button>
+    <button class="quiz-option" data-explain="Ikkalasida ham qadamlar bor va ikkalasi ham takrorlanadigan bo'lishi kerak.">Faqat birida qadamlar yoziladi</button>
+    <button class="quiz-option" data-explain="Ikkalasini ham tester yozadi. Auditoriyasi boshqa, muallifi bir xil.">Ularni turli odamlar yozishadi</button>
+    <button class="quiz-option" data-explain="Test case ham aniq qiymatlar bilan yoziladi — «test ma'lumoti» qismi bor.">Faqat birida aniq qiymat bo'ladi</button>
+  </div>
+  <p class="quiz-feedback" hidden></p>
+</section>
+
+<section class="recall">
+  <p class="recall-q">Eslab ko'ring — <em>2-darsdan</em>: «1 dan 100 gacha»
+  maydonchasi uchun 2-value BVA qanday qiymatlar beradi va nega aynan shular?</p>
+  <button class="recall-btn">Javobni ko'rsatish</button>
+  <p class="recall-a" hidden><strong>0, 1, 100, 101.</strong> Har bir chegarada
+  ikkitadan qiymat: chegaraning o'zi va undan tashqaridagi qo'shni. Sabab —
+  dasturchilar <code>&gt;</code> va <code>&gt;=</code> ni aynan shu joyda
+  chalkashtiradi.</p>
+</section>
+
+<h2>Amaliyot: uchta test case</h2>
+
+<p>Bu topshiriq oxirgi ikki darsni bir joyga yig'adi.</p>
+
+<ol class="steps">
+  <li>2-darsdagi <strong>A qism</strong> jadvalini oching — kitob buyurtma
+      formasi uchun tuzgan sinflaringizni.</li>
+  <li>«Nusxalar soni» maydonchasi uchun uchta test case yozing:
+      bitta yaroqli chegara, bitta yaroqsiz chegara, bitta bo'sh qiymat.
+      <a href="../reference/test-case-shabloni.html">Shablon shu yerda</a>.</li>
+  <li>Har birini yozib bo'lgach, <strong>ovoz chiqarib o'qing</strong> va
+      o'zingizga savol bering: loyihani bilmaydigan odam buni bajara oladimi?</li>
+  <li>Endi <a href="https://www.saucedemo.com/">saucedemo.com</a> ning checkout
+      formasida <strong>o'zingiz yozgan namunani</strong> (TC-014, familiya bo'sh)
+      haqiqatan bajaring. O'tdimi yoki o'tmadimi?</li>
+  <li>O'tmasa — bu bug. <a href="./0001-bug-report-yozish.html">1-dars</a> shabloni
+      bo'yicha yozing va test case ID sini («TC-014») hisobotga qo'shing.</li>
+  <li>Uchta test case ni menga yuboring.</li>
+</ol>
+
+<div class="box box--key">
+  <p class="box-title">Bu yerda nima sodir bo'ldi</p>
+  <p>Uch dars — bitta zanjir: <strong>nimani sinash</strong> (2-dars) →
+  <strong>qanday yozib qo'yish</strong> (3-dars) → <strong>topilganini qanday
+  yetkazish</strong> (1-dars). Bu zanjir QA testerning kunlik ishining o'zi.</p>
+</div>
+
+<h2>O'qish uchun (birlamchi manba)</h2>
+
+<blockquote>
+  <a href="https://www.testrail.com/blog/effective-test-cases-templates/">How to
+  Write Effective Test Cases: Templates and Guide</a> — TestRail
+  <cite>TestRail — sohada eng ko'p ishlatiladigan test case boshqaruv
+  vositalaridan biri. Qo'llanma amaliy va shablonlar bilan.</cite>
+</blockquote>
+
+<div class="ask-teacher">
+  <p><strong>Test case ingizni yuboring.</strong> Men uni «loyihani bilmaydigan
+  tester» ko'zi bilan o'qib chiqaman va aynan qaysi joyda savol tug'ilishini
+  ko'rsataman. Bu mashqni bir necha marta takrorlasangiz, ko'nikma o'rnashadi.</p>
+</div>
+
+<nav class="nav">
+  <a href="../reference/test-case-shabloni.html">Reference: Test case shabloni</a>
+  <a href="../reference/test-dizayn-texnikalari.html">Reference: Test dizayn</a>
+  <a href="../reference/lugat.html">Reference: Lug'at</a>
+</nav>
+
+<nav class="lesson-nav">
+  <a class="lesson-nav-link lesson-nav-prev" href="./0002-ekvivalentlik-va-chegaralar.html">
+    <span class="lesson-nav-dir">← Oldingi dars</span>
+    <span class="lesson-nav-title">2. Cheksiz variantdan to'rttasini tanlash</span>
+  </a>
+  <a class="lesson-nav-link lesson-nav-next" href="./0004-bug-hayot-sikli.html">
+    <span class="lesson-nav-dir">Keyingi dars →</span>
+    <span class="lesson-nav-title">4. Hisobot yuborildi — endi nima bo'ladi?</span>
+  </a>
+  <a class="lesson-nav-home" href="./index.html">Barcha darslar</a>
+</nav>
+
+<script src="../assets/lesson.js"></script>
+</body>
+</html>

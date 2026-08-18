@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>6-dars: DevTools — Learn-QA</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<p class="crumbs"><a href="./index.html">Darslar</a> ·
+<a href="./0005-exploratory-testing.html">← 5-dars</a></p>
+
+<p class="eyebrow">6-dars · taxminan 30 daqiqa</p>
+<h1>Ekranning orqasini ko'rish: DevTools</h1>
+<p class="subtitle">Shu paytgacha faqat ekranga qaradingiz. Endi brauzerning
+ichiga qaraymiz. Bu bitta ko'nikma sizning bug reportlaringizni ikki barobar
+qimmatliroq qiladi — va ish suhbatida boshqa nomzodlardan ajratadi.</p>
+
+<h2>Nega tester DevTools ni bilishi kerak</h2>
+
+<p>Ikki xil hisobotni taqqoslang:</p>
+
+<div class="compare">
+  <div class="box box--bad">
+    <p class="box-title">✗ Faqat ekranga qaragan tester</p>
+    <p>«Saqlash tugmasini bosdim, hech narsa bo'lmadi.»</p>
+    <p><em>Dasturchi:</em> «Menda ishlayapti.» → Cannot Reproduce.</p>
+  </div>
+  <div class="box box--good">
+    <p class="box-title">✓ DevTools ni ochgan tester</p>
+    <p>«Saqlash tugmasini bosdim, hech narsa bo'lmadi. Konsolda:
+    <code>TypeError: Cannot read property 'id' of undefined</code>.
+    Network: <code>POST /api/orders</code> → <strong>500</strong>.»</p>
+    <p><em>Dasturchi:</em> darhol kerakli faylni ochadi.</p>
+  </div>
+</div>
+
+<p>Ikkinchi hisobot bir necha soatni tejaydi. Va u <strong>o'n soniya</strong>
+ko'proq vaqt oldi.</p>
+
+<div class="box box--key">
+  <p class="box-title">Bu darsning yagona maqsadi</p>
+  <p>Har bir bug reportga ikkita yangi dalil qo'shishni odat qilish:
+  <strong>konsoldagi xato</strong> va <strong>muvaffaqiyatsiz tarmoq
+  so'rovi</strong>. Boshqa hech narsa shart emas.</p>
+</div>
+
+<h2>Ochish</h2>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Nima</th><th>Windows / Linux</th><th>macOS</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>DevTools ni ochish</td>
+        <td><code>F12</code> yoki <code>Ctrl+Shift+I</code></td>
+        <td><code>Cmd+Option+I</code></td></tr>
+    <tr><td>To'g'ridan Console ga</td>
+        <td><code>Ctrl+Shift+J</code></td>
+        <td><code>Cmd+Option+J</code></td></tr>
+    <tr><td>Element tanlash rejimi</td>
+        <td><code>Ctrl+Shift+C</code></td>
+        <td><code>Cmd+Shift+C</code></td></tr>
+  </tbody>
+</table>
+</div>
+
+<p class="cite">Manba: <a href="https://developer.chrome.com/docs/devtools/open">Chrome
+for Developers — Open Chrome DevTools</a> va
+<a href="https://developer.chrome.com/docs/devtools/shortcuts">Keyboard shortcuts</a>.
+Firefox va Edge da ham deyarli bir xil.</p>
+
+<h2>Console — dastur nimadan shikoyat qilyapti</h2>
+
+<p>Console — sahifadagi JavaScript kodining xato xabarlari joyi. Qizil qatorlar
+sizning eng qimmatli dalilingiz.</p>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Rang</th><th>Ma'nosi</th><th>Sizga kerakmi</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Qizil</strong> — Error</td>
+        <td>Kod ishlayotganda uzilib qoldi</td>
+        <td><strong>Ha</strong> — doim hisobotga qo'shing</td></tr>
+    <tr><td><strong>Sariq</strong> — Warning</td>
+        <td>Ogohlantirish, lekin ish davom etdi</td>
+        <td>Ba'zan — xato bilan bir vaqtda chiqsa</td></tr>
+    <tr><td>Oq/kulrang — Log</td>
+        <td>Dasturchining o'z eslatmalari</td>
+        <td>Odatda yo'q</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="box box--warn">
+  <p class="box-title">Ish tartibi</p>
+  <p>Xatoni takrorlashdan <strong>oldin</strong> Console ni tozalang
+  (🚫 belgisi yoki <code>Ctrl+L</code>). Shunda qaysi xato aynan sizning
+  harakatingizdan chiqqani aniq bo'ladi. Aks holda sahifa yuklanishidagi eski
+  xabarlar aralashib ketadi.</p>
+</div>
+
+<h2>Network — server nima javob qaytardi</h2>
+
+<p>Network paneli sahifa serverga yuborgan har bir so'rovni ko'rsatadi. Sizga
+faqat bitta ustun kerak: <strong>Status</strong>.</p>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Kod</th><th>Ma'nosi</th><th>Kim aybdor</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>2xx</strong> (200, 201)</td>
+        <td>Muvaffaqiyatli</td>
+        <td>—</td></tr>
+    <tr><td><strong>3xx</strong> (301, 302)</td>
+        <td>Boshqa manzilga yo'naltirildi</td>
+        <td>Odatda normal</td></tr>
+    <tr><td><strong>4xx</strong> (400, 401, 403, 404)</td>
+        <td>So'rovda muammo: noto'g'ri ma'lumot, ruxsat yo'q, topilmadi</td>
+        <td>Ko'pincha frontend yoki ruxsatlar</td></tr>
+    <tr><td><strong>5xx</strong> (500, 502, 503)</td>
+        <td>Server ichida xato yuz berdi</td>
+        <td><strong>Backend</strong> — deyarli har doim haqiqiy bug</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>Amaliy qoida: <strong>qizil qator ko'rsangiz — bu topilma.</strong>
+So'rovni bosing, <em>Headers</em> da manzilni va <em>Response</em> da server
+javobini ko'ring. Ikkalasini hisobotga qo'shing.</p>
+
+<div class="box box--key">
+  <p class="box-title">Uchta sozlama — bir marta yoqib qo'ying</p>
+  <ul>
+    <li><strong>Preserve log</strong> — sahifa yangilanganda yozuvlar
+        o'chmasin. Yo'naltirishlarni kuzatish uchun zarur.</li>
+    <li><strong>Disable cache</strong> — DevTools ochiq bo'lganda eski
+        nusxa ishlatilmasin.</li>
+    <li><strong>Fetch/XHR filtri</strong> — rasm va stillarni yashirib,
+        faqat ma'lumot so'rovlarini ko'rsatadi.</li>
+  </ul>
+</div>
+
+<h2>Yana ikkita foydali narsa</h2>
+
+<h3>Telefon rejimi</h3>
+
+<p>DevTools tepasidagi telefon belgisi (<code>Ctrl+Shift+M</code>) sahifani
+turli ekran o'lchamlarida ko'rsatadi. Mobil versiyani sinash uchun eng tez yo'l.
+Diqqat: bu <em>haqiqiy</em> telefon o'rnini bosmaydi, lekin layout xatolarini
+topishga yetadi.</p>
+
+<h3>Elements — HTML ni ko'rish</h3>
+
+<p><code>Ctrl+Shift+C</code> bosib, istalgan elementni bosing. Tester uchun eng
+foydali ishlatilishi: <strong>maydonchaning haqiqiy chegarasini tekshirish</strong>.
+Masalan HTML da <code>maxlength="10"</code> yozilgan bo'lsa, siz 11-belgini
+kirita olmaysiz — chunki brauzer to'sib qo'yadi, server emas. Bu ikki xil
+holat va hisobotda farqlanadi.</p>
+
+<h2>Tekshirib ko'ramiz</h2>
+
+<section class="quiz">
+  <p class="quiz-prompt">1. Network panelida <code>500</code> statusi ko'rindi.
+  Bu nimani anglatadi?</p>
+  <div class="quiz-options">
+    <button class="quiz-option" data-explain="Bu 404 — resurs topilmadi. 500 boshqa narsa.">So'ralgan sahifa topilmadi</button>
+    <button class="quiz-option" data-correct data-explain="5xx — server ichidagi xato. Deyarli har doim haqiqiy bug, darhol hisobot yozing.">Serverning ichida xato yuz berdi</button>
+    <button class="quiz-option" data-explain="Bu 401 yoki 403. Ular 4xx guruhiga kiradi.">Foydalanuvchida ruxsat yo'q</button>
+    <button class="quiz-option" data-explain="Muvaffaqiyat — bu 2xx. 500 aksincha, xato.">So'rov muvaffaqiyatli bajarildi</button>
+  </div>
+  <p class="quiz-feedback" hidden></p>
+</section>
+
+<section class="quiz">
+  <p class="quiz-prompt">2. Nega xatoni takrorlashdan oldin Console tozalanadi?</p>
+  <div class="quiz-options">
+    <button class="quiz-option" data-correct data-explain="Tozalanmasa, eski xabarlar aralashib, qaysi xato sizniki ekani noaniq qoladi.">Qaysi xato sizniki ekani aniq bo'lsin</button>
+    <button class="quiz-option" data-explain="Console tozalash sahifa tezligiga ta'sir qilmaydi.">Sahifa tezroq yuklanishi uchun</button>
+    <button class="quiz-option" data-explain="Aksincha — tozalash faqat ko'rinishni tozalaydi, xatolarni yo'qotmaydi.">Eski xatolar tuzatilgan bo'lsin</button>
+    <button class="quiz-option" data-explain="Bunday talab yo'q. Tozalash — sizning qulayligingiz uchun.">DevTools shuni talab qiladi</button>
+  </div>
+  <p class="quiz-feedback" hidden></p>
+</section>
+
+<section class="quiz">
+  <p class="quiz-prompt">3. Maydoncha 10 belgidan ortiq qabul qilmayapti.
+  HTML da <code>maxlength="10"</code> yozilgan. Xulosangiz?</p>
+  <div class="quiz-options">
+    <button class="quiz-option" data-explain="Aksincha — bu foydali topilma. Server tekshiruvi bormi degan savol ochiladi.">Bu xato emas, tekshirishni to'xtataman</button>
+    <button class="quiz-option" data-correct data-explain="Brauzer to'sig'i chetlab o'tilishi mumkin. Server ham tekshiradimi — buni alohida sinash kerak.">Chegara brauzerda — serverni ham sinayman</button>
+    <button class="quiz-option" data-explain="Bu jiddiy xato emas: chegara bor va u ishlayapti. Savol — u qayerda joylashgani.">Bu jiddiy xato, darhol hisobot yozaman</button>
+    <button class="quiz-option" data-explain="Aksincha, bu muhim farq. Brauzer tekshiruvi xavfsizlik kafolati emas.">HTML tafsiloti — testerga aloqasi yo'q</button>
+  </div>
+  <p class="quiz-feedback" hidden></p>
+</section>
+
+<section class="recall">
+  <p class="recall-q">Eslab ko'ring — <em>5-darsdan</em>: exploratory sessiyaning
+  uchta ustuni nima?</p>
+  <button class="recall-btn">Javobni ko'rsatish</button>
+  <p class="recall-a" hidden><strong>Charter</strong> (sessiyaning maqsadi,
+  1–3 gap), <strong>timebox</strong> (30–45 daqiqa, taymer bilan) va
+  <strong>yozuvlar</strong> (sessiya davomida: BUG / SAVOL / G'OYA).</p>
+</section>
+
+<h2>Amaliyot: dalilli hisobot</h2>
+
+<ol class="steps">
+  <li><a href="https://www.saucedemo.com/">saucedemo.com</a> ni oching va
+      <code>F12</code> bosing. Network panelini oching, <strong>Fetch/XHR</strong>
+      filtrini va <strong>Preserve log</strong> ni yoqing.</li>
+  <li><code>standard_user</code> bilan kiring. Login bosilganda Network da
+      qanday so'rov ketdi? Statusi nechchi?</li>
+  <li>Chiqing va <strong>noto'g'ri parol</strong> bilan kiring. Endi status
+      qanday? Server javobida (<em>Response</em>) nima yozilgan?</li>
+  <li>Console ni tozalang va <code>problem_user</code> bilan kirib, saytni
+      aylanib chiqing. Qizil xatolar chiqdimi? Chiqsa — matnini
+      <strong>to'liq nusxalang</strong>.</li>
+  <li><code>Ctrl+Shift+M</code> bosib telefon rejimini yoqing. Mahsulot
+      ro'yxati va checkout formasi buzilmaydimi?</li>
+  <li>Topgan bitta xatoni <a href="./0001-bug-report-yozish.html">to'liq
+      hisobot</a> qilib yozing — endi «Dalil» qismida skrinshotdan tashqari
+      <strong>konsol xatosi</strong> va <strong>tarmoq so'rovi statusi</strong>
+      ham bo'lsin.</li>
+  <li>Menga yuboring.</li>
+</ol>
+
+<div class="box box--key">
+  <p class="box-title">Bu yerda nima o'zgardi</p>
+  <p>Oldin siz «nima ko'rindi» ni yozardingiz. Endi «tizim ichida nima sodir
+  bo'ldi» ni ham yoza olasiz. Ish e'lonlarida «DevTools bilan ishlash
+  ko'nikmasi» deb yozilgan talab aynan shu — murakkab narsa emas, lekin ko'p
+  boshlovchilar buni o'tkazib yuboradi.</p>
+</div>
+
+<h2>O'qish uchun (birlamchi manba)</h2>
+
+<blockquote>
+  <a href="https://developer.chrome.com/docs/devtools/network/">Chrome for
+  Developers — Inspect network activity</a>
+  <cite>Google ning rasmiy qo'llanmasi. Amaliy mashq shaklida yozilgan —
+  o'qib emas, bajarib o'rganiladi.</cite>
+</blockquote>
+
+<div class="ask-teacher">
+  <p><strong>Tushunmagan xato xabari bo'lsa — menga tashlang.</strong> Konsoldagi
+  matnni nusxalab yuboring, men uni sodda tilda tushuntiraman va bu qanday
+  bugga ishora qilishini aytaman. Bu — texnik tilni o'rganishning eng tez yo'li.</p>
+</div>
+
+<nav class="nav">
+  <a href="../reference/devtools-shpargalka.html">Reference: DevTools shpargalkasi</a>
+  <a href="../reference/bug-report-shabloni.html">Reference: Bug report shabloni</a>
+  <a href="../reference/lugat.html">Reference: Lug'at</a>
+</nav>
+
+<nav class="lesson-nav">
+  <a class="lesson-nav-link lesson-nav-prev" href="./0005-exploratory-testing.html">
+    <span class="lesson-nav-dir">← Oldingi dars</span>
+    <span class="lesson-nav-title">5. Talab yo'q — nimadan boshlaysiz?</span>
+  </a>
+  <a class="lesson-nav-link lesson-nav-next" href="./0007-user-story-va-acceptance-criteria.html">
+    <span class="lesson-nav-dir">Keyingi dars →</span>
+    <span class="lesson-nav-title">7. Talab qayerdan keladi</span>
+  </a>
+  <a class="lesson-nav-home" href="./index.html">Barcha darslar</a>
+</nav>
+
+<script src="../assets/lesson.js"></script>
+</body>
+</html>

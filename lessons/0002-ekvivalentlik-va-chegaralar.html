@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2-dars: Ekvivalentlik sinflari va chegaralar — Learn-QA</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<p class="crumbs"><a href="./index.html">Darslar</a> ·
+<a href="./0001-bug-report-yozish.html">← 1-dars</a></p>
+
+<p class="eyebrow">2-dars · taxminan 25 daqiqa</p>
+<h1>Cheksiz variantdan to'rttasini tanlash</h1>
+<p class="subtitle">«Yosh» maydonchasi 18 dan 65 gacha qiymat qabul qilishi kerak.
+Nechta qiymatni sinaysiz? Yangi tester tasodifiy sonlarni kiritadi va hech narsa
+topmaydi. Tajribali tester to'rtta qiymat kiritadi va xatoni topadi.</p>
+
+<h2>Muammo: hamma narsani sinab bo'lmaydi</h2>
+
+<p>Oddiy bitta maydoncha — «yosh» — ni to'liq test qilish uchun nechta qiymat
+kerak? Butun sonlar, manfiy sonlar, kasr sonlar, harflar, bo'sh qiymat, bo'shliq,
+emoji... Amalda cheksiz.</p>
+
+<p>Demak, savol «hammasini qanday sinayman?» emas. Savol boshqacha:</p>
+
+<div class="box box--key">
+  <p class="box-title">Testerning asosiy savoli</p>
+  <p><strong>Qaysi bir nechta qiymat, eng ko'p xatoni ochib beradi?</strong>
+  Bu darsda shu savolga javob beradigan ikkita texnikani o'rganamiz. Ikkalasi ham
+  50 yildan beri ishlatiladi va har qanday ish suhbatida so'raladi.</p>
+</div>
+
+<h2>1-texnika: Ekvivalentlik sinflari</h2>
+
+<p>Dastur ba'zi qiymatlarni <em>bir xil</em> ishlaydi. Agar «yosh 18–65» qoidasi
+bo'lsa, dastur uchun 25 bilan 40 orasida hech qanday farq yo'q — ikkalasi ham
+shunchaki «yaroqli». Xuddi shunday, 5 bilan 10 ham bir xil — ikkalasi ham
+«juda yosh».</p>
+
+<p>Bir xil ishlanadigan qiymatlar to'plami — <strong>ekvivalentlik sinfi</strong>
+(equivalence partition).</p>
+
+<figure>
+  <div class="partitions-row">
+    <div class="partition partition--invalid">
+      <span class="partition-name">Yaroqsiz</span>
+      <span class="partition-range">17 va past</span>
+    </div>
+    <div class="partition partition--valid">
+      <span class="partition-name">Yaroqli</span>
+      <span class="partition-range">18 – 65</span>
+    </div>
+    <div class="partition partition--invalid">
+      <span class="partition-name">Yaroqsiz</span>
+      <span class="partition-range">66 va yuqori</span>
+    </div>
+  </div>
+  <figcaption>«18–65» qoidasi butun son o'qini uchta sinfga bo'ladi.</figcaption>
+</figure>
+
+<p>Va bu yerdan qoida kelib chiqadi:</p>
+
+<blockquote>
+  Agar bitta sinfdan olingan qiymat xatoni ochsa, o'sha sinfdagi boshqa
+  qiymatlar ham xuddi shu xatoni ochadi. Shuning uchun <strong>har bir sinfdan
+  bitta qiymat yetarli</strong>.
+  <cite>ISTQB CTFL Syllabus v4.0, 4.2.1 — Equivalence Partitioning</cite>
+</blockquote>
+
+<p>Ya'ni yuzlab urinish o'rniga uchta test: masalan <code>10</code>,
+<code>30</code>, <code>80</code>. Endi har bir sinf qamrab olindi.</p>
+
+<div class="box box--warn">
+  <p class="box-title">Yangi testerlarning eng katta kamchiligi</p>
+  <p>Faqat <strong>yaroqli</strong> sinfni sinash. «30 kiritdim, ishladi —
+  demak yaxshi.» Aslida xatolarning katta qismi <em>yaroqsiz</em> qiymatlarda
+  yashiringan: dastur ularni to'xtatishi kerak, lekin to'xtatmaydi. Har bir
+  yaroqsiz sinf ham alohida test.</p>
+</div>
+
+<p>Sinflar faqat sonlar uchun emas. «To'lov turi: karta / naqd / o'tkazma»
+degan maydonchada uchta yaroqli sinf bor — har biri alohida sinaladi.</p>
+
+<h2>2-texnika: Chegara qiymatlari</h2>
+
+<p>Endi eng qimmatli qismi. Dasturchilar xatoni <em>o'rtada</em> qilmaydi —
+chegarada qiladi. Kodda <code>&gt;=</code> o'rniga <code>&gt;</code> yozish juda
+oson, va o'shanda 18 yoshli foydalanuvchi ro'yxatdan o'ta olmay qoladi.</p>
+
+<blockquote>
+  Chegara qiymatlari tahlili (BVA) — ekvivalentlik sinflarining chegaralarini
+  sinashga asoslangan texnika. Sinfning eng kichik va eng katta qiymati uning
+  chegara qiymatlari hisoblanadi.
+  <cite>ISTQB CTFL Syllabus v4.0, 4.2.2 — Boundary Value Analysis</cite>
+</blockquote>
+
+<p>Amalda: har bir chegara uchun <strong>chegaraning o'zi</strong> va
+<strong>undan tashqaridagi qo'shni qiymat</strong> olinadi. Buni
+<em>2-value BVA</em> deyiladi:</p>
+
+<figure>
+  <div class="partitions-row">
+    <div class="partition partition--invalid">
+      <span class="partition-name">Yaroqsiz</span>
+      <span class="partition-range">… <span class="bv">17</span></span>
+    </div>
+    <div class="partition partition--valid">
+      <span class="partition-name">Yaroqli</span>
+      <span class="partition-range"><span class="bv">18</span> … <span class="bv">65</span></span>
+    </div>
+    <div class="partition partition--invalid">
+      <span class="partition-name">Yaroqsiz</span>
+      <span class="partition-range"><span class="bv">66</span> …</span>
+    </div>
+  </div>
+  <figcaption>2-value BVA: to'rtta qiymat — 17, 18, 65, 66. Ular chegaralarni
+  ikki tomondan qisadi.</figcaption>
+</figure>
+
+<p>Agar xato juda qimmatga tushsa (moliya, tibbiyot, xavfsizlik), ichkaridagi
+qo'shni qiymat ham qo'shiladi — <em>3-value BVA</em>: 17, 18, 19 va 64, 65, 66.
+Kundalik ishda odatda 2-value yetarli.</p>
+
+<div class="box box--key">
+  <p class="box-title">Ikkala texnika birga ishlaydi</p>
+  <p><strong>Ekvivalentlik sinflari</strong> — hech bir holatni o'tkazib
+  yubormaslikni kafolatlaydi. <strong>Chegara qiymatlari</strong> — xato
+  ehtimoli eng yuqori nuqtalarni beradi. Birinchisi <em>kenglik</em>,
+  ikkinchisi <em>aniqlik</em>.</p>
+</div>
+
+<h2>To'liq misol: parol maydonchasi</h2>
+
+<p>Talab: <em>«Parol 8 dan 20 tagacha belgidan iborat bo'lishi kerak.»</em></p>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Sinf</th><th>Test qiymati</th><th>Kutilgan natija</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Juda qisqa (yaroqsiz)</td><td>7 belgi</td><td>Xato xabari chiqadi</td></tr>
+    <tr><td>Quyi chegara (yaroqli)</td><td><span class="bv">8 belgi</span></td><td>Qabul qilinadi</td></tr>
+    <tr><td>Yuqori chegara (yaroqli)</td><td><span class="bv">20 belgi</span></td><td>Qabul qilinadi</td></tr>
+    <tr><td>Juda uzun (yaroqsiz)</td><td>21 belgi</td><td>Xato xabari chiqadi</td></tr>
+    <tr><td>Bo'sh (yaroqsiz)</td><td>0 belgi</td><td>Xato xabari chiqadi</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>Beshta test — va parol uzunligi bo'yicha deyarli hamma narsa qamrab olindi.
+Diqqat qiling: <strong>bo'sh qiymat</strong> alohida sinf. U ko'pincha butunlay
+boshqa kod yo'lidan o'tadi va shuning uchun alohida sinaladi.</p>
+
+<h2>Tekshirib ko'ramiz</h2>
+
+<section class="quiz">
+  <p class="quiz-prompt">1. Maydoncha 1 dan 100 gacha son qabul qiladi.
+  Qaysi to'plam 2-value BVA ga to'g'ri keladi?</p>
+  <div class="quiz-options">
+    <button class="quiz-option" data-correct data-explain="Har bir chegarada ikkitadan qiymat: chegara va undan tashqaridagi qo'shni.">0, 1, 100, 101</button>
+    <button class="quiz-option" data-explain="Bu ichkaridagi qiymatlar. Chegaradan tashqaridagi qiymat yetishmaydi.">1, 2, 99, 100</button>
+    <button class="quiz-option" data-explain="Quyi chegara to'liq, lekin yuqori chegarada 101 yetishmaydi.">0, 1, 2, 100</button>
+    <button class="quiz-option" data-explain="50 — o'rtadagi qiymat, u chegara emas. Tashqi qiymatlar yo'q.">1, 50, 99, 100</button>
+  </div>
+  <p class="quiz-feedback" hidden></p>
+</section>
+
+<section class="quiz">
+  <p class="quiz-prompt">2. Nega bitta sinfdan bitta qiymat yetarli deb hisoblanadi?</p>
+  <div class="quiz-options">
+    <button class="quiz-option" data-explain="Vaqtni tejash — foydali natija, lekin sabab emas. Sabab dasturning ishlashida.">Test yozishga vaqt kam ketadi</button>
+    <button class="quiz-option" data-correct data-explain="Sinf ta'rifi shu: dastur ularni bir xil ishlaydi, demak natija ham bir xil.">Dastur ularni bir xil ishlaydi</button>
+    <button class="quiz-option" data-explain="Aksincha — chegaralarda xato ko'proq. Shuning uchun BVA kerak.">Chegarada xato kam uchraydi</button>
+    <button class="quiz-option" data-explain="Bunday qoida yo'q. Sinflar soni talabga bog'liq.">Sinflar soni doim uchta bo'ladi</button>
+  </div>
+  <p class="quiz-feedback" hidden></p>
+</section>
+
+<section class="quiz">
+  <p class="quiz-prompt">3. Qaysi holatda 3-value BVA tanlanadi?</p>
+  <div class="quiz-options">
+    <button class="quiz-option" data-explain="Aksincha: vaqt kam bo'lsa 2-value olinadi, u arzonroq.">Test uchun vaqt juda kam bo'lsa</button>
+    <button class="quiz-option" data-explain="Maydonchalar soni texnikani tanlashga ta'sir qilmaydi.">Maydonchalar soni ko'p bo'lsa</button>
+    <button class="quiz-option" data-correct data-explain="Moliya, tibbiyot, xavfsizlik — chegaradagi xato qimmatga tushadigan sohalar.">Chegaradagi xato qimmatga tushsa</button>
+    <button class="quiz-option" data-explain="Yaroqsiz sinflar ikkala usulda ham qamrab olinadi.">Yaroqsiz sinflar mavjud bo'lsa</button>
+  </div>
+  <p class="quiz-feedback" hidden></p>
+</section>
+
+<section class="recall">
+  <p class="recall-q">Eslab ko'ring — <em>o'tgan darsdan</em>: bug reportda
+  «haqiqiy natija» yozishda qanday xato eng ko'p uchraydi?</p>
+  <button class="recall-btn">Javobni ko'rsatish</button>
+  <p class="recall-a" hidden>Kuzatilgan fakt o'rniga <strong>sabab haqida
+  taxmin</strong> yozish («server o'chgan bo'lsa kerak») yoki noaniq ibora
+  ishlatish («ishlamayapti»). Ekranda aynan nima ko'ringanini yozish kerak.</p>
+</section>
+
+<h2>Amaliyot</h2>
+
+<p>Ikki qism: birinchisi qog'ozda, ikkinchisi haqiqiy saytda.</p>
+
+<h3>A qism — talabdan test qiymatlariga</h3>
+
+<p>Quyidagi talab berilgan. Har bir maydoncha uchun yuqoridagi kabi jadval tuzing:
+sinf → test qiymati → kutilgan natija.</p>
+
+<div class="box">
+  <p class="box-title">Talab: kitob buyurtma formasi</p>
+  <ul>
+    <li><strong>Nusxalar soni:</strong> 1 dan 10 tagacha butun son</li>
+    <li><strong>Yetkazish indeksi:</strong> aynan 6 ta raqam</li>
+    <li><strong>Yetkazish turi:</strong> oddiy / tezkor / o'zim olaman</li>
+  </ul>
+</div>
+
+<p>Maslahat: har bir maydoncha uchun avval sinflarni sanang (yaroqli va
+yaroqsiz), keyingina qiymat tanlang. Sinflarni sanamasdan qiymat tanlash —
+o'sha «tasodifiy son» xatosiga qaytish.</p>
+
+<h3>B qism — haqiqiy saytda sinash</h3>
+
+<ol class="steps">
+  <li><a href="https://www.saucedemo.com/">saucedemo.com</a> ga
+      <code>standard_user</code> bilan kiring, savatga mahsulot qo'shing va
+      «Checkout» tugmasiga o'ting.</li>
+  <li>«Zip/Postal Code» maydonchasini oling. Talab yozilmagan — demak siz
+      <strong>o'zingiz</strong> mantiqiy sinflarni taxmin qilasiz: bo'sh, bitta
+      belgi, juda uzun qiymat, harflar, bo'shliqlar, manfiy son.</li>
+  <li>Har birini kiritib, nima bo'lishini yozib boring.</li>
+  <li>Mantiqqa to'g'ri kelmaydigan xatti-harakat topsangiz —
+      <a href="./0001-bug-report-yozish.html">1-darsdagi</a> shablon bo'yicha
+      bug report yozing.</li>
+  <li>Ikkalasini ham menga yuboring: A qismdagi jadval va B qismdagi kuzatuvlar.</li>
+</ol>
+
+<div class="box box--warn">
+  <p class="box-title">B qismning asl darsi</p>
+  <p>Talab yozilmagan maydoncha — bu <strong>real ishdagi eng ko'p uchraydigan
+  holat</strong>. Bunda tester ikki ish qiladi: mantiqiy taxmin bilan sinaydi va
+  «bu maydoncha uchun qoida nima?» deb <em>so'raydi</em>. Javobsiz talab ham —
+  o'zi bir topilma.</p>
+</div>
+
+<h2>O'qish uchun (birlamchi manba)</h2>
+
+<blockquote>
+  <a href="https://astqb.org/4-2-black-box-test-techniques/">ISTQB Foundation
+  Level Syllabus — 4.2 Black-Box Test Techniques</a>
+  <cite>Sohaning rasmiy standarti, aynan shu ikki texnika haqida. Qisqa —
+  bir necha bet. Ingliz tilida.</cite>
+</blockquote>
+
+<p class="cite">ISTQB 2025-yilda chegara qiymatlari bo'yicha alohida rasmiy
+hujjat ham chiqargan: <a href="https://istqb.org/wp-content/uploads/2025/10/Boundary-Value-Analysis-white-paper.pdf">Boundary
+Value Analysis white paper</a> (PDF). Chuqurroq ketmoqchi bo'lsangiz.</p>
+
+<div class="ask-teacher">
+  <p><strong>Savol bering.</strong> A qismdagi jadvalingizni yuboring — men
+  qaysi sinfni o'tkazib yuborganingizni ko'rsataman. Bu texnikada eng ko'p
+  o'rganiladigan narsa aynan <em>unutilgan sinflar</em>.</p>
+</div>
+
+<nav class="nav">
+  <a href="../reference/test-dizayn-texnikalari.html">Reference: Test dizayn texnikalari</a>
+  <a href="../reference/lugat.html">Reference: Lug'at</a>
+</nav>
+
+<nav class="lesson-nav">
+  <a class="lesson-nav-link lesson-nav-prev" href="./0001-bug-report-yozish.html">
+    <span class="lesson-nav-dir">← Oldingi dars</span>
+    <span class="lesson-nav-title">1. Dasturchi qaytarib yubormaydigan bug report</span>
+  </a>
+  <a class="lesson-nav-link lesson-nav-next" href="./0003-test-case-yozish.html">
+    <span class="lesson-nav-dir">Keyingi dars →</span>
+    <span class="lesson-nav-title">3. Boshqa odam ham bajara oladigan test</span>
+  </a>
+  <a class="lesson-nav-home" href="./index.html">Barcha darslar</a>
+</nav>
+
+<script src="../assets/lesson.js"></script>
+</body>
+</html>

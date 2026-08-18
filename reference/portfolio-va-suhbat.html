@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Portfolio va suhbat — Learn-QA</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<p class="crumbs"><a href="../lessons/index.html">Darslar</a> ·
+<a href="./lugat.html">Lug'at</a></p>
+
+<p class="eyebrow">Reference · chop etsa bo'ladi</p>
+<h1>Portfolio va suhbat</h1>
+<p class="subtitle">Ish qidirishga tayyorlanayotganda shu sahifani oching:
+portfolio ro'yxati, rezyume skeleti, savollar banki va amaliy topshiriqning
+javob tuzilmasi.</p>
+
+<h2>Portfolio ro'yxati</h2>
+
+<ul class="checklist">
+  <li>15–20 ta bug report (Jira loyihasi yoki hujjat)</li>
+  <li>10+ test case, shablon bo'yicha</li>
+  <li>Bitta test plan — risk jadvali bilan</li>
+  <li>2–3 ta exploratory sessiya varaqasi</li>
+  <li>Test qiymatlari jadvali (ekvivalentlik va chegaralar)</li>
+  <li>Story uchun savollar ro'yxati va acceptance criteria</li>
+  <li>API test holatlari jadvali va Postman collection</li>
+  <li>Bazani tekshirish SQL so'rovlari</li>
+  <li>Mobil sessiya hisoboti (qurilma ma'lumoti bilan)</li>
+  <li>Avtomatlashtirish qarori jadvali</li>
+  <li>Bosh sahifa: kim ekaningiz, ishlar ro'yxati, har biriga izoh</li>
+</ul>
+
+<div class="box box--key">
+  <p class="box-title">Izoh — eng qimmatli qism</p>
+  <p>Har bir ishga 2–3 gap qo'shing: nima uchun shunday qaror qabul
+  qildingiz, nimani ongli ravishda tashladingiz. Ish natijasi
+  bilimingizni, izoh esa <em>fikrlashingizni</em> ko'rsatadi.</p>
+</div>
+
+<h2>Rezyume skeleti</h2>
+
+<div class="report">
+  <dl>
+    <dt>1. Sarlavha</dt>
+    <dd>Ism · aloqa · shahar · portfolio havolasi · LinkedIn</dd>
+
+    <dt>2. Qisqa xulosa</dt>
+    <dd>Uch gap: kim ekaningiz, nima qilganingiz, nima qidirayotganingiz</dd>
+
+    <dt>3. Ko'nikmalar</dt>
+    <dd>Har biriga <strong>daraja</strong> bilan: test dizayn texnikalari,
+        bug report, Jira, DevTools, SQL (asoslar), Postman (asoslar),
+        mobil testing</dd>
+
+    <dt>4. Loyihalar</dt>
+    <dd>Portfolio ishlari — har biriga 1–2 gap va havola</dd>
+
+    <dt>5. Ta'lim</dt>
+    <dd>Eng pastda</dd>
+  </dl>
+</div>
+
+<div class="box box--bad">
+  <p class="box-title">Rezyumeda bo'lmasligi kerak</p>
+  <p>«Mas'uliyatli», «tirishqoq», «tez o'rganaman», «jamoada ishlay olaman»,
+  «kommunikabel» — bularni hamma yozadi va hech narsa ajratmaydi.</p>
+  <p>Bilmagan texnologiya nomi ham bo'lmasin: suhbatda birinchi savoldayoq
+  ochiladi.</p>
+</div>
+
+<h2>«Buni qanday test qilasiz?» — javob tuzilmasi</h2>
+
+<ol class="steps">
+  <li><strong>Savollar</strong> — kim uchun, qanday cheklovlar, qaysi
+      muhitlar</li>
+  <li><strong>Risk</strong> — eng qimmat xato qayerda; shundan boshlayman</li>
+  <li><strong>Asosiy yo'l</strong> — happy path</li>
+  <li><strong>Ekvivalentlik va chegaralar</strong> — aniq qiymatlar bilan</li>
+  <li><strong>Xato yo'llari</strong> — bo'sh, noto'g'ri tur, uzun matn,
+      maxsus belgilar, uzilish</li>
+  <li><strong>Nofunksional</strong> — tezlik, qulaylik, xavfsizlik, moslik</li>
+  <li><strong>Muhit</strong> — brauzer, qurilma, ekran o'lchami</li>
+  <li><strong>To'xtash nuqtasi</strong> — vaqt yetmasa nimani tashlayman
+      va nima uchun</li>
+</ol>
+
+<p>Birinchi va oxirgi qadam eng ko'p ball keltiradi va aynan ular ko'pincha
+unutiladi.</p>
+
+<h2>Savollar banki</h2>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Savol</th><th>Qaysi darsda</th></tr></thead>
+  <tbody>
+    <tr><td>Severity va priority farqi?</td><td>1</td></tr>
+    <tr><td>Yaxshi bug report'da nima bo'ladi?</td><td>1</td></tr>
+    <tr><td>Ekvivalentlik sinflari va chegara qiymatlari nima?</td><td>2</td></tr>
+    <tr><td>Test case va checklist farqi?</td><td>3</td></tr>
+    <tr><td>Retest va regression farqi?</td><td>4</td></tr>
+    <tr><td>Exploratory testing nima, qachon qo'llanadi?</td><td>5</td></tr>
+    <tr><td>4xx va 5xx farqi?</td><td>6</td></tr>
+    <tr><td>Acceptance criteria nima, kim yozadi?</td><td>7</td></tr>
+    <tr><td>Jira'da status va resolution farqi?</td><td>8</td></tr>
+    <tr><td>Test plan nimalardan iborat? Risk qanday baholanadi?</td><td>9</td></tr>
+    <tr><td>Test darajalari? Funksional va nofunksional farqi?</td><td>10</td></tr>
+    <tr><td>Nima uchun testerga SQL kerak? <code>NULL</code> nima?</td><td>11</td></tr>
+    <tr><td>HTTP metodlari? Idempotentlik nima?</td><td>12</td></tr>
+    <tr><td>Mobil testing veb-testingdan nimasi bilan farq qiladi?</td><td>13</td></tr>
+    <tr><td>Nimani avtomatlashtirmaslik kerak? Test piramidasi nima?</td><td>14</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Xulq-atvor savollari</h2>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Savol</th><th>Javob yo'nalishi</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>«Dasturchi bu bug emas dedi — nima qilasiz?»</td>
+      <td>Dalil qo'shaman (video, log, spetsifikatsiya), muhokamani
+          hisobotda olib boraman, kelisha olmasak lead qaror qiladi.
+          Shaxsiy bahsga aylantirmayman</td>
+    </tr>
+    <tr>
+      <td>«Muddat yetmayapti, nimani tashlaysiz?»</td>
+      <td>Risk bo'yicha: past ta'sirli va kam ishlatiladigan joylarni.
+          Tashlaganimni yozib, jamoaga ochiq aytaman</td>
+    </tr>
+    <tr>
+      <td>«Relizdan keyin xato chiqdi — kim aybdor?»</td>
+      <td>Ayb qidirmayman: nima uchun topilmaganini tahlil qilaman va
+          o'sha holatni regression to'plamiga qo'shaman</td>
+    </tr>
+    <tr>
+      <td>«Talab yo'q, nimadan boshlaysiz?»</td>
+      <td>Exploratory sessiya, charter bilan; parallel savollar
+          ro'yxatini yig'aman</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h2>ISTQB Foundation Level — faktlar</h2>
+
+<div class="table-wrap">
+<table>
+  <tbody>
+    <tr><td>Savollar</td><td>40 ta</td></tr>
+    <tr><td>Vaqt</td><td>60 daqiqa (ona tili ingliz bo'lmasa — 75)</td></tr>
+    <tr><td>O'tish bali</td><td>65 %</td></tr>
+    <tr><td>Oldindan talab</td><td>Yo'q</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>Sertifikat bilimni tasdiqlaydi, ko'nikmani emas. Tanlash kerak bo'lsa:
+avval portfolio, keyin sertifikat.</p>
+
+<p class="cite">Manbalar:
+<a href="https://www.ministryoftesting.com/software-testing-glossary/portfolio">Ministry
+of Testing — Portfolio</a>,
+<a href="https://astqb.org/certifications/foundation-level/">ASTQB —
+Foundation Level</a>.</p>
+
+<div class="ask-teacher">
+  <p><strong>Rezyume va portfolio havolangizni yuboring.</strong> Men ularni
+  suhbatdosh ko'zi bilan o'qib chiqaman, so'ng soxta suhbat o'tkazamiz.</p>
+</div>
+
+<nav class="nav">
+  <a href="../lessons/0015-portfolio-va-ish-topish.html">15-dars</a>
+  <a href="./lugat.html">Lug'at</a>
+  <a href="../lessons/index.html">Barcha darslar</a>
+</nav>
+
+</body>
+</html>

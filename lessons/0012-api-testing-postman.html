@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>12-dars: API testing va Postman — Learn-QA</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<p class="crumbs"><a href="./index.html">Darslar</a> ·
+<a href="./0011-sql-testerlar-uchun.html">← 11-dars</a></p>
+
+<p class="eyebrow">12-dars · taxminan 35 daqiqa</p>
+<h1>Tugmasiz test: API va Postman</h1>
+<p class="subtitle">6-darsda Network panelida so'rovlarni <em>kuzatdingiz</em>.
+Endi ularni o'zingiz <em>yuborasiz</em> — interfeys hali yozilmagan bo'lsa
+ham.</p>
+
+<h2>Interfeys — eng ustki qatlam</h2>
+
+<p>Siz tugmani bosganingizda quyidagilar sodir bo'ladi:</p>
+
+<figure>
+  <div class="partitions-row">
+    <div class="partition partition--valid">
+      <span class="partition-name">Brauzer</span>
+      <span class="partition-range">Tugma bosildi</span>
+    </div>
+    <div class="partition partition--valid">
+      <span class="partition-name">API</span>
+      <span class="partition-range">So'rov → javob</span>
+    </div>
+    <div class="partition partition--invalid">
+      <span class="partition-name">Baza</span>
+      <span class="partition-range">Ma'lumot saqlandi</span>
+    </div>
+  </div>
+  <figcaption>Xato uch joyning istalganida bo'lishi mumkin. Faqat interfeysni
+  sinasangiz, qaysi biri ekanini ayta olmaysiz.</figcaption>
+</figure>
+
+<p><strong>API</strong> (Application Programming Interface) — interfeys bilan
+server orasidagi kelishuv. Uni to'g'ridan-to'g'ri sinashning uch afzalligi
+bor:</p>
+
+<ul>
+  <li><strong>Ertaroq.</strong> API odatda interfeysdan oldin tayyor bo'ladi —
+      ya'ni siz kutmasdan test boshlaysiz.</li>
+  <li><strong>Aniqroq.</strong> «Xato API dami yoki interfeysdami?» degan
+      savolga javob berasiz.</li>
+  <li><strong>Tezroq.</strong> Interfeysda 20 ta variantni qo'lda kiritish
+      yarim soat; API orqali — bir necha daqiqa.</li>
+</ul>
+
+<div class="box box--key">
+  <p class="box-title">Bu qaysi daraja?</p>
+  <p>10-darsdagi tasnif bo'yicha API testing — asosan
+  <strong>integration</strong> darajasi: qismlar orasidagi aloqani
+  tekshirasiz. Shuning uchun unit testlar ko'rmaydigan xatolarning katta
+  qismi aynan shu yerda topiladi.</p>
+</div>
+
+<h2>So'rov nimalardan iborat</h2>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Qism</th><th>Nima</th><th>Namuna</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Metod</strong></td><td>Nima qilmoqchisiz</td>
+        <td><code>GET</code>, <code>POST</code></td></tr>
+    <tr><td><strong>URL</strong> <span class="cite">endpoint</span></td>
+        <td>Qaysi resursga</td>
+        <td><code>https://api.site.uz/users/42</code></td></tr>
+    <tr><td><strong>Headers</strong></td><td>Qo'shimcha ma'lumot: format,
+        avtorizatsiya</td>
+        <td><code>Content-Type: application/json</code></td></tr>
+    <tr><td><strong>Body</strong></td><td>Yuborilayotgan ma'lumot (odatda
+        JSON)</td><td><code>{"email": "a@b.uz"}</code></td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>Javob esa uch qismdan iborat: <strong>status kodi</strong> (6-darsdan
+tanish), <strong>headers</strong> va <strong>body</strong>.</p>
+
+<h2>Metodlar: har birining o'z ma'nosi bor</h2>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Metod</th><th>Vazifasi</th><th>Idempotentmi?</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>GET</code></td><td>Resursni o'qish. Faqat ma'lumot oladi,
+        hech narsani o'zgartirmaydi</td><td>Ha</td></tr>
+    <tr><td><code>POST</code></td><td>Yangi narsa yaratish. Serverda holatni
+        o'zgartiradi</td><td><strong>Yo'q</strong></td></tr>
+    <tr><td><code>PUT</code></td><td>Resursni <em>butunlay</em>
+        almashtirish</td><td>Ha</td></tr>
+    <tr><td><code>PATCH</code></td><td>Resursning <em>bir qismini</em>
+        o'zgartirish</td><td>Yo'q</td></tr>
+    <tr><td><code>DELETE</code></td><td>Resursni o'chirish</td><td>Ha</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p class="cite">Ta'riflar: <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Methods">MDN
+— HTTP request methods</a>.</p>
+
+<div class="box box--key">
+  <p class="box-title">Idempotentlik — testerning tayyor test g'oyasi</p>
+  <p><strong>Idempotent</strong> degani: so'rovni bir marta yuborsangiz ham,
+  besh marta yuborsangiz ham natija bir xil bo'ladi.</p>
+  <p>Demak sizda darhol ikkita test bor:</p>
+  <ul>
+    <li><code>DELETE</code> ni <strong>ikki marta</strong> yuboring. Ikkinchisi
+        xato bermasligi va bazani buzmasligi kerak.</li>
+    <li><code>POST</code> ni <strong>ikki marta</strong> yuboring. U idempotent
+        emas — demak ikkita yozuv paydo bo'lishi <em>mumkin</em>. Bu shu
+        holatda to'g'rimi? Ikki xil buyurtma yaratilishi kerakmi yoki
+        dublikat bloklanishi kerakmi? Bu — beriladigan savol.</li>
+  </ul>
+  <p>Foydalanuvchi «To'lash» tugmasini asabiylikdan ikki marta bosganda pul
+  ikki marta yechilishi — aynan shu joydan chiqadigan real xato.</p>
+</div>
+
+<h2>JSON — bir daqiqada</h2>
+
+<p>API lar ma'lumotni deyarli har doim JSON shaklida uzatadi:</p>
+
+<pre><code>{
+  "id": 42,
+  "email": "test@mail.uz",
+  "is_active": true,
+  "phone": null,
+  "orders": [101, 102]
+}</code></pre>
+
+<ul>
+  <li>Matn qiymatlari <strong>qo'shtirnoq</strong>da, sonlar tirnoqsiz.</li>
+  <li><code>true</code> / <code>false</code> — mantiqiy qiymat.</li>
+  <li><code>null</code> — qiymat yo'q. 11-darsdagi <code>NULL</code> ning
+      o'zi.</li>
+  <li><code>[…]</code> — ro'yxat, <code>{…}</code> — obyekt.</li>
+</ul>
+
+<p>Bilishingiz kerak bo'lgan narsa shu. Testerning ishi — javobdagi
+qiymatlarni kutilgan qiymat bilan solishtirish.</p>
+
+<h2>Postman: ish quroli</h2>
+
+<p><a href="https://www.postman.com/downloads/">Postman</a> — so'rov yuborish
+va javobni ko'rish uchun eng ko'p ishlatiladigan dastur. Bepul.</p>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Joy</th><th>Nima qilinadi</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Metod (chapda)</td><td><code>GET</code>, <code>POST</code>…
+        tanlanadi</td></tr>
+    <tr><td>URL maydoni</td><td>Endpoint yoziladi</td></tr>
+    <tr><td><strong>Params</strong></td><td>URL parametrlari
+        (<code>?page=2</code>)</td></tr>
+    <tr><td><strong>Headers</strong></td><td>Token, format</td></tr>
+    <tr><td><strong>Body</strong> → raw → JSON</td><td>Yuboriladigan ma'lumot</td></tr>
+    <tr><td><strong>Send</strong></td><td>So'rov yuboriladi</td></tr>
+    <tr><td>Pastdagi panel</td><td>Javob: status, vaqt, hajm, body</td></tr>
+    <tr><td><strong>Collection</strong></td><td>So'rovlar to'plami — saqlab
+        qo'yiladi va qayta ishlatiladi</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p class="cite">Rasmiy qo'llanma:
+<a href="https://learning.postman.com/docs/getting-started/first-steps/sending-the-first-request">Postman
+Docs — sending the first request</a>.</p>
+
+<h2>API da nimani test qilasiz</h2>
+
+<p>Xushxabar: yangi texnika o'rganish kerak emas. 2-darsdagi ekvivalentlik
+sinflari va chegara qiymatlari bu yerda ham <em>aynan</em> shunday
+ishlaydi — faqat tezroq.</p>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Nimani sinaysiz</th><th>Kutilgan javob</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>To'g'ri so'rov (happy path)</td><td><code>200</code> yoki
+        <code>201</code>, to'g'ri body</td></tr>
+    <tr><td>Majburiy maydon yuborilmadi</td><td><code>400</code> va
+        <em>tushunarli</em> xato matni</td></tr>
+    <tr><td>Noto'g'ri tur (son o'rniga matn)</td><td><code>400</code></td></tr>
+    <tr><td>Chegara qiymatlari (min, max, min−1, max+1)</td>
+        <td>Spetsifikatsiya bo'yicha</td></tr>
+    <tr><td>Token yo'q yoki noto'g'ri</td><td><code>401</code></td></tr>
+    <tr><td>Boshqa odamning resursi</td><td><code>403</code> — lekin ma'lumot
+        <strong>qaytmasligi</strong> shart</td></tr>
+    <tr><td>Mavjud bo'lmagan <code>id</code></td><td><code>404</code></td></tr>
+    <tr><td>Bir xil so'rov ikki marta</td><td>Dublikat yaratilmasligi
+        kerakmi?</td></tr>
+    <tr><td>Juda uzun matn</td><td><code>400</code>, server yiqilmasligi
+        kerak</td></tr>
+    <tr><td>Noma'lum qo'shimcha maydon</td><td>E'tiborsiz qoldiriladimi yoki
+        xato beradimi?</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="box box--warn">
+  <p class="box-title">Faqat status kodiga qaramang</p>
+  <p><code>200 OK</code> — hammasi joyida degani emas. Body ichida
+  <code>{"error": "user not found"}</code> turishi mumkin. Bu o'zi ham bug:
+  xato holati <code>200</code> bilan qaytarilmasligi kerak. Har doim
+  <strong>status + body</strong> ni birga tekshiring.</p>
+</div>
+
+<h2>Tekshirib ko'ramiz</h2>
+
+<section class="quiz">
+  <p class="quiz-prompt">1. Qaysi metod idempotent emas — ya'ni ikki marta
+  yuborilsa ikkita yozuv paydo bo'lishi mumkin?</p>
+  <div class="quiz-options">
+    <button class="quiz-option" data-explain="GET faqat o'qiydi va hech narsani o'zgartirmaydi.">GET</button>
+    <button class="quiz-option" data-correct data-explain="To'g'ri. POST yangi resurs yaratadi va idempotent emas — «To'lash» tugmasini ikki marta bosish muammosi shundan chiqadi.">POST</button>
+    <button class="quiz-option" data-explain="PUT resursni butunlay almashtiradi — necha marta yuborsangiz ham natija bir xil.">PUT</button>
+    <button class="quiz-option" data-explain="DELETE idempotent: o'chirilgan narsani qayta o'chirish holatni o'zgartirmaydi.">DELETE</button>
+  </div>
+  <p class="quiz-feedback" hidden></p>
+</section>
+
+<section class="quiz">
+  <p class="quiz-prompt">2. Majburiy <code>email</code> maydonisiz
+  <code>POST</code> yubordingiz. Server <code>200 OK</code> qaytardi va body
+  da <code>{"error": "email required"}</code> bor. Bu qanday baholanadi?</p>
+  <div class="quiz-options">
+    <button class="quiz-option" data-explain="Xato aniqlangan bo'lsa ham, uni 200 bilan qaytarish noto'g'ri — mijoz dasturi buni muvaffaqiyat deb qabul qiladi.">To'g'ri ishlagan — xato aniqlandi</button>
+    <button class="quiz-option" data-correct data-explain="To'g'ri. Xato holati 400 bilan qaytarilishi kerak. 200 — «hammasi joyida» degani.">Bug — status kodi 400 bo'lishi kerak</button>
+    <button class="quiz-option" data-explain="Aksincha, bu status va body mos kelmayotgan holat — aynan tekshirilishi kerak bo'lgan joy.">Muammo yo'q, body muhim emas</button>
+    <button class="quiz-option" data-explain="Bu API ning javobi — interfeysga bog'liq emas.">Buni faqat interfeysda tekshirish kerak</button>
+  </div>
+  <p class="quiz-feedback" hidden></p>
+</section>
+
+<section class="quiz">
+  <p class="quiz-prompt">3. Nima uchun API ni interfeysdan oldin test qilish
+  mumkin?</p>
+  <div class="quiz-options">
+    <button class="quiz-option" data-explain="API testlari ham xato topadi — ular boshqa darajada ishlaydi, ishonchsiz emas.">API testlari ishonchliroq hisoblanadi</button>
+    <button class="quiz-option" data-correct data-explain="To'g'ri. API odatda interfeysdan oldin tayyor bo'ladi — bu shift-left ning amaliy ko'rinishi.">API odatda interfeysdan oldin tayyor bo'ladi</button>
+    <button class="quiz-option" data-explain="Postman bepul, lekin sabab bu emas.">Postman bepul dastur</button>
+    <button class="quiz-option" data-explain="Aksincha — API testi ko'proq texnik bilim talab qiladi, lekin u erta boshlanadi.">API testi kam bilim talab qiladi</button>
+  </div>
+  <p class="quiz-feedback" hidden></p>
+</section>
+
+<section class="recall">
+  <p class="recall-q">Eslab ko'ring — <em>11-darsdan</em>: nima uchun
+  <code>WHERE phone = NULL</code> ishlamaydi va to'g'ri yozuv qanday?</p>
+  <button class="recall-btn">Javobni ko'rsatish</button>
+  <p class="recall-a" hidden><code>NULL</code> «noma'lum» degani, noma'lum
+  narsa esa hech narsaga — hatto o'ziga ham — teng emas. Shuning uchun
+  <code>= NULL</code> har doim bo'sh natija qaytaradi. To'g'ri yozuv:
+  <code>WHERE phone IS NULL</code>.</p>
+</section>
+
+<h2>Amaliyot: birinchi API sessiyangiz</h2>
+
+<p><a href="https://www.postman.com/downloads/">Postman</a> ni o'rnating.
+Mashq uchun <code>jsonplaceholder.typicode.com</code> — bepul, ro'yxatdan
+o'tish talab qilmaydigan test API.</p>
+
+<h3>A qism — tanishuv</h3>
+
+<ol class="steps">
+  <li><code>GET https://jsonplaceholder.typicode.com/posts/1</code> yuboring.
+      Status, javob vaqti va body ni ko'ring.</li>
+  <li>Endi <code>/posts/9999</code> ni so'rang. Status nima? Body nima?</li>
+  <li><code>POST https://jsonplaceholder.typicode.com/posts</code> yuboring.
+      Body → raw → JSON:
+      <pre><code>{ "title": "test", "body": "matn", "userId": 1 }</code></pre>
+      Status nima? Javobda <code>id</code> paydo bo'ldimi?</li>
+  <li>Endi yaratilgan <code>id</code> ni <code>GET</code> bilan so'rang.
+      Nima bo'ladi? <span class="cite">Bu test serveri ma'lumotni haqiqatan
+      saqlamaydi — u shunday mo'ljallangan. Lekin diqqat qiling: server
+      «yaratdim» dedi, aslida esa yo'q. Real mahsulotda bu jiddiy bug
+      bo'lardi.</span></li>
+</ol>
+
+<h3>B qism — o'z testlaringizni loyihalang</h3>
+
+<p>Tasavvur qiling, ro'yxatdan o'tish API si test qilinyapti:</p>
+
+<pre><code>POST /api/register
+{ "email": "...", "password": "...", "age": ... }</code></pre>
+
+<p>Talablar: email majburiy va to'g'ri formatda; parol 8–32 belgi;
+yosh 18–100.</p>
+
+<ol class="steps">
+  <li><strong>Test holatlarini yozing.</strong> 2-darsdagi ekvivalentlik va
+      chegara texnikasidan foydalaning. Kamida <strong>12 ta</strong> holat
+      chiqishi kerak.</li>
+  <li>Har biriga <strong>kutilgan status kodini</strong> yozing.</li>
+  <li>Kamida uchtasi <em>faqat</em> API darajasida sinaladigan holat bo'lsin
+      — interfeys orqali umuman yubora olmaydigan narsalar (masalan
+      <code>age</code> maydoniga matn, yoki maydonni butunlay olib tashlash).</li>
+  <li><strong>Menga yuboring:</strong> jadval ko'rinishida — holat, yuborilgan
+      ma'lumot, kutilgan status, kutilgan xato matni.</li>
+</ol>
+
+<div class="box box--key">
+  <p class="box-title">3-band nima uchun muhim</p>
+  <p>Interfeys sizni himoya qiladi: yosh maydoniga faqat son kiritishga ruxsat
+  beradi, bo'sh formani yubortirmaydi. Lekin <strong>haqiqiy hujumchi
+  interfeysdan foydalanmaydi</strong> — u so'rovni to'g'ridan-to'g'ri
+  yuboradi. Server o'zi ham tekshirishi shart. Aynan shu joyda API testerlari
+  eng qimmatli xatolarni topadi.</p>
+</div>
+
+<h2>O'qish uchun (birlamchi manba)</h2>
+
+<blockquote>
+  <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Methods">MDN
+  — HTTP request methods</a>
+  <cite>Har bir metodning aniq ta'rifi, xavfsizlik va idempotentlik jadvali.
+  Ingliz tilida.</cite>
+</blockquote>
+
+<p class="cite">Postman bilan ishlash:
+<a href="https://learning.postman.com/docs/getting-started/first-steps/sending-the-first-request">Postman
+Docs — sending the first request</a>.</p>
+
+<div class="ask-teacher">
+  <p><strong>B qismdagi jadvalni yuboring.</strong> Men holatlaringizni
+  tekshiraman va siz o'ylab topmagan bir nechtasini qo'shaman — ayniqsa
+  interfeys yashiradigan holatlarni.</p>
+</div>
+
+<nav class="nav">
+  <a href="../reference/api-testing-shpargalka.html">Reference: API testing</a>
+  <a href="../reference/devtools-shpargalka.html">Reference: DevTools shpargalkasi</a>
+  <a href="../reference/lugat.html">Reference: Lug'at</a>
+</nav>
+
+<nav class="lesson-nav">
+  <a class="lesson-nav-link lesson-nav-prev" href="./0011-sql-testerlar-uchun.html">
+    <span class="lesson-nav-dir">← Oldingi dars</span>
+    <span class="lesson-nav-title">11. Ekran aldashi mumkin: SQL</span>
+  </a>
+  <a class="lesson-nav-link lesson-nav-next" href="./0013-mobil-testing.html">
+    <span class="lesson-nav-dir">Keyingi dars →</span>
+    <span class="lesson-nav-title">13. Ilova qurilmaning egasi emas</span>
+  </a>
+  <a class="lesson-nav-home" href="./index.html">Barcha darslar</a>
+</nav>
+
+<script src="../assets/lesson.js"></script>
+</body>
+</html>

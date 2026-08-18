@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Acceptance criteria — Learn-QA</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<p class="crumbs"><a href="../lessons/index.html">Darslar</a> ·
+<a href="./lugat.html">Lug'at</a></p>
+
+<p class="eyebrow">Reference · chop etsa bo'ladi</p>
+<h1>User story va acceptance criteria</h1>
+<p class="subtitle">Yangi vazifa kelganda shu hujjatni oching. Savollar
+ro'yxati — testerning eng qimmatli hissasi.</p>
+
+<h2>User story formulasi</h2>
+
+<div class="report">
+  <dl>
+    <dt>Shakl</dt>
+    <dd><strong>[Kim] sifatida</strong> men <strong>[nima]</strong> qilmoqchiman,
+        chunki <strong>[nima uchun]</strong></dd>
+
+    <dt>Nima uchun «nima uchun» muhim</dt>
+    <dd>Sabab bo'lmasa, siz nimani himoya qilayotganingizni bilmaysiz. Chegara
+        holatlarida qaror shu sababga qarab qabul qilinadi.</dd>
+  </dl>
+</div>
+
+<h2>Given / When / Then</h2>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Qism</th><th>Nima yoziladi</th><th>Test case'dagi nomi</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Given</strong></td><td>Boshlang'ich holat</td>
+        <td>Dastlabki shart</td></tr>
+    <tr><td><strong>When</strong></td><td>Foydalanuvchining harakati</td>
+        <td>Qadamlar</td></tr>
+    <tr><td><strong>Then</strong></td><td>Kuzatiladigan natija</td>
+        <td>Kutilgan natija</td></tr>
+    <tr><td><strong>And</strong></td><td>Har qaysisiga qo'shimcha shart</td>
+        <td>—</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="box box--key">
+  <p class="box-title">Bitta AC = bitta holat</p>
+  <p>Bitta Given/When/Then da bir nechta holatni birlashtirmang. «Then narx
+  yangilanadi va xabar chiqadi va tugma o'chadi» — bu uchta alohida mezon.
+  Ajratilgan bo'lsa, qaysi biri buzilganini aniq aytish mumkin.</p>
+</div>
+
+<h2>Savollar ro'yxati</h2>
+
+<p>Har bir yangi story uchun shu ro'yxatdan yuring. Har biriga javob topilsa —
+story testga tayyor.</p>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Turi</th><th>Savollar</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Chegara</strong></td>
+      <td>Eng kam va eng ko'p qiymat qancha? Uzunlik chegarasi bormi?
+          Nechta element saqlanadi? Chegaradan oshsa nima ko'rinadi?</td>
+    </tr>
+    <tr>
+      <td><strong>Bo'sh holat</strong></td>
+      <td>Ro'yxat bo'sh bo'lsa nima ko'rinadi? Birinchi marta kirganda?
+          Hech narsa topilmasa?</td>
+    </tr>
+    <tr>
+      <td><strong>Xato yo'li</strong></td>
+      <td>Internet uzilsa? Server javob bermasa? Foydalanuvchi ikki marta
+          bossa? Yarim yo'lda chiqib ketsa?</td>
+    </tr>
+    <tr>
+      <td><strong>Ruxsat</strong></td>
+      <td>Tizimga kirmagan foydalanuvchi uchun? Boshqa rol uchun? Boshqa
+          odamning ma'lumotiga havola bilan kirsa?</td>
+    </tr>
+    <tr>
+      <td><strong>Ta'sir doirasi</strong></td>
+      <td>Bu o'zgarish yana qaysi joyga tegadi? Hisobot, bildirishnoma,
+          eksport, chegirma hisobiga ta'sir qiladimi?</td>
+    </tr>
+    <tr>
+      <td><strong>Ma'lumot</strong></td>
+      <td>Eski ma'lumotlar nima bo'ladi? Takroriy qiymatga ruxsat bormi?
+          O'chirilgan narsa qayta tiklanadimi?</td>
+    </tr>
+    <tr>
+      <td><strong>Ko'rinish</strong></td>
+      <td>Telefonda qanday? Uzun matn sig'adimi? Yuklanish paytida nima
+          ko'rinadi?</td>
+    </tr>
+    <tr>
+      <td><strong>Til va format</strong></td>
+      <td>O'zbek harflari qabul qilinadimi? Sana va valyuta formati qanday?</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Sifat mezonlari</h2>
+
+<ul class="checklist">
+  <li>Har bir AC ni ko'rib turib «ha/yo'q» deb javob berib bo'ladimi?</li>
+  <li>Kamida ikkita AC <strong>xato yo'lini</strong> qamrab oladimi?</li>
+  <li>Chegara qiymatlari yozilganmi (aniq son bilan)?</li>
+  <li>«Tez», «qulay», «to'g'ri» kabi so'zlar yo'qmi?</li>
+  <li>Bitta AC da bitta holat bormi?</li>
+  <li>AC ni to'g'ridan-to'g'ri <a href="./test-case-shabloni.html">test case</a>
+      qilib ko'chira olasizmi?</li>
+</ul>
+
+<div class="box box--warn">
+  <p class="box-title">«Tayyor» ning ta'rifi</p>
+  <p>Jamoalarda <strong>Definition of Done</strong> degan umumiy ro'yxat bo'ladi:
+  vazifa «tayyor» deyilishi uchun nima bajarilgan bo'lishi kerak (kod yozildi,
+  ko'rib chiqildi, testdan o'tdi, hujjat yangilandi). Acceptance criteria bitta
+  story uchun, Definition of Done esa <em>hamma</em> story uchun amal qiladi.</p>
+</div>
+
+<h2>Uch hujjat — bitta mantiq</h2>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Hujjat</th><th>Boshlang'ich holat</th><th>Harakat</th><th>Natija</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Acceptance criteria</td><td>Given</td><td>When</td><td>Then</td></tr>
+    <tr><td><a href="./test-case-shabloni.html">Test case</a></td>
+        <td>Dastlabki shart</td><td>Qadamlar</td><td>Kutilgan natija</td></tr>
+    <tr><td><a href="./bug-report-shabloni.html">Bug report</a></td>
+        <td>Muhit</td><td>Takrorlash qadamlari</td>
+        <td>Kutilgan va haqiqiy natija</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>Uchalasi ham bir xil uch qismdan iborat. Farqi — qachon yozilishida:
+acceptance criteria kod yozilgunicha, test case tekshirishdan oldin, bug report
+xato topilgandan keyin.</p>
+
+<div class="ask-teacher">
+  <p><strong>Savollar ro'yxatingizni yuboring.</strong> Men unga o'zimnikini
+  qo'shaman — siz o'ylab topmagan holatlarni ko'rasiz.</p>
+</div>
+
+<nav class="nav">
+  <a href="../lessons/0007-user-story-va-acceptance-criteria.html">7-dars</a>
+  <a href="./test-case-shabloni.html">Test case shabloni</a>
+  <a href="./bug-report-shabloni.html">Bug report shabloni</a>
+  <a href="./lugat.html">Lug'at</a>
+</nav>
+
+</body>
+</html>

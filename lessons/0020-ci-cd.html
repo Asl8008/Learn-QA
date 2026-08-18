@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>20-dars: CI/CD testerlar uchun — Learn-QA</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<p class="crumbs"><a href="./index.html">Darslar</a> ·
+<a href="./0019-playwright.html">← 19-dars</a></p>
+
+<p class="eyebrow">20-dars · taxminan 40 daqiqa</p>
+<h1>Faqat sizning kompyuteringizda ishlaydigan test — himoya emas</h1>
+<p class="subtitle">19-darsda test yozdik. Lekin uni siz eslab, qo'lda
+yurgizishingiz kerak. CI shu muammoni yechadi: test har bir o'zgarishda
+o'zi ishga tushadi.</p>
+
+<h2>Muammo</h2>
+
+<div class="box box--bad">
+  <p class="box-title">Tanish holat</p>
+  <p>Testlar yozildi. Birinchi hafta ularni har kuni yurgizasiz. Ikkinchi
+  haftada band bo'lasiz. Uchinchi haftada esdan chiqadi. Bir oydan keyin
+  ularni yurgizsangiz — yarmi yiqiladi va nima uchunligini hech kim
+  bilmaydi.</p>
+</div>
+
+<p>Yechim: testni <strong>odam eslashiga bog'lamaslik</strong>. Har safar
+kod o'zgarganda tizim testlarni o'zi yurgizsin va natijani hammaga
+ko'rsatsin. Bu — <strong>CI</strong> (Continuous Integration).</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Atama</th><th>Ma'nosi</th><th>Testerning roli</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><strong>CI</strong><br><span class="cite">continuous integration</span></td>
+      <td>Har bir o'zgarish avtomatik yig'iladi va tekshiriladi</td>
+      <td>Qaysi testlar yurishini va qachon yurishini hal qilish</td>
+    </tr>
+    <tr>
+      <td><strong>CD</strong><br><span class="cite">continuous delivery / deployment</span></td>
+      <td>Tekshiruvdan o'tgan versiya avtomatik tarqatiladi</td>
+      <td>Chiqish mezonlarini (9-dars) avtomatik tekshiruvga
+          aylantirish</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Asosiy tushunchalar</h2>
+
+<p>Eng ko'p ishlatiladigan tizim — <strong>GitHub Actions</strong>.
+Rasmiy ta'riflar:</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Tushuncha</th><th>Ta'rif</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Workflow</strong></td>
+        <td>Bir yoki bir nechta ishni bajaradigan sozlanadigan avtomatik
+            jarayon</td></tr>
+    <tr><td><strong>Event</strong></td>
+        <td>Repozitoriydagi muayyan faoliyat — workflow'ni ishga
+            tushiradi</td></tr>
+    <tr><td><strong>Job</strong></td>
+        <td>Bitta runner'da bajariladigan qadamlar to'plami</td></tr>
+    <tr><td><strong>Step</strong></td>
+        <td>Bajariladigan buyruq yoki tayyor action</td></tr>
+    <tr><td><strong>Action</strong></td>
+        <td>Oldindan tayyorlangan, qayta ishlatiladigan qism</td></tr>
+    <tr><td><strong>Runner</strong></td>
+        <td>Workflow'larni ishga tushiradigan server</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p class="cite">Manba: <a href="https://docs.github.com/en/actions/get-started/understanding-github-actions">GitHub
+Docs — Understanding GitHub Actions</a>.</p>
+
+<h2>Haqiqiy workflow fayli</h2>
+
+<p>Loyihada <code>.github/workflows/playwright.yml</code> fayl yaratiladi.
+Playwright rasmiy hujjatidagi variant:</p>
+
+<pre><code>name: Playwright Tests
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+jobs:
+  test:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v6
+    - uses: actions/setup-node@v6
+      with:
+        node-version: lts/*
+    - name: Install dependencies
+      run: npm ci
+    - name: Install Playwright Browsers
+      run: npx playwright install --with-deps
+    - name: Run Playwright tests
+      run: npx playwright test
+    - uses: actions/upload-artifact@v4
+      if: ${{ !cancelled() }}
+      with:
+        name: playwright-report
+        path: playwright-report/
+        retention-days: 30</code></pre>
+
+<h3>Qator-qator o'qiymiz</h3>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Qism</th><th>Nima deydi</th></tr></thead>
+  <tbody>
+    <tr><td><code>on: push / pull_request</code></td>
+        <td><strong>Qachon</strong> ishga tushsin: kod yuborilganda va
+            pull request ochilganda</td></tr>
+    <tr><td><code>runs-on: ubuntu-latest</code></td>
+        <td><strong>Qayerda</strong>: GitHub beradigan toza Linux
+            server</td></tr>
+    <tr><td><code>timeout-minutes: 60</code></td>
+        <td>Osilib qolsa, bir soatdan keyin to'xtatiladi</td></tr>
+    <tr><td><code>actions/checkout</code></td>
+        <td>Kodni serverga ko'chirib oladi</td></tr>
+    <tr><td><code>actions/setup-node</code></td>
+        <td>Node.js ni o'rnatadi</td></tr>
+    <tr><td><code>npm ci</code></td>
+        <td>Bog'liqliklarni <em>aniq qulflangan</em> versiyalarda
+            o'rnatadi</td></tr>
+    <tr><td><code>npx playwright install --with-deps</code></td>
+        <td>Brauzer va tizim kutubxonalarini o'rnatadi</td></tr>
+    <tr><td><code>npx playwright test</code></td>
+        <td>Testlarni yurgizadi</td></tr>
+    <tr><td><code>upload-artifact</code></td>
+        <td>Hisobotni saqlaydi — 30 kun yuklab olish mumkin</td></tr>
+    <tr><td><code>if: !cancelled()</code></td>
+        <td>Testlar <strong>yiqilganda ham</strong> hisobot
+            saqlanadi</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="box box--key">
+  <p class="box-title">Oxirgi ikki qator eng muhimi</p>
+  <p>Test yiqilganda «nima uchun yiqildi?» degan savol paydo bo'ladi.
+  Hisobot saqlanmasa, javob yo'q — testni qayta yurgizib, ko'rishga
+  urinasiz va u endi o'tib ketadi. <code>upload-artifact</code> esa
+  skrinshot, video va trace ni saqlaydi.</p>
+  <p>Ya'ni bu — 1-darsdagi <strong>dalil</strong> tamoyilining CI
+  ko'rinishi.</p>
+</div>
+
+<h2>Qaysi testlar qachon yuradi</h2>
+
+<p>Hamma testni har bir o'zgarishda yurgizib bo'lmaydi — sekin bo'ladi.
+14-darsdagi piramida shu yerda amaliy qarorga aylanadi:</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Qachon</th><th>Nima yuradi</th><th>Maqsad</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>Har bir commit</td>
+      <td>Unit + API testlar, smoke UI (5–10 daqiqa)</td>
+      <td>Dasturchi darhol javob olsin</td>
+    </tr>
+    <tr>
+      <td>Pull request</td>
+      <td>Yuqoridagilar + asosiy UI oqimlari</td>
+      <td>Buzuq kod asosiy tarmoqqa tushmasin</td>
+    </tr>
+    <tr>
+      <td>Kechasi</td>
+      <td>To'liq to'plam, bir necha brauzer, mobil o'lchamlar</td>
+      <td>Sekin testlar hech kimni kutdirmasin</td>
+    </tr>
+    <tr>
+      <td>Reliz oldidan</td>
+      <td>To'liq regression + qo'lda exploratory</td>
+      <td>Chiqish mezonlarini yopish (9-dars)</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="box box--warn">
+  <p class="box-title">Beshinchi daqiqa qoidasi</p>
+  <p>Har bir commit'da yuradigan to'plam <strong>10 daqiqadan uzun</strong>
+  bo'lsa, dasturchilar uni kutmay qo'yadi — natijani ko'rmasdan keyingi
+  ishga o'tishadi va CI o'z ma'nosini yo'qotadi. Tez to'plamni qisqa
+  ushlab turish — testerning doimiy vazifasi.</p>
+</div>
+
+<h2>Qizil build — favqulodda holat</h2>
+
+<p>Bu darsdagi eng muhim tashkiliy qoida:</p>
+
+<div class="compare">
+  <div class="box box--bad">
+    <p class="box-title">✗ O'lik CI</p>
+    <p>«Ha, u qizil turibdi, e'tibor bermang, o'sha eski test».</p>
+    <p>Bu holatda CI hech narsani himoya qilmaydi — u shunchaki
+    shovqin.</p>
+  </div>
+  <div class="box box--good">
+    <p class="box-title">✓ Tirik CI</p>
+    <p>Qizil bo'lsa — hamma to'xtaydi va tuzatadi. Yashil holat
+    <em>normal</em>, qizil holat <em>hodisa</em>.</p>
+  </div>
+</div>
+
+<p>Bu 14-darsdagi flaky testlar mavzusining davomi: beqaror testlar
+qizilni odatiy holga aylantiradi va butun tizimni o'ldiradi. Shuning
+uchun beqaror test darhol tuzatiladi yoki o'chiriladi.</p>
+
+<h2>Yiqilgan build'ni o'qish</h2>
+
+<ol class="steps">
+  <li><strong>Loglarni oching</strong> — qaysi qadamda to'xtadi?
+      O'rnatishda yoki testda?</li>
+  <li><strong>Xato xabarini o'qing</strong> — Playwright nimani kutgani
+      va nimani topganini aytadi.</li>
+  <li><strong>Artifact'ni yuklab oling</strong> — hisobot, skrinshot,
+      video va trace shu yerda.</li>
+  <li><strong>Trace'ni oching</strong>
+      (<code>npx playwright show-report</code>) — har bir qadamni
+      ko'rish mumkin.</li>
+  <li><strong>Savolga javob bering:</strong> bu haqiqiy bugmi, test
+      xatosimi yoki muhit muammosimi? Uchtasi uch xil harakat talab
+      qiladi.</li>
+</ol>
+
+<h2>CI dagi ikki tuzoq</h2>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Tuzoq</th><th>Nima bo'ladi</th><th>Yechim</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><strong>Mahalliy holatga bog'lanish</strong></td>
+      <td>Test sizning kompyuteringizdagi ma'lumotga tayanadi. CI da
+          toza server — test yiqiladi</td>
+      <td>Har bir test kerakli ma'lumotni o'zi yaratsin</td>
+    </tr>
+    <tr>
+      <td><strong>Parol va tokenni kodga yozish</strong></td>
+      <td>Maxfiy ma'lumot repozitoriyga tushadi va u yerda
+          <em>abadiy</em> qoladi</td>
+      <td>GitHub Secrets ishlatish; kodda hech qachon ochiq
+          yozmaslik</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>Ikkinchisi 16-darsdagi mavzuga tegishli: repozitoriyga tushgan parolni
+o'chirib tashlash yetmaydi — u tarixda qoladi. Shuning uchun uni umuman
+yozmaslik kerak.</p>
+
+<h2>Tekshirib ko'ramiz</h2>
+
+<section class="quiz">
+  <p class="quiz-prompt">1. Workflow faylidagi <code>if: !cancelled()</code>
+  qatori nima uchun kerak?</p>
+  <div class="quiz-options">
+    <button class="quiz-option" data-explain="Testlarni tezlashtirmaydi — bu hisobotni saqlash shartiga tegishli.">Testlarni tezroq yurgizish uchun</button>
+    <button class="quiz-option" data-correct data-explain="To'g'ri. Testlar yiqilganda ham hisobot saqlanadi — aynan o'shanda u eng kerak.">Test yiqilganda ham hisobot saqlanishi uchun</button>
+    <button class="quiz-option" data-explain="Bekor qilish tugmasiga aloqasi yo'q — shart hisobotni saqlashga tegishli.">Ishni bekor qilish tugmasini qo'shish uchun</button>
+    <button class="quiz-option" data-explain="Brauzer o'rnatish alohida qadamda bajariladi.">Brauzerni o'rnatmaslik uchun</button>
+  </div>
+  <p class="quiz-feedback" hidden></p>
+</section>
+
+<section class="quiz">
+  <p class="quiz-prompt">2. Har bir commit'da yuradigan to'plam 40 daqiqa
+  ishlaydi. Nima bo'ladi?</p>
+  <div class="quiz-options">
+    <button class="quiz-option" data-explain="Sifat oshmaydi — chunki natijani hech kim kutmay qo'yadi.">Sifat oshadi, chunki ko'proq test yuradi</button>
+    <button class="quiz-option" data-correct data-explain="To'g'ri. Dasturchilar natijani kutmasdan keyingi ishga o'tadi va CI himoya qilish qobiliyatini yo'qotadi.">Natija kutilmay qoladi va CI ma'nosini yo'qotadi</button>
+    <button class="quiz-option" data-explain="Aksincha — uzoq kutish beqarorlikni ko'paytiradi, kamaytirmaydi.">Testlar barqarorroq bo'ladi</button>
+    <button class="quiz-option" data-explain="Vaqt masalasi jiddiy: tez qaytar aloqa CI ning asosiy qiymati.">Hech narsa — vaqt muhim emas</button>
+  </div>
+  <p class="quiz-feedback" hidden></p>
+</section>
+
+<section class="quiz">
+  <p class="quiz-prompt">3. Jamoada «u test doim qizil, e'tibor bermang»
+  degan gap yuradi. Bu nimani anglatadi?</p>
+  <div class="quiz-options">
+    <button class="quiz-option" data-explain="Aksincha — bu eng xavfli holat, chunki haqiqiy xato ham o'sha shovqin ichida yo'qoladi.">Normal holat — hamma jamoada shunday</button>
+    <button class="quiz-option" data-correct data-explain="To'g'ri. Qizil odatiy holga aylansa, CI hech narsani himoya qilmaydi — test tuzatilishi yoki o'chirilishi kerak.">CI o'z vazifasini bajarmayapti</button>
+    <button class="quiz-option" data-explain="Test ko'p bo'lishi muammo emas — muammo ularning ishonchsizligida.">Testlar juda ko'p yozilgan</button>
+    <button class="quiz-option" data-explain="Bu vaqtinchalik emas: e'tiborsizlik odatga aylanadi.">Vaqtinchalik holat, o'zi tuzaladi</button>
+  </div>
+  <p class="quiz-feedback" hidden></p>
+</section>
+
+<section class="recall">
+  <p class="recall-q">Eslab ko'ring — <em>19-darsdan</em>: lokatorga bir
+  nechta element mos kelsa Playwright nima qiladi va yechim qanday?</p>
+  <button class="recall-btn">Javobni ko'rsatish</button>
+  <p class="recall-a" hidden>Playwright <strong>xato beradi</strong> —
+  tasodifiy birini tanlamaydi, ya'ni noaniqlik yashirin qolmaydi. Yechim:
+  doirani toraytirish — avval konteynerni topib
+  (<code>.filter({ hasText: … })</code>), so'ng uning ichidagi elementni
+  tanlash.</p>
+</section>
+
+<h2>Amaliyot: birinchi CI quvuringiz</h2>
+
+<ol class="steps">
+  <li><strong>19-darsdagi loyihani GitHub'ga joylang.</strong> Yangi
+      repozitoriy oching (bepul) va kodni yuboring. <code>node_modules</code>
+      papkasini <code>.gitignore</code> ga qo'shishni unutmang.</li>
+  <li><strong>Workflow faylini qo'shing:</strong>
+      <code>.github/workflows/playwright.yml</code> — yuqoridagi matnni
+      ko'chiring.</li>
+  <li><strong>Yuboring va kuzating.</strong> GitHub'da «Actions»
+      bo'limini oching: qadamlar birin-ketin bajarilishini ko'rasiz.</li>
+  <li><strong>Yashil natijani ko'ring</strong>, so'ng hisobot
+      artifact'ini yuklab olib oching.</li>
+  <li><strong>Endi ataylab sindiring.</strong> Testdagi kutilgan matnni
+      o'zgartiring (masalan <code>'Products'</code> →
+      <code>'Mahsulotlar'</code>), yuboring va qizil natijani kuzating.</li>
+  <li><strong>Yiqilgan build'ni tahlil qiling:</strong> loglarni o'qing,
+      artifact'ni yuklab oling, skrinshotni toping. Xato xabari sababni
+      tushuntiryaptimi?</li>
+  <li><strong>Tuzating va yashil holatga qayting.</strong></li>
+  <li><strong>Menga yuboring:</strong> repozitoriy havolasi va oxirgi
+      band haqida bir xatboshi — qizil build'dan sababni topish
+      qanchalik oson bo'ldi?</li>
+</ol>
+
+<div class="box box--key">
+  <p class="box-title">Bu portfolio uchun nimani beradi</p>
+  <p>Repozitoriyingizda ishlaydigan CI bo'lsa, u har bir tashrif
+  buyuruvchiga bitta narsani aytadi: siz test yozgansiz <em>va</em> uni
+  jarayonga ulagansiz. 15-darsdagi portfolio ro'yxatiga qo'shiladigan eng
+  kuchli elementlardan biri — chunki ko'p junior nomzodda bu yo'q.</p>
+</div>
+
+<h2>O'qish uchun (birlamchi manba)</h2>
+
+<blockquote>
+  <a href="https://playwright.dev/docs/ci-intro">Playwright Docs —
+  Setting up CI</a>
+  <cite>Tayyor workflow fayli va uni sozlash. Ingliz tilida, qisqa.</cite>
+</blockquote>
+
+<p class="cite">Tushunchalar:
+<a href="https://docs.github.com/en/actions/get-started/understanding-github-actions">GitHub
+Docs — Understanding GitHub Actions</a>.</p>
+
+<div class="ask-teacher">
+  <p><strong>Repozitoriy havolangizni yuboring.</strong> Men workflow
+  faylingizga va qizil build'ni tahlil qilish tajribangizga qarayman.
+  Bu ko'nikma keyinchalik kundalik ishingizning bir qismi bo'ladi:
+  ertalab kelasiz, kechagi build qizil turibdi va sababni siz
+  aniqlaysiz.</p>
+</div>
+
+<nav class="nav">
+  <a href="../reference/ci-shpargalka.html">Reference: CI shpargalkasi</a>
+  <a href="../reference/playwright-shpargalka.html">Reference: Playwright shpargalkasi</a>
+  <a href="../reference/lugat.html">Reference: Lug'at</a>
+</nav>
+
+<nav class="lesson-nav">
+  <a class="lesson-nav-link lesson-nav-prev" href="./0019-playwright.html">
+    <span class="lesson-nav-dir">← Oldingi dars</span>
+    <span class="lesson-nav-title">19. Birinchi avtomatlashtirilgan testingiz</span>
+  </a>
+  <a class="lesson-nav-link lesson-nav-next" href="./0021-test-malumoti-va-muhit.html">
+    <span class="lesson-nav-dir">Keyingi dars →</span>
+    <span class="lesson-nav-title">21. Vaqtingiz aslida qayerga ketadi</span>
+  </a>
+  <a class="lesson-nav-home" href="./index.html">Barcha darslar</a>
+</nav>
+
+<script src="../assets/lesson.js"></script>
+</body>
+</html>

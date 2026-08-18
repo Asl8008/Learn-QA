@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Test plan shabloni — Learn-QA</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<p class="crumbs"><a href="../lessons/index.html">Darslar</a> ·
+<a href="./lugat.html">Lug'at</a></p>
+
+<p class="eyebrow">Reference · chop etsa bo'ladi</p>
+<h1>Test plan shabloni</h1>
+<p class="subtitle">Bir betlik amaliy reja. Yangi vazifa, yangi reliz yoki
+yangi mahsulot kelganda shu bo'limlarni to'ldiring.</p>
+
+<h2>Shablon</h2>
+
+<div class="report">
+  <dl>
+    <dt>Maqsad</dt>
+    <dd>Nima uchun test qilamiz? Qaysi qaror shu testga bog'liq?</dd>
+
+    <dt>Qamrov ichida</dt>
+    <dd>Aynan qaysi qismlar, ekranlar, oqimlar sinaladi.</dd>
+
+    <dt>Qamrovdan tashqarida</dt>
+    <dd>Nima sinalmaydi — <strong>va nima uchun</strong>.</dd>
+
+    <dt>Muhit</dt>
+    <dd>Brauzer va versiyalari, OS, qurilmalar, test hisoblari, ma'lumot.</dd>
+
+    <dt>Risklar va navbat</dt>
+    <dd>Quyidagi risk jadvali.</dd>
+
+    <dt>Kirish mezoni</dt>
+    <dd>Testni boshlash uchun nima tayyor bo'lishi kerak.</dd>
+
+    <dt>Chiqish mezoni</dt>
+    <dd>Qachon «testing tugadi» deymiz.</dd>
+
+    <dt>Vaqt taqsimoti</dt>
+    <dd>Har bir qismga necha soat. <strong>Hisobot uchun vaqt qoldiring.</strong></dd>
+
+    <dt>Yetkazib beriladigan narsalar</dt>
+    <dd>Bug ro'yxati, test natijalari, yakuniy xulosa.</dd>
+  </dl>
+</div>
+
+<h2>Risk jadvali</h2>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Qism</th><th>Ehtimollik</th><th>Ta'sir</th><th>Navbat</th><th>Asos</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>…</td><td>Yuqori / O'rta / Past</td><td>Yuqori / O'rta / Past</td>
+        <td>1, 2, 3…</td><td>Bir gapda</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>Ehtimollik yuqori bo'lishining belgilari</h3>
+
+<ul class="checklist">
+  <li>Kod yaqinda o'zgargan</li>
+  <li>Mantiq murakkab (hisob-kitob, sanalar, chegirmalar)</li>
+  <li>Ilgari shu joyda ko'p xato chiqqan</li>
+  <li>Bir necha tizim bilan bog'langan (integratsiya)</li>
+  <li>Shoshilinch yoki yangi dasturchi tomonidan yozilgan</li>
+</ul>
+
+<h3>Ta'sir yuqori bo'lishining belgilari</h3>
+
+<ul class="checklist">
+  <li>Pul harakati bor</li>
+  <li>Ma'lumot yo'qolishi mumkin</li>
+  <li>Ko'p foydalanuvchi ko'radi</li>
+  <li>Chetlab o'tish yo'li yo'q</li>
+  <li>Obro' yoki qonuniy talabga tegadi</li>
+</ul>
+
+<h2>Kirish va chiqish mezonlari — namuna</h2>
+
+<div class="compare">
+  <div class="box box--good">
+    <p class="box-title">Kirish (entry)</p>
+    <ul>
+      <li>Acceptance criteria yozilgan</li>
+      <li>Build test muhitiga o'rnatilgan</li>
+      <li>Test hisoblari ishlaydi</li>
+      <li>Smoke test o'tdi</li>
+    </ul>
+  </div>
+  <div class="box box--good">
+    <p class="box-title">Chiqish (exit)</p>
+    <ul>
+      <li>Barcha AC tekshirildi</li>
+      <li>Highest/High bug qolmadi</li>
+      <li>Ochiq buglar ro'yxati taqdim etildi</li>
+      <li>Regression to'plami o'tkazildi</li>
+    </ul>
+  </div>
+</div>
+
+<div class="box box--warn">
+  <p class="box-title">«Xato yo'q» — chiqish mezoni emas</p>
+  <p>Xato yo'qligini isbotlab bo'lmaydi. Yoziladigan narsa — qanday xatolar
+  bilan relizga rozimiz. Masalan: «Highest va High yo'q; Medium darajadagi
+  buglar ro'yxat bilan qabul qilindi».</p>
+</div>
+
+<h2>Prioritetlash usullari</h2>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Usul</th><th>Nimaga qarab tartiblanadi</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Risk asosida</td><td>Ehtimollik × ta'sir</td></tr>
+    <tr><td>Talab asosida</td><td>Mijoz uchun muhimlik</td></tr>
+    <tr><td>Qamrov asosida</td><td>Bitta test qancha yangi qismni qamraydi</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p class="cite">Manba: <a href="https://astqb.org/5-1-test-planning/">ISTQB
+CTFL Syllabus 5.1</a> va <a href="https://astqb.org/5-2-risk-management/">5.2</a>.</p>
+
+<h2>Sifat tekshiruvi</h2>
+
+<ul class="checklist">
+  <li>«Qamrovdan tashqarida» bo'limi to'ldirilganmi va sabab yozilganmi?</li>
+  <li>Chiqish mezonlarining har birini o'lchab bo'ladimi?</li>
+  <li>Har bir risk bahosi bir gap bilan asoslanganmi?</li>
+  <li>Hisobot yozish uchun vaqt ajratilganmi?</li>
+  <li>Reja bir betga sig'adimi?</li>
+</ul>
+
+<div class="ask-teacher">
+  <p><strong>Rejangizni yuboring.</strong> Men ikki narsani tekshiraman:
+  qamrovdan tashqarisi asoslanganmi va chiqish mezoni o'lchanadiganmi.</p>
+</div>
+
+<nav class="nav">
+  <a href="../lessons/0009-test-plan.html">9-dars</a>
+  <a href="./exploratory-sessiya.html">Exploratory sessiya</a>
+  <a href="./test-case-shabloni.html">Test case shabloni</a>
+  <a href="./lugat.html">Lug'at</a>
+</nav>
+
+</body>
+</html>

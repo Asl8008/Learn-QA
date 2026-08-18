@@ -1,0 +1,14 @@
+# Ishchi eslatmalar (shaxsiy — repozitoriyga tushmaydi)
+NOTES.md
+
+# OS va muharrir fayllari
+.DS_Store
+Thumbs.db
+*.swp
+*~
+.vscode/
+.idea/
+
+# Vaqtinchalik fayllar
+*.log
+*.tmp

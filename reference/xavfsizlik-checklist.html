@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Xavfsizlik checklist — Learn-QA</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<p class="crumbs"><a href="../lessons/index.html">Darslar</a> ·
+<a href="./lugat.html">Lug'at</a></p>
+
+<p class="eyebrow">Reference · chop etsa bo'ladi</p>
+<h1>Xavfsizlik tekshiruvi (tester uchun)</h1>
+<p class="subtitle">Maxsus asbobsiz bajariladigan tekshiruvlar. Har bir
+muhim oqim uchun shu ro'yxatdan yuring.</p>
+
+<div class="box box--bad">
+  <p class="box-title">⚠ Chegara</p>
+  <p>Faqat o'zingiz ishlayotgan mahsulotda, ish vazifangiz doirasida yoki
+  mashq uchun ochilgan demo saytlarda. O'z hisobingiz bilan.</p>
+  <p><strong>Hech qachon:</strong> ruxsatsiz begona tizimni sinamang;
+  boshqalarning ma'lumotini o'qimang yoki ko'chirmang; yuk berib ishdan
+  chiqarishga urinmang; topilgan zaiflikni ommaga chiqarmang.</p>
+</div>
+
+<h2>1. Kirish nazorati (A01)</h2>
+
+<ul class="checklist">
+  <li>Manzildagi <code>id</code> ni o'zgartirsam, boshqa odamning yozuvi
+      ochiladimi? (IDOR)</li>
+  <li>Tizimga kirmagan holda ichki sahifa manzili ochiladimi?</li>
+  <li>Oddiy foydalanuvchi admin sahifasiga yeta oladimi?</li>
+  <li>Interfeys yashirgan amal API orqali to'g'ridan-to'g'ri
+      bajariladimi?</li>
+  <li>So'rovdagi narx, miqdor yoki rolni o'zgartirsam qabul qilinadimi?</li>
+  <li>Boshqa foydalanuvchining havolasi menda ochiladimi?</li>
+</ul>
+
+<div class="box box--warn">
+  <p class="box-title">Asosiy qoida</p>
+  <p>Interfeysda tugmani yashirish — himoya emas. Server har bir so'rovda
+  ruxsatni qayta tekshirishi shart.</p>
+</div>
+
+<h2>2. Sessiya va autentifikatsiya (A07)</h2>
+
+<ul class="checklist">
+  <li>Chiqishdan keyin eski manzil ochiladimi?</li>
+  <li>Chiqishdan keyin «orqaga» tugmasi ma'lumot ko'rsatadimi?</li>
+  <li>Chiqishdan keyin eski token bilan API so'rovi ishlaydimi?</li>
+  <li>Sessiya identifikatori manzilda ko'rinadimi?</li>
+  <li>Zaif parol qabul qilinadimi («12345678», «Password1»)?</li>
+  <li>Ketma-ket noto'g'ri urinishlar cheklanadimi?</li>
+  <li>Parolni tiklash havolasi eskiradi va bir marta ishlatiladimi?</li>
+  <li>Uzoq harakatsizlikdan keyin sessiya tugaydimi?</li>
+  <li>Parol o'zgartirilganda boshqa qurilmalardagi sessiyalar
+      tugatiladimi?</li>
+</ul>
+
+<h2>3. Xato xabarlari (A10)</h2>
+
+<ul class="checklist">
+  <li>Xato xabarida texnik ma'lumot bormi (baza nomi, fayl yo'li,
+      stack trace)?</li>
+  <li>«Email topilmadi» va «parol noto'g'ri» alohida aytiladimi?
+      (aytilmasligi kerak)</li>
+  <li>Server xatosi (<code>500</code>) foydalanuvchiga to'g'ridan-to'g'ri
+      ko'rsatiladimi?</li>
+  <li>Noto'g'ri ma'lumot yuborilganda ilova yiqilib qolmaydimi?</li>
+</ul>
+
+<h2>4. Ma'lumot uzatish va saqlash</h2>
+
+<ul class="checklist">
+  <li>Manzil <code>https://</code> bilanmi? <code>http://</code> ga
+      o'tsa nima bo'ladi?</li>
+  <li>Javob body'sida parol, token yoki hash qaytmaydimi? (DevTools →
+      Network)</li>
+  <li>Parol maydoni ekranda yashiriladimi?</li>
+  <li>Maxfiy sahifa brauzer keshida qolmaydimi?</li>
+  <li>Boshqa foydalanuvchining shaxsiy ma'lumoti javobda keraksiz
+      qaytmaydimi?</li>
+</ul>
+
+<h2>OWASP Top 10:2025 — qisqacha</h2>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>№</th><th>Nomi</th><th>Kim tekshiradi</th></tr></thead>
+  <tbody>
+    <tr><td>A01</td><td>Broken Access Control</td><td><strong>Tester</strong></td></tr>
+    <tr><td>A02</td><td>Security Misconfiguration</td><td>DevOps</td></tr>
+    <tr><td>A03</td><td>Software Supply Chain Failures</td><td>Dasturchi</td></tr>
+    <tr><td>A04</td><td>Cryptographic Failures</td><td>Dasturchi</td></tr>
+    <tr><td>A05</td><td>Injection</td><td>Dasturchi, xavfsizlik</td></tr>
+    <tr><td>A06</td><td>Insecure Design</td><td>Arxitektor</td></tr>
+    <tr><td>A07</td><td>Authentication Failures</td><td><strong>Tester</strong></td></tr>
+    <tr><td>A08</td><td>Software or Data Integrity Failures</td><td>DevOps</td></tr>
+    <tr><td>A09</td><td>Security Logging and Alerting Failures</td><td>DevOps</td></tr>
+    <tr><td>A10</td><td>Mishandling of Exceptional Conditions</td>
+        <td><strong>Tester</strong></td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Xavfsizlik hisobotini yozish</h2>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Qoida</th><th>Nima uchun</th></tr></thead>
+  <tbody>
+    <tr><td>Ko'rinishni cheklang</td>
+        <td>Hisobotni hamma ko'radigan joyga yozmang</td></tr>
+    <tr><td>Ta'sirni yozing</td>
+        <td>Kim nimaga kira oladi va oqibati nima</td></tr>
+    <tr><td>Prioritet — yuqori</td>
+        <td>Xavfsizlik zaifliklari kamdan-kam «keyin» ga qoldiriladi</td></tr>
+    <tr><td>Tarqatmang</td>
+        <td>Skrinshot va qadamlarni chatlarga, ekran ulashishga
+            chiqarmang</td></tr>
+    <tr><td>Dalilni cheklang</td>
+        <td>Zaiflikni ko'rsatish uchun yetarli minimum. Boshqalarning
+            ma'lumotini ko'chirmang</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p class="cite">Manba: <a href="https://owasp.org/Top10/2025/">OWASP
+Top 10:2025</a>. Chuqurroq:
+<a href="https://owasp.org/www-project-web-security-testing-guide/">OWASP
+Web Security Testing Guide</a>.</p>
+
+<div class="ask-teacher">
+  <p><strong>Xavfsizlik test holatlaringizni yuboring.</strong> Faqat mashq
+  saytlaridagi natijalarni — real mahsulotda topilgan narsani jamoangizga
+  xabar qiling.</p>
+</div>
+
+<nav class="nav">
+  <a href="../lessons/0016-xavfsizlik-asoslari.html">16-dars</a>
+  <a href="./api-testing-shpargalka.html">API testing shpargalkasi</a>
+  <a href="./devtools-shpargalka.html">DevTools shpargalkasi</a>
+  <a href="./lugat.html">Lug'at</a>
+</nav>
+
+</body>
+</html>

@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Performance shpargalkasi — Learn-QA</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<p class="crumbs"><a href="../lessons/index.html">Darslar</a> ·
+<a href="./lugat.html">Lug'at</a></p>
+
+<p class="eyebrow">Reference · chop etsa bo'ladi</p>
+<h1>Performance shpargalkasi</h1>
+<p class="subtitle">«Sekin» degan so'zni raqamga aylantirish uchun.
+O'lchash tartibi, chegaralar va hisobot shabloni.</p>
+
+<h2>Core Web Vitals</h2>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Ko'rsatkich</th><th>Nima</th><th>Yaxshi</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>LCP</strong></td>
+        <td>Eng katta mazmun bloki qachon ko'rinadi</td>
+        <td>≤ 2.5 s</td></tr>
+    <tr><td><strong>INP</strong></td>
+        <td>Bosgandan keyin ekran qachon javob beradi</td>
+        <td>≤ 200 ms</td></tr>
+    <tr><td><strong>CLS</strong></td>
+        <td>Yuklanishda elementlar qancha siljiydi</td>
+        <td>&lt; 0.1</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>O'lchov <strong>75-protsentil</strong> bo'yicha, mobil va desktop
+alohida. O'rtacha qiymat eng yomon holatlarni yashiradi.</p>
+
+<p class="cite">Manba: <a href="https://web.dev/articles/vitals">web.dev
+— Web Vitals</a>.</p>
+
+<h2>O'lchash tartibi</h2>
+
+<ol class="steps">
+  <li>DevTools → Lighthouse → Performance — umumiy manzara</li>
+  <li>Network → throttling: <strong>Slow 4G</strong>; CPU 4–6×
+      sekinlashtirish</li>
+  <li>Network panelini <strong>hajm</strong> bo'yicha saralash — eng
+      og'ir fayl</li>
+  <li>Network panelini <strong>vaqt</strong> bo'yicha saralash — eng
+      sekin so'rov</li>
+  <li>So'rovlar sonini ko'rish</li>
+  <li>Qayta yuklash — kesh ishlayaptimi</li>
+  <li><strong>Ma'lumot hajmini oshirish</strong> — 3 ta emas, 500 ta
+      element bilan</li>
+  <li>Kamida <strong>uch marta</strong> o'lchash</li>
+</ol>
+
+<div class="box box--warn">
+  <p class="box-title">Ikki xil o'lchov</p>
+  <p><strong>Lab</strong> — nazorat qilinadigan sharoitda, sizning
+  mashinangizda (Lighthouse). <strong>Field</strong> — real
+  foydalanuvchilardan yig'ilgan. Ikkisi bir xil bo'lmaydi; ikkalasi ham
+  kerak.</p>
+</div>
+
+<h2>Yuk testi turlari</h2>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Tur</th><th>Savol</th></tr></thead>
+  <tbody>
+    <tr><td>Load</td><td>Kutilayotgan real yukni ko'taradimi?</td></tr>
+    <tr><td>Stress</td><td>Chegarada va undan tashqarida nima bo'ladi?</td></tr>
+    <tr><td>Spike</td><td>To'satdan ko'tarilishdan keyin o'ziga
+        keladimi?</td></tr>
+    <tr><td>Endurance</td><td>Uzoq vaqt barqarormi (xotira sizishi)?</td></tr>
+    <tr><td>Scalability</td><td>Kelajakdagi o'sishni ko'taradimi?</td></tr>
+    <tr><td>Concurrency</td><td>Bir vaqtdagi amallar to'g'ri
+        ishlaydimi?</td></tr>
+    <tr><td>Capacity</td><td>Nechta foydalanuvchi va tranzaksiyani
+        ko'taradi?</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p class="cite">Ta'riflar:
+<a href="https://astqb.org/assets/documents/ISTQB-CTFL-PT-Syllabus-2018.pdf">ISTQB
+CTFL — Performance Testing syllabus</a>.</p>
+
+<div class="box box--bad">
+  <p class="box-title">⚠ Yuk testi — ruxsat bilan</p>
+  <p>Ishlab turgan real tizimda (production) o'z bilganingiz bilan
+  o'tkazmang; begona tizimda umuman o'tkazmang. Alohida test muhiti,
+  kelishilgan vaqt va yozma ruxsat kerak.</p>
+</div>
+
+<h2>Performance mezoni: to'rt element</h2>
+
+<div class="report">
+  <dl>
+    <dt>Ko'rsatkich</dt>
+    <dd>LCP, INP, CLS yoki javob vaqti</dd>
+
+    <dt>Chegara</dt>
+    <dd>Aniq raqam va protsentil: «75-protsentilda ≤ 3 s»</dd>
+
+    <dt>Sharoit</dt>
+    <dd>Tarmoq (Slow 4G) va qurilma (o'rta darajali telefon)</dd>
+
+    <dt>Ma'lumot hajmi</dt>
+    <dd>«500 ta mahsulot bilan», «1000 ta yozuvli ro'yxatda»</dd>
+  </dl>
+</div>
+
+<p>To'rttasidan biri yo'q bo'lsa — mezon tekshirib bo'lmaydigan bo'lib
+qoladi.</p>
+
+<h2>Performance bug report</h2>
+
+<ul class="checklist">
+  <li>Sarlavhada raqam bor</li>
+  <li>Throttling sozlamalari yozilgan</li>
+  <li>Ma'lumot hajmi ko'rsatilgan</li>
+  <li>Kamida uch o'lchov natijasi keltirilgan</li>
+  <li>Talab qiymati bilan solishtirilgan</li>
+  <li>Network panelidagi eng sekin so'rov ko'rsatilgan</li>
+  <li>Skrinshot yoki HAR fayli ilova qilingan</li>
+</ul>
+
+<h2>Asboblar</h2>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Asbob</th><th>Nima uchun</th></tr></thead>
+  <tbody>
+    <tr><td>Lighthouse (DevTools)</td><td>Tez umumiy baho</td></tr>
+    <tr><td><a href="https://developer.chrome.com/docs/devtools/performance">Performance
+        paneli</a></td><td>Batafsil vaqt taqsimoti</td></tr>
+    <tr><td><a href="https://k6.io/">k6</a></td><td>Yuk testi, skript
+        JavaScript'da</td></tr>
+    <tr><td><a href="https://jmeter.apache.org/">Apache JMeter</a></td>
+        <td>Yuk testi, grafik interfeys</td></tr>
+    <tr><td>Locust</td><td>Yuk testi, Python</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="ask-teacher">
+  <p><strong>O'lchov jadvalingizni yuboring.</strong> Men throttling
+  sozlamalari, ma'lumot hajmi va o'lchovlar soni ko'rsatilganini
+  tekshiraman — aynan shu uchtasi hisobotni himoya qiladi.</p>
+</div>
+
+<nav class="nav">
+  <a href="../lessons/0018-performance-testing.html">18-dars</a>
+  <a href="./devtools-shpargalka.html">DevTools shpargalkasi</a>
+  <a href="./acceptance-criteria.html">Acceptance criteria</a>
+  <a href="./lugat.html">Lug'at</a>
+</nav>
+
+</body>
+</html>

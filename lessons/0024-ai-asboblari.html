@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>24-dars: AI asboblari testerlar uchun — Learn-QA</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<p class="crumbs"><a href="./index.html">Darslar</a> ·
+<a href="./0023-hisobot-va-metrikalar.html">← 23-dars</a></p>
+
+<p class="eyebrow">24-dars · taxminan 30 daqiqa</p>
+<h1>AI: kuchli yordamchi, yomon guvoh</h1>
+<p class="subtitle">AI testerni almashtirmaydi — lekin AI dan foydalana
+oladigan tester foydalanolmaydiganidan tezroq ishlaydi. Shart bitta:
+uning chiqargan narsasini <em>tekshirmasdan</em> ishlatmaslik.</p>
+
+<h2>Asosiy tushuncha</h2>
+
+<div class="box box--key">
+  <p class="box-title">AI nima qiladi va nima qilmaydi</p>
+  <p>AI — <strong>matn ishlab chiqaradigan</strong> asbob. U ishonchli
+  ko'rinadigan matn yozadi; o'sha matn <em>rost</em> bo'lishini kafolatlamaydi.
+  U sizning mahsulotingizni ochib ko'rmagan, sinamagan va ko'rmagan.</p>
+  <p>Tester uchun bu ajratish hal qiluvchi: bizning kasbimiz —
+  <strong>tekshirilmagan da'voga ishonmaslik</strong>. AI dan olgan
+  natijangizga ishonib qo'ysangiz, siz tester bo'lishdan to'xtaysiz.</p>
+</div>
+
+<h2>AI haqiqatan yordam beradigan yettita joy</h2>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Vazifa</th><th>Nima uchun mos</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Test ma'lumoti generatsiyasi</strong></td>
+      <td>21-darsdagi «iflos ma'lumot» kutubxonasini kengaytirish: 50 ta
+          noto'g'ri email, 30 ta chegara sanasi, turli formatdagi telefon
+          raqamlari — bir daqiqada</td>
+    </tr>
+    <tr>
+      <td><strong>Test case qoralamasi</strong></td>
+      <td>Acceptance criteria (7-dars) berib, test case shakliga (3-dars)
+          o'tkazishni so'rash. Qoralama — tayyor hujjat emas</td>
+    </tr>
+    <tr>
+      <td><strong>«Nimani unutdim?»</strong></td>
+      <td>Yozgan holatlaringizni berib, yetishmayotganini so'rash.
+          Eng foydali qo'llanish — chunki u charchamaydi</td>
+    </tr>
+    <tr>
+      <td><strong>Notanish xatoni tushuntirish</strong></td>
+      <td>Konsoldagi stack trace, status kodi, xato matni nimani
+          anglatishini so'rash</td>
+    </tr>
+    <tr>
+      <td><strong>Kod qoralamasi</strong></td>
+      <td>SQL so'rovi (11-dars), Postman testi (12-dars), Playwright
+          skripti (19-dars) uchun boshlang'ich variant</td>
+    </tr>
+    <tr>
+      <td><strong>Hisobotni tartibga solish</strong></td>
+      <td>Sizning tartibsiz yozuvlaringizni bug report shakliga keltirish.
+          <strong>Faktlar sizniki bo'lishi shart</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Tarjima</strong></td>
+      <td>Inglizcha hujjat va manbalarni o'zbekchaga o'girish — bu kursdagi
+          manbalarning aksariyati ingliz tilida</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Qayerda xato qiladi — va nima uchun bu bizga muhim</h2>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Muammo</th><th>Testerga ta'siri</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Sizning mahsulotingizni bilmaydi</strong></td>
+      <td>Mavjud bo'lmagan tugma, sahifa yoki API endpoint o'ylab topadi —
+          va buni juda ishonchli qilib yozadi</td>
+    </tr>
+    <tr>
+      <td><strong>Xatoni takrorlay olmaydi</strong></td>
+      <td>Bug report'dagi «haqiqiy natija» faqat siz ko'rgan narsa bo'lishi
+          mumkin. AI yozgan natija — taxmin, dalil emas</td>
+    </tr>
+    <tr>
+      <td><strong>Siz bilan tez rozi bo'ladi</strong></td>
+      <td>«Bu test case yaxshimi?» deb so'rasangiz, ko'pincha «ha» eshitasiz.
+          To'g'ri savol: «bu test case'da qanday kamchilik bor?»</td>
+    </tr>
+    <tr>
+      <td><strong>Ishonch bilan xato qiladi</strong></td>
+      <td>Mavjud bo'lmagan lokator, noto'g'ri status kodi, ishlamaydigan
+          SQL funksiyasi — hammasi to'g'ri ko'rinadi</td>
+    </tr>
+    <tr>
+      <td><strong>Bajarilmagan test — dalil emas</strong></td>
+      <td>AI yozgan 50 ta test case hech narsani isbotlamaydi. Ular
+          <em>bajarilgandan</em> keyingina ma'lumot beradi</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="box box--warn">
+  <p class="box-title">Eng xavfli holat</p>
+  <p>AI sizga 40 ta test case yozib beradi. Ular chiroyli ko'rinadi.
+  Siz ularni hujjatga qo'yasiz va «qamrov yaxshi» deb hisobot berasiz.</p>
+  <p>Aslida: ularning yarmi mahsulotingizda mavjud bo'lmagan funksiyani
+  tekshiradi, uchtasi bir xil, va eng riskli joy umuman qamrab olinmagan.
+  Bu — 23-darsdagi «xavfli metrika» ning yangi ko'rinishi: <strong>hujjat
+  o'sdi, sifat o'smadi</strong>.</p>
+</div>
+
+<h2>Maxfiylik chegarasi</h2>
+
+<div class="box box--bad">
+  <p class="box-title">⚠ Tashqi AI xizmatiga nimani yozmaysiz</p>
+  <ul>
+    <li>Haqiqiy foydalanuvchilarning ma'lumoti (21-dars qoidalari shu
+        yerda ham amal qiladi)</li>
+    <li>Parol, token, API kalit (16-dars)</li>
+    <li>Ichki manzillar, baza tuzilishi, xavfsizlik zaifliklari</li>
+    <li>E'lon qilinmagan mahsulot rejalari</li>
+    <li>Shartnoma bilan himoyalangan mijoz ma'lumoti</li>
+  </ul>
+  <p><strong>Birinchi qadam:</strong> kompaniyangizda AI asboblaridan
+  foydalanish siyosati bor-yo'qligini so'rang. Ba'zi joyda taqiqlangan,
+  ba'zi joyda faqat korporativ hisob orqali ruxsat berilgan.</p>
+</div>
+
+<h2>Qanday so'rash kerak</h2>
+
+<div class="compare">
+  <div class="box box--bad">
+    <p class="box-title">✗ Zaif so'rov</p>
+    <p>«Login sahifasi uchun test case yoz»</p>
+    <p class="cite">Natija: umumiy, mahsulotingizga aloqasi yo'q ro'yxat.</p>
+  </div>
+  <div class="box box--good">
+    <p class="box-title">✓ Kuchli so'rov</p>
+    <p>«Men O'zbekistondagi onlayn do'kon uchun tester man. Kirish formasi:
+    email va parol. Parol 8–32 belgi. Quyida men yozgan 9 ta test case bor
+    [ro'yxat]. Menda <em>qanday holatlar yetishmayapti</em>? Faqat
+    yetishmayotganlarini sana, mavjudlarini takrorlama.»</p>
+  </div>
+</div>
+
+<p>Farqning to'rt elementi:</p>
+
+<ol class="steps">
+  <li><strong>Kontekst</strong> — mahsulot nima, foydalanuvchi kim</li>
+  <li><strong>Aniq material</strong> — o'zingizning ishingiz, umumiy savol
+      emas</li>
+  <li><strong>Aniq format</strong> — qanday ko'rinishda javob kerak</li>
+  <li><strong>Tanqid so'rash</strong> — «yaxshimi?» emas, «nima
+      yetishmayapti?»</li>
+</ol>
+
+<div class="box box--key">
+  <p class="box-title">Eng qimmatli qo'llanish</p>
+  <p>AI ni <strong>tasdiqlovchi</strong> sifatida emas,
+  <strong>tanqidchi</strong> sifatida ishlating. «Men bu holatlarni
+  o'yladim — yana nima bor?» degan savol, «shu yetarlimi?» degan savoldan
+  ancha ko'p natija beradi.</p>
+  <p>Bu 5-darsdagi exploratory testing mantiqi: siz o'ylagan holatlar
+  sizning ko'r nuqtangizni ko'rsatmaydi.</p>
+</div>
+
+<h2>AI almashtirmaydigan narsalar</h2>
+
+<ul class="checklist">
+  <li><strong>Exploratory sessiya</strong> — mahsulotni ochib, sezib,
+      shubhalanish (5-dars)</li>
+  <li><strong>Risk bahosi</strong> — nima eng qimmat, nimadan boshlash
+      (9-dars)</li>
+  <li><strong>Product owner'ga savol berish</strong> — javob mahsulot
+      egasining boshida, hujjatda emas (7-dars)</li>
+  <li><strong>Nimani sinamaslik qarori</strong> — va uni asoslash</li>
+  <li><strong>Reliz bo'yicha tavsiya va javobgarlik</strong> (23-dars)</li>
+  <li><strong>Xatoni haqiqatan ko'rish va takrorlash</strong></li>
+</ul>
+
+<p>Bu ro'yxatga qarang: u aslida <em>testerning kasbi</em>. AI yordamchi
+ishlarni tezlashtiradi, kasbning o'zagini emas.</p>
+
+<h2>Qaysi asboblar</h2>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Asbob</th><th>Nimaga qulay</th></tr></thead>
+  <tbody>
+    <tr><td>Claude, ChatGPT va shunga o'xshash suhbat asboblari</td>
+        <td>Test dizayn, savollar ro'yxati, hisobotni tartibga solish,
+            tarjima</td></tr>
+    <tr><td>Kod muharriridagi yordamchilar (masalan GitHub Copilot)</td>
+        <td>Playwright va SQL yozayotganda (19, 11-darslar)</td></tr>
+    <tr><td>Test asboblariga o'rnatilgan AI funksiyalari</td>
+        <td>Lokator taklif qilish, yiqilgan testni tahlil qilish</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p class="cite">Asboblar tez o'zgaradi — nomlarni yodlash emas, yuqoridagi
+qoidalarni bilish muhim. Ular qaysi asbob ishlatilishidan qat'i nazar
+amal qiladi.</p>
+
+<h2>Tekshirib ko'ramiz</h2>
+
+<section class="quiz">
+  <p class="quiz-prompt">1. AI sizga 40 ta test case yozib berdi. Keyingi
+  qadam nima?</p>
+  <div class="quiz-options">
+    <button class="quiz-option" data-explain="Yozilgan test case — bajarilmaguncha hech narsani isbotlamaydi. Va ularning bir qismi mavjud bo'lmagan funksiyaga tegishli bo'lishi mumkin.">Ularni hujjatga qo'yib, qamrov yaxshi deb hisobot berish</button>
+    <button class="quiz-option" data-correct data-explain="To'g'ri. Har birini mahsulotda tekshirasiz: bunday funksiya bormi, holat mantiqiymi, takror emasmi. Qolgani — sizning ishingiz.">Har birini mahsulotga solishtirib tekshirish</button>
+    <button class="quiz-option" data-explain="Hammasini tashlash ham isrof — qoralama sifatida ular vaqt tejaydi.">Hammasini tashlab, qaytadan qo'lda yozish</button>
+    <button class="quiz-option" data-explain="Dasturchiga tekshirilmagan hujjat yuborish muammoni boshqa odamga o'tkazadi, hal qilmaydi.">Dasturchiga yuborib, u tekshirsin</button>
+  </div>
+  <p class="quiz-feedback" hidden></p>
+</section>
+
+<section class="quiz">
+  <p class="quiz-prompt">2. AI dan eng ko'p foyda beradigan savol qaysi?</p>
+  <div class="quiz-options">
+    <button class="quiz-option" data-explain="«Yaxshimi?» degan savolga ko'pincha «ha» javobi keladi — bu sizga yangi ma'lumot bermaydi.">«Mening test case'larim yaxshimi?»</button>
+    <button class="quiz-option" data-correct data-explain="To'g'ri. Tanqid so'rash sizning ko'r nuqtangizni ochadi — bu 5-darsdagi exploratory mantiqning o'zi.">«Mana bu ro'yxatda qanday holatlar yetishmayapti?»</button>
+    <button class="quiz-option" data-explain="Kontekstsiz umumiy savol umumiy va foydasiz javob beradi.">«Test qilish haqida nima bilasan?»</button>
+    <button class="quiz-option" data-explain="Bu qaror biznesniki (23-dars) va u kontekstni biladi — AI bilmaydi.">«Bu mahsulotni chiqarsam bo'ladimi?»</button>
+  </div>
+  <p class="quiz-feedback" hidden></p>
+</section>
+
+<section class="quiz">
+  <p class="quiz-prompt">3. Bug report yozayotganda AI dan foydalanish
+  qanday to'g'ri bo'ladi?</p>
+  <div class="quiz-options">
+    <button class="quiz-option" data-explain="Haqiqiy natijani AI bilmaydi — u faqat siz kuzatgan narsa bo'lishi mumkin. Bu to'qib chiqarilgan dalil bo'lardi.">Haqiqiy natijani ham AI yozib bersin</button>
+    <button class="quiz-option" data-correct data-explain="To'g'ri. Faktlar — siz kuzatganingiz; AI faqat ularni tartibli shaklga keltiradi.">O'z kuzatuvlaringizni berib, tartibga solishni so'rash</button>
+    <button class="quiz-option" data-explain="Xatoni AI o'ylab topsa, u mavjud bo'lmagan bug bo'ladi — dasturchining vaqti bekorga ketadi.">Qanday buglar bo'lishi mumkinligini o'ylab topishini so'rash</button>
+    <button class="quiz-option" data-explain="Skrinshot va loglar dalil — ularni tekshirilmagan matn bilan almashtirish hisobotni zaiflashtiradi.">Skrinshot o'rniga AI tavsifini ishlatish</button>
+  </div>
+  <p class="quiz-feedback" hidden></p>
+</section>
+
+<section class="recall">
+  <p class="recall-q">Eslab ko'ring — <em>23-darsdan</em>: nega «tester
+  topgan buglar soni» xavfli metrika hisoblanadi?</p>
+  <button class="recall-btn">Javobni ko'rsatish</button>
+  <p class="recall-a" hidden>Chunki u <strong>arzimas xatolarni yozishga
+  undaydi</strong> — ularni topish osonroq, shuning uchun raqam o'sadi,
+  sifat esa o'smaydi. Bundan tashqari xatoning <em>oldini olish</em>
+  (7-dars) umuman hisoblanmaydi, ya'ni testerning eng qimmatli hissasi
+  qadrsizlanadi.</p>
+</section>
+
+<h2>Amaliyot: AI ni o'lchab ko'ring</h2>
+
+<p>Bu topshiriqning maqsadi — AI dan foydalanish emas, uning
+<strong>xato ulushini o'z ko'zingiz bilan ko'rish</strong>.</p>
+
+<ol class="steps">
+  <li><strong>Materialni tayyorlang.</strong> 7-darsda yozgan acceptance
+      criteria'laringizni yoki 3-darsdagi test case'laringizni oling.</li>
+  <li><strong>Tanqid so'rang.</strong> Yuqoridagi to'rt elementli shakl
+      bo'yicha so'rov yozing: kontekst, material, format, «nima
+      yetishmayapti?».</li>
+  <li><strong>Javobni jadvalga tushiring.</strong> Har bir taklif uchun
+      ustunlar: <em>taklif · mahsulotda tekshirdimmi · natija</em>.</li>
+  <li><strong>Har birini haqiqatan tekshiring</strong> — saucedemo yoki
+      o'zingiz ishlatadigan mahsulotda. Uchta natija bo'lishi mumkin:
+      <ul>
+        <li><strong>Foydali</strong> — men o'ylamagan haqiqiy holat</li>
+        <li><strong>Takror</strong> — menda allaqachon bor edi</li>
+        <li><strong>Xayoliy</strong> — bunday funksiya yoki holat mavjud
+            emas</li>
+      </ul>
+  </li>
+  <li><strong>Uchta sonni yozing</strong> va menga yuboring: nechta
+      foydali, nechta takror, nechta xayoliy.</li>
+</ol>
+
+<div class="box box--key">
+  <p class="box-title">Bu raqam nima uchun kerak</p>
+  <p>Undan keyin siz AI ga «ishonaman/ishonmayman» deb emas,
+  <em>o'lchov bilan</em> munosabatda bo'lasiz. Va aynan shu — testerning
+  fikrlash usuli: da'voni tekshirib, natijani raqam bilan aytish.</p>
+  <p>Xayoliy takliflar nolga teng chiqmaydi. Aynan shuning uchun
+  tekshiruvsiz ishlatib bo'lmaydi.</p>
+</div>
+
+<h2>O'qish uchun</h2>
+
+<blockquote>
+  <a href="https://istqb.org/certifications/certified-tester-ai-testing-ct-ai/">ISTQB
+  — Certified Tester AI Testing (CT-AI)</a>
+  <cite>AI va testing kesishmasi bo'yicha rasmiy sertifikat dasturi:
+  AI tizimlarini test qilish va testda AI dan foydalanish. Sillabus
+  bepul yuklab olinadi. Ingliz tilida.</cite>
+</blockquote>
+
+<p class="cite">Hamjamiyat muhokamalari:
+<a href="https://www.ministryoftesting.com/">Ministry of Testing</a> —
+AI ning testdagi o'rni bo'yicha amaliyotchilarning tajribasi. Asboblar
+tez o'zgargani uchun bir yildan eski maqolalarga ehtiyot bo'ling.</p>
+
+<div class="ask-teacher">
+  <p><strong>Uchta sonni yuboring.</strong> Ayniqsa «xayoliy» ustunidagi
+  misollarni — ular AI ning qanday xato qilishini eng yaxshi
+  ko'rsatadi va biz ulardan qanday himoyalanishni birga ishlab
+  chiqamiz.</p>
+</div>
+
+<nav class="nav">
+  <a href="../reference/lugat.html">Reference: Lug'at</a>
+  <a href="../reference/test-data-va-muhit.html">Reference: Test ma'lumoti va muhit</a>
+  <a href="../reference/hisobot-shabloni.html">Reference: Hisobot shabloni</a>
+</nav>
+
+<nav class="lesson-nav">
+  <a class="lesson-nav-link lesson-nav-prev" href="./0023-hisobot-va-metrikalar.html">
+    <span class="lesson-nav-dir">← Oldingi dars</span>
+    <span class="lesson-nav-title">23. Ishingiz ko'rinmasa, u bajarilmagan hisoblanadi</span>
+  </a>
+  <a class="lesson-nav-link lesson-nav-next" href="./0025-30-kunlik-reja.html">
+    <span class="lesson-nav-dir">Keyingi dars →</span>
+    <span class="lesson-nav-title">25. Endi o’qish tugadi</span>
+  </a>
+  <a class="lesson-nav-home" href="./index.html">Barcha darslar</a>
+</nav>
+
+<script src="../assets/lesson.js"></script>
+</body>
+</html>

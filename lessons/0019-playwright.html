@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>19-dars: Playwright bilan birinchi test — Learn-QA</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<p class="crumbs"><a href="./index.html">Darslar</a> ·
+<a href="./0018-performance-testing.html">← 18-dars</a></p>
+
+<p class="eyebrow">19-dars · taxminan 50 daqiqa</p>
+<h1>Birinchi avtomatlashtirilgan testingiz</h1>
+<p class="subtitle">14-darsda <em>nimani</em> avtomatlashtirish kerakligini
+hal qildik. Endi kod yozamiz. Bu darsdagi hamma kod haqiqiy saytda ishga
+tushirilib tekshirilgan.</p>
+
+<h2>Nima kerak</h2>
+
+<p>Faqat <strong>Node.js</strong> (18-versiya yoki undan yangi). Boshqa
+hech narsa: Playwright brauzerni o'zi yuklab oladi.</p>
+
+<pre><code># 1. Papka yarating va ichiga kiring
+mkdir qa-avtomat &amp;&amp; cd qa-avtomat
+
+# 2. Loyihani boshlang
+npm init -y
+
+# 3. Playwright ni o'rnating
+npm i -D @playwright/test
+
+# 4. Brauzerni yuklab oling
+npx playwright install chromium</code></pre>
+
+<p>To'rtinchi buyruq ~115 MB yuklaydi — bir marta, keyin kerak bo'lmaydi.</p>
+
+<h2>Birinchi test</h2>
+
+<p><code>tests/kirish.spec.js</code> fayl yarating:</p>
+
+<pre><code>import { test, expect } from '@playwright/test';
+
+test('to\'g\'ri hisob bilan kirish mumkin', async ({ page }) =&gt; {
+  await page.goto('https://www.saucedemo.com/');
+  await page.getByPlaceholder('Username').fill('standard_user');
+  await page.getByPlaceholder('Password').fill('secret_sauce');
+  await page.getByRole('button', { name: 'Login' }).click();
+  await expect(page.getByText('Products')).toBeVisible();
+});</code></pre>
+
+<p>Ishga tushiring:</p>
+
+<pre><code>npx playwright test</code></pre>
+
+<h3>Har bir qatorda nima bo'lyapti</h3>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Qism</th><th>Ma'nosi</th></tr></thead>
+  <tbody>
+    <tr><td><code>test('nom', async ...)</code></td>
+        <td>Bitta test. Nomi — 3-darsdagi test case sarlavhasi</td></tr>
+    <tr><td><code>{ page }</code></td>
+        <td>Toza brauzer sahifasi. Har bir test o'z sahifasini oladi</td></tr>
+    <tr><td><code>await</code></td>
+        <td>«Tugashini kut». Brauzerdagi har bir amal vaqt oladi</td></tr>
+    <tr><td><code>page.goto(...)</code></td>
+        <td>Manzilga o'tish</td></tr>
+    <tr><td><code>getByPlaceholder(...)</code></td>
+        <td>Elementni topish — <em>lokator</em></td></tr>
+    <tr><td><code>.fill(...)</code> / <code>.click()</code></td>
+        <td>Harakat</td></tr>
+    <tr><td><code>expect(...).toBeVisible()</code></td>
+        <td>Tekshiruv — kutilgan natija</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="box box--key">
+  <p class="box-title">Tuzilma tanishmi?</p>
+  <p><code>goto</code> → dastlabki shart. <code>fill</code> va
+  <code>click</code> → qadamlar. <code>expect</code> → kutilgan natija.
+  Bu <a href="./0003-test-case-yozish.html">3-darsdagi test case</a>ning
+  aynan o'zi, faqat kod shaklida. Shuning uchun yaxshi test case yoza
+  oladigan odam uchun avtomatlashtirish — tarjima ishi.</p>
+</div>
+
+<div class="box box--warn">
+  <p class="box-title">Eng ko'p qilinadigan xato: <code>await</code> ni
+  unutish</p>
+  <p><code>await</code> siz kod «bosishni buyurdim» deydi va darhol
+  keyingi qatorga o'tadi — bosish tugashini kutmaydi. Natija:
+  goh o'tadigan, goh yiqiladigan test. Ya'ni
+  <a href="./0014-avtomatlashtirish.html">14-darsdagi flaky</a> test,
+  o'z qo'lingiz bilan yaratilgan.</p>
+  <p>Qoida: <code>page.</code> yoki <code>expect(</code> bilan
+  boshlanadigan deyarli har bir qator oldida <code>await</code> turadi.</p>
+</div>
+
+<h2>Lokatorlar — eng muhim qism</h2>
+
+<p>Test kodining sifati asosan lokator tanlashga bog'liq. Playwright
+tavsiya qiladigan tartib:</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>№</th><th>Lokator</th><th>Nima bo'yicha topadi</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td><code>getByRole</code></td>
+        <td>Element roli va nomi: tugma, havola, sarlavha</td></tr>
+    <tr><td>2</td><td><code>getByText</code></td>
+        <td>Matn mazmuni</td></tr>
+    <tr><td>3</td><td><code>getByLabel</code></td>
+        <td>Forma maydonining yorlig'i</td></tr>
+    <tr><td>4</td><td><code>getByPlaceholder</code></td>
+        <td>Maydondagi ko'rsatma matni</td></tr>
+    <tr><td>5</td><td><code>getByAltText</code></td>
+        <td>Rasmning matn muqobili</td></tr>
+    <tr><td>6</td><td><code>getByTitle</code></td>
+        <td><code>title</code> atributi</td></tr>
+    <tr><td>7</td><td><code>getByTestId</code></td>
+        <td>Maxsus <code>data-testid</code> atributi</td></tr>
+  </tbody>
+</table>
+</div>
+
+<blockquote>
+  Rol lokatorlari foydalanuvchilar va yordamchi texnologiyalar sahifani
+  qanday idrok etishini aks ettiradi.
+  <cite>Playwright Docs — Locators</cite>
+</blockquote>
+
+<div class="box box--key">
+  <p class="box-title">17-dars bilan bog'liqlik</p>
+  <p><code>getByRole</code> aynan accessibility ma'lumotiga tayanadi.
+  Demak: agar sahifa accessibility talablariga rioya qilsa, uni
+  avtomatlashtirish <em>osonroq</em> bo'ladi. Va aksincha — lokator
+  yozib bo'lmayotgan joy odatda ekran o'quvchi uchun ham
+  ishlamaydigan joy.</p>
+</div>
+
+<div class="box box--bad">
+  <p class="box-title">✗ Nimadan qochish kerak</p>
+  <p><code>page.locator('.btn_primary.btn_inventory')</code></p>
+  <p>Bunday CSS lokator dizayner sinf nomini o'zgartirishi bilan sinadi —
+  garchi sahifa foydalanuvchi uchun bir xil ishlayotgan bo'lsa ham.
+  Bu 14-darsda aytilgan «qo'llab-quvvatlash xarajati» ning asosiy
+  manbai.</p>
+</div>
+
+<h2>Haqiqiy holat: bitta nomdagi oltita tugma</h2>
+
+<p>Shu darsni tayyorlaganimda quyidagi kodni yozdim va u
+<strong>ishlamadi</strong>:</p>
+
+<pre><code>// ✗ Ishlamaydi
+await page.getByRole('button', { name: 'Add to cart Sauce Labs Backpack' }).click();</code></pre>
+
+<p>Sabab: saucedemo sahifasidagi <strong>oltita tugmaning ham nomi
+bir xil</strong> — shunchaki «Add to cart». Mahsulot nomi tugmada emas,
+uning yonidagi blokda.</p>
+
+<p>Bu yerda Playwright ning muhim qoidasi ishlaydi: agar lokatorga bir
+nechta element mos kelsa, u <strong>xato beradi</strong> va tasodifiy
+birini tanlamaydi. Bu — yaxshi xususiyat: noaniqlik yashirin qolmaydi.</p>
+
+<p>To'g'ri yechim — <strong>doirani toraytirish</strong>:</p>
+
+<pre><code>// ✓ Ishlaydi
+const mahsulot = page.locator('.inventory_item')
+  .filter({ hasText: 'Sauce Labs Backpack' });
+await mahsulot.getByRole('button', { name: 'Add to cart' }).click();
+await expect(page.locator('.shopping_cart_badge')).toHaveText('1');</code></pre>
+
+<p>Ya'ni: avval kerakli mahsulot blokini toping, so'ng <em>uning
+ichidagi</em> tugmani bosing. Bu eng ko'p ishlatiladigan naqsh —
+ro'yxatlar, jadvallar va kartochkalar bilan ishlaganda har doim
+shunday qilasiz.</p>
+
+<h2>Takrorni olib tashlash: <code>beforeEach</code></h2>
+
+<p>Har bir test tizimga kirishdan boshlanadi. Uni ko'chirib yozmang:</p>
+
+<pre><code>import { test, expect } from '@playwright/test';
+
+test.beforeEach(async ({ page }) =&gt; {
+  await page.goto('https://www.saucedemo.com/');
+  await page.getByPlaceholder('Username').fill('standard_user');
+  await page.getByPlaceholder('Password').fill('secret_sauce');
+  await page.getByRole('button', { name: 'Login' }).click();
+});
+
+test('savatga mahsulot qo\'shiladi', async ({ page }) =&gt; {
+  const mahsulot = page.locator('.inventory_item')
+    .filter({ hasText: 'Sauce Labs Backpack' });
+  await mahsulot.getByRole('button', { name: 'Add to cart' }).click();
+  await expect(page.locator('.shopping_cart_badge')).toHaveText('1');
+});</code></pre>
+
+<p><code>beforeEach</code> har bir testdan oldin bajariladi. Bu
+<a href="./0003-test-case-yozish.html">3-darsdagi «dastlabki shart»</a>ning
+kod ko'rinishi.</p>
+
+<div class="box box--warn">
+  <p class="box-title"><code>sleep</code> ishlatmang</p>
+  <p>Yangi boshlovchilar «sahifa yuklansin» deb 3 soniya kutish qo'shadi.
+  Bu ikki tomonlama yomon: sekin internetda 3 soniya yetmaydi (test
+  yiqiladi), tez internetda esa bekorga kutiladi (test sekin).</p>
+  <p>Playwright element paydo bo'lishini <strong>o'zi kutadi</strong>.
+  <code>expect</code> ham shart bajarilguncha qayta urinadi. Qo'lda
+  kutish qo'shish — flaky testning ikkinchi eng ko'p sababi.</p>
+</div>
+
+<h2>Foydali buyruqlar</h2>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Buyruq</th><th>Nima qiladi</th></tr></thead>
+  <tbody>
+    <tr><td><code>npx playwright test</code></td>
+        <td>Hamma testlarni ko'rinmas rejimda yurgizadi</td></tr>
+    <tr><td><code>npx playwright test --headed</code></td>
+        <td>Brauzerni ko'rsatib yurgizadi</td></tr>
+    <tr><td><code>npx playwright test --ui</code></td>
+        <td>Interaktiv rejim: har bir qadamni ko'rish, orqaga qaytish</td></tr>
+    <tr><td><code>npx playwright show-report</code></td>
+        <td>Oxirgi natijalar hisobotini ochadi</td></tr>
+    <tr><td><code>npx playwright codegen &lt;manzil&gt;</code></td>
+        <td>Harakatlaringizni kodga aylantiradi</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="box box--warn">
+  <p class="box-title"><code>codegen</code> haqida ogohlantirish</p>
+  <p>Bu — 14-darsdagi «record &amp; playback» yondashuvi. O'rganish uchun
+  ajoyib: lokator qanday yozilishini ko'rsatadi. Lekin uning chiqargan
+  kodini <strong>o'zgartirmasdan</strong> ishlatmang — u ko'pincha mo'rt
+  CSS lokatorlarni tanlaydi. Ishlatish tartibi: codegen bilan qoralama
+  oling, so'ng lokatorlarni yuqoridagi jadval bo'yicha qayta yozing.</p>
+</div>
+
+<h2>Yaxshi test kodining qoidalari</h2>
+
+<ul class="checklist">
+  <li>Bitta test — bitta tekshiruv (3-dars qoidasi o'sha-o'sha)</li>
+  <li>Testlar bir-biriga bog'liq emas: istalgan tartibda ishlashi kerak</li>
+  <li>Test nomi nimani tekshirayotganini aytadi</li>
+  <li>Lokatorlar foydalanuvchi ko'radigan narsaga tayanadi</li>
+  <li>Kutish qo'lda qo'shilmagan</li>
+  <li>Test o'zi yaratgan ma'lumotni o'zi tozalaydi (yoki har safar
+      yangisini yaratadi)</li>
+  <li>Yiqilganda xato xabari sababni tushuntiradi</li>
+</ul>
+
+<h2>Tekshirib ko'ramiz</h2>
+
+<section class="quiz">
+  <p class="quiz-prompt">1. Lokatorga bir nechta element mos kelsa,
+  Playwright nima qiladi?</p>
+  <div class="quiz-options">
+    <button class="quiz-option" data-explain="Birinchisini tanlash xavfli bo'lardi — test tasodifan boshqa elementni sinab, muammoni yashirar edi.">Birinchisini tanlaydi</button>
+    <button class="quiz-option" data-correct data-explain="To'g'ri. Playwright xato beradi — noaniqlik yashirin qolmaydi. Yechim: doirani toraytirish (filter, ichki lokator).">Xato beradi</button>
+    <button class="quiz-option" data-explain="Hammasini bosish kutilmagan natijalarga olib kelardi.">Hammasini bosadi</button>
+    <button class="quiz-option" data-explain="Tasodifiy tanlov testni beqaror qilardi.">Tasodifiy birini tanlaydi</button>
+  </div>
+  <p class="quiz-feedback" hidden></p>
+</section>
+
+<section class="quiz">
+  <p class="quiz-prompt">2. Nega <code>page.locator('.btn_primary')</code>
+  o'rniga <code>getByRole('button', …)</code> afzal?</p>
+  <div class="quiz-options">
+    <button class="quiz-option" data-explain="Tezlik farqi sezilarli emas — masala barqarorlikda.">Chunki u tezroq ishlaydi</button>
+    <button class="quiz-option" data-correct data-explain="To'g'ri. CSS sinf nomi dizayn o'zgarganda sinadi; rol va nom esa foydalanuvchi ko'radigan narsaga tayanadi va uzoq yashaydi.">Chunki u dizayn o'zgarganda sinmaydi</button>
+    <button class="quiz-option" data-explain="Ikkalasini ham yozish mumkin — masala qaysi biri uzoq yashashida.">Chunki CSS lokator yozib bo'lmaydi</button>
+    <button class="quiz-option" data-explain="Har ikkalasi ham hamma brauzerda ishlaydi.">Chunki CSS faqat Chrome'da ishlaydi</button>
+  </div>
+  <p class="quiz-feedback" hidden></p>
+</section>
+
+<section class="quiz">
+  <p class="quiz-prompt">3. Test goh o'tadi, goh yiqiladi. Birinchi
+  navbatda nimani tekshirasiz?</p>
+  <div class="quiz-options">
+    <button class="quiz-option" data-explain="Kutish qo'shish alomatni yashiradi va testni sekinlashtiradi — sababni topmaydi.">Kutish vaqtini oshirish</button>
+    <button class="quiz-option" data-correct data-explain="To'g'ri. Unutilgan await va qo'lda qo'shilgan sleep — beqarorlikning ikki asosiy sababi.">Unutilgan <code>await</code> va qo'lda qo'shilgan kutishlar</button>
+    <button class="quiz-option" data-explain="Testni o'chirish — oxirgi chora, birinchi qadam emas.">Testni o'chirib tashlash</button>
+    <button class="quiz-option" data-explain="Avtomatik qayta yurgizish beqarorlikni yashiradi, tuzatmaydi.">Yiqilganda avtomatik qayta yurgizish</button>
+  </div>
+  <p class="quiz-feedback" hidden></p>
+</section>
+
+<section class="recall">
+  <p class="recall-q">Eslab ko'ring — <em>18-darsdan</em>: nega performance
+  o'lchovida o'rtacha emas, protsentil ishlatiladi?</p>
+  <button class="recall-btn">Javobni ko'rsatish</button>
+  <p class="recall-a" hidden>Chunki <strong>o'rtacha eng yomon holatlarni
+  yashiradi</strong>. 75 tasida 1 soniya, 25 tasida 12 soniya bo'lsa,
+  o'rtacha 3.7 soniya chiqadi va hammasi yaxshi ko'rinadi — aslida har
+  to'rtinchi foydalanuvchi azob chekyapti. Standart o'lchov —
+  75-protsentil.</p>
+</section>
+
+<h2>Amaliyot</h2>
+
+<h3>A — Loyihani qurib, uchta testni ishga tushiring (40 daqiqa)</h3>
+
+<ol class="steps">
+  <li>Yuqoridagi to'rt buyruq bilan loyiha yarating.</li>
+  <li>Ikkita testni (kirish va savat) ko'chirib yozing va
+      <code>npx playwright test</code> bilan yurgizing.</li>
+  <li><code>--headed</code> bilan qayta yurgizing — brauzerda nima
+      bo'layotganini ko'ring.</li>
+  <li><code>--ui</code> rejimini ochib, qadamlar bo'ylab yuring.</li>
+  <li><strong>Ataylab sindiring:</strong> lokatordagi matnni
+      o'zgartiring va xato xabarini o'qing. Playwright nimani
+      kutganini aniq aytadi — bu keyinchalik juda ko'p vaqt tejaydi.</li>
+</ol>
+
+<h3>B — Uchta test o'zingiz yozing (40 daqiqa)</h3>
+
+<ol class="steps">
+  <li>Noto'g'ri parol bilan kirishga urinish → xato xabari
+      ko'rinishini tekshirish.</li>
+  <li>Ikkita mahsulot qo'shish → savat hisoblagichi <code>2</code>
+      bo'lishini tekshirish.</li>
+  <li>Savatdan mahsulotni olib tashlash → hisoblagich yo'qolishini
+      tekshirish.</li>
+</ol>
+
+<h3>C — Test case'ni kodga aylantiring (30 daqiqa)</h3>
+
+<p>3-darsda yozgan test case'laringizdan ikkitasini tanlang va ularni
+Playwright testiga aylantiring. Dastlabki shart →
+<code>beforeEach</code>, qadamlar → harakatlar, kutilgan natija →
+<code>expect</code>.</p>
+
+<div class="box box--key">
+  <p class="box-title">C qismi nima uchun eng muhim</p>
+  <p>Bu mashq bitta narsani ko'rsatadi: <strong>test case aniq
+  yozilgan bo'lsa, uni kodga aylantirish oson</strong>. Noaniq yozilgan
+  bo'lsa («savat to'g'ri ishlashi kerak») — kod yozib bo'lmaydi.</p>
+  <p>Shuning uchun avtomatlashtirishdagi asosiy qiyinchilik kod emas.
+  Kod — oxirgi, eng oson qadam. Asosiy ish undan oldin bajarilgan
+  bo'ladi.</p>
+</div>
+
+<h2>O'qish uchun (birlamchi manba)</h2>
+
+<blockquote>
+  <a href="https://playwright.dev/docs/writing-tests">Playwright Docs —
+  Writing tests</a>
+  <cite>Rasmiy qo'llanma: birinchi test, harakatlar, tekshiruvlar.
+  Ingliz tilida, qisqa va misollarga boy.</cite>
+</blockquote>
+
+<p class="cite">Lokatorlar bo'yicha:
+<a href="https://playwright.dev/docs/locators">Playwright Docs —
+Locators</a>. Bu sahifani bir necha marta qaytib o'qiysiz.</p>
+
+<div class="ask-teacher">
+  <p><strong>Yozgan testlaringizni yuboring.</strong> Men lokatorlaringizga
+  qarayman — bu kod sifatining asosiy ko'rsatkichi. Va C qismidagi
+  natijani ayting: qaysi test case'ni kodga aylantirish qiyin bo'ldi?
+  Odatda javob shuki, o'sha test case yetarlicha aniq yozilmagan
+  ekan.</p>
+</div>
+
+<nav class="nav">
+  <a href="../reference/playwright-shpargalka.html">Reference: Playwright shpargalkasi</a>
+  <a href="../reference/avtomatlashtirish-qarori.html">Reference: Avtomatlashtirish qarori</a>
+  <a href="../reference/test-case-shabloni.html">Reference: Test case shabloni</a>
+</nav>
+
+<nav class="lesson-nav">
+  <a class="lesson-nav-link lesson-nav-prev" href="./0018-performance-testing.html">
+    <span class="lesson-nav-dir">← Oldingi dars</span>
+    <span class="lesson-nav-title">18. «Sekin» — bu bug report emas</span>
+  </a>
+  <a class="lesson-nav-link lesson-nav-next" href="./0020-ci-cd.html">
+    <span class="lesson-nav-dir">Keyingi dars →</span>
+    <span class="lesson-nav-title">20. Faqat sizning kompyuteringizda ishlaydigan test — himoya emas</span>
+  </a>
+  <a class="lesson-nav-home" href="./index.html">Barcha darslar</a>
+</nav>
+
+<script src="../assets/lesson.js"></script>
+</body>
+</html>

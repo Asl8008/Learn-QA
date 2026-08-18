@@ -1,0 +1,603 @@
+/* ===========================================================
+   Learn-QA — umumiy uslublar jadvali
+   Barcha darslar va reference hujjatlar shu faylga bog'lanadi.
+   Maqsad: sokin, o'qishga qulay, chop etilganda ham chiroyli.
+   =========================================================== */
+
+:root {
+  --ink:        #16130f;
+  --ink-soft:   #55504a;
+  --ink-faint:  #8a847c;
+  --paper:      #fffdf7;
+  --paper-alt:  #f6f2e8;
+  --rule:       #e2dccd;
+  --accent:     #8a3324;   /* g'isht rangi — sarlavhalar va havolalar */
+  --good:       #2f6b3f;
+  --bad:        #a32d20;
+  --warn:       #8a6d1f;
+
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+  --sans:  "Inter", -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  --mono:  "SF Mono", "JetBrains Mono", "Cascadia Code", Consolas, "Liberation Mono", monospace;
+
+  --measure: 34rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ink:       #e8e3d8;
+    --ink-soft:  #a8a196;
+    --ink-faint: #756f66;
+    --paper:     #16150f;
+    --paper-alt: #201e17;
+    --rule:      #34302a;
+    --accent:    #e08a6d;
+    --good:      #7fbe8e;
+    --bad:       #e58074;
+    --warn:      #d6b45c;
+  }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0 auto;
+  padding: 4rem 1.5rem 7rem;
+  max-width: calc(var(--measure) + 3rem);
+  font-family: var(--serif);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  color: var(--ink);
+  background: var(--paper);
+  text-rendering: optimizeLegibility;
+}
+
+/* --- Sarlavhalar ------------------------------------------------------- */
+
+h1, h2, h3, h4 {
+  font-family: var(--sans);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+h1 {
+  font-size: 1.9rem;
+  margin: 0 0 0.4rem;
+  text-wrap: balance;
+}
+
+h2 {
+  font-size: 1.25rem;
+  margin: 3.2rem 0 0.9rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--rule);
+}
+
+h3 {
+  font-size: 1.02rem;
+  margin: 2rem 0 0.5rem;
+}
+
+/* Dars sarlavhasi ustidagi kichik yorliq */
+.eyebrow {
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 0.7rem;
+}
+
+.subtitle {
+  font-size: 1.08rem;
+  color: var(--ink-soft);
+  font-style: italic;
+  margin: 0 0 2.5rem;
+  text-wrap: pretty;
+}
+
+/* --- Matn -------------------------------------------------------------- */
+
+p { margin: 0 0 1.1rem; text-wrap: pretty; }
+
+a {
+  color: var(--accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+a:hover { text-decoration-thickness: 2px; }
+
+strong { font-weight: 600; }
+
+code {
+  font-family: var(--mono);
+  font-size: 0.86em;
+  background: var(--paper-alt);
+  padding: 0.12em 0.35em;
+  border-radius: 3px;
+}
+
+kbd {
+  font-family: var(--mono);
+  font-size: 0.8em;
+  background: var(--paper-alt);
+  border: 1px solid var(--rule);
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  padding: 0.1em 0.4em;
+  white-space: nowrap;
+}
+
+pre {
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  line-height: 1.6;
+  background: var(--paper-alt);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 0.9rem 1rem;
+  margin: 1.2rem 0;
+  overflow-x: auto;
+  white-space: pre;
+  tab-size: 2;
+}
+pre code {
+  background: none;
+  padding: 0;
+  font-size: inherit;
+}
+
+ul, ol { margin: 0 0 1.2rem; padding-left: 1.4rem; }
+li { margin-bottom: 0.45rem; }
+li > ul, li > ol { margin-top: 0.45rem; margin-bottom: 0.2rem; }
+
+/* --- Iqtibos / manba --------------------------------------------------- */
+
+blockquote {
+  margin: 1.6rem 0;
+  padding: 0.2rem 0 0.2rem 1.2rem;
+  border-left: 3px solid var(--rule);
+  color: var(--ink-soft);
+  font-style: italic;
+}
+blockquote cite {
+  display: block;
+  margin-top: 0.5rem;
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  font-style: normal;
+  color: var(--ink-faint);
+}
+
+/* Kichik havola-izoh: "manba: ..." */
+.cite {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  color: var(--ink-faint);
+}
+
+/* --- Qutilar ----------------------------------------------------------- */
+
+.box {
+  margin: 1.8rem 0;
+  padding: 1.1rem 1.3rem;
+  background: var(--paper-alt);
+  border-radius: 4px;
+  border-left: 3px solid var(--rule);
+}
+.box > :last-child { margin-bottom: 0; }
+.box-title {
+  font-family: var(--sans);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin: 0 0 0.6rem;
+}
+
+.box--key   { border-left-color: var(--accent); }
+.box--good  { border-left-color: var(--good); }
+.box--bad   { border-left-color: var(--bad); }
+.box--warn  { border-left-color: var(--warn); }
+
+.box--key   .box-title { color: var(--accent); }
+.box--good  .box-title { color: var(--good); }
+.box--bad   .box-title { color: var(--bad); }
+.box--warn  .box-title { color: var(--warn); }
+
+/* --- Yonma-yon taqqoslash ---------------------------------------------- */
+
+.compare {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+  margin: 1.8rem 0;
+}
+@media (min-width: 46rem) {
+  .compare { grid-template-columns: 1fr 1fr; }
+}
+.compare .box { margin: 0; }
+
+/* --- Jadval ------------------------------------------------------------ */
+
+.table-wrap { overflow-x: auto; margin: 1.8rem 0; }
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  font-family: var(--sans);
+  font-size: 0.9rem;
+}
+th, td {
+  text-align: left;
+  vertical-align: top;
+  padding: 0.55rem 0.8rem 0.55rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+thead th {
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  border-bottom: 1.5px solid var(--ink-faint);
+}
+tbody tr:last-child td { border-bottom: none; }
+
+/* --- Bug report namunasi ----------------------------------------------- */
+
+.report {
+  font-family: var(--sans);
+  font-size: 0.88rem;
+  line-height: 1.55;
+  background: var(--paper-alt);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 1.1rem 1.3rem;
+  margin: 1.6rem 0;
+}
+.report dl { margin: 0; }
+.report dt {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-top: 0.95rem;
+}
+.report dt:first-child { margin-top: 0; }
+.report dd { margin: 0.2rem 0 0; }
+.report ol { margin: 0.3rem 0 0; padding-left: 1.3rem; }
+.report ol li { margin-bottom: 0.2rem; }
+
+/* --- Qadamlar ro'yxati (amaliyot) -------------------------------------- */
+
+.steps { counter-reset: step; list-style: none; padding-left: 0; }
+.steps > li {
+  counter-increment: step;
+  position: relative;
+  padding-left: 2.4rem;
+  margin-bottom: 1.1rem;
+}
+.steps > li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: 0.05em;
+  width: 1.6rem;
+  height: 1.6rem;
+  display: grid;
+  place-items: center;
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--paper);
+  background: var(--accent);
+  border-radius: 50%;
+}
+
+/* --- Navigatsiya ------------------------------------------------------- */
+
+.nav {
+  font-family: var(--sans);
+  font-size: 0.83rem;
+  margin: 3.5rem 0 0;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--rule);
+  color: var(--ink-faint);
+}
+.nav a { margin-right: 1.2rem; }
+
+.crumbs {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  color: var(--ink-faint);
+  margin: 0 0 2.5rem;
+}
+.crumbs a { color: var(--ink-faint); }
+
+/* --- O'qituvchiga savol eslatmasi -------------------------------------- */
+
+.ask-teacher {
+  margin: 3rem 0 0;
+  padding: 1.1rem 1.3rem;
+  border: 1px dashed var(--rule);
+  border-radius: 4px;
+  font-family: var(--sans);
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+}
+.ask-teacher > :last-child { margin-bottom: 0; }
+.ask-teacher strong { color: var(--ink); }
+
+/* =====================  INTERAKTIV QISMLAR  ============================ */
+
+/* --- Quiz -------------------------------------------------------------- */
+
+.quiz {
+  margin: 1.8rem 0;
+  padding: 1.2rem 1.3rem 1.3rem;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  background: var(--paper);
+}
+
+.quiz-prompt {
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin: 0 0 1rem;
+  text-wrap: pretty;
+}
+
+.quiz-options { display: grid; gap: 0.5rem; }
+
+.quiz-option {
+  display: block;
+  width: 100%;
+  text-align: left;
+  font-family: var(--sans);
+  font-size: 0.88rem;
+  line-height: 1.45;
+  color: var(--ink);
+  background: var(--paper-alt);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 0.6rem 0.8rem;
+  cursor: pointer;
+  transition: background 0.12s, border-color 0.12s;
+}
+.quiz-option:hover:not([disabled]) { border-color: var(--ink-faint); }
+.quiz-option[disabled] { cursor: default; }
+
+.quiz-option.is-correct {
+  border-color: var(--good);
+  background: color-mix(in srgb, var(--good) 12%, var(--paper));
+}
+.quiz-option.is-wrong {
+  border-color: var(--bad);
+  background: color-mix(in srgb, var(--bad) 12%, var(--paper));
+}
+.quiz-option.is-missed { border-color: var(--good); border-style: dashed; }
+
+.quiz-feedback {
+  font-family: var(--sans);
+  font-size: 0.86rem;
+  line-height: 1.5;
+  margin: 0.9rem 0 0;
+  padding-left: 0.8rem;
+  border-left: 3px solid var(--rule);
+  color: var(--ink-soft);
+}
+.quiz-feedback.is-correct { border-left-color: var(--good); }
+.quiz-feedback.is-wrong   { border-left-color: var(--bad); }
+.quiz-feedback[hidden]    { display: none; }
+
+/* --- Eslab ko'rish (retrieval practice) -------------------------------- */
+
+.recall {
+  margin: 1.6rem 0;
+  padding: 1.1rem 1.3rem;
+  border: 1px solid var(--rule);
+  border-left: 3px solid var(--accent);
+  border-radius: 4px;
+}
+.recall-q {
+  font-family: var(--sans);
+  font-size: 0.92rem;
+  font-weight: 600;
+  margin: 0 0 0.8rem;
+}
+.recall-btn {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--accent);
+  background: none;
+  border: 1px solid var(--accent);
+  border-radius: 3px;
+  padding: 0.35rem 0.8rem;
+  cursor: pointer;
+}
+.recall-btn:hover { background: color-mix(in srgb, var(--accent) 10%, transparent); }
+.recall-a {
+  font-family: var(--sans);
+  font-size: 0.88rem;
+  line-height: 1.55;
+  margin: 0.9rem 0 0;
+  color: var(--ink-soft);
+}
+.recall-a[hidden] { display: none; }
+
+/* --- Amaliy topshiriq belgilagichi ------------------------------------- */
+
+.checklist { list-style: none; padding-left: 0; }
+.checklist li {
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  padding-left: 1.7rem;
+  position: relative;
+  margin-bottom: 0.55rem;
+}
+.checklist li::before {
+  content: "☐";
+  position: absolute;
+  left: 0;
+  color: var(--ink-faint);
+  font-size: 1.05rem;
+  line-height: 1.3;
+}
+
+/* --- Darslar orasida o'tish tugmalari ---------------------------------- */
+
+.lesson-nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.8rem;
+  margin: 3.5rem 0 0;
+  padding-top: 2rem;
+  border-top: 1px solid var(--rule);
+}
+
+.lesson-nav-link {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  text-decoration: none;
+  color: var(--ink);
+  transition: border-color 0.12s, background 0.12s;
+}
+.lesson-nav-link:hover {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 6%, transparent);
+}
+
+.lesson-nav-next { text-align: right; align-items: flex-end; }
+
+/* Bo'sh joy: birinchi yoki oxirgi darsda bir tomon bo'lmaydi */
+.lesson-nav-empty { border: none; }
+
+.lesson-nav-dir {
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.lesson-nav-link:hover .lesson-nav-dir { color: var(--accent); }
+
+.lesson-nav-title {
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.35;
+  text-wrap: pretty;
+}
+
+.lesson-nav-home {
+  display: block;
+  grid-column: 1 / -1;
+  text-align: center;
+  font-family: var(--sans);
+  font-size: 0.83rem;
+  color: var(--ink-faint);
+  text-decoration: none;
+  padding-top: 0.3rem;
+}
+.lesson-nav-home:hover { color: var(--accent); text-decoration: underline; }
+
+@media (max-width: 30rem) {
+  .lesson-nav { grid-template-columns: 1fr; }
+  .lesson-nav-next { text-align: left; align-items: flex-start; }
+  .lesson-nav-empty { display: none; }
+}
+
+/* --- Ekvivalentlik sinflari diagrammasi -------------------------------- */
+
+figure { margin: 1.8rem 0; }
+figcaption {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  color: var(--ink-faint);
+  margin-top: 0.6rem;
+  text-wrap: pretty;
+}
+
+.partitions-row {
+  display: flex;
+  gap: 3px;
+  font-family: var(--sans);
+}
+.partition {
+  flex: 1;
+  padding: 0.7rem 0.6rem;
+  border-radius: 3px;
+  text-align: center;
+  min-width: 0;
+}
+.partition--valid   { background: color-mix(in srgb, var(--good) 16%, var(--paper)); }
+.partition--invalid { background: color-mix(in srgb, var(--bad) 13%, var(--paper)); }
+
+.partition-name {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.partition--valid   .partition-name { color: var(--good); }
+.partition--invalid .partition-name { color: var(--bad); }
+
+.partition-range {
+  display: block;
+  font-size: 0.92rem;
+  font-weight: 600;
+  margin-top: 0.2rem;
+  color: var(--ink);
+}
+
+/* Chegara qiymati belgisi — matn ichida ham ishlatiladi */
+.bv {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 0.84em;
+  font-weight: 600;
+  padding: 0.1em 0.45em;
+  border-radius: 3px;
+  background: color-mix(in srgb, var(--warn) 22%, var(--paper));
+  border: 1px solid color-mix(in srgb, var(--warn) 45%, var(--paper));
+  color: var(--ink);
+}
+
+/* --- Chop etish -------------------------------------------------------- */
+
+@media print {
+  :root {
+    --ink: #000; --ink-soft: #333; --ink-faint: #666;
+    --paper: #fff; --paper-alt: #f4f4f4; --rule: #ccc; --accent: #000;
+  }
+  body { padding: 0; max-width: none; font-size: 10.5pt; }
+  .quiz, .recall, .ask-teacher, .nav { break-inside: avoid; }
+  .quiz-option { background: #fff; }
+  .recall-a[hidden] { display: block; }
+  .recall-btn { display: none; }
+  h2 { break-after: avoid; }
+  a { color: #000; text-decoration: none; }
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 8pt;
+    color: #666;
+    word-break: break-all;
+  }
+}

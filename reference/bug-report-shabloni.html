@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bug report shabloni — Learn-QA</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<p class="crumbs"><a href="../lessons/index.html">Darslar</a> ·
+<a href="./lugat.html">Lug'at</a></p>
+
+<p class="eyebrow">Reference · chop etsa bo'ladi</p>
+<h1>Bug report shabloni</h1>
+<p class="subtitle">Har safar xato topganingizda shu tartibda to'ldiring.
+Bitta savol bilan tekshiring: dasturchi mendan hech narsa so'ramasdan buni
+takrorlay oladimi?</p>
+
+<h2>Shablon</h2>
+
+<div class="report">
+  <dl>
+    <dt>Sarlavha</dt>
+    <dd>[Qayerda] — nima noto'g'ri bo'ldi, [qanday shartda]</dd>
+
+    <dt>Muhit</dt>
+    <dd>Brauzer + versiya · OS · qurilma · ilova versiyasi/build · test hisobi</dd>
+
+    <dt>Takrorlash qadamlari</dt>
+    <dd>
+      <ol>
+        <li>Ma'lum boshlang'ich holatdan boshlang (masalan: «X sahifasini oching»)</li>
+        <li>Har bir harakat — alohida qadam</li>
+        <li>Aniq qiymatlarni yozing («50 000» deb yozing, «katta son» emas)</li>
+      </ol>
+    </dd>
+
+    <dt>Kutilgan natija</dt>
+    <dd>Nima bo'lishi kerak edi — bitta gap</dd>
+
+    <dt>Haqiqiy natija</dt>
+    <dd>Nima bo'ldi — bitta gap, faqat kuzatilgani</dd>
+
+    <dt>Takrorlanuvchanlik</dt>
+    <dd>Har safar / 5 dan 3 tasida / bir marta chiqdi</dd>
+
+    <dt>Severity</dt>
+    <dd>Blocker · Critical · Major · Minor · Trivial</dd>
+
+    <dt>Dalil</dt>
+    <dd>Skrinshot, ekran yozuvi, konsol logi, xato matni, tarmoq so'rovi</dd>
+  </dl>
+</div>
+
+<h2>Severity darajalari</h2>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Daraja</th><th>Qachon</th><th>Misol</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Blocker</strong></td>
+      <td>Ishlashning davomi umuman imkonsiz</td>
+      <td>Sayt ochilmaydi; tizimga kirish ishlamaydi</td>
+    </tr>
+    <tr>
+      <td><strong>Critical</strong></td>
+      <td>Asosiy funksiya buzilgan yoki ma'lumot yo'qoladi</td>
+      <td>To'lov o'tmaydi; saqlangan ma'lumot yo'qoladi</td>
+    </tr>
+    <tr>
+      <td><strong>Major</strong></td>
+      <td>Muhim funksiya noto'g'ri ishlaydi, lekin yo'l bor</td>
+      <td>Qidiruv filtri noto'g'ri natija beradi</td>
+    </tr>
+    <tr>
+      <td><strong>Minor</strong></td>
+      <td>Kichik nosozlik, ish davom etaveradi</td>
+      <td>Tugma joyidan siljigan; matn kesilgan</td>
+    </tr>
+    <tr>
+      <td><strong>Trivial</strong></td>
+      <td>Kosmetik kamchilik</td>
+      <td>Imlo xatosi; rang biroz boshqacha</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Yuborishdan oldingi tekshiruv</h2>
+
+<ul class="checklist">
+  <li>Xatoni <strong>kamida ikki marta</strong> takrorlab ko'rdimmi?</li>
+  <li>Sarlavhani o'qib, dasturchi muammoni tushunadimi?</li>
+  <li>Qadamlarni <strong>boshqa odam</strong> bajarsa, xuddi shu natija chiqadimi?</li>
+  <li>Kutilgan natijaga <strong>asosim</strong> bormi (talab, hujjat, mantiq)?</li>
+  <li>Faqat <strong>kuzatganimni</strong> yozdimmi — sababni taxmin qilmadimmi?</li>
+  <li>Skrinshot yoki log biriktirdimmi?</li>
+  <li>Bu xato <strong>allaqachon</strong> qayd etilmaganmi?</li>
+  <li>Bitta hisobotda <strong>bitta</strong> xato bormi?</li>
+</ul>
+
+<h2>Uchta oltin qoida</h2>
+
+<div class="box box--key">
+  <p class="box-title">1 — Faqat faktni yozing</p>
+  <p>«Ma'lumotlar bazasiga ulanish uzilyapti shekilli» emas —
+  «Ekranda <code>Error 500</code> chiqdi». Sababni topish dasturchining ishi.
+  Sizning taxminingiz uni noto'g'ri yo'lga boshlashi mumkin.</p>
+</div>
+
+<div class="box box--key">
+  <p class="box-title">2 — Bitta hisobot = bitta xato</p>
+  <p>Uchta muammoni bitta hisobotga tiqsangiz, ikkitasi unutiladi. Hisobot
+  «tuzatildi» deb yopilganda ham qolgan ikkitasi joyida turaveradi.</p>
+</div>
+
+<div class="box box--key">
+  <p class="box-title">3 — Odamni emas, xatoni tanqid qiling</p>
+  <p>«Kim bu ahmoqona formani yozgan?» emas — «Forma bo'sh email bilan
+  yuborilyapti». Bug report — hujjat, dasturchi bilan bo'ladigan janjal emas.</p>
+</div>
+
+<div class="ask-teacher">
+  <p><strong>Savol bormi?</strong> Yozgan bug report ingizni menga yuboring —
+  men uni tekshirib, aniq nima yetishmayotganini aytaman.</p>
+</div>
+
+<nav class="nav">
+  <a href="../lessons/index.html">Barcha darslar</a>
+  <a href="./test-case-shabloni.html">Test case shabloni</a>
+  <a href="./test-dizayn-texnikalari.html">Test dizayn texnikalari</a>
+  <a href="./lugat.html">Lug'at</a>
+</nav>
+
+</body>
+</html>

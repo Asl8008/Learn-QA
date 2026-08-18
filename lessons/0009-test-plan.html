@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>9-dars: Test plan va risk — Learn-QA</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<p class="crumbs"><a href="./index.html">Darslar</a> ·
+<a href="./0008-jira-bug-tracker.html">← 8-dars</a></p>
+
+<p class="eyebrow">9-dars · taxminan 30 daqiqa</p>
+<h1>Vaqt oz, ish ko'p: test plan</h1>
+<p class="subtitle">Shu paytgacha bitta maydon yoki bitta sahifani sinadingiz.
+Endi savol o'zgaradi: sizga butun mahsulot va uch kun berildi. Nimadan
+boshlaysiz va nimani umuman sinamaysiz?</p>
+
+<h2>Hammasini sinab bo'lmaydi</h2>
+
+<p>2-darsda ko'rdik: bitta oddiy maydonda ham cheksiz variant bor. Endi shuni
+butun mahsulotga ko'paytiring. Bir necha ekran, o'nlab maydon, bir necha
+brauzer, bir necha rol — variantlar soni astronomik.</p>
+
+<p>Bu testingning asosiy haqiqati: <strong>to'liq testing mumkin emas</strong>.
+Shuning uchun testerning ishi «hammasini tekshirish» emas —
+<strong>nimani tekshirishni tanlash</strong>. Test plan aynan shu tanlovni
+yozib qo'yadigan hujjat.</p>
+
+<div class="box box--key">
+  <p class="box-title">Test plan nima uchun kerak</p>
+  <p>ISTQB bo'yicha test plan:</p>
+  <ul>
+    <li>test maqsadlariga erishish yo'li va jadvalini hujjatlashtiradi;</li>
+    <li>bajarilgan test ishlari belgilangan mezonlarga javob berishini
+        ta'minlashga yordam beradi;</li>
+    <li>jamoa a'zolari va boshqa manfaatdor tomonlar bilan muloqot vositasi
+        bo'lib xizmat qiladi.</li>
+  </ul>
+  <p class="cite">Manba: <a href="https://astqb.org/5-1-test-planning/">ISTQB
+  CTFL Syllabus, 5.1.1</a></p>
+</div>
+
+<p>Uchinchi banddan qo'rqmang: test plan — byurokratiya emas. Uning asosiy
+vazifasi <em>kelishuv</em>. Yozilmagan reja — sizning boshingizdagi taxmin;
+yozilgani esa jamoaning umumiy tushunchasi.</p>
+
+<h2>Test plan nimalardan iborat</h2>
+
+<p>Katta kompaniyalarda bu 20 betlik hujjat bo'lishi mumkin. Bizga bir betlik
+amaliy variant kerak — u ham bir xil savollarga javob beradi:</p>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Bo'lim</th><th>Javob beradigan savol</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Maqsad</strong></td>
+        <td>Nima uchun test qilamiz? Qaysi qaror shu testga bog'liq?</td></tr>
+    <tr><td><strong>Qamrov ichida</strong><br><span class="cite">in scope</span></td>
+        <td>Aynan nima sinaladi?</td></tr>
+    <tr><td><strong>Qamrovdan tashqarida</strong><br><span class="cite">out of scope</span></td>
+        <td>Nima <em>sinalmaydi</em> — va nima uchun?</td></tr>
+    <tr><td><strong>Muhit</strong></td>
+        <td>Qaysi brauzer, qurilma, versiya, hisob ma'lumotlari?</td></tr>
+    <tr><td><strong>Risklar</strong></td>
+        <td>Eng xavfli joylar qayerda?</td></tr>
+    <tr><td><strong>Kirish mezoni</strong><br><span class="cite">entry criteria</span></td>
+        <td>Testni boshlash uchun nima tayyor bo'lishi kerak?</td></tr>
+    <tr><td><strong>Chiqish mezoni</strong><br><span class="cite">exit criteria</span></td>
+        <td>Qachon «testing tugadi» deymiz?</td></tr>
+    <tr><td><strong>Vaqt va odam</strong></td>
+        <td>Kim, qancha vaqt ishlaydi?</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="box box--warn">
+  <p class="box-title">Eng ko'p tashlab ketiladigan bo'lim</p>
+  <p><strong>«Qamrovdan tashqarida»</strong> — va aynan u eng qimmatli.
+  «To'lov tizimi bu safar sinalmaydi, chunki unga o'zgarish tegmagan» deb
+  yozsangiz, ikki natija olasiz: menejer buni ko'radi va rozi bo'ladi;
+  keyinchalik o'sha joyda xato chiqsa, siz aybdor emassiz — bu ongli va
+  kelishilgan qaror edi.</p>
+</div>
+
+<h2>Kirish va chiqish mezonlari</h2>
+
+<blockquote>
+  Kirish mezonlari muayyan faoliyatni boshlash uchun zarur oldindan shartlarni
+  belgilaydi.
+  <cite>ISTQB CTFL Syllabus, 5.1.3</cite>
+</blockquote>
+
+<blockquote>
+  Chiqish mezonlari faoliyat tugallangan deb e'lon qilish uchun nimaga
+  erishilishi kerakligini belgilaydi.
+  <cite>ISTQB CTFL Syllabus, 5.1.3</cite>
+</blockquote>
+
+<div class="compare">
+  <div class="box box--good">
+    <p class="box-title">Kirish mezoni — namuna</p>
+    <ul>
+      <li>Story'da acceptance criteria yozilgan</li>
+      <li>Build test muhitiga o'rnatilgan va ochiladi</li>
+      <li>Test hisoblari (login/parol) ishlaydi</li>
+      <li>Smoke test o'tdi — asosiy yo'l ishlaydi</li>
+    </ul>
+  </div>
+  <div class="box box--good">
+    <p class="box-title">Chiqish mezoni — namuna</p>
+    <ul>
+      <li>Barcha acceptance criteria tekshirildi</li>
+      <li>Highest va High prioritetli bug qolmadi</li>
+      <li>Ochiq buglar ro'yxati jamoaga taqdim etildi</li>
+      <li>Regression to'plami o'tkazildi</li>
+    </ul>
+  </div>
+</div>
+
+<p>Diqqat qiling: chiqish mezonida «xato yo'q» deyilmagan. Bu mumkin emas —
+«xato yo'q» ni isbotlab bo'lmaydi. Yoziladigan narsa: <em>qanday</em> xatolar
+qolishiga rozimiz.</p>
+
+<div class="box box--key">
+  <p class="box-title">Tanish tuyulyaptimi?</p>
+  <p>Kirish mezoni — 7-darsdagi <strong>Definition of Ready</strong>ning o'zi,
+  chiqish mezoni esa <strong>Definition of Done</strong>. Nomlar boshqa,
+  mantiq bir xil: ishni boshlash va tugatish shartlarini <em>oldindan</em>
+  kelishib olish.</p>
+</div>
+
+<h2>Risk: nimani birinchi sinash kerak</h2>
+
+<p>Vaqt tugab qolsa, sinalmay qolgan joylar bo'ladi — bu muqarrar. Savol shuki,
+<em>qaysi</em> joylar sinalmay qoladi. Buni tasodifga qoldirmaslik uchun
+<strong>risk</strong> tushunchasi ishlatiladi.</p>
+
+<blockquote>
+  Risk — yuz berishi salbiy oqibatga olib keladigan potentsial hodisa, xavf,
+  tahdid yoki vaziyat.
+  <cite>ISTQB CTFL Syllabus, 5.2</cite>
+</blockquote>
+
+<p>Har bir riskning ikki o'lchovi bor:</p>
+
+<figure>
+  <div class="partitions-row">
+    <div class="partition partition--valid">
+      <span class="partition-name">Ehtimollik</span>
+      <span class="partition-range">Bu joyda xato bo'lishi qanchalik mumkin?</span>
+    </div>
+    <div class="partition partition--invalid">
+      <span class="partition-name">Ta'sir</span>
+      <span class="partition-range">Xato chiqsa, zarari qanchalik katta?</span>
+    </div>
+  </div>
+  <figcaption>Risk darajasi — shu ikkisining birikmasi. Ikkalasi ham yuqori
+  bo'lgan joy birinchi navbatda sinaladi.</figcaption>
+</figure>
+
+<p>Ehtimollikni nimadan bilasiz? Amaliy belgilar:</p>
+
+<ul>
+  <li>Kod yaqinda o'zgargan joy</li>
+  <li>Murakkab mantiq (chegirma, hisob-kitob, sanalar)</li>
+  <li>Ilgari ko'p xato chiqqan joy</li>
+  <li>Yangi dasturchi yozgan qism</li>
+  <li>Shoshilinch yozilgan qism</li>
+</ul>
+
+<p>Ta'sirni esa biznes tomondan qaraysiz: pul yo'qotiladimi? Ma'lumot
+yo'qoladimi? Nechta foydalanuvchi ko'radi? Obro'ga zarar bormi?</p>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Joy</th><th>Ehtimollik</th><th>Ta'sir</th><th>Navbat</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>To'lov va chek</td><td>O'rta</td><td><strong>Juda yuqori</strong></td>
+        <td>1</td></tr>
+    <tr><td>Savat hisob-kitobi</td><td><strong>Yuqori</strong></td><td>Yuqori</td>
+        <td>2</td></tr>
+    <tr><td>Ro'yxatdan o'tish</td><td>O'rta</td><td>Yuqori</td><td>3</td></tr>
+    <tr><td>Mahsulot filtri</td><td>Yuqori</td><td>Past</td><td>4</td></tr>
+    <tr><td>«Biz haqimizda» sahifasi</td><td>Past</td><td>Past</td><td>—</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>Bu yondashuv <strong>risk-based testing</strong> deb ataladi — ISTQB
+ta'rifi bo'yicha «test faoliyatlari risk tahlili asosida tanlanadigan,
+prioritetlanadigan va boshqariladigan test yondashuvi».</p>
+
+<div class="box box--key">
+  <p class="box-title">Nima uchun bu sizni ajratib turadi</p>
+  <p>Yangi tester «men hammasini tekshirdim» deydi. Tajribali tester
+  «men avval to'lovni tekshirdim, chunki u yerda xato eng qimmat; filtrga
+  vaqt qolmadi va bu ongli qaror edi» deydi. Ikkinchi javob — ishga qabul
+  qiluvchi eshitmoqchi bo'lgan javob.</p>
+</div>
+
+<h2>Prioritetlashning uch usuli</h2>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Usul</th><th>Mantiq</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Risk asosida</strong></td>
+        <td>Eng xavfli joy birinchi. Eng ko'p ishlatiladi.</td></tr>
+    <tr><td><strong>Talab asosida</strong></td>
+        <td>Mijoz uchun eng muhim talab birinchi.</td></tr>
+    <tr><td><strong>Qamrov asosida</strong></td>
+        <td>Eng ko'p yangi qismni qamraydigan test birinchi.</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p class="cite">Manba: <a href="https://astqb.org/5-1-test-planning/">ISTQB
+CTFL Syllabus, 5.1.5</a></p>
+
+<h2>Vaqtni baholash</h2>
+
+<p>«Bu ishga qancha vaqt kerak?» — testerdan tez-tez so'raladigan savol.
+ISTQB ning maslahati sodda va ishonchli: <strong>katta vazifani mayda
+qismlarga bo'ling</strong>, har birini alohida baholang, so'ng qo'shing.
+«Savatni test qilish — 2 kun» degan baho har doim xato bo'ladi; «savatga
+qo'shish 2 soat, sonini o'zgartirish 2 soat, o'chirish 1 soat, chegirma
+3 soat» degan baho ancha aniqroq.</p>
+
+<div class="box box--warn">
+  <p class="box-title">Baho — bu taxmin</p>
+  <p>ISTQB buni ochiq aytadi: baholar taxminlarga asoslanadi va xatoga moyil.
+  Shuning uchun baho berganda taxminlaringizni ham ayting: «Muhit tayyor
+  bo'lsa va build kuniga bir marta kelsa — 2 kun». Shart buzilsa, muddat
+  ham o'zgarishi hammaga oldindan ma'lum bo'ladi.</p>
+</div>
+
+<h2>Tekshirib ko'ramiz</h2>
+
+<section class="quiz">
+  <p class="quiz-prompt">1. Test planning nima uchun «hammasini sinash»
+  imkonsiz deb hisoblanadi?</p>
+  <div class="quiz-options">
+    <button class="quiz-option" data-explain="Odam soni masalani hal qilmaydi — variantlar soni baribir cheksiz qoladi.">Testerlar soni har doim yetishmaydi</button>
+    <button class="quiz-option" data-correct data-explain="To'g'ri. Maydonlar, ketma-ketliklar va muhitlarning birikmasi amalda cheksiz — shuning uchun tanlov qilinadi.">Kirish va holatlar birikmasi amalda cheksiz</button>
+    <button class="quiz-option" data-explain="Avtomatlashtirish tezlikni oshiradi, lekin cheksizlikni yengmaydi.">Avtomatlashtirish hali qo'llanilmagan</button>
+    <button class="quiz-option" data-explain="Talablar to'liq bo'lsa ham variantlar soni cheksiz qoladi.">Talablar hech qachon to'liq yozilmaydi</button>
+  </div>
+  <p class="quiz-feedback" hidden></p>
+</section>
+
+<section class="quiz">
+  <p class="quiz-prompt">2. «Barcha acceptance criteria tekshirildi va High
+  prioritetli bug qolmadi» — bu qanday mezon?</p>
+  <div class="quiz-options">
+    <button class="quiz-option" data-explain="Kirish mezoni testni boshlash shartlari — bu esa tugatish sharti.">Kirish mezoni</button>
+    <button class="quiz-option" data-correct data-explain="To'g'ri. Chiqish mezoni — «testing tugadi» deyish uchun nimaga erishilgan bo'lishi kerakligi.">Chiqish mezoni</button>
+    <button class="quiz-option" data-explain="Risk — potentsial salbiy hodisa, mezon emas.">Risk darajasi</button>
+    <button class="quiz-option" data-explain="Qamrov — nima sinalishi; bu esa qachon to'xtash sharti.">Qamrov chegarasi</button>
+  </div>
+  <p class="quiz-feedback" hidden></p>
+</section>
+
+<section class="quiz">
+  <p class="quiz-prompt">3. Ikki joy bor: (A) kamdan-kam ishlatiladigan
+  eksport tugmasi, unda xato ehtimoli yuqori; (B) har kuni ishlaydigan to'lov
+  oqimi, unda xato ehtimoli o'rtacha. Qaysi biri birinchi sinaladi?</p>
+  <div class="quiz-options">
+    <button class="quiz-option" data-explain="Ehtimollik yuqori bo'lsa ham, ta'sir past. Risk — ikkisining birikmasi.">A — xato ehtimoli yuqoriroq</button>
+    <button class="quiz-option" data-correct data-explain="To'g'ri. To'lovdagi xato pul va obro'ga tegadi — ta'sir juda yuqori, shuning uchun risk darajasi kattaroq.">B — ta'sir ancha kattaroq</button>
+    <button class="quiz-option" data-explain="Vaqt cheklangan sharoitda «ikkalasi teng» degan javob amalda tanlovdan qochishdir.">Ikkalasi teng, tartib muhim emas</button>
+    <button class="quiz-option" data-explain="Bu qaror testerniki — aynan shu tanlov sizning kasbiy hissangiz.">Buni dasturchi hal qilishi kerak</button>
+  </div>
+  <p class="quiz-feedback" hidden></p>
+</section>
+
+<section class="recall">
+  <p class="recall-q">Eslab ko'ring — <em>8-darsdan</em>: Jira'da
+  <strong>status</strong> va <strong>resolution</strong> orasidagi farq nima?</p>
+  <button class="recall-btn">Javobni ko'rsatish</button>
+  <p class="recall-a" hidden><strong>Status</strong> — issue workflow ichida
+  hozir qayerda turgani (To Do, In Progress, Done). <strong>Resolution</strong> —
+  u qanday yopilgani (Done, Won't do, Duplicate, Cannot Reproduce). Bir xil
+  status turli resolution bilan tugashi mumkin.</p>
+</section>
+
+<h2>Amaliyot: bir betlik test plan</h2>
+
+<p>Vaziyat: sizga <a href="https://www.saucedemo.com/">saucedemo.com</a> berildi.
+Vaqt — <strong>4 soat</strong>. Ertaga reliz bo'ladi. Reja yozing.</p>
+
+<ol class="steps">
+  <li><strong>Mahsulotni 15 daqiqa aylanib chiqing.</strong> Hali test
+      qilmang — qanday qismlar borligini ro'yxatlang (login, mahsulot ro'yxati,
+      saralash, savat, checkout, chiqish).</li>
+  <li><strong>Risk jadvalini tuzing.</strong> Har bir qism uchun ehtimollik va
+      ta'sirni <em>yuqori / o'rta / past</em> deb belgilang, so'ng navbat
+      raqamini qo'ying. Har bir bahoni bir gap bilan asoslang.</li>
+  <li><strong>Qamrovni yozing.</strong> 4 soatga nima sig'adi? Qolganini
+      «qamrovdan tashqarida» bo'limiga sabab bilan yozing.</li>
+  <li><strong>Kirish va chiqish mezonlarini yozing</strong> — har biriga
+      3 tadan.</li>
+  <li><strong>Vaqtni taqsimlang.</strong> 4 soatni qismlarga bo'ling:
+      masalan 90 daqiqa checkout, 60 daqiqa savat, 30 daqiqa login,
+      60 daqiqa hisobot yozish. Hisobot uchun vaqt qoldirishni unutmang —
+      yangi testerlar aynan shunda adashadi.</li>
+  <li><strong>Endi rejani bajaring</strong> va oxirida solishtiring:
+      qayerda adashdingiz? Nimaga ko'proq vaqt ketdi?</li>
+  <li><strong>Menga yuboring:</strong> reja va oxirgi bandning javobi.</li>
+</ol>
+
+<div class="box box--key">
+  <p class="box-title">Oxirgi qadam eng muhimi</p>
+  <p>Rejaning bajarilmagani — muvaffaqiyatsizlik emas. Har bir tester
+  boshida vaqtni noto'g'ri baholaydi. Qiymat shundaki, siz endi
+  <em>qanchalik</em> adashishingizni bilasiz — keyingi safar bahoingiz
+  aniqroq bo'ladi. Bu ko'nikma faqat shu solishtirish orqali o'sadi.</p>
+</div>
+
+<h2>O'qish uchun (birlamchi manba)</h2>
+
+<blockquote>
+  <a href="https://astqb.org/5-1-test-planning/">ISTQB CTFL Syllabus — 5.1
+  Test Planning</a>
+  <cite>Test plan, kirish/chiqish mezonlari, baholash va prioritetlash —
+  sohaning rasmiy standarti. Ingliz tilida.</cite>
+</blockquote>
+
+<p class="cite">Risk tushunchasi va risk-based testing:
+<a href="https://astqb.org/5-2-risk-management/">ISTQB CTFL Syllabus — 5.2
+Risk Management</a>.</p>
+
+<div class="ask-teacher">
+  <p><strong>Rejangizni yuboring.</strong> Men uni ikki savol bilan
+  tekshiraman: «qamrovdan tashqarida» bo'limi asoslanganmi va chiqish mezoni
+  haqiqatan o'lchanadiganmi. Bu ikkisi to'g'ri bo'lsa, reja ishlaydi.</p>
+</div>
+
+<nav class="nav">
+  <a href="../reference/test-plan-shabloni.html">Reference: Test plan shabloni</a>
+  <a href="../reference/exploratory-sessiya.html">Reference: Exploratory sessiya</a>
+  <a href="../reference/lugat.html">Reference: Lug'at</a>
+</nav>
+
+<nav class="lesson-nav">
+  <a class="lesson-nav-link lesson-nav-prev" href="./0008-jira-bug-tracker.html">
+    <span class="lesson-nav-dir">← Oldingi dars</span>
+    <span class="lesson-nav-title">8. Hisobot qayerda yashaydi: Jira</span>
+  </a>
+  <a class="lesson-nav-link lesson-nav-next" href="./0010-test-darajalari-va-turlari.html">
+    <span class="lesson-nav-dir">Keyingi dars →</span>
+    <span class="lesson-nav-title">10. Sizning ishingiz qayerda boshlanadi</span>
+  </a>
+  <a class="lesson-nav-home" href="./index.html">Barcha darslar</a>
+</nav>
+
+<script src="../assets/lesson.js"></script>
+</body>
+</html>

@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>API testing shpargalkasi — Learn-QA</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<p class="crumbs"><a href="../lessons/index.html">Darslar</a> ·
+<a href="./lugat.html">Lug'at</a></p>
+
+<p class="eyebrow">Reference · chop etsa bo'ladi</p>
+<h1>API testing shpargalkasi</h1>
+<p class="subtitle">Postman'da so'rov yuborayotganda shu sahifani oching.
+Metodlar, tekshiruv ro'yxati va tipik xatolar.</p>
+
+<h2>So'rovning tuzilishi</h2>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Qism</th><th>Namuna</th></tr></thead>
+  <tbody>
+    <tr><td>Metod</td><td><code>POST</code></td></tr>
+    <tr><td>URL (endpoint)</td><td><code>https://api.site.uz/users</code></td></tr>
+    <tr><td>Params</td><td><code>?page=2&amp;limit=20</code></td></tr>
+    <tr><td>Headers</td><td><code>Content-Type: application/json</code><br>
+        <code>Authorization: Bearer &lt;token&gt;</code></td></tr>
+    <tr><td>Body</td><td><code>{"email": "a@b.uz"}</code></td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>Javob: <strong>status kodi</strong> + <strong>headers</strong> +
+<strong>body</strong>. Uchalasini ham tekshiring.</p>
+
+<h2>Metodlar</h2>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Metod</th><th>Vazifasi</th><th>Xavfsiz</th><th>Idempotent</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>GET</code></td><td>O'qish</td><td>Ha</td><td>Ha</td></tr>
+    <tr><td><code>POST</code></td><td>Yaratish</td><td>Yo'q</td><td>Yo'q</td></tr>
+    <tr><td><code>PUT</code></td><td>To'liq almashtirish</td><td>Yo'q</td><td>Ha</td></tr>
+    <tr><td><code>PATCH</code></td><td>Qisman o'zgartirish</td><td>Yo'q</td><td>Yo'q</td></tr>
+    <tr><td><code>DELETE</code></td><td>O'chirish</td><td>Yo'q</td><td>Ha</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="box box--key">
+  <p class="box-title">Idempotentlikdan chiqadigan testlar</p>
+  <ul>
+    <li><code>DELETE</code> ni ikki marta yuboring — ikkinchisi xato
+        bermasligi kerak.</li>
+    <li><code>PUT</code> ni ikki marta yuboring — natija bir xil bo'lishi
+        kerak.</li>
+    <li><code>POST</code> ni ikki marta yuboring — dublikat yaratiladimi?
+        Yaratilishi kerakmi? Bu savolni bering.</li>
+  </ul>
+</div>
+
+<h2>Tekshiruv ro'yxati</h2>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Holat</th><th>Kutilgan javob</th></tr></thead>
+  <tbody>
+    <tr><td>To'g'ri so'rov</td><td><code>200</code> / <code>201</code></td></tr>
+    <tr><td>Majburiy maydon yo'q</td><td><code>400</code> + tushunarli xato</td></tr>
+    <tr><td>Noto'g'ri tur</td><td><code>400</code></td></tr>
+    <tr><td>Bo'sh qiymat (<code>""</code>, <code>null</code>)</td>
+        <td><code>400</code></td></tr>
+    <tr><td>Chegara: min, min−1, max, max+1</td><td>Spetsifikatsiya bo'yicha</td></tr>
+    <tr><td>Token yo'q / eskirgan</td><td><code>401</code></td></tr>
+    <tr><td>Ruxsat yo'q</td><td><code>403</code>, ma'lumot qaytmaydi</td></tr>
+    <tr><td>Mavjud bo'lmagan <code>id</code></td><td><code>404</code></td></tr>
+    <tr><td>Bir xil so'rov ikki marta</td><td>Dublikat yaratilmasin</td></tr>
+    <tr><td>Juda uzun matn</td><td><code>400</code>, server yiqilmaydi</td></tr>
+    <tr><td>Noma'lum qo'shimcha maydon</td><td>E'tiborsiz yoki <code>400</code></td></tr>
+    <tr><td>Maxsus belgilar, boshqa alifbo</td><td>To'g'ri saqlanadi</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Status kodlari — qisqacha</h2>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Kod</th><th>Ma'nosi</th></tr></thead>
+  <tbody>
+    <tr><td><code>200</code></td><td>OK</td></tr>
+    <tr><td><code>201</code></td><td>Yaratildi</td></tr>
+    <tr><td><code>204</code></td><td>Bajarildi, qaytariladigan body yo'q</td></tr>
+    <tr><td><code>400</code></td><td>So'rov noto'g'ri</td></tr>
+    <tr><td><code>401</code></td><td>Kim ekaningiz noma'lum (token yo'q)</td></tr>
+    <tr><td><code>403</code></td><td>Kim ekaningiz ma'lum, lekin ruxsat yo'q</td></tr>
+    <tr><td><code>404</code></td><td>Topilmadi</td></tr>
+    <tr><td><code>409</code></td><td>Ziddiyat — masalan dublikat</td></tr>
+    <tr><td><code>500</code></td><td>Server ichida xato — deyarli har doim bug</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p class="cite">To'liq jadval:
+<a href="./devtools-shpargalka.html">DevTools shpargalkasi</a>.</p>
+
+<h2>Tipik API xatolari</h2>
+
+<ul class="checklist">
+  <li>Xato holati <code>200</code> bilan qaytariladi</li>
+  <li>Xato matni foydalanuvchiga tushunarsiz yoki texnik («NullPointerException»)</li>
+  <li>Xato matnida ortiqcha ma'lumot ochiladi (baza nomi, so'rov matni)</li>
+  <li>Validatsiya faqat interfeysda — server tekshirmaydi</li>
+  <li>Parol yoki token javobda ochiq qaytadi</li>
+  <li>Bo'sh ro'yxat o'rniga <code>500</code> qaytadi</li>
+  <li>Chegara qiymatlari qabul qilinmaydi (max = 100 bo'lsa-yu, 100 rad etilsa)</li>
+</ul>
+
+<div class="box box--warn">
+  <p class="box-title">Faqat status kodiga qaramang</p>
+  <p><code>200 OK</code> ichida <code>{"error": …}</code> turishi mumkin.
+  Har doim status <em>va</em> body ni birga tekshiring.</p>
+</div>
+
+<h2>Mashq uchun API lar</h2>
+
+<ul>
+  <li><a href="https://jsonplaceholder.typicode.com/">jsonplaceholder.typicode.com</a>
+      — ro'yxatdan o'tishsiz, o'qish uchun. Yozish so'rovlari
+      <em>haqiqatan saqlamaydi</em>.</li>
+  <li><a href="https://postman-echo.com/get">postman-echo.com</a> — yuborgan
+      so'rovingizni qaytarib ko'rsatadi, o'rganish uchun qulay.</li>
+  <li><a href="https://api.restful-api.dev/objects">api.restful-api.dev</a> —
+      haqiqiy CRUD: yaratganingiz saqlanadi.</li>
+</ul>
+
+<p class="cite">Manbalar:
+<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Methods">MDN
+— HTTP request methods</a>,
+<a href="https://learning.postman.com/docs/getting-started/first-steps/sending-the-first-request">Postman
+Docs</a>.</p>
+
+<div class="ask-teacher">
+  <p><strong>Test holatlaringizni yuboring.</strong> Men ayniqsa interfeys
+  yashiradigan holatlarni qo'shaman — server tekshiruvi yo'qligi eng
+  qimmatli topilma.</p>
+</div>
+
+<nav class="nav">
+  <a href="../lessons/0012-api-testing-postman.html">12-dars</a>
+  <a href="./devtools-shpargalka.html">DevTools shpargalkasi</a>
+  <a href="./test-dizayn-texnikalari.html">Test dizayn texnikalari</a>
+  <a href="./lugat.html">Lug'at</a>
+</nav>
+
+</body>
+</html>

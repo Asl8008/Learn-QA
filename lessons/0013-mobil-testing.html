@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>13-dars: Mobil ilovalarni test qilish — Learn-QA</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<p class="crumbs"><a href="./index.html">Darslar</a> ·
+<a href="./0012-api-testing-postman.html">← 12-dars</a></p>
+
+<p class="eyebrow">13-dars · taxminan 35 daqiqa</p>
+<h1>Ilova qurilmaning egasi emas</h1>
+<p class="subtitle">Veb-saytni test qilganda brauzer sizniki. Mobil ilovada
+esa qo'ng'iroq keladi, batareya tugaydi, tizim ilovani xotiradan o'chiradi.
+Eng qimmatli xatolar shu joyda yashiringan.</p>
+
+<h2>Asosiy farq</h2>
+
+<p>Kompyuterdagi brauzerda ochilgan sahifa nisbatan xotirjam yashaydi. Telefon
+esa boshqacha: u avvalo <em>telefon</em>, sizning ilovangiz esa mehmon.
+Istalgan daqiqada quyidagilar sodir bo'lishi mumkin:</p>
+
+<ul>
+  <li>Qo'ng'iroq yoki bildirishnoma keladi</li>
+  <li>Foydalanuvchi ekranni buradi</li>
+  <li>Ilova fonga o'tadi va tizim uni <strong>xotiradan o'chiradi</strong></li>
+  <li>Wi-Fi uzilib, mobil internetga o'tadi</li>
+  <li>Batareya tejash rejimi yoqiladi</li>
+  <li>Foydalanuvchi ruxsatni bekor qiladi</li>
+</ul>
+
+<div class="box box--key">
+  <p class="box-title">Mobil testerning asosiy savoli</p>
+  <p>«Bu funksiya ishlaydimi?» emas, balki <strong>«bu funksiya
+  <em>uzilganda</em> nima bo'ladi?»</strong> Veb-testdan mobilga o'tganda
+  fikrlash aynan shu tomonga o'zgaradi.</p>
+</div>
+
+<h2>Nega ekran burilishi shunchalik ko'p xato beradi</h2>
+
+<p>Bu — mobil testingdagi eng samarali bitta tekshiruv, va uning sababi
+texnik. Android hujjatida shunday deyilgan:</p>
+
+<blockquote>
+  Foydalanuvchi konfiguratsiya o'zgarganda — masalan burilish yoki
+  ko'p oynali rejimga o'tishda — interfeys holati o'zgarmasligini kutadi.
+  Biroq tizim, sukut bo'yicha, bunday o'zgarishda activity'ni yo'q qiladi va
+  unda saqlangan interfeys holatini o'chirib yuboradi.
+  <cite>Android Developers — The activity lifecycle</cite>
+</blockquote>
+
+<p>Ya'ni: dasturchi maxsus chora ko'rmasa, ekran burilganda <strong>ilova
+qaytadan quriladi</strong>. To'ldirilgan forma, tanlangan filtr, ochilgan
+ro'yxatning o'rni — hammasi yo'qoladi. Bu «kamdan-kam holat» emas: har kuni
+har bir foydalanuvchida sodir bo'ladi.</p>
+
+<div class="box">
+  <p class="box-title">Bitta test, ko'p xato</p>
+  <p>Uzun formani yarim to'ldiring → telefonni buring → nima qoldi?</p>
+  <p>Xuddi shu tarzda: ro'yxatni pastga aylantiring → buring → o'rin
+  saqlandimi? Video ko'ring → buring → o'sha daqiqadan davom etadimi?</p>
+</div>
+
+<h2>Uzilishlar ro'yxati</h2>
+
+<p>Har bir muhim oqim (ro'yxatdan o'tish, to'lov, fayl yuklash) uchun shu
+ro'yxatdan yuring:</p>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Uzilish</th><th>Qanday tekshiriladi</th><th>Nimani kuzatasiz</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Qo'ng'iroq</td><td>Jarayon o'rtasida o'zingizga qo'ng'iroq
+        qiling</td><td>Qaytgandan keyin ma'lumot joyidami</td></tr>
+    <tr><td>Ekran burilishi</td><td>Har bir ekranda buring</td>
+        <td>Ma'lumot, joylashuv, ochiq oyna</td></tr>
+    <tr><td>Fonga o'tish</td><td>Home tugmasi → 1 daqiqa → qaytish</td>
+        <td>Sessiya, holat, taymer</td></tr>
+    <tr><td><strong>Tizim o'chirishi</strong></td><td>Dasturchi
+        sozlamalaridagi «Don't keep activities» ni yoqing</td>
+        <td>Eng ko'p xato shu yerda</td></tr>
+    <tr><td>Ekran qulfi</td><td>Qulflab, qayta oching</td>
+        <td>Qayta kirish so'raladimi (bank ilovasida — shart)</td></tr>
+    <tr><td>Bildirishnoma</td><td>Boshqa ilovadan xabar keltiring</td>
+        <td>Ilova ustiga bosilganda qayerga olib boradi</td></tr>
+    <tr><td>Batareya tejash</td><td>Rejimni yoqing</td>
+        <td>Fon jarayonlari, bildirishnomalar</td></tr>
+    <tr><td>Xotira kamligi</td><td>Bir nechta og'ir ilova oching</td>
+        <td>Ilova yiqilmasligi kerak</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="box box--warn">
+  <p class="box-title">«Don't keep activities» — testerning sirli quroli</p>
+  <p>Android'da Developer options ichida shu sozlama bor. Yoqilganda tizim
+  ilovani fonga o'tishi bilanoq darhol o'chiradi — ya'ni kam xotirali eski
+  telefondagi holat sun'iy ravishda yaratiladi. Ko'p ilova shu rejimda
+  darhol yiqiladi yoki ma'lumotni yo'qotadi. Bu sozlamani yoqib bir sessiya
+  o'tkazsangiz, odatda bir necha jiddiy xato topasiz.</p>
+</div>
+
+<h2>Ruxsatlar</h2>
+
+<p>Kamera, joylashuv, kontaktlar, bildirishnoma — bularning har biri uchun
+foydalanuvchi ruxsat berishi kerak. Android hujjati ogohlantiradi:</p>
+
+<blockquote>
+  Bu ruxsatlar avval berilgan deb hisoblamang — har bir murojaatdan oldin
+  ularni tekshiring va kerak bo'lsa so'rang.
+  <cite>Android Developers — Permissions on Android</cite>
+</blockquote>
+
+<p>Demak sizda uchta majburiy test bor:</p>
+
+<ol class="steps">
+  <li><strong>Rad eting.</strong> Ilova yiqilmasligi va nima uchun bu funksiya
+      ishlamasligini tushuntirishi kerak.</li>
+  <li><strong>Butunlay rad eting</strong> («qayta so'rama»). Ilova
+      foydalanuvchini sozlamalarga yo'naltira oladimi?</li>
+  <li><strong>Bering, so'ng bekor qiling.</strong> Ilova ishlab turganda
+      tizim sozlamalaridan ruxsatni oling va ilovaga qayting. Bu holat eng
+      ko'p unutiladi — va eng ko'p yiqilish shu yerdan chiqadi.</li>
+</ol>
+
+<h2>Tarmoq holatlari</h2>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Holat</th><th>Kutilgan xulq</th></tr></thead>
+  <tbody>
+    <tr><td>Internet umuman yo'q</td><td>Tushunarli xabar, ilova
+        yiqilmaydi</td></tr>
+    <tr><td>Sekin internet</td><td>Yuklanish indikatori, tugma qayta
+        bosilmasligi</td></tr>
+    <tr><td>So'rov o'rtasida uzilish</td><td>Xato xabari va
+        <strong>qayta urinish</strong> imkoni</td></tr>
+    <tr><td>Wi-Fi → mobil internet</td><td>Sessiya uzilmasligi, yuklash
+        davom etishi</td></tr>
+    <tr><td>Samolyot rejimi yoqildi</td><td>Yarim bajarilgan amal
+        holatida qolmasligi</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="box box--key">
+  <p class="box-title">Eng qimmat mobil bug</p>
+  <p>To'lov so'rovi yuborildi, javob kelmasdan internet uzildi. Pul
+  yechildimi? Ilova nima ko'rsatadi? Qayta urinsa, ikki marta to'lanmaydimi?</p>
+  <p>Bu 12-darsdagi <strong>idempotentlik</strong> savolining mobil
+  ko'rinishi. Bunday xatoni topsangiz, u deyarli har doim
+  <em>Highest</em> prioritetga tushadi.</p>
+</div>
+
+<h2>O'rnatish va yangilash</h2>
+
+<ul class="checklist">
+  <li>Toza o'rnatish — birinchi ochilishda nima ko'rinadi?</li>
+  <li>Eski versiya ustiga yangilash — <strong>ma'lumot saqlanadimi?</strong></li>
+  <li>Yangilashdan keyin qayta kirish so'raladimi?</li>
+  <li>O'chirib, qayta o'rnatish — eski ma'lumot qolmaydimi?</li>
+  <li>Internetsiz holatda o'rnatilgan ilova birinchi marta ochilsa?</li>
+</ul>
+
+<p>Yangilash testi ayniqsa muhim: real foydalanuvchilarning aksariyati
+<em>yangilaydi</em>, toza o'rnatmaydi. Dasturchilar esa doim toza o'rnatishda
+sinaydi.</p>
+
+<h2>Qurilma matritsasi</h2>
+
+<p>Dunyoda minglab turdagi telefon bor — hammasini sinab bo'lmaydi (9-darsdagi
+tanish muammo). Shuning uchun <strong>qurilma matritsasi</strong> tuziladi:</p>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>O'lchov</th><th>Nimani tanlaysiz</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>OS versiyasi</td><td>Eng yangi, eng ko'p tarqalgani va qo'llab
+        quvvatlanadigan eng eskisi</td></tr>
+    <tr><td>Ekran o'lchami</td><td>Eng kichik va eng katta</td></tr>
+    <tr><td>Ishlab chiqaruvchi</td><td>Foydalanuvchilaringiz orasida eng
+        ko'p uchraydigani</td></tr>
+    <tr><td>Quvvat</td><td>Bitta kuchsiz, eski qurilma — <em>majburiy</em></td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>Ma'lumotni analitikadan oling: sizning foydalanuvchilaringiz qaysi
+telefonlardan foydalanadi? «Eng ko'p sotilgan telefon» emas, <em>sizning</em>
+foydalanuvchilaringizniki.</p>
+
+<div class="compare">
+  <div class="box">
+    <p class="box-title">Emulyator / simulyator</p>
+    <p>Tez, bepul, ko'p versiya. Interfeys va mantiqni sinash uchun yaxshi.</p>
+    <p class="cite">Topilmaydi: haqiqiy tezlik, batareya, kamera, tarmoq
+    uzilishlari, ishlab chiqaruvchi qo'shgan o'zgarishlar.</p>
+  </div>
+  <div class="box">
+    <p class="box-title">Haqiqiy qurilma</p>
+    <p>Sekin, qimmat, kam. Lekin haqiqatni faqat u ko'rsatadi.</p>
+    <p class="cite">Qoida: kundalik ish emulyatorda, <strong>reliz oldidan
+    albatta haqiqiy qurilmada</strong>.</p>
+  </div>
+</div>
+
+<h2>Tekshirib ko'ramiz</h2>
+
+<section class="quiz">
+  <p class="quiz-prompt">1. Nega ekran burilishi shunchalik ko'p xato
+  ochadi?</p>
+  <div class="quiz-options">
+    <button class="quiz-option" data-explain="Ekran o'lchami o'zgarishi ham muammo beradi, lekin asosiy sabab chuqurroq.">Chunki elementlar joyiga sig'may qoladi</button>
+    <button class="quiz-option" data-correct data-explain="To'g'ri. Android sukut bo'yicha activity'ni yo'q qilib qaytadan yaratadi — maxsus chora ko'rilmasa, interfeys holati o'chib ketadi.">Chunki tizim ekranni yo'q qilib qaytadan quradi</button>
+    <button class="quiz-option" data-explain="Internet burilishdan uzilmaydi.">Chunki burilishda internet uziladi</button>
+    <button class="quiz-option" data-explain="Aksincha — burilish har kuni har bir foydalanuvchida sodir bo'ladi.">Chunki bu juda kam uchraydigan holat</button>
+  </div>
+  <p class="quiz-feedback" hidden></p>
+</section>
+
+<section class="quiz">
+  <p class="quiz-prompt">2. Ruxsatlar bo'yicha eng ko'p unutiladigan test
+  qaysi?</p>
+  <div class="quiz-options">
+    <button class="quiz-option" data-explain="Bu tekshiriladi, lekin eng ko'p unutilgani boshqasi.">Ruxsat berilganda funksiya ishlaydimi</button>
+    <button class="quiz-option" data-explain="Bu ham tekshiriladi va ko'pincha esga olinadi.">Ruxsat rad etilganda ilova yiqilmaydimi</button>
+    <button class="quiz-option" data-correct data-explain="To'g'ri. Ilova ishlab turganda tizim sozlamalaridan ruxsatni olib qo'yish — eng ko'p unutiladigan va eng ko'p yiqilish beradigan holat.">Ilova ochiq turganda ruxsat bekor qilinsa</button>
+    <button class="quiz-option" data-explain="Bu ham kerak, lekin uni odatda esga olishadi.">Ruxsat so'rovi matni tushunarlimi</button>
+  </div>
+  <p class="quiz-feedback" hidden></p>
+</section>
+
+<section class="quiz">
+  <p class="quiz-prompt">3. Nima uchun «eski versiya ustiga yangilash» testi
+  alohida ahamiyatga ega?</p>
+  <div class="quiz-options">
+    <button class="quiz-option" data-explain="Yangilash toza o'rnatishdan tezroq bo'lishi mumkin, lekin sabab bu emas.">Yangilash jarayoni tezroq bo'ladi</button>
+    <button class="quiz-option" data-correct data-explain="To'g'ri. Foydalanuvchilarning aksariyati yangilaydi, dasturchilar esa toza o'rnatishda sinaydi — shuning uchun eski ma'lumot bilan bog'liq xatolar sinalmay qoladi.">Foydalanuvchilar yangilaydi, dasturchilar toza o'rnatadi</button>
+    <button class="quiz-option" data-explain="Do'kon qoidalari muhim, lekin bu test sababi emas.">Ilova do'koni buni talab qiladi</button>
+    <button class="quiz-option" data-explain="Yangilash ruxsatlarni odatda saqlaydi; asosiy risk — saqlangan ma'lumot.">Yangilashda ruxsatlar qayta so'raladi</button>
+  </div>
+  <p class="quiz-feedback" hidden></p>
+</section>
+
+<section class="recall">
+  <p class="recall-q">Eslab ko'ring — <em>12-darsdan</em>: idempotentlik nima
+  va qaysi metod idempotent emas?</p>
+  <button class="recall-btn">Javobni ko'rsatish</button>
+  <p class="recall-a" hidden>So'rov <strong>idempotent</strong> bo'lsa, uni
+  bir marta ham, besh marta ham yuborganda natija bir xil bo'ladi.
+  <code>GET</code>, <code>PUT</code>, <code>DELETE</code> — idempotent.
+  <code>POST</code> — <strong>yo'q</strong>: ikki marta yuborilsa ikkita
+  yozuv paydo bo'lishi mumkin. Mobil ilovada bu «tugmani ikki marta bosish»
+  va «uzilgan so'rovni qayta yuborish» muammosiga aylanadi.</p>
+</section>
+
+<h2>Amaliyot: o'z telefoningizda sessiya</h2>
+
+<p>Bu darsda mashq maydoni sizda allaqachon bor. Telefoningizdagi istalgan
+ilovani tanlang — bank, taksi, do'kon, yetkazib berish. Yaxshisi, ichida
+forma yoki to'lov bo'lgani.</p>
+
+<ol class="steps">
+  <li><strong>Charter yozing</strong> (5-dars bo'yicha): «Falon ilovaning
+      buyurtma berish oqimini <em>uzilishlar</em> nuqtai nazaridan
+      o'rganaman».</li>
+  <li><strong>45 daqiqalik sessiya o'tkazing.</strong> Uzilishlar
+      ro'yxatidan tartib bilan yuring: burilish, qo'ng'iroq, fonga o'tish,
+      qulflash, internetni o'chirish.</li>
+  <li><strong>Android'da «Don't keep activities» ni yoqing</strong>
+      (Settings → Developer options) va oqimni qaytadan bosib chiqing.
+      <span class="cite">Developer options ochilmagan bo'lsa: Settings →
+      About phone → Build number ni 7 marta bosing.</span></li>
+  <li><strong>Ruxsatlar bilan uch testni bajaring</strong> — ayniqsa
+      uchinchisini (ishlab turganda bekor qilish).</li>
+  <li><strong>Uchta bug report yozing</strong> (1-dars shabloni bo'yicha).
+      Har birida <strong>qurilma ma'lumoti</strong> bo'lishi shart:
+      model, OS versiyasi, ilova versiyasi, tarmoq turi.</li>
+  <li><strong>Menga yuboring.</strong></li>
+</ol>
+
+<div class="box box--warn">
+  <p class="box-title">Muhim cheklov</p>
+  <p>Bu — o'z qurilmangizda, o'z hisobingiz bilan o'tkaziladigan mashq.
+  Boshqa odamlarning ma'lumotiga tegmang, tizimni ataylab ishdan
+  chiqarishga urinmang va topilgan xatolarni ommaga e'lon qilmang. Real
+  ilovada jiddiy xato topsangiz — kompaniyaning rasmiy manzili yoki
+  bug bounty dasturi orqali xabar bering.</p>
+</div>
+
+<div class="box box--key">
+  <p class="box-title">Bu ish suhbatida qanday yordam beradi</p>
+  <p>Mobil yo'nalishdagi suhbatda deyarli har doim shu savol beriladi:
+  «Mobil testing veb-testingdan nimasi bilan farq qiladi?» Kuchsiz javob —
+  «ekran kichikroq». Kuchli javob — uzilishlar, ruxsatlar, tarmoq
+  o'zgarishlari, hayot sikli va qurilma matritsasi. Bu darsdan keyin sizda
+  ikkinchi javob bor.</p>
+</div>
+
+<h2>O'qish uchun (birlamchi manba)</h2>
+
+<blockquote>
+  <a href="https://developer.android.com/guide/components/activities/activity-lifecycle">Android
+  Developers — The activity lifecycle</a>
+  <cite>Ilova qanday yaratiladi, to'xtatiladi va yo'q qilinadi. Burilish va
+  fondagi o'chirilish nima uchun ma'lumot yo'qotishiga olib kelishi shu
+  yerda tushuntirilgan. Ingliz tilida.</cite>
+</blockquote>
+
+<p class="cite">Ruxsatlar modeli:
+<a href="https://developer.android.com/guide/topics/permissions/overview">Permissions
+on Android</a>. iOS da tuzilma boshqacha, lekin testerning savollari
+bir xil qoladi.</p>
+
+<div class="ask-teacher">
+  <p><strong>Uchta hisobotni yuboring.</strong> Men qurilma ma'lumoti
+  yetarliligini va uzilish qadamlari aniq yozilganini tekshiraman — mobil
+  hisobotda aynan shu ikkisi ko'pincha yetishmaydi.</p>
+</div>
+
+<nav class="nav">
+  <a href="../reference/mobil-testing-shpargalka.html">Reference: Mobil testing</a>
+  <a href="../reference/bug-report-shabloni.html">Reference: Bug report shabloni</a>
+  <a href="../reference/lugat.html">Reference: Lug'at</a>
+</nav>
+
+<nav class="lesson-nav">
+  <a class="lesson-nav-link lesson-nav-prev" href="./0012-api-testing-postman.html">
+    <span class="lesson-nav-dir">← Oldingi dars</span>
+    <span class="lesson-nav-title">12. Tugmasiz test: API va Postman</span>
+  </a>
+  <a class="lesson-nav-link lesson-nav-next" href="./0014-avtomatlashtirish.html">
+    <span class="lesson-nav-dir">Keyingi dars →</span>
+    <span class="lesson-nav-title">14. Avtomatlashtirish: nima, qachon va qachon emas</span>
+  </a>
+  <a class="lesson-nav-home" href="./index.html">Barcha darslar</a>
+</nav>
+
+<script src="../assets/lesson.js"></script>
+</body>
+</html>

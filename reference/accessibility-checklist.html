@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Accessibility checklist — Learn-QA</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<p class="crumbs"><a href="../lessons/index.html">Darslar</a> ·
+<a href="./lugat.html">Lug'at</a></p>
+
+<p class="eyebrow">Reference · chop etsa bo'ladi</p>
+<h1>Accessibility tekshiruvi</h1>
+<p class="subtitle">W3C ning «Easy Checks» ro'yxati asosida. Har bir yangi
+ekran uchun shu tartibda yuring: avval avtomatik asbob, keyin klaviatura.</p>
+
+<h2>POUR — to'rt tamoyil</h2>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Tamoyil</th><th>Savol</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Perceivable</strong></td>
+        <td>Ma'lumot foydalanuvchiga yetib boradimi?</td></tr>
+    <tr><td><strong>Operable</strong></td>
+        <td>Uni boshqarib bo'ladimi — sichqonchasiz ham?</td></tr>
+    <tr><td><strong>Understandable</strong></td>
+        <td>Matn va ishlash tartibi tushunarlimi?</td></tr>
+    <tr><td><strong>Robust</strong></td>
+        <td>Yordamchi texnologiyalar uni to'g'ri o'qiy oladimi?</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>To'qqizta tekshiruv</h2>
+
+<ul class="checklist">
+  <li><strong>Sahifa sarlavhasi</strong> — noyob va mazmunni bildiradi</li>
+  <li><strong>Rasm matni</strong> — har bir rasmda mazmunli
+      <code>alt</code></li>
+  <li><strong>Sarlavhalar</strong> — bor, mantiqiy, daraja tashlab
+      ketilmagan</li>
+  <li><strong>Kontrast</strong> — oddiy matn uchun kamida 4.5:1</li>
+  <li><strong>200 % kattalashtirish</strong> — hech narsa yo'qolmaydi,
+      ustma-ust tushmaydi</li>
+  <li><strong>Klaviatura va fokus</strong> — hammasiga yetib boriladi,
+      fokus ko'rinadi, tartib mantiqiy</li>
+  <li><strong>Formalar</strong> — yorliqlar bog'langan, majburiylar
+      belgilangan, xato aniq</li>
+  <li><strong>Video va audio</strong> — subtitr bor, boshqaruv
+      klaviaturadan ishlaydi</li>
+  <li><strong>Asosiy tuzilma</strong> — CSS siz ham mantiqiy o'qiladi</li>
+</ul>
+
+<p class="cite">Manba: <a href="https://www.w3.org/WAI/test-evaluate/preliminary/">W3C
+WAI — Easy Checks</a>. Bu tekshiruvlar boshlang'ich; to'liq baholash
+qo'shimcha ish talab qiladi.</p>
+
+<h2>Klaviatura tugmalari</h2>
+
+<div class="table-wrap">
+<table>
+  <tbody>
+    <tr><td><kbd>Tab</kbd></td><td>Keyingi element</td></tr>
+    <tr><td><kbd>Shift</kbd>+<kbd>Tab</kbd></td><td>Orqaga</td></tr>
+    <tr><td><kbd>Enter</kbd></td><td>Havola yoki tugmani bosish</td></tr>
+    <tr><td><kbd>Space</kbd></td><td>Tugma, katakcha, sahifani
+        aylantirish</td></tr>
+    <tr><td><kbd>↑</kbd> <kbd>↓</kbd></td><td>Ro'yxat va radio
+        tugmalar</td></tr>
+    <tr><td><kbd>Esc</kbd></td><td>Modal oynani yopish</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Klaviatura sessiyasida topiladigan tipik xatolar</h2>
+
+<ul class="checklist">
+  <li>Fokus ko'rinmaydi — qayerda turganingiz bilinmaydi</li>
+  <li>Fokus tuzoqqa tushadi — modaldan chiqib bo'lmaydi</li>
+  <li>Fokus tartibi sahifa bo'ylab sakraydi</li>
+  <li>Tugmaga umuman <kbd>Tab</kbd> qilib bo'lmaydi
+      (<code>&lt;div&gt;</code> tugma o'rniga ishlatilgan)</li>
+  <li>Yashirin menyudagi havolalar fokus oladi</li>
+  <li>Modal ochilganda fokus unga o'tmaydi</li>
+  <li>Modal yopilganda fokus qaytmaydi</li>
+  <li>«Kontentga o'tish» havolasi yo'q — har safar butun menyudan
+      o'tishga to'g'ri keladi</li>
+</ul>
+
+<h2>Asboblar</h2>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Asbob</th><th>Qayerda</th></tr></thead>
+  <tbody>
+    <tr><td><a href="https://developer.chrome.com/docs/lighthouse/accessibility/scoring">Lighthouse</a></td>
+        <td>Chrome DevTools ichida</td></tr>
+    <tr><td><a href="https://www.deque.com/axe/devtools/">axe DevTools</a></td>
+        <td>Brauzer kengaytmasi</td></tr>
+    <tr><td><a href="https://wave.webaim.org/">WAVE</a></td>
+        <td>Sayt yoki kengaytma</td></tr>
+    <tr><td><a href="https://www.nvaccess.org/download/">NVDA</a></td>
+        <td>Windows, bepul ekran o'quvchi</td></tr>
+    <tr><td>VoiceOver / TalkBack</td><td>Mac va iOS / Android</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="box box--warn">
+  <p class="box-title">Avtomatik asbob yetarli emas</p>
+  <p><code>alt="rasm 1"</code> — asbob uchun to'g'ri, foydalanuvchi uchun
+  foydasiz. Asboblar atribut <em>borligini</em> tekshiradi, mazmunini
+  emas. Tartib: avval asbob (tez g'alabalar), keyin klaviatura bilan
+  qo'lda o'tish (asosiy ish).</p>
+</div>
+
+<h2>Accessibility bug report'i</h2>
+
+<div class="report">
+  <dl>
+    <dt>Sarlavha</dt>
+    <dd>Qayerda + nima ishlamaydi. «Checkout sahifasida "Buyurtma berish"
+        tugmasiga klaviatura bilan yetib bo'lmaydi»</dd>
+
+    <dt>Kim ta'sirlanadi</dt>
+    <dd>Klaviatura foydalanuvchilari, ekran o'quvchi foydalanuvchilari,
+        ko'rish qiyinchiligi bo'lganlar</dd>
+
+    <dt>Qaysi tamoyil buzilgan</dt>
+    <dd>POUR dan qaysi biri; imkoni bo'lsa WCAG mezoni</dd>
+
+    <dt>Qanday tekshirildi</dt>
+    <dd>Brauzer + usul: «Chrome, faqat klaviatura» yoki «NVDA + Firefox»</dd>
+
+    <dt>Ta'sir</dt>
+    <dd>Foydalanuvchi vazifani <em>umuman</em> bajara olmaydimi yoki
+        qiyinchilik bilanmi</dd>
+  </dl>
+</div>
+
+<p class="cite">To'liq mezonlar:
+<a href="https://www.w3.org/WAI/WCAG22/quickref/">WCAG 2.2 Quick
+Reference</a>.</p>
+
+<div class="ask-teacher">
+  <p><strong>Tekshiruv jadvalingizni yuboring.</strong> Ayniqsa klaviatura
+  sessiyasining natijasini — men topilmalaringizni POUR bo'yicha tasniflab
+  beraman.</p>
+</div>
+
+<nav class="nav">
+  <a href="../lessons/0017-accessibility.html">17-dars</a>
+  <a href="./devtools-shpargalka.html">DevTools shpargalkasi</a>
+  <a href="./bug-report-shabloni.html">Bug report shabloni</a>
+  <a href="./lugat.html">Lug'at</a>
+</nav>
+
+</body>
+</html>

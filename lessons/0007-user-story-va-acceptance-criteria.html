@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>7-dars: User story va acceptance criteria — Learn-QA</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<p class="crumbs"><a href="./index.html">Darslar</a> ·
+<a href="./0006-devtools.html">← 6-dars</a></p>
+
+<p class="eyebrow">7-dars · taxminan 25 daqiqa</p>
+<h1>Talab qayerdan keladi</h1>
+<p class="subtitle">Shu paytgacha tayyor mahsulotni sinadingiz. Endi bir qadam
+orqaga qaytamiz: vazifa <em>yozilayotgan</em> paytda tester nima qiladi. Bu —
+kodda xato paydo bo'lishining oldini olish imkoniyati.</p>
+
+<h2>Eng arzon xato — yozilmagan xato</h2>
+
+<p>Xatoni topish qancha turadi? Bu, xato qachon topilishiga bog'liq:</p>
+
+<figure>
+  <div class="partitions-row">
+    <div class="partition partition--valid">
+      <span class="partition-name">Talab bosqichi</span>
+      <span class="partition-range">Bir suhbat</span>
+    </div>
+    <div class="partition partition--invalid">
+      <span class="partition-name">Test bosqichi</span>
+      <span class="partition-range">Hisobot + tuzatish</span>
+    </div>
+    <div class="partition partition--invalid">
+      <span class="partition-name">Foydalanuvchida</span>
+      <span class="partition-range">Obro' + shoshilinch reliz</span>
+    </div>
+  </div>
+  <figcaption>Xato qancha kech topilsa, shuncha qimmat. Chapdagi ustunda uni
+  tuzatish — bitta savol berish demak.</figcaption>
+</figure>
+
+<p>Shuning uchun zamonaviy jamoalarda tester kod yozilgunicha ishga qo'shiladi.
+Bu yondashuv <strong>shift-left</strong> deb ataladi: sifat bilan bog'liq ishni
+jarayonning boshiga surish.</p>
+
+<blockquote>
+  Testerlar talablarni yig'ish va rejalashtirishda qatnashadi, testga yaroqli
+  user story'larni shakllantirishga yordam beradi va acceptance criteria'ni
+  aniqlaydi — bu mantiqiy xatolarni <em>kod yozilgunicha</em> topish imkonini
+  beradi.
+  <cite>ACCELQ — Shift Left Testing in Agile</cite>
+</blockquote>
+
+<h2>User story — vazifa qanday ko'rinishda keladi</h2>
+
+<p>Agile jamoalarda vazifa texnik topshiriq emas, <strong>foydalanuvchi
+hikoyasi</strong> shaklida yoziladi. Standart formulasi:</p>
+
+<div class="report">
+  <dl>
+    <dt>Formula</dt>
+    <dd><strong>Kim sifatida</strong> — men <strong>nima</strong> qilmoqchiman,
+        <strong>nima uchun</strong></dd>
+
+    <dt>Namuna</dt>
+    <dd>Ro'yxatdan o'tgan xaridor sifatida men savatdagi mahsulot sonini
+        o'zgartira olishim kerak, chunki fikrimdan qaytib ko'proq yoki kamroq
+        olishim mumkin.</dd>
+  </dl>
+</div>
+
+<p>Diqqat qiling: bu yerda <em>qanday qilib</em> yozilmagan. User story —
+suhbatning boshlanishi, tayyor spetsifikatsiya emas. Va aynan shu joyda
+testerning ishi boshlanadi.</p>
+
+<h2>Acceptance criteria — «tayyor» nimani anglatadi</h2>
+
+<p><strong>Acceptance criteria</strong> (qabul qilish mezonlari) — story
+tugaganini aniqlaydigan shartlar ro'yxati. Ularsiz «tayyor» degan so'z har kim
+uchun boshqa narsani anglatadi.</p>
+
+<p>Eng ko'p ishlatiladigan yozuv shakli — <strong>Given / When / Then</strong>:</p>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Qism</th><th>Nima yoziladi</th><th>Bizga tanish nomi</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Given</strong><br><span class="cite">berilgan</span></td>
+        <td>Boshlang'ich holat — nima allaqachon rost</td>
+        <td>Dastlabki shart (precondition)</td></tr>
+    <tr><td><strong>When</strong><br><span class="cite">qachonki</span></td>
+        <td>Foydalanuvchining harakati</td>
+        <td>Qadamlar</td></tr>
+    <tr><td><strong>Then</strong><br><span class="cite">u holda</span></td>
+        <td>Kuzatiladigan natija</td>
+        <td>Kutilgan natija</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="box box--key">
+  <p class="box-title">Bu sizga tanish bo'lishi kerak</p>
+  <p>Given / When / Then — bu <a href="./0003-test-case-yozish.html">3-darsdagi
+  test case</a>ning aynan o'zi, boshqa nom bilan. Ya'ni yaxshi yozilgan
+  acceptance criteria to'g'ridan-to'g'ri test case'ga aylanadi. Ish shu yerda
+  ikki barobar tejaladi.</p>
+</div>
+
+<p>Namuna — yuqoridagi story uchun:</p>
+
+<div class="report">
+  <dl>
+    <dt>AC-1</dt>
+    <dd><strong>Given</strong> savatda «Backpack» mahsulotidan 1 dona bor<br>
+        <strong>When</strong> men sonini 3 ga o'zgartiraman<br>
+        <strong>Then</strong> savat hisoblagichida «3» ko'rinadi va jami narx
+        uch barobar bo'ladi</dd>
+
+    <dt>AC-2</dt>
+    <dd><strong>Given</strong> savatda mahsulotdan 1 dona bor<br>
+        <strong>When</strong> men sonini 0 ga o'zgartiraman<br>
+        <strong>Then</strong> mahsulot savatdan olib tashlanadi</dd>
+
+    <dt>AC-3</dt>
+    <dd><strong>Given</strong> omborda mahsulotdan 5 dona bor<br>
+        <strong>When</strong> men 6 dona so'rayman<br>
+        <strong>Then</strong> «Omborda faqat 5 dona mavjud» xabari chiqadi va
+        son 5 da qoladi</dd>
+  </dl>
+</div>
+
+<p class="cite">Manba: <a href="https://testquality.com/how-to-write-effective-gherkin-acceptance-criteria/">TestQuality
+— How to Write Effective Gherkin Acceptance Criteria</a> va
+<a href="https://www.parallelhq.com/blog/given-when-then-acceptance-criteria">Given-When-Then
+Acceptance Criteria</a>.</p>
+
+<h2>Testerning asosiy quroli: savol berish</h2>
+
+<p>Yuqoridagi story'ni birinchi marta ko'rganingizda, unda faqat bitta gap bor
+edi. AC-3 (ombordagi chegara) qayerdan chiqdi? Uni <em>kimdir so'ragani</em>
+uchun.</p>
+
+<p>Bu — bu darsning eng muhim ko'nikmasi. Story kelganda quyidagi savollarni
+bering:</p>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Savol turi</th><th>Namuna</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Chegara</strong></td>
+        <td>Eng kam va eng ko'p qiymat qancha? Ombordagi zaxiradan oshsa-chi?</td></tr>
+    <tr><td><strong>Bo'sh holat</strong></td>
+        <td>Savat bo'sh bo'lsa nima ko'rinadi?</td></tr>
+    <tr><td><strong>Xato yo'li</strong></td>
+        <td>Internet uzilsa? Server javob bermasa? Foydalanuvchi ikki marta bossa?</td></tr>
+    <tr><td><strong>Ruxsat</strong></td>
+        <td>Tizimga kirmagan foydalanuvchi uchun bu qanday ishlaydi?</td></tr>
+    <tr><td><strong>Ta'sir doirasi</strong></td>
+        <td>Bu o'zgarish yana qaysi joyga tegadi? Chegirma? Yetkazish narxi?</td></tr>
+    <tr><td><strong>Ko'rinish</strong></td>
+        <td>Telefonda qanday ko'rinadi? Uzun mahsulot nomi sig'adimi?</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="box box--warn">
+  <p class="box-title">«Bu savol bermaslik kerak edimi?» degan qo'rquv</p>
+  <p>Yangi testerlar savol berishdan uyaladi — «bilmaganim ko'rinib qoladi» deb.
+  Aslida teskarisi: <strong>yaxshi savol — testerning eng ko'rinadigan
+  qiymati</strong>. Savol bermasangiz, o'sha holat oddiygina unutiladi va bir
+  oydan keyin siz uni bug sifatida topasiz — o'n barobar qimmatroq narxda.</p>
+</div>
+
+<h2>Yomon va yaxshi acceptance criteria</h2>
+
+<div class="compare">
+  <div class="box box--bad">
+    <p class="box-title">✗ Tekshirib bo'lmaydi</p>
+    <p>«Savat tez ishlaydi»</p>
+    <p>«Interfeys qulay bo'ladi»</p>
+    <p>«Xatolar to'g'ri ko'rsatiladi»</p>
+  </div>
+  <div class="box box--good">
+    <p class="box-title">✓ Tekshirib bo'ladi</p>
+    <p>«Son o'zgargach jami narx 1 soniyada yangilanadi»</p>
+    <p>«Son o'zgartirish 2 ta bosishdan oshmaydi»</p>
+    <p>«Zaxiradan oshsa: "Omborda faqat N dona mavjud"»</p>
+  </div>
+</div>
+
+<p>Mezon o'sha-o'sha: <a href="./0003-test-case-yozish.html">3-darsdagi</a>
+qoida. Agar ikki odam natijani ko'rib turib ikki xil qaror qilsa — bu mezon
+emas, fikr.</p>
+
+<h2>Tekshirib ko'ramiz</h2>
+
+<section class="quiz">
+  <p class="quiz-prompt">1. Given / When / Then dagi «Given» nimani bildiradi?</p>
+  <div class="quiz-options">
+    <button class="quiz-option" data-explain="Bu «When» — foydalanuvchining harakati.">Foydalanuvchi bajaradigan harakat</button>
+    <button class="quiz-option" data-correct data-explain="Bu test case'dagi «dastlabki shart» ning aynan o'zi — boshlang'ich holat.">Test boshlanishidagi mavjud holat</button>
+    <button class="quiz-option" data-explain="Bu «Then» — kuzatiladigan natija.">Tekshiriladigan yakuniy natija</button>
+    <button class="quiz-option" data-explain="Story kimga tegishli ekani alohida yoziladi, «Given» da emas.">Vazifa berilgan odamning roli</button>
+  </div>
+  <p class="quiz-feedback" hidden></p>
+</section>
+
+<section class="quiz">
+  <p class="quiz-prompt">2. Nega tester story yozilayotgan paytda qatnashadi?</p>
+  <div class="quiz-options">
+    <button class="quiz-option" data-explain="Aksincha — bu bosqichda test yozilmaydi, savol beriladi.">Test case'larni tezroq yozish uchun</button>
+    <button class="quiz-option" data-correct data-explain="Bu bosqichda topilgan kamchilik bir suhbat bilan tuzatiladi, tuzatish talab qilmaydi.">Xato kodga tushgunicha topilsin</button>
+    <button class="quiz-option" data-explain="Dasturchini nazorat qilish testerning vazifasi emas.">Dasturchining ishini nazorat qilish</button>
+    <button class="quiz-option" data-explain="Muddat baholash odatda dasturchilarning ishi. Testerning hissasi — savollar.">Vazifa muddatini belgilash uchun</button>
+  </div>
+  <p class="quiz-feedback" hidden></p>
+</section>
+
+<section class="quiz">
+  <p class="quiz-prompt">3. Story'da faqat «foydalanuvchi izoh qoldira oladi»
+  deb yozilgan. Eng foydali savol qaysi?</p>
+  <div class="quiz-options">
+    <button class="quiz-option" data-explain="Texnik yechim — dasturchining qarori. Bu testerning savoli emas.">Bu qaysi dasturlash tilida yoziladi</button>
+    <button class="quiz-option" data-correct data-explain="Uzunlik chegarasi, bo'sh izoh, tahrirlash va o'chirish — hammasi shu savoldan chiqadi.">Izoh uzunligi va tahriri qanday</button>
+    <button class="quiz-option" data-explain="Muddat — menejerning savoli, va u sifatga ta'sir qilmaydi.">Bu vazifa qachongacha tayyor bo'ladi</button>
+    <button class="quiz-option" data-explain="Bu ham savol, lekin kamroq narsani ochadi. Chegaralar ko'proq xato yashiradi.">Izoh tugmasi qaysi rangda bo'ladi</button>
+  </div>
+  <p class="quiz-feedback" hidden></p>
+</section>
+
+<section class="recall">
+  <p class="recall-q">Eslab ko'ring — <em>6-darsdan</em>: Network panelida
+  <code>4xx</code> va <code>5xx</code> orasidagi farq nima?</p>
+  <button class="recall-btn">Javobni ko'rsatish</button>
+  <p class="recall-a" hidden><strong>4xx</strong> — «sen noto'g'ri so'rading»:
+  ma'lumot xato, ruxsat yo'q yoki manzil topilmadi. <strong>5xx</strong> —
+  «men buzildim»: server ichidagi xato, deyarli har doim haqiqiy bug.</p>
+</section>
+
+<h2>Amaliyot: story'ni testga yaroqli qilish</h2>
+
+<p>Quyida ataylab kam yozilgan story berilgan — real ishda ular xuddi shunday
+keladi.</p>
+
+<div class="box">
+  <p class="box-title">Story</p>
+  <p><em>Ro'yxatdan o'tgan foydalanuvchi sifatida men saqlangan manzillarim
+  ro'yxatiga yangi yetkazish manzili qo'sha olishim kerak, chunki har safar
+  qo'lda yozib o'tirmayin.</em></p>
+</div>
+
+<ol class="steps">
+  <li><strong>Savollar ro'yxatini yozing.</strong> Kamida <strong>8 ta</strong>.
+      Yuqoridagi savol turlari jadvalidan yuring: chegara, bo'sh holat, xato
+      yo'li, ruxsat, ta'sir doirasi, ko'rinish.</li>
+  <li><strong>Javoblarni o'zingiz taxmin qiling.</strong> Har bir savolga
+      mantiqiy javob yozing — real ishda buni product owner beradi, hozir siz
+      berasiz.</li>
+  <li><strong>Acceptance criteria yozing.</strong> Kamida <strong>5 ta</strong>,
+      Given / When / Then shaklida. Ulardan kamida ikkitasi <em>xato yo'li</em>
+      bo'lsin — hammasi muvaffaqiyatli holat bo'lmasin.</li>
+  <li><strong>Ikkita AC ni test case'ga aylantiring</strong>
+      (<a href="../reference/test-case-shabloni.html">shablon</a>). Qanchalik
+      oson bo'lganini sezing — bu tekin kelgan ish.</li>
+  <li>Hammasini menga yuboring.</li>
+</ol>
+
+<div class="box box--key">
+  <p class="box-title">Nima o'lchanadi</p>
+  <p>Bu topshiriqda «to'g'ri javob» yo'q. O'lchanadigan narsa —
+  <strong>savollaringizning qamrovi</strong>. Ish suhbatida sizga aynan shunday
+  yarim yozilgan story beriladi va «savollaringiz bormi?» deb so'raladi.
+  Javobingiz nomzodlar orasidan ajratadigan asosiy narsa.</p>
+</div>
+
+<h2>O'qish uchun (birlamchi manba)</h2>
+
+<blockquote>
+  <a href="https://testquality.com/gherkin-user-stories-acceptance-criteria-guide/">Gherkin
+  User Stories &amp; Acceptance Criteria Guide</a> — TestQuality
+  <cite>Given/When/Then ni amalda qo'llash: misollar, keng tarqalgan xatolar
+  va ularni tuzatish. Ingliz tilida.</cite>
+</blockquote>
+
+<p class="cite">Shift-left yondashuvi haqida:
+<a href="https://www.accelq.com/blog/shift-left-testing-in-agile/">Shift Left
+Testing in Agile</a> — testerning jarayondagi o'rni tushuntirilgan.</p>
+
+<div class="ask-teacher">
+  <p><strong>Savollar ro'yxatingizni yuboring.</strong> Men unga o'zimning
+  ro'yxatimni qo'shaman — siz o'ylab topmagan holatlarni ko'rasiz. Bu mashqni
+  har xil story bilan bir necha marta takrorlasak, savol berish odati
+  o'rnashadi.</p>
+</div>
+
+<nav class="nav">
+  <a href="../reference/acceptance-criteria.html">Reference: Acceptance criteria</a>
+  <a href="../reference/test-case-shabloni.html">Reference: Test case shabloni</a>
+  <a href="../reference/lugat.html">Reference: Lug'at</a>
+</nav>
+
+<nav class="lesson-nav">
+  <a class="lesson-nav-link lesson-nav-prev" href="./0006-devtools.html">
+    <span class="lesson-nav-dir">← Oldingi dars</span>
+    <span class="lesson-nav-title">6. Ekranning orqasini ko'rish: DevTools</span>
+  </a>
+  <a class="lesson-nav-link lesson-nav-next" href="./0008-jira-bug-tracker.html">
+    <span class="lesson-nav-dir">Keyingi dars →</span>
+    <span class="lesson-nav-title">8. Hisobot qayerda yashaydi: Jira</span>
+  </a>
+  <a class="lesson-nav-home" href="./index.html">Barcha darslar</a>
+</nav>
+
+<script src="../assets/lesson.js"></script>
+</body>
+</html>

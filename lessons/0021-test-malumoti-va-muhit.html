@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>21-dars: Test ma'lumoti va muhitlar — Learn-QA</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<p class="crumbs"><a href="./index.html">Darslar</a> ·
+<a href="./0020-ci-cd.html">← 20-dars</a></p>
+
+<p class="eyebrow">21-dars · taxminan 35 daqiqa</p>
+<h1>Vaqtingiz aslida qayerga ketadi</h1>
+<p class="subtitle">Yangi tester test yozishga tayyor. Lekin ish kunining
+katta qismi boshqa narsaga ketadi: «muhit yiqilgan», «hisob ishlamayapti»,
+«kerakli ma'lumot yo'q». Bu darsda shu vaqtni qaytarib olamiz.</p>
+
+<h2>Muhitlar: kod qayerda yashaydi</h2>
+
+<p>Mahsulot bir vaqtning o'zida bir nechta nusxada mavjud bo'ladi:</p>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Muhit</th><th>Kim ishlatadi</th><th>Ma'lumot</th><th>Nima sinaladi</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Local / Dev</strong></td>
+      <td>Dasturchi, o'z kompyuterida</td>
+      <td>O'ylab topilgan, kichik</td>
+      <td>Yozilayotgan kod</td>
+    </tr>
+    <tr>
+      <td><strong>Test / QA</strong></td>
+      <td><strong>Tester</strong></td>
+      <td>Maxsus tayyorlangan</td>
+      <td>Yangi funksiyalar, buglar</td>
+    </tr>
+    <tr>
+      <td><strong>Staging / Pre-prod</strong></td>
+      <td>Tester, biznes</td>
+      <td>Real holatga yaqin</td>
+      <td>Reliz oldi tekshiruvi, UAT</td>
+    </tr>
+    <tr>
+      <td><strong>Production</strong></td>
+      <td>Foydalanuvchilar</td>
+      <td>Haqiqiy</td>
+      <td>Faqat kuzatuv va smoke</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<blockquote>
+  Test muhiti, ideal holda, yakuniy maqsadli yoki production muhitiga
+  mos kelishi kerak.
+  <cite>ISTQB CTFL Syllabus — System Testing</cite>
+</blockquote>
+
+<div class="box box--key">
+  <p class="box-title">«Menda ishlayapti» ning haqiqiy sababi</p>
+  <p>Bu gap yolg'on emas — dasturchida rostdan ham ishlaydi. Farq
+  muhitda:</p>
+  <ul>
+    <li><strong>Sozlamalar</strong> boshqa (bayroqlar, limitlar,
+        manzillar)</li>
+    <li><strong>Ma'lumot</strong> boshqa (unda 3 ta yozuv, sizda
+        5000 ta)</li>
+    <li><strong>Integratsiyalar</strong> boshqa (unda soxta to'lov
+        tizimi, sizda haqiqiysi)</li>
+    <li><strong>Versiya</strong> boshqa (u kechagi kodni sinayapti)</li>
+  </ul>
+  <p>Shuning uchun bug report'da muhitni yozish shart edi (1-dars) —
+  bu shunchaki rasmiyatchilik emas.</p>
+</div>
+
+<h2>Testni boshlashdan oldin: muhit tekshiruvi</h2>
+
+<p>Bu 9-darsdagi <strong>kirish mezoni</strong>ning amaliy ko'rinishi.
+Har safar yangi vazifa olganda javob toping:</p>
+
+<ul class="checklist">
+  <li>Qaysi muhitda sinayman? Manzili qanday?</li>
+  <li>U yerda qaysi <strong>build/versiya</strong> turibdi? Menga
+      kerakli o'zgarish unga tushganmi?</li>
+  <li>Test hisoblari ishlaydimi? Qaysi rollar mavjud?</li>
+  <li>Qaysi integratsiyalar <strong>haqiqiy</strong>, qaysilari
+      <strong>soxta</strong> (mock)?</li>
+  <li>Bazada menga kerakli ma'lumot bormi?</li>
+  <li>Bu muhitda yana kim ishlayapti? Mening ma'lumotimni ular
+      o'zgartirib qo'ymaydimi?</li>
+  <li>Muhit qachon yangilanadi — men test qilib turganimda
+      qayta o'rnatilib ketmaydimi?</li>
+</ul>
+
+<div class="box box--warn">
+  <p class="box-title">Eng ko'p yo'qotiladigan yarim kun</p>
+  <p>Tester bug topadi, hisobot yozadi, dasturchi tekshiradi — va
+  ma'lum bo'ladiki, muhitda eski versiya turgan ekan. Yarim kun bekorga
+  ketdi.</p>
+  <p>Shuning uchun <strong>birinchi qadam har doim bitta</strong>: bu
+  muhitdagi versiya raqamini tekshirish. Ko'p ilovada u sozlamalar
+  sahifasida yoki pastki qismida yozilgan; bo'lmasa
+  DevTools&nbsp;→&nbsp;Network dagi javob header'larida.</p>
+</div>
+
+<h2>Test ma'lumoti nima</h2>
+
+<blockquote>
+  Test ma'lumoti test case'larning kirish qiymatlari va kutilgan
+  natijalariga aniq qiymatlar beradi. Bunday aniq qiymatlar…
+  yuqori darajali test case'larni bajarilishi mumkin bo'lgan quyi
+  darajali test case'larga aylantiradi.
+  <cite>ISTQB CTFL Syllabus — Test Implementation</cite>
+</blockquote>
+
+<p>Oddiy tilda: test case «chegaradan katta summa kiritiladi» deydi.
+Test ma'lumoti esa «<code>10 000 001</code>» deydi.</p>
+
+<h2>Ma'lumotni qayerdan olasiz — uch yo'l</h2>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Yo'l</th><th>Yaxshi tomoni</th><th>Muammosi</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>1. O'zingiz yaratasiz</strong><br>
+          <span class="cite">test har safar yangi hisob ochadi</span></td>
+      <td>Mustaqil, takrorlanadigan, boshqalarga bog'liq emas</td>
+      <td>Sekinroq; ma'lumot to'planib boradi</td>
+    </tr>
+    <tr>
+      <td><strong>2. Umumiy tayyor to'plam</strong><br>
+          <span class="cite">«test_user_1» hammaga ma'lum</span></td>
+      <td>Tez, qulay</td>
+      <td>Mo'rt: kimdir o'zgartirsa, testlaringiz yiqiladi</td>
+    </tr>
+    <tr>
+      <td><strong>3. Production nusxasi</strong></td>
+      <td>Eng realistik</td>
+      <td><strong>Xavfli</strong> — quyida</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="box box--bad">
+  <p class="box-title">⚠ Production ma'lumoti — haqiqiy odamlarning
+  ma'lumoti</p>
+  <p>Unda ismlar, telefonlar, manzillar, to'lov tarixi bor. Agar
+  ma'lumot orqali odamni aniqlash mumkin bo'lsa, unga ma'lumotlarni
+  himoya qilish qoidalari qo'llanadi — <em>test muhitida ham</em>.</p>
+  <p><strong>Qoidalar:</strong></p>
+  <ul>
+    <li>Xom nusxani test muhitiga ko'chirmang — avval
+        <em>anonimlashtiring</em> (ism, telefon, email o'zgartiriladi).</li>
+    <li>Real foydalanuvchi hisobiga kirmang, uning ma'lumotini
+        o'qimang.</li>
+    <li>Real ma'lumot ko'rinib turgan skrinshotni hisobotga, chatga
+        yoki portfolioga qo'ymang.</li>
+    <li>Hech narsani shaxsiy kompyuteringizga yuklab olmang.</li>
+  </ul>
+  <p class="cite">Umumiy tamoyillar:
+  <a href="https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/data-sharing/anonymisation/introduction-to-anonymisation/">ICO
+  — Introduction to anonymisation</a>.</p>
+</div>
+
+<h2>Oltin qoida: har bir test o'z ma'lumotini o'zi yaratadi</h2>
+
+<div class="compare">
+  <div class="box box--bad">
+    <p class="box-title">✗ Bog'liq test</p>
+    <p>«<code>test_user_5</code> hisobiga kirib, uning savatini
+    tekshiraman»</p>
+    <p class="cite">Kimdir o'sha savatga mahsulot qo'shsa — test
+    yiqiladi. Sabab kodda emas, ma'lumotda.</p>
+  </div>
+  <div class="box box--good">
+    <p class="box-title">✓ Mustaqil test</p>
+    <p>«Yangi hisob ochaman, unga aniq 2 ta mahsulot qo'shaman, so'ng
+    savatni tekshiraman»</p>
+    <p class="cite">Kim nima qilishidan qat'i nazar natija bir xil.</p>
+  </div>
+</div>
+
+<p>Bu qoida 19 va 20-darslardagi muammoning ildizi ham: CI da toza
+server bo'ladi, u yerda sizning «test_user_5» ingiz yo'q.</p>
+
+<h3>Noyob qiymat hosil qilish</h3>
+
+<p>Har safar yangi hisob kerak bo'lsa, email takrorlanmasligi kerak.
+Amaliy usul — vaqt tamg'asi qo'shish:</p>
+
+<pre><code>const email = `test+${Date.now()}@mail.uz`;
+// test+1723891234567@mail.uz</code></pre>
+
+<p><code>+</code> belgisi ko'p pochta tizimida qo'llab-quvvatlanadi:
+xatlar bir manzilga tushadi, lekin tizim uchun bular boshqa-boshqa
+emaillar.</p>
+
+<h2>«Iflos» ma'lumot to'plami</h2>
+
+<p>Test ma'lumoti odatda juda toza bo'ladi: «Ali», «Vali», «test».
+Real foydalanuvchilar esa boshqacha. O'zingiz uchun doimiy to'plam
+tuzing:</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Turi</th><th>Namuna</th><th>Nimani sindiradi</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>Apostrofli ism</td>
+      <td><code>O'ktamov Sa'dulla</code></td>
+      <td>Noto'g'ri yozilgan so'rov va matn qayta ishlash — bizning
+          tilimizda <strong>doimiy muammo</strong></td>
+    </tr>
+    <tr>
+      <td>Kirill va lotin</td>
+      <td><code>Ўктамов</code> / <code>O'ktamov</code></td>
+      <td>Qidiruv, saralash, taqqoslash</td>
+    </tr>
+    <tr>
+      <td>Juda uzun matn</td>
+      <td>300 belgi</td>
+      <td>Interfeys, baza ustuni chegarasi</td>
+    </tr>
+    <tr>
+      <td>Bo'sh joylar</td>
+      <td><code>&nbsp;Ali&nbsp;</code></td>
+      <td>Qidiruv, taqqoslash, chek</td>
+    </tr>
+    <tr>
+      <td>Emoji va maxsus belgi</td>
+      <td><code>Ali 🙂 &lt;b&gt;</code></td>
+      <td>Kodlash, xavfsizlik</td>
+    </tr>
+    <tr>
+      <td>Nol va manfiy</td>
+      <td><code>0</code>, <code>-1</code></td>
+      <td>Hisob-kitob mantiqi</td>
+    </tr>
+    <tr>
+      <td>Chegara sanalari</td>
+      <td>29-fevral, oy oxiri, yil almashuvi</td>
+      <td>Sana mantiqi</td>
+    </tr>
+    <tr>
+      <td>Katta hajm</td>
+      <td>1000 ta yozuv</td>
+      <td>Tezlik (18-dars)</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="box box--key">
+  <p class="box-title">Apostrof haqida alohida</p>
+  <p>O'zbek tilidagi ismlarda apostrof (<code>'</code>) juda ko'p
+  uchraydi. Bu belgi ko'p tizimda matn chegarasi sifatida ishlatiladi —
+  shuning uchun u noto'g'ri ishlangan kodni darhol ochib beradi:
+  ism kesiladi, xato chiqadi yoki so'rov buziladi.</p>
+  <p>Ya'ni sizda tilingiz tufayli <strong>tayyor va juda kuchli test
+  qiymati</strong> bor. Uni har bir matn maydonida sinang.</p>
+</div>
+
+<h2>Ma'lumotni tozalash</h2>
+
+<p>Har bir test yangi ma'lumot yaratsa, muhit vaqt o'tishi bilan
+axlatga to'ladi: minglab «test+...» hisoblari, yarim yaratilgan
+buyurtmalar. Bu ikki muammo beradi — sekinlik va chalkashlik.</p>
+
+<ul class="checklist">
+  <li>Test yaratgan narsani o'zi o'chira oladimi?</li>
+  <li>Test ma'lumoti nomida aniq belgi bormi (<code>test-</code>
+      prefiksi)?</li>
+  <li>Muhit qachon va kim tomonidan tozalanadi?</li>
+  <li>Tozalash haqiqiy ma'lumotga tegib ketmasligiga ishonchmi?</li>
+</ul>
+
+<h2>Tekshirib ko'ramiz</h2>
+
+<section class="quiz">
+  <p class="quiz-prompt">1. Dasturchi «menda ishlayapti» dedi va u
+  haqiqatan haq. Birinchi navbatda nimani solishtirasiz?</p>
+  <div class="quiz-options">
+    <button class="quiz-option" data-explain="Brauzer farqi ham sabab bo'lishi mumkin, lekin avval kattaroq farqni tekshiring.">Ishlatilgan brauzer nomini</button>
+    <button class="quiz-option" data-correct data-explain="To'g'ri. Muhit, versiya va ma'lumot — «menda ishlayapti» ning uch asosiy sababi. Ko'pincha u boshqa build'ni sinayapti.">Qaysi muhit, qaysi versiya va qanday ma'lumot bilan</button>
+    <button class="quiz-option" data-explain="Kod o'qish testerning birinchi qadami emas — avval sharoitlarni solishtiring.">Uning kodini o'qib chiqasiz</button>
+    <button class="quiz-option" data-explain="Hisobotni qayta yozish sababni topmaydi.">Hisobotni qaytadan yozasiz</button>
+  </div>
+  <p class="quiz-feedback" hidden></p>
+</section>
+
+<section class="quiz">
+  <p class="quiz-prompt">2. Nega umumiy <code>test_user_5</code>
+  hisobiga tayangan test xavfli?</p>
+  <div class="quiz-options">
+    <button class="quiz-option" data-explain="Tezlik masalasi emas — aksincha, tayyor hisob tezroq.">Chunki u sekinroq ishlaydi</button>
+    <button class="quiz-option" data-correct data-explain="To'g'ri. Boshqa odam o'sha hisobning ma'lumotini o'zgartirsa, test kodda muammo bo'lmasa ham yiqiladi — bu esa beqarorlikning klassik sababi.">Chunki uning holatini boshqalar o'zgartiradi</button>
+    <button class="quiz-option" data-explain="Xavfsizlik masalasi alohida; bu yerda asosiy muammo boshqa.">Chunki uning paroli xavfsiz emas</button>
+    <button class="quiz-option" data-explain="Aksincha, bunday hisob odatda hamma muhitda mavjud bo'ladi.">Chunki u faqat bitta muhitda mavjud</button>
+  </div>
+  <p class="quiz-feedback" hidden></p>
+</section>
+
+<section class="quiz">
+  <p class="quiz-prompt">3. Sizga «test uchun production bazasining
+  nusxasini olamiz» deyishdi. Javobingiz?</p>
+  <div class="quiz-options">
+    <button class="quiz-option" data-explain="Realistiklik foydali, lekin unda haqiqiy odamlarning shaxsiy ma'lumoti bo'ladi.">Ajoyib — eng realistik ma'lumot bo'ladi</button>
+    <button class="quiz-option" data-correct data-explain="To'g'ri. Shaxsiy ma'lumot test muhitida ham himoyalanishi kerak — ism, telefon va emaillar anonimlashtiriladi.">Avval shaxsiy ma'lumot anonimlashtirilishi kerak</button>
+    <button class="quiz-option" data-explain="Real ma'lumot umuman ishlatilmasin degani ham haddan tashqari — anonimlashtirilgan nusxa foydali bo'ladi.">Real ma'lumot umuman ishlatilmasligi kerak</button>
+    <button class="quiz-option" data-explain="Bu faqat texnik qaror emas — huquqiy va axloqiy tomoni bor, va tester buni ko'taradi.">Bu testerning ishi emas, dasturchilar hal qiladi</button>
+  </div>
+  <p class="quiz-feedback" hidden></p>
+</section>
+
+<section class="recall">
+  <p class="recall-q">Eslab ko'ring — <em>20-darsdan</em>: workflow
+  faylidagi <code>upload-artifact</code> qadami nima uchun kerak va
+  <code>if: !cancelled()</code> nima qiladi?</p>
+  <button class="recall-btn">Javobni ko'rsatish</button>
+  <p class="recall-a" hidden><code>upload-artifact</code> test hisobotini
+  (skrinshot, video, trace) saqlaydi — yiqilgan build sababini shu yerdan
+  topasiz. <code>if: !cancelled()</code> esa hisobot <strong>testlar
+  yiqilganda ham</strong> saqlanishini ta'minlaydi — aynan o'shanda u eng
+  kerak.</p>
+</section>
+
+<h2>Amaliyot</h2>
+
+<h3>A — Shaxsiy «iflos ma'lumot» kutubxonangiz (30 daqiqa)</h3>
+
+<p>Yuqoridagi jadval asosida o'zingiz uchun fayl tuzing: har bir
+toifaga <strong>kamida 3 ta aniq qiymat</strong> yozing. Bu fayl
+keyingi barcha sessiyalaringizda ishlatiladi — bir marta tuziladi,
+umr bo'yi xizmat qiladi.</p>
+
+<p>Majburiy toifalar: apostrofli o'zbek ismlari, kirill/lotin, uzun
+matn, bo'sh joylar, maxsus belgilar, chegara sonlari, chegara sanalari,
+noto'g'ri formatdagi email va telefon.</p>
+
+<h3>B — Kutubxonani ishga soling (30 daqiqa)</h3>
+
+<p><a href="https://www.saucedemo.com/">saucedemo.com</a> checkout
+formasidagi ism/familiya va zip maydonlariga kutubxonangizdagi
+qiymatlarni ketma-ket kiriting. Har bir natijani yozing: qabul qilindimi,
+qanday saqlandi, chekda qanday ko'rindi.</p>
+
+<h3>C — Muhit tekshiruv varaqasi (20 daqiqa)</h3>
+
+<p>Yuqoridagi ro'yxat asosida o'zingizga varaqa tuzing va uni
+<strong>o'zingiz ishlatadigan bitta real mahsulotga</strong>
+qo'llang: versiyani qayerdan bilish mumkin, qaysi hisoblar bor,
+qaysi funksiyalar soxta ma'lumot bilan ishlaydi.</p>
+
+<div class="box box--key">
+  <p class="box-title">A qismi nima uchun uzoq muddatli foyda beradi</p>
+  <p>Tajribali testerni yangi boshlovchidan ajratadigan narsalardan biri
+  shu: uning boshida (yoki faylida) tayyor «buzuvchi qiymatlar» ro'yxati
+  bor. U yangi forma ko'rganda o'ylab o'tirmaydi — ro'yxatdan yuradi va
+  besh daqiqada uchta xato topadi.</p>
+  <p>Bu ro'yxat yillar davomida o'sadi. Bugun boshlang.</p>
+</div>
+
+<h2>O'qish uchun (birlamchi manba)</h2>
+
+<blockquote>
+  <a href="https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf">ISTQB
+  CTFL Syllabus</a> — test implementation va test muhiti bo'limlari
+  <cite>Test ma'lumoti va muhitning rasmiy o'rni. Ingliz tilida.</cite>
+</blockquote>
+
+<p class="cite">Anonimlashtirish tamoyillari:
+<a href="https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/data-sharing/anonymisation/introduction-to-anonymisation/">ICO
+— Introduction to anonymisation</a>.</p>
+
+<div class="ask-teacher">
+  <p><strong>Ma'lumot kutubxonangizni yuboring.</strong> Men unga
+  o'zimning qiymatlarimni qo'shaman — ayniqsa sana va format bilan
+  bog'liq holatlarni, ular ko'pincha unutiladi.</p>
+</div>
+
+<nav class="nav">
+  <a href="../reference/test-data-va-muhit.html">Reference: Test ma'lumoti va muhit</a>
+  <a href="../reference/test-dizayn-texnikalari.html">Reference: Test dizayn texnikalari</a>
+  <a href="../reference/lugat.html">Reference: Lug'at</a>
+</nav>
+
+<nav class="lesson-nav">
+  <a class="lesson-nav-link lesson-nav-prev" href="./0020-ci-cd.html">
+    <span class="lesson-nav-dir">← Oldingi dars</span>
+    <span class="lesson-nav-title">20. Faqat sizning kompyuteringizda ishlaydigan test — himoya emas</span>
+  </a>
+  <a class="lesson-nav-link lesson-nav-next" href="./0022-lokalizatsiya.html">
+    <span class="lesson-nav-dir">Keyingi dars →</span>
+    <span class="lesson-nav-title">22. Bizning tilimiz — tayyor test maydoni</span>
+  </a>
+  <a class="lesson-nav-home" href="./index.html">Barcha darslar</a>
+</nav>
+
+<script src="../assets/lesson.js"></script>
+</body>
+</html>

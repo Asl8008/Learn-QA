@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>10-dars: Test darajalari va turlari — Learn-QA</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<p class="crumbs"><a href="./index.html">Darslar</a> ·
+<a href="./0009-test-plan.html">← 9-dars</a></p>
+
+<p class="eyebrow">10-dars · taxminan 30 daqiqa</p>
+<h1>Sizning ishingiz qayerda boshlanadi</h1>
+<p class="subtitle">«Men unit test yozdim, hammasi yashil — nega yana test
+kerak?» Dasturchidan shu gapni eshitasiz. Bu darsdan keyin unga aniq javob
+bera olasiz.</p>
+
+<h2>Test darajalari: bir xil mahsulot, turli masshtab</h2>
+
+<blockquote>
+  Test darajalari — birgalikda tashkil etiladigan va boshqariladigan test
+  faoliyatlari guruhi.
+  <cite>ISTQB CTFL Syllabus, 2.2</cite>
+</blockquote>
+
+<p>Farq — <strong>nima sinalayotganida</strong>: bitta funksiyami, ikki
+qismning aloqasimi yoki butun tizimmi.</p>
+
+<figure>
+  <div class="partitions-row">
+    <div class="partition partition--valid">
+      <span class="partition-name">Component</span>
+      <span class="partition-range">Bitta qism</span>
+    </div>
+    <div class="partition partition--valid">
+      <span class="partition-name">Integration</span>
+      <span class="partition-range">Qismlar orasidagi aloqa</span>
+    </div>
+    <div class="partition partition--invalid">
+      <span class="partition-name">System</span>
+      <span class="partition-range">Butun mahsulot</span>
+    </div>
+    <div class="partition partition--invalid">
+      <span class="partition-name">Acceptance</span>
+      <span class="partition-range">Mijoz ehtiyoji</span>
+    </div>
+  </div>
+  <figcaption>Chapdan o'ngga masshtab kengayadi. Qizil bilan belgilangan ikki
+  daraja — qo'lda ishlaydigan testerning asosiy maydoni.</figcaption>
+</figure>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Daraja</th><th>Nima sinaladi</th><th>Kim qiladi</th><th>Namuna</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Component</strong><br><span class="cite">unit</span></td>
+      <td>Alohida sinalishi mumkin bo'lgan bitta qism</td>
+      <td>Dasturchi</td>
+      <td>Chegirma hisoblaydigan funksiya to'g'ri javob beradimi</td>
+    </tr>
+    <tr>
+      <td><strong>Integration</strong></td>
+      <td>Qismlar yoki tizimlar orasidagi <em>aloqa</em></td>
+      <td>Dasturchi, tester</td>
+      <td>Savat to'lov tizimiga to'g'ri summa uzatadimi</td>
+    </tr>
+    <tr>
+      <td><strong>System</strong></td>
+      <td>Butun mahsulotning xulqi va imkoniyatlari</td>
+      <td><strong>Tester</strong></td>
+      <td>Foydalanuvchi kirishdan chekgacha bo'lgan yo'lni bosib o'tadimi</td>
+    </tr>
+    <tr>
+      <td><strong>Acceptance</strong></td>
+      <td>Mahsulot haqiqiy ehtiyojga mos keladimi</td>
+      <td>Mijoz, biznes, <strong>tester</strong></td>
+      <td>Do'kon egasi «ha, men shuni so'ragan edim» deydimi</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p class="cite">ISTQB 4.0 versiyasida integration ikkiga bo'lingan:
+<em>component integration</em> (bitta tizim ichidagi qismlar) va
+<em>system integration</em> (turli tizimlar orasidagi aloqa). Mantiq o'zgarmaydi.</p>
+
+<h2>Nega unit testlar yetarli emas</h2>
+
+<p>Endi boshdagi savolga javob. Component testing bitta qismni <em>alohida</em>
+tekshiradi. Lekin xatoning katta qismi qismning ichida emas —
+<strong>qismlar orasida</strong> tug'iladi.</p>
+
+<div class="box">
+  <p class="box-title">Real misol</p>
+  <p>Chegirma funksiyasi mukammal ishlaydi: 100 000 dan 20 % ni to'g'ri
+  hisoblaydi. Savat funksiyasi ham mukammal: mahsulotlarni to'g'ri qo'shadi.
+  Ikkalasining ham unit testi yashil.</p>
+  <p>Ammo savat chegirmani <em>yetkazish narxi qo'shilgandan keyin</em>
+  qo'llaydi — natijada mijoz yetkazishga ham 20 % chegirma oladi. Hech bir
+  unit test buni ko'rmaydi, chunki har biri o'z qismini alohida sinaydi.
+  Buni faqat integration yoki system darajasida ko'rish mumkin — ya'ni siz.</p>
+</div>
+
+<div class="box box--key">
+  <p class="box-title">Dasturchiga javobingiz</p>
+  <p>«Unit test qismning <em>ichi</em> to'g'riligini isbotlaydi. Men esa
+  qismlar birlashganda foydalanuvchi ko'radigan natija to'g'riligini
+  tekshiraman. Bu ikki xil savol — ikkalasi ham kerak.»</p>
+</div>
+
+<h2>Acceptance testing — oxirgi eshik</h2>
+
+<p>Acceptance testing'ning maqsadi xato topish emas. ISTQB buni ochiq aytadi:
+bu bosqichda ko'p xato topilishi ba'zan <em>loyihaning katta riski</em>
+hisoblanadi — demak avvalgi darajalarda ish yomon bajarilgan.</p>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Shakli</th><th>Kim va nima uchun</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>UAT</strong><br><span class="cite">user acceptance</span></td>
+        <td>Haqiqiy foydalanuvchi: «bu mening ishimga yaraydimi?»</td></tr>
+    <tr><td><strong>OAT</strong><br><span class="cite">operational acceptance</span></td>
+        <td>Tizim administratorlari: zaxira nusxa, o'rnatish, yangilash,
+            tiklash, foydalanuvchilarni boshqarish</td></tr>
+    <tr><td><strong>Alpha</strong></td>
+        <td>Ishlab chiquvchi ofisida, tashqi foydalanuvchilar ishtirokida</td></tr>
+    <tr><td><strong>Beta</strong></td>
+        <td>Haqiqiy foydalanuvchilarda, o'z muhitida</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Test turlari: nima va qanchalik yaxshi</h2>
+
+<p>Daraja — <em>nima</em> sinalayotgani. Tur — <em>qaysi savolga</em> javob
+izlayotganingiz. To'rtta asosiy tur bor.</p>
+
+<div class="compare">
+  <div class="box box--good">
+    <p class="box-title">Funksional — «nima»</p>
+    <p>Tizim bajarishi kerak bo'lgan funksiyalarni baholaydi. «Savatga
+    qo'shish ishlaydimi?»</p>
+  </div>
+  <div class="box box--good">
+    <p class="box-title">Nofunksional — «qanchalik yaxshi»</p>
+    <p>Tizimning xususiyatlarini baholaydi: tezlik, qulaylik, xavfsizlik.
+    «Savat 5 soniyada yuklansa — bu xatomi?»</p>
+  </div>
+</div>
+
+<div class="compare">
+  <div class="box">
+    <p class="box-title">Qora quti — <span class="cite">black-box</span></p>
+    <p>Ichki kodni bilmasdan, tashqaridan sinash. 2-darsdagi ekvivalentlik va
+    chegaralar — aynan shu.</p>
+  </div>
+  <div class="box">
+    <p class="box-title">Oq quti — <span class="cite">white-box</span></p>
+    <p>Kod, arxitektura yoki ma'lumot oqimiga qarab test tuzish. Odatda
+    dasturchining ishi.</p>
+  </div>
+</div>
+
+<h3>Nofunksional turlar — testerning savollari</h3>
+
+<p>Bu joyni ko'pchilik yangi tester tashlab ketadi, chunki u «ko'rinmaydi».
+Aslida foydalanuvchining eng ko'p shikoyati aynan shu yerdan chiqadi.</p>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Xususiyat</th><th>Amaliy savol</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Performance</strong><br><span class="cite">tezlik</span></td>
+        <td>Sahifa necha soniyada ochiladi? 100 ta mahsulot bo'lsa-chi?</td></tr>
+    <tr><td><strong>Usability</strong><br><span class="cite">qulaylik</span></td>
+        <td>Yangi foydalanuvchi yordamsiz maqsadga yetadimi? Xato xabari
+            nima qilishni aytadimi?</td></tr>
+    <tr><td><strong>Security</strong><br><span class="cite">xavfsizlik</span></td>
+        <td>Chiqib ketgandan keyin «orqaga» tugmasi ma'lumotni ko'rsatadimi?
+            Boshqa odamning havolasi ochiladimi?</td></tr>
+    <tr><td><strong>Compatibility</strong><br><span class="cite">moslik</span></td>
+        <td>Firefox'da ham shundaymi? Telefonda? Kichik ekranda?</td></tr>
+    <tr><td><strong>Reliability</strong><br><span class="cite">ishonchlilik</span></td>
+        <td>Internet uzilib qayta ulansa nima bo'ladi? Ikki marta bosilsa?</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p class="cite">Bu ro'yxat ISO/IEC 25010 dasturiy mahsulot sifati modeliga
+asoslangan — ISTQB shu standartga havola qiladi.</p>
+
+<div class="box box--warn">
+  <p class="box-title">Keng tarqalgan xato</p>
+  <p>«Nofunksional test — bu oxirida, hammasi tayyor bo'lgandan keyin
+  qilinadi» degan fikr noto'g'ri. ISTQB buni ochiq rad etadi: nofunksional
+  xatoning kech topilishi loyiha uchun juda xavfli bo'lishi mumkin. Sekin
+  ishlaydigan arxitekturani reliz oldidan tuzatib bo'lmaydi.</p>
+</div>
+
+<h3>O'zgarishga bog'liq testing</h3>
+
+<p>To'rtinchi guruh sizga tanish — 4-darsda ko'rgansiz:</p>
+
+<ul>
+  <li><strong>Confirmation testing</strong> (retest) — xato haqiqatan
+      tuzatilganini tasdiqlash. Eng kamida: hisobotdagi takrorlash
+      qadamlarini yangi versiyada qaytadan bajarish.</li>
+  <li><strong>Regression testing</strong> — o'zgarish boshqa joyni
+      buzmaganini tekshirish. Kutilmagan nojo'ya ta'sirlar
+      <em>regression</em> deyiladi.</li>
+</ul>
+
+<p>ISTQB ta'kidlaydi: regression to'plami ko'p marta qayta-qayta ishga
+tushiriladi va sekin o'zgaradi — shuning uchun u avtomatlashtirish uchun eng
+kuchli nomzod.</p>
+
+<div class="box box--key">
+  <p class="box-title">Asosiy fikr: tur va daraja mustaqil</p>
+  <p>Yuqoridagi <em>har qanday tur</em>ni <em>har qanday darajada</em>
+  o'tkazish mumkin. Xavfsizlikni unit darajasida ham, system darajasida ham
+  sinash mumkin; funksional testni ham hamma darajada. Bu ikkisi — ikki
+  mustaqil o'lchov, bir-birining o'rnini bosmaydi.</p>
+</div>
+
+<h2>Tekshirib ko'ramiz</h2>
+
+<section class="quiz">
+  <p class="quiz-prompt">1. Ikkita funksiya alohida to'g'ri ishlaydi, lekin
+  birga ishlaganda summa noto'g'ri chiqadi. Bu xato qaysi darajada topiladi?</p>
+  <div class="quiz-options">
+    <button class="quiz-option" data-explain="Component testing har bir qismni alohida sinaydi — aloqadagi xatoni ko'rmaydi.">Component (unit) testing</button>
+    <button class="quiz-option" data-correct data-explain="To'g'ri. Integration testing aynan qismlar orasidagi aloqaga qaraydi.">Integration testing</button>
+    <button class="quiz-option" data-explain="Acceptance testing'da bunday xato topilishi mumkin, lekin bu juda kech va loyiha uchun risk hisoblanadi.">Acceptance testing</button>
+    <button class="quiz-option" data-explain="Bunday xatoni topish uchun kodni ko'rish shart emas — natijani ko'rish kifoya.">Faqat white-box testing</button>
+  </div>
+  <p class="quiz-feedback" hidden></p>
+</section>
+
+<section class="quiz">
+  <p class="quiz-prompt">2. «Mahsulotlar ro'yxati 200 ta element bo'lganda
+  12 soniyada ochiladi» — bu qanday test natijasi?</p>
+  <div class="quiz-options">
+    <button class="quiz-option" data-explain="Funksional test «ishlaydimi?» degan savolga javob beradi — bu yerda ro'yxat ochilyapti.">Funksional test</button>
+    <button class="quiz-option" data-correct data-explain="To'g'ri. Bu performance — «qanchalik yaxshi ishlaydi» savoliga tegishli nofunksional xususiyat.">Nofunksional test (performance)</button>
+    <button class="quiz-option" data-explain="Confirmation test — tuzatilgan xatoni qayta tekshirish.">Confirmation test</button>
+    <button class="quiz-option" data-explain="White-box test kod tuzilishiga asoslanadi; bu yerda faqat natija o'lchandi.">White-box test</button>
+  </div>
+  <p class="quiz-feedback" hidden></p>
+</section>
+
+<section class="quiz">
+  <p class="quiz-prompt">3. Nofunksional testni qachon boshlash kerak?</p>
+  <div class="quiz-options">
+    <button class="quiz-option" data-explain="Bu eng keng tarqalgan xato. Kech topilgan nofunksional xatoni tuzatish ba'zan arxitekturani qayta yozishni talab qiladi.">Hamma funksiyalar tayyor bo'lgandan keyin</button>
+    <button class="quiz-option" data-correct data-explain="To'g'ri. ISTQB nofunksional testni barcha darajalarda va imkon qadar erta o'tkazishni tavsiya qiladi.">Iloji boricha erta, barcha darajalarda</button>
+    <button class="quiz-option" data-explain="Foydalanuvchi shikoyat qilgunicha kutish — bu testing emas.">Foydalanuvchi shikoyat qilgandan keyin</button>
+    <button class="quiz-option" data-explain="Nofunksional test qo'lda ham o'tkaziladi: qulaylik, moslik, xavfsizlikning ko'p qismi.">Faqat avtomatlashtirish bo'lganda</button>
+  </div>
+  <p class="quiz-feedback" hidden></p>
+</section>
+
+<section class="recall">
+  <p class="recall-q">Eslab ko'ring — <em>9-darsdan</em>: risk darajasi qanday
+  aniqlanadi va nima uchun kam ishlatiladigan buzuq tugma to'lov oqimidan
+  keyin sinaladi?</p>
+  <button class="recall-btn">Javobni ko'rsatish</button>
+  <p class="recall-a" hidden>Risk darajasi — <strong>ehtimollik</strong>
+  (bu joyda xato bo'lishi qanchalik mumkin) va <strong>ta'sir</strong> (xato
+  chiqsa zarari qanchalik katta) birikmasi. Kam ishlatiladigan tugmada
+  ehtimollik yuqori bo'lsa ham ta'sir past; to'lovda esa ta'sir juda yuqori —
+  shuning uchun u birinchi navbatda turadi.</p>
+</section>
+
+<h2>Amaliyot: bitta mahsulot, ikki xil qarash</h2>
+
+<p>Yana <a href="https://www.saucedemo.com/">saucedemo.com</a>, lekin bu safar
+boshqa ko'z bilan.</p>
+
+<ol class="steps">
+  <li><strong>Funksional o'tish (30 daqiqa).</strong> Kirish → mahsulot
+      tanlash → savat → checkout → chek. Har bir qadamda «bu ishlaydimi?»
+      degan savolga javob bering. Topganlaringizni yozib boring.</li>
+  <li><strong>Endi nofunksional o'tish (30 daqiqa).</strong> Xuddi shu yo'ldan
+      qayta yuring, lekin endi beshta savol bilan:
+      <ul>
+        <li><em>Performance:</em> <code>performance_glitch_user</code> hisobi
+            bilan kiring — farqni o'lchang (DevTools → Network).</li>
+        <li><em>Usability:</em> xato xabarlari nima qilishni aytadimi?</li>
+        <li><em>Security:</em> chiqib ketgandan keyin «orqaga» tugmasi nima
+            ko'rsatadi? Savat sahifasiga to'g'ridan-to'g'ri manzil bilan
+            kirsangiz-chi?</li>
+        <li><em>Compatibility:</em> DevTools device mode'da telefon o'lchamida
+            ko'ring.</li>
+        <li><em>Reliability:</em> «Checkout» tugmasini ketma-ket ikki marta
+            tez bosing.</li>
+      </ul>
+  </li>
+  <li><strong>Solishtiring.</strong> Qaysi o'tishda ko'proq muammo topdingiz?
+      Ko'p testerlarda javob — ikkinchisi.</li>
+  <li><strong>Har bir topilmani belgilang:</strong> qaysi <em>daraja</em>da
+      topildi va qaysi <em>tur</em>ga tegishli.</li>
+  <li><strong>Menga yuboring:</strong> ikkita ro'yxat va oxirgi bandning
+      javobi.</li>
+</ol>
+
+<div class="box box--key">
+  <p class="box-title">Nima uchun bu mashq muhim</p>
+  <p>Ko'pchilik tester butun kunini funksional testda o'tkazadi, chunki
+  «ishlaydimi?» degan savol oson. Nofunksional savollar qiyinroq, lekin
+  foydalanuvchini aynan ular bezovta qiladi. Shu ikki o'tishni ajratib
+  bajarish — bu odatni shakllantiradigan eng oddiy usul.</p>
+</div>
+
+<h2>O'qish uchun (birlamchi manba)</h2>
+
+<blockquote>
+  <a href="https://astqb.org/2-2-test-levels-and-test-types/">ISTQB CTFL
+  Syllabus — Test Levels and Test Types</a>
+  <cite>Darajalar va turlarning rasmiy tasnifi. To'liq matn
+  <a href="https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/">ISTQB
+  saytidagi</a> sillabus PDF sida. Ingliz tilida.</cite>
+</blockquote>
+
+<div class="ask-teacher">
+  <p><strong>Ikkita ro'yxatni yuboring.</strong> Men har bir topilmangizni
+  daraja va tur bo'yicha tekshiraman — bu tasnif boshida chalkash tuyuladi,
+  lekin bir necha marta qilgandan keyin avtomatik bo'lib qoladi.</p>
+</div>
+
+<nav class="nav">
+  <a href="../reference/test-darajalari-va-turlari.html">Reference: Darajalar va turlar</a>
+  <a href="../reference/test-plan-shabloni.html">Reference: Test plan shabloni</a>
+  <a href="../reference/lugat.html">Reference: Lug'at</a>
+</nav>
+
+<nav class="lesson-nav">
+  <a class="lesson-nav-link lesson-nav-prev" href="./0009-test-plan.html">
+    <span class="lesson-nav-dir">← Oldingi dars</span>
+    <span class="lesson-nav-title">9. Vaqt oz, ish ko'p: test plan</span>
+  </a>
+  <a class="lesson-nav-link lesson-nav-next" href="./0011-sql-testerlar-uchun.html">
+    <span class="lesson-nav-dir">Keyingi dars →</span>
+    <span class="lesson-nav-title">11. Ekran aldashi mumkin: SQL</span>
+  </a>
+  <a class="lesson-nav-home" href="./index.html">Barcha darslar</a>
+</nav>
+
+<script src="../assets/lesson.js"></script>
+</body>
+</html>

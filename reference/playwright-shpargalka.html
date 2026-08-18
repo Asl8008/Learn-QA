@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Playwright shpargalkasi — Learn-QA</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<p class="crumbs"><a href="../lessons/index.html">Darslar</a> ·
+<a href="./lugat.html">Lug'at</a></p>
+
+<p class="eyebrow">Reference · chop etsa bo'ladi</p>
+<h1>Playwright shpargalkasi</h1>
+<p class="subtitle">Test yozayotganda shu sahifani yoningizda saqlang.
+Barcha misollar ishga tushirilib tekshirilgan.</p>
+
+<h2>O'rnatish</h2>
+
+<pre><code>npm init -y
+npm i -D @playwright/test
+npx playwright install chromium</code></pre>
+
+<h2>Test skeleti</h2>
+
+<pre><code>import { test, expect } from '@playwright/test';
+
+test.beforeEach(async ({ page }) =&gt; {
+  await page.goto('https://example.com/');
+});
+
+test('nima tekshirilayotgani', async ({ page }) =&gt; {
+  await page.getByRole('button', { name: 'Login' }).click();
+  await expect(page.getByText('Products')).toBeVisible();
+});</code></pre>
+
+<h2>Lokatorlar — tavsiya tartibi</h2>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Lokator</th><th>Namuna</th></tr></thead>
+  <tbody>
+    <tr><td><code>getByRole</code></td>
+        <td><code>page.getByRole('button', { name: 'Login' })</code></td></tr>
+    <tr><td><code>getByText</code></td>
+        <td><code>page.getByText('Products')</code></td></tr>
+    <tr><td><code>getByLabel</code></td>
+        <td><code>page.getByLabel('Email')</code></td></tr>
+    <tr><td><code>getByPlaceholder</code></td>
+        <td><code>page.getByPlaceholder('Username')</code></td></tr>
+    <tr><td><code>getByAltText</code></td>
+        <td><code>page.getByAltText('Logotip')</code></td></tr>
+    <tr><td><code>getByTitle</code></td>
+        <td><code>page.getByTitle('Yopish')</code></td></tr>
+    <tr><td><code>getByTestId</code></td>
+        <td><code>page.getByTestId('submit')</code></td></tr>
+    <tr><td>CSS — oxirgi chora</td>
+        <td><code>page.locator('.shopping_cart_badge')</code></td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="box box--key">
+  <p class="box-title">Doirani toraytirish</p>
+  <p>Bir nechta element mos kelsa Playwright <strong>xato beradi</strong>.
+  Yechim — avval konteynerni toping:</p>
+  <pre><code>const mahsulot = page.locator('.inventory_item')
+  .filter({ hasText: 'Sauce Labs Backpack' });
+await mahsulot.getByRole('button', { name: 'Add to cart' }).click();</code></pre>
+  <p>Ro'yxat, jadval va kartochkalar bilan ishlashning asosiy naqshi.</p>
+</div>
+
+<h2>Harakatlar</h2>
+
+<div class="table-wrap">
+<table>
+  <tbody>
+    <tr><td><code>.click()</code></td><td>Bosish</td></tr>
+    <tr><td><code>.fill('matn')</code></td><td>Maydonni to'ldirish</td></tr>
+    <tr><td><code>.clear()</code></td><td>Maydonni tozalash</td></tr>
+    <tr><td><code>.check()</code> / <code>.uncheck()</code></td>
+        <td>Katakcha</td></tr>
+    <tr><td><code>.selectOption('qiymat')</code></td><td>Ro'yxatdan
+        tanlash</td></tr>
+    <tr><td><code>.hover()</code></td><td>Ustiga olib borish</td></tr>
+    <tr><td><code>.press('Enter')</code></td><td>Klaviatura tugmasi</td></tr>
+    <tr><td><code>page.goto(url)</code></td><td>Manzilga o'tish</td></tr>
+    <tr><td><code>page.goBack()</code></td><td>Orqaga</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Tekshiruvlar</h2>
+
+<div class="table-wrap">
+<table>
+  <tbody>
+    <tr><td><code>toBeVisible()</code></td><td>Ko'rinib turibdi</td></tr>
+    <tr><td><code>toBeHidden()</code></td><td>Ko'rinmaydi</td></tr>
+    <tr><td><code>toHaveText('...')</code></td><td>Matni aynan shunday</td></tr>
+    <tr><td><code>toContainText('...')</code></td><td>Matni ichida bor</td></tr>
+    <tr><td><code>toHaveValue('...')</code></td><td>Maydon qiymati</td></tr>
+    <tr><td><code>toHaveCount(3)</code></td><td>Elementlar soni</td></tr>
+    <tr><td><code>toBeEnabled()</code> / <code>toBeDisabled()</code></td>
+        <td>Faol yoki o'chirilgan</td></tr>
+    <tr><td><code>toHaveTitle(/matn/)</code></td><td>Sahifa sarlavhasi</td></tr>
+    <tr><td><code>toHaveURL(/manzil/)</code></td><td>Joriy manzil</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Buyruqlar</h2>
+
+<div class="table-wrap">
+<table>
+  <tbody>
+    <tr><td><code>npx playwright test</code></td><td>Hammasini
+        yurgizish</td></tr>
+    <tr><td><code>npx playwright test fayl.spec.js</code></td>
+        <td>Bitta faylni</td></tr>
+    <tr><td><code>npx playwright test --headed</code></td>
+        <td>Brauzerni ko'rsatib</td></tr>
+    <tr><td><code>npx playwright test --ui</code></td>
+        <td>Interaktiv rejim</td></tr>
+    <tr><td><code>npx playwright test --debug</code></td>
+        <td>Qadamba-qadam</td></tr>
+    <tr><td><code>npx playwright show-report</code></td>
+        <td>Hisobotni ochish</td></tr>
+    <tr><td><code>npx playwright codegen &lt;url&gt;</code></td>
+        <td>Harakatdan kod yaratish</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Beqarorlikning ikki asosiy sababi</h2>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Sabab</th><th>Yechim</th></tr></thead>
+  <tbody>
+    <tr><td>Unutilgan <code>await</code></td>
+        <td><code>page.</code> va <code>expect(</code> oldida har doim
+            <code>await</code></td></tr>
+    <tr><td>Qo'lda qo'shilgan kutish (<code>sleep</code>)</td>
+        <td>Olib tashlang — Playwright o'zi kutadi va qayta
+            urinadi</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Yaxshi test kodi</h2>
+
+<ul class="checklist">
+  <li>Bitta test — bitta tekshiruv</li>
+  <li>Testlar bir-biriga bog'liq emas, istalgan tartibda ishlaydi</li>
+  <li>Nom nimani tekshirayotganini aytadi</li>
+  <li>Lokatorlar foydalanuvchi ko'radigan narsaga tayanadi</li>
+  <li>Takroriy qadamlar <code>beforeEach</code> ichida</li>
+  <li>Qo'lda kutish yo'q</li>
+  <li>Yiqilganda xato sababni tushuntiradi</li>
+</ul>
+
+<div class="box box--warn">
+  <p class="box-title"><code>codegen</code> — qoralama uchun</p>
+  <p>Yaratilgan kodni o'zgartirmasdan ishlatmang: u ko'pincha mo'rt CSS
+  lokatorlarni tanlaydi. Tartib: codegen bilan qoralama oling, so'ng
+  lokatorlarni tavsiya tartibi bo'yicha qayta yozing.</p>
+</div>
+
+<p class="cite">Manbalar:
+<a href="https://playwright.dev/docs/writing-tests">Writing tests</a>,
+<a href="https://playwright.dev/docs/locators">Locators</a>.</p>
+
+<div class="ask-teacher">
+  <p><strong>Kodingizni yuboring.</strong> Men avvalo lokatorlarga
+  qarayman — bu test kodi sifatining asosiy ko'rsatkichi.</p>
+</div>
+
+<nav class="nav">
+  <a href="../lessons/0019-playwright.html">19-dars</a>
+  <a href="./avtomatlashtirish-qarori.html">Avtomatlashtirish qarori</a>
+  <a href="./test-case-shabloni.html">Test case shabloni</a>
+  <a href="./lugat.html">Lug'at</a>
+</nav>
+
+</body>
+</html>

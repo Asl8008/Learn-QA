@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>1-dars: Bug report yozish — Learn-QA</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<p class="crumbs"><a href="./index.html">Darslar</a></p>
+
+<p class="eyebrow">1-dars · taxminan 20 daqiqa</p>
+<h1>Dasturchi qaytarib yubormaydigan bug report</h1>
+<p class="subtitle">QA testerning kunlik ishi xato <em>topish</em> bilan tugamaydi.
+Xato faqat dasturchi uni o'z kompyuterida takrorlay olgandagina tuzatiladi.
+Shuning uchun birinchi ko'nikma — hisobot yozish.</p>
+
+<h2>Nega aynan shundan boshlaymiz</h2>
+
+<p>Yangi testerning ishi ko'pincha shu yerda to'xtaydi: xatoni topadi, lekin uni
+shunday yozadiki, dasturchi tushunmaydi. Hisobot qaytib keladi — «takrorlay
+olmadim», «qanday qilib chiqardingiz?» — va bir kun yo'qoladi.</p>
+
+<p>Yaxshi bug report — sizning eng ko'rinadigan mahsulotingiz. Ish suhbatida ham,
+sinov muddatida ham odamlar aynan shuni ko'radi.</p>
+
+<div class="box box--key">
+  <p class="box-title">Bu darsning yagona maqsadi</p>
+  <p>Dars oxirida siz haqiqiy saytda bitta xato topib, uni <strong>dasturchi
+  qo'shimcha savol bermasdan takrorlay oladigan</strong> qilib yozasiz.</p>
+</div>
+
+<h2>Avval: uchta atamani ajratamiz</h2>
+
+<p>O'zbekchada hammasiga «xato» deymiz, lekin QA da bu uch xil narsa. Farq muhim,
+chunki hisobotda siz uchinchisini tasvirlaysiz:</p>
+
+<ul>
+  <li><strong>Error</strong> — insonning xatosi. Dasturchi shartni teskari yozdi.
+      Buni hech kim ko'rmaydi.</li>
+  <li><strong>Defect</strong> (bug) — shu xato natijasida kodda qolgan nuqson.
+      Kodda o'tiribdi.</li>
+  <li><strong>Failure</strong> — nuqson ishga tushib, ekranda namoyon bo'lishi.
+      Siz ko'radigan narsa aynan shu.</li>
+</ul>
+
+<p class="cite">To'liq ta'riflar: <a href="../reference/lugat.html">QA lug'ati</a>.
+Manba: <a href="https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf">ISTQB
+CTFL Syllabus v4.0.1</a>, 1.2.3-bo'lim.</p>
+
+<h2>Bug report ning oltita qismi</h2>
+
+<p>Sanoatda qabul qilingan tuzilish — har bir qismning aniq vazifasi bor:</p>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Qism</th><th>Qanday savolga javob beradi</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Sarlavha</strong></td>
+        <td>Bir qatorda: qayerda, nima noto'g'ri?</td></tr>
+    <tr><td><strong>Muhit</strong></td>
+        <td>Qayerda sinaldi? Brauzer, OS, qurilma, versiya.</td></tr>
+    <tr><td><strong>Takrorlash qadamlari</strong></td>
+        <td>Buni qanday qaytadan chiqaraman?</td></tr>
+    <tr><td><strong>Kutilgan natija</strong></td>
+        <td>Nima bo'lishi kerak edi?</td></tr>
+    <tr><td><strong>Haqiqiy natija</strong></td>
+        <td>Aslida nima bo'ldi?</td></tr>
+    <tr><td><strong>Dalil</strong></td>
+        <td>Ishonchim uchun nima ko'rsata olasiz? Skrinshot, log.</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p class="cite">Manba: <a href="https://www.browserstack.com/guide/how-to-write-a-bug-report">BrowserStack
+— How to write an Effective Bug Report</a> va <a href="https://www.qawolf.com/blog/what-makes-a-great-bug-report">QA
+Wolf — What makes a great bug report</a>.</p>
+
+<div class="box box--warn">
+  <p class="box-title">Eng ko'p uchraydigan xato</p>
+  <p>Kutilgan va haqiqiy natijani birlashtirib yuborish: «Login ishlamayapti».
+  Bu ikkalasi ham emas. Dasturchi bilmaydi: sahifa ochilmadimi? Xato xabar
+  chiqdimi? Parol qabul qilinmadimi? <strong>Ikkalasini alohida yozing.</strong></p>
+</div>
+
+<h2>Yonma-yon: yomon va yaxshi</h2>
+
+<p>Xuddi bitta xato, ikki xil yozilgan.</p>
+
+<div class="compare">
+  <div class="box box--bad">
+    <p class="box-title">✗ Qaytarib yuboriladi</p>
+    <p><strong>Sarlavha:</strong> Savat ishlamayapti</p>
+    <p><strong>Tavsif:</strong> Mahsulot qo'shsam savat buziladi. Menimcha
+    backendda muammo bor. Tezda tuzatinglar, bu juda jiddiy.</p>
+  </div>
+
+  <div class="box box--good">
+    <p class="box-title">✓ Ishga tushadi</p>
+    <p><strong>Sarlavha:</strong> Savat: mahsulot qo'shilgach hisoblagich
+    «0» bo'lib qoladi (Chrome 128)</p>
+    <p><strong>Muhit:</strong> Chrome 128.0, Windows 11, saucedemo.com,
+    hisob: <code>standard_user</code></p>
+    <p><strong>Qadamlar:</strong></p>
+    <ol>
+      <li>saucedemo.com ga <code>standard_user</code> bilan kiring</li>
+      <li>«Sauce Labs Backpack» yonidagi «Add to cart» tugmasini bosing</li>
+      <li>Yuqori o'ngdagi savat belgisiga qarang</li>
+    </ol>
+    <p><strong>Kutilgan:</strong> Savat belgisida «1» raqami ko'rinadi.</p>
+    <p><strong>Haqiqiy:</strong> Savat belgisida «0» ko'rinadi, lekin savat
+    sahifasida mahsulot bor.</p>
+    <p><strong>Takrorlanuvchanlik:</strong> 5 urinishdan 5 tasida.</p>
+    <p><strong>Dalil:</strong> savat-hisoblagich.png</p>
+  </div>
+</div>
+
+<p>Farqni sanang: chapda <em>his-tuyg'u</em> bor («juda jiddiy»), <em>taxmin</em>
+bor («menimcha backendda»), lekin fakt yo'q. O'ngda faqat fakt — va shuning
+uchun dasturchi bir daqiqada takrorlaydi.</p>
+
+<div class="box box--key">
+  <p class="box-title">Oltin qoida</p>
+  <p>Sababni taxmin qilmang. Siz <strong>nima ko'rganingizni</strong> yozasiz,
+  <strong>nega bo'lganini</strong> emas. Noto'g'ri taxmin dasturchini bir necha
+  soatga noto'g'ri yo'nalishga boshlab ketadi.</p>
+</div>
+
+<h2>Tekshirib ko'ramiz</h2>
+
+<p>Quyidagi savollar — o'qiganingizni <em>eslash</em> mashqi. Xato qilsangiz
+zarari yo'q: aynan shu urinish materialni xotirada mustahkamlaydi.</p>
+
+<section class="quiz">
+  <p class="quiz-prompt">1. Qaysi biri «haqiqiy natija» sifatida to'g'ri yozilgan?</p>
+  <div class="quiz-options">
+    <button class="quiz-option" data-explain="Bu — sabab haqidagi taxmin. Siz serverni ko'rmadingiz, ekranni ko'rdingiz.">Server bilan aloqa uzilgan bo'lsa kerak</button>
+    <button class="quiz-option" data-correct data-explain="Bu — aynan kuzatilgan fakt. Dasturchi shu matnni kodda qidira oladi.">Ekranda «Error 500» xabari chiqdi</button>
+    <button class="quiz-option" data-explain="«Negadir» so'zi hech qanday ma'lumot bermaydi. Ekranda nima ko'rindi?">Sahifa negadir ochilmay qoldi</button>
+    <button class="quiz-option" data-explain="«Ishlamayapti» — eng foydasiz ibora. Aniq nima sodir bo'ldi?">Forma butunlay ishlamay qoldi</button>
+  </div>
+  <p class="quiz-feedback" hidden></p>
+</section>
+
+<section class="quiz">
+  <p class="quiz-prompt">2. Bosh sahifada kompaniya nomi imlo xatosi bilan
+  yozilgan. Baho qanday bo'ladi?</p>
+  <div class="quiz-options">
+    <button class="quiz-option" data-correct data-explain="Dastur ishlayapti — demak texnik zarar kichik. Lekin buni har bir tashrifchi ko'radi, shuning uchun tezda tuzatiladi.">Severity past, priority yuqori</button>
+    <button class="quiz-option" data-explain="Severity — texnik zarar. Imlo xatosi hech qanday funksiyani buzmaydi.">Severity yuqori, priority past</button>
+    <button class="quiz-option" data-explain="Priority past emas: bu obro'ga tegadigan, hammaga ko'rinadigan joy.">Severity past, priority past</button>
+    <button class="quiz-option" data-explain="Severity yuqori emas — hech narsa ishdan chiqmadi, faqat matn noto'g'ri.">Severity yuqori, priority yuqori</button>
+  </div>
+  <p class="quiz-feedback" hidden></p>
+</section>
+
+<section class="quiz">
+  <p class="quiz-prompt">3. Takrorlash qadamlarida qaysi biri eng jiddiy kamchilik?</p>
+  <div class="quiz-options">
+    <button class="quiz-option" data-explain="Bu — to'g'ri usul. Har bir harakat alohida qatorda bo'lishi kerak.">Har bir harakatni alohida yozish</button>
+    <button class="quiz-option" data-correct data-explain="Dasturchi «katta son» deb nimani kiritsin? 100 mi, 10 000 mi? Xato faqat aniq qiymatda chiqishi mumkin.">Aniq qiymat o'rniga «katta son» deyish</button>
+    <button class="quiz-option" data-explain="Bu — to'g'ri usul. Qadamlar doim ma'lum boshlang'ich holatdan boshlanadi.">Birinchi qadamda sahifani ochish</button>
+    <button class="quiz-option" data-explain="Bu — to'g'ri usul. Raqamlangan tartib chalkashlikni yo'qotadi.">Qadamlarni tartib bilan raqamlash</button>
+  </div>
+  <p class="quiz-feedback" hidden></p>
+</section>
+
+<section class="recall">
+  <p class="recall-q">Endi hujjatga qaramasdan eslang: bug report ning oltita
+  qismi qaysilar? Ovoz chiqarib yoki qog'ozga yozib ayting — <em>keyin</em>
+  tugmani bosing.</p>
+  <button class="recall-btn">Javobni ko'rsatish</button>
+  <p class="recall-a" hidden>Sarlavha · Muhit · Takrorlash qadamlari ·
+  Kutilgan natija · Haqiqiy natija · Dalil. Ixtiyoriy, lekin foydali:
+  takrorlanuvchanlik va severity.</p>
+</section>
+
+<h2>Amaliyot: birinchi haqiqiy bug report ingiz</h2>
+
+<p><a href="https://www.saucedemo.com/">saucedemo.com</a> — Sauce Labs kompaniyasi
+testerlar mashq qilishi uchun qurgan demo do'kon. Uning bir nechta hisobi
+<strong>atayin buzuq</strong> qilingan, ya'ni u yerda haqiqiy xatolar bor.</p>
+
+<ol class="steps">
+  <li><a href="https://www.saucedemo.com/">saucedemo.com</a> ni oching. Login
+      sahifasining o'ng tomonida hisoblar va parol ro'yxati yozilgan.</li>
+  <li>Avval <code>standard_user</code> bilan kiring va saytni ko'rib chiqing:
+      mahsulot ro'yxati, rasm, savat, buyurtma jarayoni. Bu — <strong>normal
+      holat</strong>. Nima to'g'ri ishlashini bilib oling.</li>
+  <li>Chiqing va <code>problem_user</code> hisobi bilan qayta kiring. Xuddi shu
+      yo'ldan yuring. Endi farqlarni qidiring — nima boshqacha?</li>
+  <li>Topgan birinchi xatoni tanlang. <strong>Ikki marta takrorlab ko'ring</strong> —
+      haqiqatan ham har safar chiqadimi?</li>
+  <li><a href="../reference/bug-report-shabloni.html">Bug report shabloni</a> ni
+      oching va to'ldiring. Skrinshot oling.</li>
+  <li>Yozganingizni menga yuboring. Men uni dasturchi ko'zi bilan o'qib, aynan
+      qaysi joyi savol tug'dirishini aytaman.</li>
+</ol>
+
+<div class="box box--warn">
+  <p class="box-title">Diqqat: bu ham mashqning bir qismi</p>
+  <p>«Xato» deb o'ylagan narsangiz aslida shunday <em>bo'lishi kerak</em>ligi ham
+  mumkin. Shuning uchun 2-qadam muhim: normal holatni ko'rmasdan turib, nima
+  noto'g'ri ekanini bilib bo'lmaydi. Har bir bug report ostida jim turgan savol
+  bor: «Men nimaga asoslanib buni xato deyapman?»</p>
+</div>
+
+<h2>O'qish uchun (birlamchi manba)</h2>
+
+<p>Bu darsdan keyin bitta narsa o'qisangiz, shu bo'lsin:</p>
+
+<blockquote>
+  <a href="https://www.browserstack.com/guide/how-to-write-a-bug-report">How to
+  write an Effective Bug Report</a> — BrowserStack
+  <cite>Real misollar bilan, qisqa. Ayniqsa «Common mistakes» qismiga e'tibor bering.</cite>
+</blockquote>
+
+<p class="cite">Chuqurroq ketmoqchi bo'lsangiz: <a href="https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf">ISTQB
+CTFL Syllabus v4.0.1</a> ning 5.5-bo'limi (Defect Management) — sohaning rasmiy
+standarti. Hozircha majburiy emas.</p>
+
+<div class="ask-teacher">
+  <p><strong>Men sizning o'qituvchingizman — savol bering.</strong></p>
+  <p>Tushunmagan joy bo'lsa, misol yetishmasa, yoki «bu haqiqiy ishda qanday
+  bo'ladi?» deb so'ramoqchi bo'lsangiz — shunchaki yozing. Yozgan bug report
+  ingizni yuborsangiz, uni tekshirib beraman: bu darsning eng qimmatli qismi
+  aynan shu qaytar aloqa.</p>
+</div>
+
+<nav class="nav">
+  <a href="../reference/bug-report-shabloni.html">Reference: Bug report shabloni</a>
+  <a href="../reference/lugat.html">Reference: QA lug'ati</a>
+</nav>
+
+<nav class="lesson-nav">
+  <span class="lesson-nav-empty"></span>
+  <a class="lesson-nav-link lesson-nav-next" href="./0002-ekvivalentlik-va-chegaralar.html">
+    <span class="lesson-nav-dir">Keyingi dars →</span>
+    <span class="lesson-nav-title">2. Cheksiz variantdan to'rttasini tanlash</span>
+  </a>
+  <a class="lesson-nav-home" href="./index.html">Barcha darslar</a>
+</nav>
+
+<script src="../assets/lesson.js"></script>
+</body>
+</html>

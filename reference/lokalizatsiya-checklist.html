@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lokalizatsiya checklist — Learn-QA</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<p class="crumbs"><a href="../lessons/index.html">Darslar</a> ·
+<a href="./lugat.html">Lug'at</a></p>
+
+<p class="eyebrow">Reference · chop etsa bo'ladi</p>
+<h1>Lokalizatsiya tekshiruvi</h1>
+<p class="subtitle">O'zbekiston konteksti uchun tayyorlangan. Yangi
+mahsulot yoki yangi til qo'shilganda shu ro'yxatdan yuring.</p>
+
+<h2>Apostrof to'plami</h2>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Belgi</th><th>Kod</th><th>Izoh</th></tr></thead>
+  <tbody>
+    <tr><td><code>'</code></td><td><code>U+0027</code></td>
+        <td>Oddiy klaviatura — eng ko'p ishlatiladi</td></tr>
+    <tr><td><code>'</code></td><td><code>U+2019</code></td>
+        <td>Word avtomatik almashtiradi</td></tr>
+    <tr><td><code>ʻ</code></td><td><code>U+02BB</code></td>
+        <td>Oʻ va Gʻ uchun rasmiy to'g'ri belgi</td></tr>
+    <tr><td><code>ʼ</code></td><td><code>U+02BC</code></td>
+        <td>Tutuq belgisi uchun uchraydigan variant</td></tr>
+  </tbody>
+</table>
+</div>
+
+<ul class="checklist">
+  <li>Bir belgi bilan yozib, boshqasi bilan qidirsam topiladimi?</li>
+  <li>Ikki xil apostrof bilan ikkita hisob ochib bo'ladimi?</li>
+  <li>Alifbo bo'yicha saralashda <code>Oʻ</code> qayerga tushadi?</li>
+  <li>Chek, PDF, SMS va emailda to'g'ri chiqadimi?</li>
+  <li>Excel/CSV eksportida buzilmaydimi?</li>
+  <li>URL va fayl nomida to'g'ri ishlaydimi?</li>
+</ul>
+
+<h2>Ikki alifbo</h2>
+
+<ul class="checklist">
+  <li>Kirillcha yozilgan ism lotincha qidiruvda topiladimi?</li>
+  <li>Aralash ro'yxat mantiqiy saralanadimi?</li>
+  <li>Kirill matn bazaga to'g'ri saqlanadimi (UTF-8)?</li>
+  <li>SMS uzunligi kirillda oshib ketmaydimi?</li>
+  <li>Til almashganda ma'lumot ham o'zgaradimi yoki faqat interfeysmi?</li>
+</ul>
+
+<h2>Format tekshiruvi</h2>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Nima</th><th>Sinaladigan qiymatlar</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>Telefon</td>
+      <td><code>+998901234567</code> · <code>998901234567</code> ·
+          <code>+998 90 123 45 67</code> · <code>90 123-45-67</code> ·
+          <code>(90) 1234567</code> · boshqa mamlakat kodi</td>
+    </tr>
+    <tr>
+      <td>Summa</td>
+      <td><code>1 500 000</code> · <code>1,500,000</code> ·
+          <code>1.500.000</code> · <code>1500000.50</code> ·
+          <code>0</code> · juda katta son</td>
+    </tr>
+    <tr>
+      <td>Sana</td>
+      <td><code>03.05.2026</code> (kun ham, oy ham 12 dan kichik —
+          format xatosini yashiradi) · 29-fevral · oy oxiri ·
+          yil almashuvi</td>
+    </tr>
+    <tr>
+      <td>Vaqt</td>
+      <td>UTC+5 to'g'rimi? 24 soatlik formatmi? Yarim tundagi
+          hodisalar</td>
+    </tr>
+    <tr>
+      <td>Ism</td>
+      <td>Bir maydonmi yoki uch? Otasining ismi uchun joy bormi?
+          Uzun familiya sig'adimi?</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="box box--warn">
+  <p class="box-title">Sana testining kaliti</p>
+  <p><strong>12 dan kichik kun</strong> tanlang (masalan 3-may). Faqat
+  shunda <code>dd.mm</code> va <code>mm/dd</code> chalkashligi
+  yashirin qoladi va uni topish mumkin bo'ladi. Sanani tizimning hamma
+  joyida kuzating: ro'yxat, chek, eksport, SMS, filtr.</p>
+</div>
+
+<h2>Tarjima xatolari</h2>
+
+<ul class="checklist">
+  <li>Tarjima qilinmagan qatorlar (ayniqsa xato xabarlari)</li>
+  <li>Kesilgan matn — tugma va menyularda</li>
+  <li>Yopishtirilgan gaplar (so'z tartibi buzilgan)</li>
+  <li>Son shakllari: «2 mahsulotlar» kabi qo'shimchalar</li>
+  <li>Rasm ichidagi matn tarjima qilinmagan</li>
+  <li>Email, SMS, PDF hali eski tilda</li>
+  <li>Kod ichiga yozib qo'yilgan matn — til almashsa ham o'zgarmaydi</li>
+  <li>Tanlangan til yangilangandan keyin ham saqlanadimi?</li>
+</ul>
+
+<div class="box box--key">
+  <p class="box-title">Eng tez usul</p>
+  <p>Tilni almashtiring va <strong>xato yo'llaridan yuring</strong>:
+  bo'sh forma, noto'g'ri parol, uzilgan internet. Muvaffaqiyatli yo'l
+  odatda tarjima qilingan, xato xabarlari esa deyarli har doim
+  unutiladi.</p>
+</div>
+
+<h2>Texnik asos</h2>
+
+<ul class="checklist">
+  <li><code>&lt;html lang="uz"&gt;</code> to'g'ri qo'yilganmi?
+      (DevTools → Elements)</li>
+  <li>Kodlash UTF-8 mi?</li>
+  <li>Matn kengayishi hisobga olinganmi (o'zbekcha ~1.5–2× uzunroq)?</li>
+  <li>Uzun matn telefonda va katta shriftda sig'adimi?</li>
+</ul>
+
+<p class="cite">Manbalar:
+<a href="https://www.w3.org/International/techniques/authoring-html">W3C
+— Internationalization techniques</a>,
+<a href="https://en.wikipedia.org/wiki/Uzbek_alphabet">Uzbek alphabet</a>.</p>
+
+<h2>Hisobotda</h2>
+
+<p>Apostrof yoki belgi bilan bog'liq bug'da <strong>aniq Unicode
+kodini</strong> yozing: «Kiritilgan: <code>Oʻktamov</code>
+(<code>U+02BB</code>), qidirilgan: <code>O'ktamov</code>
+(<code>U+0027</code>), natija: topilmadi». Bu dasturchiga muammoni
+darhol tushuntiradi.</p>
+
+<div class="ask-teacher">
+  <p><strong>Topilmalaringizni yuboring.</strong> O'zbek saytlarida
+  apostrof va tarjima muammolari juda keng tarqalgan — bu mashq odatda
+  eng ko'p natija beradi.</p>
+</div>
+
+<nav class="nav">
+  <a href="../lessons/0022-lokalizatsiya.html">22-dars</a>
+  <a href="./test-data-va-muhit.html">Test ma'lumoti va muhit</a>
+  <a href="./accessibility-checklist.html">Accessibility checklist</a>
+  <a href="./lugat.html">Lug'at</a>
+</nav>
+
+</body>
+</html>

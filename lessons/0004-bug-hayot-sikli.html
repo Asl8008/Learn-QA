@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>4-dars: Bug hayot sikli — Learn-QA</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<p class="crumbs"><a href="./index.html">Darslar</a> ·
+<a href="./0003-test-case-yozish.html">← 3-dars</a></p>
+
+<p class="eyebrow">4-dars · taxminan 20 daqiqa</p>
+<h1>Hisobot yuborildi — endi nima bo'ladi?</h1>
+<p class="subtitle">Bug report yozish — ishning yarmi. Ikkinchi yarmi: hisobot
+qanday holatlardan o'tadi, sizga qachon qaytadi va tuzatilgach nimani qayta
+tekshirasiz. Ish suhbatida bu deyarli har doim so'raladi.</p>
+
+<h2>Nega bu muhim</h2>
+
+<p>Yangi testerlar hisobotni yuborib, uni unutib qo'yadi. Natijada: xato
+«tuzatildi» deb yopiladi, lekin aslida tuzatilmagan. Yoki tuzatiladi-yu, uning
+yonidagi boshqa narsa buziladi va buni hech kim sezmaydi.</p>
+
+<p>Har bir bug o'z <strong>hayot sikli</strong> (bug life cycle) bo'ylab yuradi,
+va uning muhim nuqtalarida <em>siz</em> turasiz.</p>
+
+<h2>Asosiy yo'l</h2>
+
+<p>Kompaniyalarda nomlar biroz farq qiladi, lekin mantiq bir xil:</p>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Holat</th><th>Ma'nosi</th><th>Kim harakat qiladi</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>New</strong></td>
+      <td>Siz hisobotni yozdingiz. Hali hech kim ko'rmagan.</td>
+      <td>Tester</td>
+    </tr>
+    <tr>
+      <td><strong>Assigned</strong></td>
+      <td>Lead yoki menejer hisobotni ko'rib, dasturchiga biriktirdi.</td>
+      <td>Lead / menejer</td>
+    </tr>
+    <tr>
+      <td><strong>Open</strong> <span class="cite">(In Progress)</span></td>
+      <td>Dasturchi sababni qidiryapti va tuzatyapti.</td>
+      <td>Dasturchi</td>
+    </tr>
+    <tr>
+      <td><strong>Fixed</strong></td>
+      <td>Kod o'zgartirildi. Lekin bu hali «tuzatildi» degani emas — faqat
+          «dasturchi tuzatdim deb o'ylayapti».</td>
+      <td>Dasturchi</td>
+    </tr>
+    <tr>
+      <td><strong>Retest</strong></td>
+      <td>Hisobot sizga qaytdi. Siz o'z qadamlaringizni qaytadan bajarasiz.</td>
+      <td><strong>Tester — siz</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Verified</strong></td>
+      <td>Siz tekshirdingiz, xato endi takrorlanmayapti.</td>
+      <td><strong>Tester — siz</strong></td>
+    </tr>
+    <tr>
+      <td><strong>Closed</strong></td>
+      <td>Hisobot yopildi. Sikl tugadi.</td>
+      <td>Tester / lead</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="box box--key">
+  <p class="box-title">Diqqat qiling</p>
+  <p>Yetti holatdan <strong>uchtasida</strong> harakat sizdan kutiladi:
+  hisobotni yozish, qayta tekshirish va yopish. Ya'ni bug sizdan boshlanadi va
+  sizda tugaydi. Dasturchi — o'rtadagi bo'g'in.</p>
+</div>
+
+<h2>Yon yo'llar — bularni bilish shart</h2>
+
+<p>Har bir hisobot ham «Closed» ga yetmaydi. To'rtta muqobil natija bor, va
+ularning har birida sizning javobingiz boshqacha:</p>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Holat</th><th>Nima demoqchi</th><th>Sizning javobingiz</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Rejected</strong><br><span class="cite">rad etildi</span></td>
+      <td>«Bu xato emas» — dastur shunday ishlashi kerak.</td>
+      <td>Talabni tekshiring. Haq bo'lsangiz — dalil bilan qayting.
+          Haq bo'lmasangiz — o'rganib oling, bu ham natija.</td>
+    </tr>
+    <tr>
+      <td><strong>Duplicate</strong><br><span class="cite">takror</span></td>
+      <td>Bu xato allaqachon qayd etilgan.</td>
+      <td>Qidirishni yaxshilang. Yuborishdan oldin doim qidiring.</td>
+    </tr>
+    <tr>
+      <td><strong>Cannot Reproduce</strong><br><span class="cite">takrorlab bo'lmadi</span></td>
+      <td>Dasturchi sizning qadamlaringiz bo'yicha xatoni chiqara olmadi.</td>
+      <td>Odatda hisobot aybdor: muhit, ma'lumot yoki qadam yetishmagan.
+          Qo'shimcha dalil bilan aniqlashtiring.</td>
+    </tr>
+    <tr>
+      <td><strong>Deferred</strong><br><span class="cite">keyinga qoldirildi</span></td>
+      <td>Xato haqiqiy, lekin hozir tuzatilmaydi.</td>
+      <td>Bu — biznes qarori, siz bilan bahs emas. Hisobot yopilmaydi,
+          keyingi relizga qoladi.</td>
+    </tr>
+    <tr>
+      <td><strong>Reopened</strong><br><span class="cite">qayta ochildi</span></td>
+      <td>Siz qayta tekshirdingiz va xato hali ham bor.</td>
+      <td>Aynan nima qolganini yozing — «hali ham ishlamayapti» yetarli emas.</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p class="cite">Manba: <a href="https://www.guru99.com/defect-life-cycle.html">Guru99
+— Defect Life Cycle</a> va <a href="https://www.softwaretestinghelp.com/bug-life-cycle/">Software
+Testing Help — Bug Life Cycle</a>. ISTQB bu jarayonni «defect management» deb
+ataydi (<a href="https://astqb.org/5-5-defect-management/">5.5-bo'lim</a>).</p>
+
+<div class="box box--warn">
+  <p class="box-title">«Cannot Reproduce» — o'zingizga qarating</p>
+  <p>Bu holat kelganda birinchi fikr «dasturchi noto'g'ri qildi» bo'lmasin.
+  Deyarli har doim hisobotda biror narsa yetishmaydi: boshqa brauzer, boshqa
+  hisob, oldin qo'shilgan ma'lumot, yoki tartib. <a href="./0001-bug-report-yozish.html">1-darsdagi</a>
+  qadamlarni qaytadan o'qing — begona odam nuqtai nazaridan.</p>
+</div>
+
+<h2>Ikki xil qayta tekshiruv</h2>
+
+<p>Xato tuzatilgach, siz <strong>ikkita</strong> ish qilasiz. Ularni chalkashtirish
+— boshlovchi testerning klassik xatosi.</p>
+
+<div class="compare">
+  <div class="box box--good">
+    <p class="box-title">Confirmation testing (retest)</p>
+    <p><strong>Savol:</strong> o'sha xato tuzatildimi?</p>
+    <p>Hisobotdagi qadamlarni <em>aynan</em> qaytarasiz va endi kutilgan natija
+    chiqishini tekshirasiz. Tor va aniq.</p>
+  </div>
+  <div class="box box--good">
+    <p class="box-title">Regression testing</p>
+    <p><strong>Savol:</strong> tuzatish boshqa narsani buzmadimi?</p>
+    <p>O'zgarish tegishi mumkin bo'lgan atrofdagi funksiyalarni tekshirasiz.
+    Keng va ehtiyotkor.</p>
+  </div>
+</div>
+
+<blockquote>
+  Qisqasi: <strong>retest</strong> tuzatishni tasdiqlaydi;
+  <strong>regression</strong> boshqa hech narsa buzilmaganini tasdiqlaydi.
+  <cite>ISTQB CTFL — Testing Related to Changes</cite>
+</blockquote>
+
+<p>Amaliy misol: «savat hisoblagichi noto'g'ri» xatosi tuzatildi.
+<em>Retest</em> — mahsulot qo'shib, hisoblagichni tekshirasiz. <em>Regression</em> —
+mahsulot o'chirish, savatni tozalash, buyurtma berish ham hali ishlayaptimi deb
+ko'rasiz. Chunki dasturchi savat kodiga tegdi.</p>
+
+<h2>Tekshirib ko'ramiz</h2>
+
+<section class="quiz">
+  <p class="quiz-prompt">1. Dasturchi hisobotni «Fixed» qildi. Bu nimani anglatadi?</p>
+  <div class="quiz-options">
+    <button class="quiz-option" data-explain="Yo'q — «Fixed» hali tasdiqlanmagan. Tasdiqlash sizning ishingiz.">Xato tuzatilgani tasdiqlandi</button>
+    <button class="quiz-option" data-correct data-explain="Aynan shunday. Kod o'zgardi, lekin natijani hali hech kim tekshirmagan.">Kod o'zgardi, tekshiruv kutilmoqda</button>
+    <button class="quiz-option" data-explain="Yopish — oxirgi bosqich. Undan oldin qayta tekshiruv bo'ladi.">Hisobot yopildi va sikl tugadi</button>
+    <button class="quiz-option" data-explain="Bu «Deferred» holati. «Fixed» — kod allaqachon o'zgargani.">Xato keyingi relizga qoldirildi</button>
+  </div>
+  <p class="quiz-feedback" hidden></p>
+</section>
+
+<section class="quiz">
+  <p class="quiz-prompt">2. Retest va regression o'rtasidagi farq nima?</p>
+  <div class="quiz-options">
+    <button class="quiz-option" data-correct data-explain="Retest — tor va aniq; regression — keng va ehtiyotkor. Ikkalasi ham tuzatishdan keyin bajariladi.">Biri tuzatishni, biri atrofni tekshiradi</button>
+    <button class="quiz-option" data-explain="Ikkalasi ham o'zgarishdan keyin bajariladi. Vaqt farqi emas, maqsad farqi.">Biri oldin, ikkinchisi keyin bo'ladi</button>
+    <button class="quiz-option" data-explain="Ikkalasini ham tester bajaradi. Bu sizning ishingiz.">Ularni turli odamlar bajaradi</button>
+    <button class="quiz-option" data-explain="Ikkalasi ham qo'lda yoki avtomatik bo'lishi mumkin. Bu farq emas.">Biri qo'lda, ikkinchisi avtomatik</button>
+  </div>
+  <p class="quiz-feedback" hidden></p>
+</section>
+
+<section class="quiz">
+  <p class="quiz-prompt">3. Hisobotingiz «Cannot Reproduce» bo'lib qaytdi.
+  Birinchi qadam qanday bo'ladi?</p>
+  <div class="quiz-options">
+    <button class="quiz-option" data-explain="Bahs eng oxirgi chora. Avval hisobotning o'zini tekshirish kerak.">Dasturchi bilan bahslashib ko'rish</button>
+    <button class="quiz-option" data-explain="Yopish — xatoni yashirish. U foydalanuvchida baribir chiqadi.">Hisobotni yopib, keyingisiga o'tish</button>
+    <button class="quiz-option" data-correct data-explain="Deyarli har doim hisobotda muhit, ma'lumot yoki biror qadam yetishmaydi.">Hisobotdagi qadamlarni qayta ko'rish</button>
+    <button class="quiz-option" data-explain="Yangi hisobot faqat takrorni ko'paytiradi. Borini aniqlashtirish kerak.">Xuddi shu xatoni qaytadan yozish</button>
+  </div>
+  <p class="quiz-feedback" hidden></p>
+</section>
+
+<section class="recall">
+  <p class="recall-q">Eslab ko'ring — <em>3-darsdan</em>: nima uchun test
+  case'lar bir-biriga bog'lanmasligi kerak?</p>
+  <button class="recall-btn">Javobni ko'rsatish</button>
+  <p class="recall-a" hidden>Chunki birinchisi yiqilsa, zanjir bo'ylab
+  keyingilari ham yiqiladi — va siz bitta xato o'rniga o'nta xato bor deb
+  o'ylaysiz. Har bir test o'z <strong>dastlabki shartini</strong> o'zi
+  ta'minlaydi.</p>
+</section>
+
+<h2>Amaliyot: siklni to'liq bosib o'tish</h2>
+
+<p>Bu topshiriq sizni bugning ikkala uchida ham turg'izadi.</p>
+
+<ol class="steps">
+  <li>1-darsda yozgan bug report ingizni oching (yoki hozir bittasini yozing).</li>
+  <li>Endi <strong>dasturchi rolida</strong> uni o'qing. Halol javob bering:
+      hisobotni faqat o'qib, hech narsa so'ramasdan xatoni takrorlay olasizmi?
+      Yo'q bo'lsa — nima yetishmayapti? Shuni yozib qo'ying.</li>
+  <li><strong>Lead rolida</strong> severity va priority qo'ying. Ikkalasini
+      izohlang: nega aynan shunday? <a href="../reference/bug-report-shabloni.html">Shablondagi
+      jadval</a> yordam beradi.</li>
+  <li>Tasavvur qiling: xato tuzatildi. <strong>Retest</strong> uchun nima
+      qilasiz — qadamlarni yozing.</li>
+  <li>Endi eng qiyini: <strong>regression</strong> uchun ro'yxat tuzing. Bu
+      tuzatish tegishi mumkin bo'lgan yana <em>uchta</em> joyni sanang va nega
+      aynan shularni tanlaganingizni yozing.</li>
+  <li>Hammasini menga yuboring.</li>
+</ol>
+
+<div class="box box--warn">
+  <p class="box-title">5-qadam — asosiy mashq</p>
+  <p>«Bu o'zgarish yana nimaga tegishi mumkin?» degan savol — tajribali
+  testerni boshlovchidan ajratadigan narsa. U talabda yozilmagan, uni faqat
+  tizimni tushunish orqali topasiz. Javobingiz mukammal bo'lishi shart emas —
+  muhimi, shu savolni <em>berish odati</em>.</p>
+</div>
+
+<h2>O'qish uchun (birlamchi manba)</h2>
+
+<blockquote>
+  <a href="https://astqb.org/5-5-defect-management/">ISTQB Foundation Level
+  Syllabus — 5.5 Defect Management</a>
+  <cite>Rasmiy standart: nuqsonlarni boshqarish jarayoni va hisobot mazmuni.
+  Qisqa. Ingliz tilida.</cite>
+</blockquote>
+
+<p class="cite">Amaliy va batafsil variant (diagrammalar bilan):
+<a href="https://www.guru99.com/defect-life-cycle.html">Guru99 — Defect Life Cycle</a>.</p>
+
+<div class="ask-teacher">
+  <p><strong>Regression ro'yxatingizni yuboring.</strong> Bu darsning eng
+  qimmatli qismi — men sizga o'ylab topmagan joylaringizni ko'rsataman.
+  Bu ko'nikma faqat mashq bilan o'sadi.</p>
+</div>
+
+<nav class="nav">
+  <a href="../reference/bug-report-shabloni.html">Reference: Bug report shabloni</a>
+  <a href="../reference/lugat.html">Reference: Lug'at</a>
+</nav>
+
+<nav class="lesson-nav">
+  <a class="lesson-nav-link lesson-nav-prev" href="./0003-test-case-yozish.html">
+    <span class="lesson-nav-dir">← Oldingi dars</span>
+    <span class="lesson-nav-title">3. Boshqa odam ham bajara oladigan test</span>
+  </a>
+  <a class="lesson-nav-link lesson-nav-next" href="./0005-exploratory-testing.html">
+    <span class="lesson-nav-dir">Keyingi dars →</span>
+    <span class="lesson-nav-title">5. Talab yo'q — nimadan boshlaysiz?</span>
+  </a>
+  <a class="lesson-nav-home" href="./index.html">Barcha darslar</a>
+</nav>
+
+<script src="../assets/lesson.js"></script>
+</body>
+</html>

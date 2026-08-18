@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Test case shabloni — Learn-QA</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<p class="crumbs"><a href="../lessons/index.html">Darslar</a> ·
+<a href="./lugat.html">Lug'at</a></p>
+
+<p class="eyebrow">Reference · chop etsa bo'ladi</p>
+<h1>Test case shabloni</h1>
+<p class="subtitle">Yagona mezon: loyihani bilmaydigan odam buni sizdan hech
+narsa so'ramasdan bajara oladimi?</p>
+
+<h2>Shablon</h2>
+
+<div class="report">
+  <dl>
+    <dt>ID</dt>
+    <dd>TC-001</dd>
+
+    <dt>Sarlavha</dt>
+    <dd>[Qayerda]: [qanday shartda] [nima kutiladi]</dd>
+
+    <dt>Dastlabki shart</dt>
+    <dd>Test boshlangunicha tayyor bo'lishi kerak bo'lgan holat: hisob, ma'lumot,
+        ochiq sahifa</dd>
+
+    <dt>Test ma'lumoti</dt>
+    <dd>Kiritiladigan aniq qiymatlar — har biri ko'chirib qo'yish mumkin bo'lsin</dd>
+
+    <dt>Qadamlar</dt>
+    <dd>
+      <ol>
+        <li>Bitta harakat, buyruq shaklida («… bosing», «… kiriting»)</li>
+        <li>Keyingi harakat</li>
+        <li>…</li>
+      </ol>
+    </dd>
+
+    <dt>Kutilgan natija</dt>
+    <dd>Ekranda ko'rinadigan, tekshirib bo'ladigan aniq holat</dd>
+  </dl>
+</div>
+
+<h2>Sarlavha yozish formulasi</h2>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Formula</th><th>Namuna</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>[Modul]: [shart] bo'lsa [natija]</td>
+      <td>Login: parol noto'g'ri bo'lsa xato xabari chiqadi</td>
+    </tr>
+    <tr>
+      <td>[Modul]: [chegara qiymat] qabul qilinadi</td>
+      <td>Ro'yxatdan o'tish: 8 belgili parol qabul qilinadi</td>
+    </tr>
+    <tr>
+      <td>[Modul]: [harakat] [natija] ga olib keladi</td>
+      <td>Savat: mahsulot o'chirish hisoblagichni kamaytiradi</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Tekshiruv ro'yxati</h2>
+
+<ul class="checklist">
+  <li>Sarlavhani o'qib, nima tekshirilishi tushunarlimi?</li>
+  <li>Dastlabki shart yozilganmi — test qayerdan boshlanadi?</li>
+  <li>Har bir qadamda <strong>bitta</strong> harakat bormi?</li>
+  <li>Qadamlar buyruq shaklidami («bosing», «kiriting»)?</li>
+  <li>Aniq qiymatlar yozilganmi — «biror son» emas, <code>100000</code>?</li>
+  <li>Kutilgan natijaga «ha/yo'q» deb javob berib bo'ladimi?</li>
+  <li>Bu test boshqa testga <strong>bog'liq emasmi</strong>?</li>
+  <li>Bu test qaysi ekvivalentlik sinfini qamrab oladi — bilasizmi?</li>
+</ul>
+
+<h2>Tez-tez uchraydigan xatolar</h2>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Xato</th><th>Nega yomon</th><th>Tuzatish</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>«Sahifa to'g'ri ishlaydi»</td>
+      <td>Tekshirib bo'lmaydi — ikki tester ikki xil qaror qiladi</td>
+      <td>Ekranda aynan nima ko'rinishini yozing</td>
+    </tr>
+    <tr>
+      <td>Bitta qadamda 4 ta harakat</td>
+      <td>Test yiqilganda qaysi joyda uzilgani noma'lum</td>
+      <td>Har bir harakatni alohida qatorga</td>
+    </tr>
+    <tr>
+      <td>«Oldingi testdan keyin»</td>
+      <td>Bitta test yiqilsa, zanjir bo'ylab hammasi yiqiladi</td>
+      <td>Dastlabki shartni har testda o'zi ta'minlasin</td>
+    </tr>
+    <tr>
+      <td>Bitta testda 5 ta tekshiruv</td>
+      <td>«O'tmadi» deganda nimasi o'tmagani tushunarsiz</td>
+      <td>Bitta test = bitta tekshiruv</td>
+    </tr>
+    <tr>
+      <td>Qiymat o'rniga tavsif</td>
+      <td>Har tester boshqa qiymat kiritadi, natija turlicha</td>
+      <td>Aniq qiymat yozing: <code>100000</code></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Test case ↔ boshqa hujjatlar</h2>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Hujjat</th><th>Qachon yoziladi</th><th>Kim uchun</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="./test-dizayn-texnikalari.html">Test qiymatlari jadvali</a></td>
+      <td>Eng avval — nimani sinashni hal qilishda</td>
+      <td>O'zingiz uchun</td>
+    </tr>
+    <tr>
+      <td><strong>Test case</strong></td>
+      <td>Tekshirishdan oldin</td>
+      <td>Boshqa testerlar uchun</td>
+    </tr>
+    <tr>
+      <td><a href="./bug-report-shabloni.html">Bug report</a></td>
+      <td>Xato topilgandan keyin</td>
+      <td>Dasturchi uchun</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="ask-teacher">
+  <p><strong>Yozganingizni tekshirtiring.</strong> Test case ni menga yuboring —
+  «loyihani bilmaydigan tester» ko'zi bilan o'qib, qaysi joyda savol
+  tug'ilishini ko'rsataman.</p>
+</div>
+
+<nav class="nav">
+  <a href="../lessons/0003-test-case-yozish.html">3-dars</a>
+  <a href="./test-dizayn-texnikalari.html">Test dizayn texnikalari</a>
+  <a href="./bug-report-shabloni.html">Bug report shabloni</a>
+  <a href="./lugat.html">Lug'at</a>
+</nav>
+
+</body>
+</html>

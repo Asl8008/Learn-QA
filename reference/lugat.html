@@ -1,0 +1,1064 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>QA lug'ati — Learn-QA</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<p class="crumbs"><a href="../lessons/index.html">← Darslar</a></p>
+
+<p class="eyebrow">Reference</p>
+<h1>QA lug'ati</h1>
+<p class="subtitle">Bu hujjat o'sib boradi. Har bir darsdan keyin yangi atamalar
+qo'shiladi. Darslarda ishlatiladigan atamalar aynan shu ta'riflarga bo'ysunadi.</p>
+
+<h2>Xatoning uch bosqichi</h2>
+
+<p>Kundalik nutqda hammasi «xato» deyiladi, lekin QA da bu uch xil narsa. Farqni
+bilish muhim — chunki siz faqat uchinchisini <em>ko'rasiz</em>, ikkinchisini
+<em>izlaysiz</em>, birinchisini esa hech qachon ko'rmaysiz.</p>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Atama</th><th>Ma'nosi</th><th>Kim ko'radi</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Error</strong><br><span class="cite">(mistake, inson xatosi)</span></td>
+      <td>Insonning noto'g'ri harakati. Dasturchi shartni teskari yozdi, analitik
+          talabni noto'g'ri tushundi.</td>
+      <td>Hech kim. Bu odamning boshida sodir bo'ladi.</td>
+    </tr>
+    <tr>
+      <td><strong>Defect</strong><br><span class="cite">(bug, nuqson)</span></td>
+      <td>Shu xato natijasida <em>kodda qolgan</em> nuqson. Kodda o'tirib turadi,
+          hatto hech kim uni ishga tushirmasa ham.</td>
+      <td>Dasturchi — kodni o'qiganda.</td>
+    </tr>
+    <tr>
+      <td><strong>Failure</strong><br><span class="cite">(ishdan chiqish)</span></td>
+      <td>Dastur ishga tushganda nuqson <em>namoyon bo'lishi</em>: noto'g'ri natija,
+          qulash, xato xabar.</td>
+      <td>Siz va foydalanuvchi — ekranda.</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="box box--key">
+  <p class="box-title">Eslab qoling</p>
+  <p>Error → Defect → Failure. Siz <strong>failure</strong> ni ko'rasiz va
+  <strong>defect</strong> haqida hisobot yozasiz. Har bir defect failure ga
+  olib kelavermaydi — ba'zi nuqsonlar shunchaki hech qachon ishga tushmaydi.</p>
+  <p class="cite">Manba: ISTQB CTFL Syllabus v4.0, 1.2.3-bo'lim.</p>
+</div>
+
+<h2>Bug report atamalari</h2>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Atama</th><th>Ma'nosi</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Bug report</strong><br><span class="cite">defect report</span></td>
+      <td>Topilgan nuqson haqidagi hujjat. Maqsadi — dasturchi uni <em>o'zi
+          takrorlay olishi</em> va tuzata olishi.</td>
+    </tr>
+    <tr>
+      <td><strong>Steps to reproduce</strong><br><span class="cite">takrorlash qadamlari</span></td>
+      <td>Xatoni qaytadan chiqarish uchun bajariladigan aniq, raqamlangan
+          harakatlar. Ma'lum boshlang'ich holatdan boshlanadi.</td>
+    </tr>
+    <tr>
+      <td><strong>Expected result</strong><br><span class="cite">kutilgan natija</span></td>
+      <td>Dastur <em>nima qilishi kerak edi</em>. Talab, hujjat yoki sog'lom
+          mantiqqa asoslanadi.</td>
+    </tr>
+    <tr>
+      <td><strong>Actual result</strong><br><span class="cite">haqiqiy natija</span></td>
+      <td>Dastur <em>aslida nima qildi</em>. Faqat kuzatilgan fakt — taxmin emas.</td>
+    </tr>
+    <tr>
+      <td><strong>Environment</strong><br><span class="cite">muhit</span></td>
+      <td>Qayerda sinaldi: brauzer va versiyasi, OS, qurilma, ilova build raqami.
+          Ko'p xatolar faqat ma'lum muhitda chiqadi.</td>
+    </tr>
+    <tr>
+      <td><strong>Reproducibility</strong><br><span class="cite">takrorlanuvchanlik</span></td>
+      <td>Xato har safar chiqadimi yoki ba'zan? Masalan «5 urinishdan 2 tasida».
+          Har doim chiqmaydigan xato — <em>flaky</em> deyiladi.</td>
+    </tr>
+    <tr>
+      <td><strong>Severity</strong><br><span class="cite">jiddiylik</span></td>
+      <td>Xato mahsulotga qanchalik texnik zarar yetkazadi. Buni <em>tester</em>
+          belgilaydi.</td>
+    </tr>
+    <tr>
+      <td><strong>Priority</strong><br><span class="cite">muhimlik / navbat</span></td>
+      <td>Uni qachon tuzatish kerak. Buni <em>biznes</em> (menejer, product owner)
+          belgilaydi.</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="box box--warn">
+  <p class="box-title">Klassik chalkashlik</p>
+  <p><strong>Severity ≠ Priority.</strong> Kompaniya logotipi bosh sahifada
+  noto'g'ri yozilgan bo'lsa — severity past (dastur ishlayapti), lekin priority
+  juda yuqori (hamma ko'rib turibdi). Aksincha: yiliga bir marta ishlatiladigan
+  hisobot sahifasi qulasa — severity yuqori, priority past.</p>
+</div>
+
+<h2>Test dizayn atamalari</h2>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Atama</th><th>Ma'nosi</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Equivalence partition</strong><br><span class="cite">ekvivalentlik sinfi</span></td>
+      <td>Dastur <em>bir xil ishlaydigan</em> qiymatlar to'plami. Har bir sinfdan
+          bitta qiymat sinalsa yetarli.</td>
+    </tr>
+    <tr>
+      <td><strong>Boundary value</strong><br><span class="cite">chegara qiymati</span></td>
+      <td>Sinfning eng kichik yoki eng katta qiymati. Xatolar aynan shu yerda
+          to'planadi.</td>
+    </tr>
+    <tr>
+      <td><strong>2-value BVA</strong></td>
+      <td>Har bir chegara uchun ikkita qiymat: chegaraning o'zi va undan
+          tashqaridagi qo'shni. Kundalik ishning standarti.</td>
+    </tr>
+    <tr>
+      <td><strong>3-value BVA</strong></td>
+      <td>Yuqoridagiga ichkaridagi qo'shni ham qo'shiladi. Xato qimmatga tushadigan
+          sohalarda (moliya, tibbiyot) ishlatiladi.</td>
+    </tr>
+    <tr>
+      <td><strong>Black-box testing</strong><br><span class="cite">qora quti</span></td>
+      <td>Kodning ichiga qaramasdan, faqat kirish va chiqishga qarab testlash.
+          Manual testerning asosiy usuli.</td>
+    </tr>
+    <tr>
+      <td><strong>Precondition</strong><br><span class="cite">dastlabki shart</span></td>
+      <td>Test boshlangunicha tayyor bo'lishi kerak bo'lgan holat: hisob,
+          ma'lumot, ochiq sahifa.</td>
+    </tr>
+    <tr>
+      <td><strong>Checklist</strong></td>
+      <td>Bir qatorli tekshiruvlar ro'yxati — qisqartirilgan test case.
+          Tez, lekin loyihani biladigan odam uchun.</td>
+    </tr>
+    <tr>
+      <td><strong>Regression testing</strong><br><span class="cite">regressiya</span></td>
+      <td>Oldin ishlagan narsa hali ham ishlayaptimi — o'zgarishdan keyingi
+          qayta tekshiruv.</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="box box--key">
+  <p class="box-title">Ikkita texnika, ikkita vazifa</p>
+  <p><strong>Ekvivalentlik sinflari</strong> — hech bir holatni o'tkazib
+  yubormaslik uchun (<em>kenglik</em>). <strong>Chegara qiymatlari</strong> —
+  xato ehtimoli eng yuqori nuqtalarni urish uchun (<em>aniqlik</em>).
+  Ular birga ishlatiladi.</p>
+  <p class="cite">Manba: ISTQB CTFL Syllabus v4.0, 4.2-bo'lim.</p>
+</div>
+
+<h2>Bug hayot sikli holatlari</h2>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Holat</th><th>Ma'nosi</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>New</strong></td><td>Hisobot yozildi, hali ko'rilmagan</td></tr>
+    <tr><td><strong>Assigned</strong></td><td>Dasturchiga biriktirildi</td></tr>
+    <tr><td><strong>Fixed</strong></td><td>Kod o'zgardi — lekin hali tasdiqlanmagan</td></tr>
+    <tr><td><strong>Retest</strong></td><td>Tester qayta tekshirishi kerak</td></tr>
+    <tr><td><strong>Verified</strong></td><td>Tester tasdiqladi: xato yo'q</td></tr>
+    <tr><td><strong>Closed</strong></td><td>Yopildi, sikl tugadi</td></tr>
+    <tr><td><strong>Reopened</strong></td><td>Qayta tekshiruvda xato hali ham bor</td></tr>
+    <tr><td><strong>Rejected</strong></td><td>«Bu xato emas» — shunday bo'lishi kerak</td></tr>
+    <tr><td><strong>Duplicate</strong></td><td>Bu xato allaqachon qayd etilgan</td></tr>
+    <tr><td><strong>Cannot Reproduce</strong></td><td>Qadamlar bo'yicha takrorlab bo'lmadi</td></tr>
+    <tr><td><strong>Deferred</strong></td><td>Haqiqiy, lekin hozir tuzatilmaydi</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="box box--key">
+  <p class="box-title">Ikki xil qayta tekshiruv</p>
+  <p><strong>Confirmation testing (retest)</strong> — o'sha xato tuzatildimi?
+  Hisobotdagi qadamlar aynan qaytariladi. <strong>Regression testing</strong> —
+  tuzatish boshqa narsani buzmadimi? Atrofdagi funksiyalar tekshiriladi.</p>
+</div>
+
+<h2>Exploratory testing atamalari</h2>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Atama</th><th>Ma'nosi</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Exploratory testing</strong></td>
+      <td>O'rganish, o'ylash va sinash bir vaqtda ketadigan testlash. Reja
+          oldindan emas, ish davomida tug'iladi.</td>
+    </tr>
+    <tr>
+      <td><strong>Charter</strong></td>
+      <td>Sessiyaning maqsadi — 1–3 gap: shu sessiyada nimani o'rganaman.</td>
+    </tr>
+    <tr>
+      <td><strong>Timebox</strong></td>
+      <td>Sessiyaning vaqt chegarasi, odatda 30–45 daqiqa. Taymer bilan.</td>
+    </tr>
+    <tr>
+      <td><strong>Heuristic</strong><br><span class="cite">evristika</span></td>
+      <td>Tayyor test g'oyasi: «nol-bitta-ko'p», CRUD, uzilish. Bo'sh ekran
+          oldida turib qolmaslik uchun.</td>
+    </tr>
+    <tr>
+      <td><strong>Oracle</strong></td>
+      <td>«Bu xato» deb hal qilish asosi: izchillik, foydalanuvchi kutgani,
+          o'xshash mahsulotlar, ichki mantiq.</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Texnik atamalar (DevTools)</h2>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Atama</th><th>Ma'nosi</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Console</strong></td>
+        <td>JavaScript xato xabarlari paneli. Qizil qatorlar — dalil.</td></tr>
+    <tr><td><strong>Network</strong></td>
+        <td>Sahifa serverga yuborgan so'rovlar ro'yxati va ularning javoblari.</td></tr>
+    <tr><td><strong>Status code</strong></td>
+        <td>Server javobining raqami. <strong>4xx</strong> — so'rovda muammo,
+            <strong>5xx</strong> — serverda xato.</td></tr>
+    <tr><td><strong>Frontend</strong></td>
+        <td>Brauzerda ishlaydigan qism — ko'rinadigan hamma narsa.</td></tr>
+    <tr><td><strong>Backend</strong></td>
+        <td>Serverda ishlaydigan qism — ma'lumot va mantiq.</td></tr>
+    <tr><td><strong>API</strong></td>
+        <td>Frontend va backend gaplashadigan interfeys. Network panelida
+            <code>/api/...</code> so'rovlari shu.</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Jarayon atamalari (Agile)</h2>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Atama</th><th>Ma'nosi</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>User story</strong></td>
+      <td>Vazifaning foydalanuvchi tilidagi shakli: «[kim] sifatida men [nima]
+          qilmoqchiman, chunki [nima uchun]».</td>
+    </tr>
+    <tr>
+      <td><strong>Acceptance criteria</strong><br><span class="cite">qabul qilish mezonlari</span></td>
+      <td>Story tugaganini aniqlaydigan shartlar. Odatda Given/When/Then
+          shaklida yoziladi.</td>
+    </tr>
+    <tr>
+      <td><strong>Given / When / Then</strong></td>
+      <td>Boshlang'ich holat / harakat / natija. Test case'ning dastlabki shart,
+          qadamlar va kutilgan natijasiga to'g'ri keladi.</td>
+    </tr>
+    <tr>
+      <td><strong>Definition of Done</strong><br><span class="cite">«tayyor» ta'rifi</span></td>
+      <td>Barcha story'lar uchun umumiy shart: vazifa tayyor deyilishi uchun
+          nima bajarilgan bo'lishi kerak.</td>
+    </tr>
+    <tr>
+      <td><strong>Shift-left</strong></td>
+      <td>Sifat bilan bog'liq ishni jarayonning boshiga surish — tester kod
+          yozilgunicha qatnashadi.</td>
+    </tr>
+    <tr>
+      <td><strong>Sprint</strong></td>
+      <td>Qisqa ish davri (odatda 2 hafta), oxirida ishlaydigan mahsulot
+          topshiriladi.</td>
+    </tr>
+    <tr>
+      <td><strong>Backlog</strong></td>
+      <td>Bajarilishi kerak bo'lgan vazifalar ro'yxati, muhimlik bo'yicha
+          tartiblangan.</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Performance atamalari</h2>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Atama</th><th>Ma'nosi</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>LCP</strong></td>
+      <td>Sahifadagi eng katta mazmun bloki ko'rinish vaqti. Yaxshi
+          natija — 2.5 soniyagacha.</td>
+    </tr>
+    <tr>
+      <td><strong>INP</strong></td>
+      <td>Bosgandan keyin ekran javob berish vaqti. Yaxshi natija —
+          200 ms gacha.</td>
+    </tr>
+    <tr>
+      <td><strong>CLS</strong></td>
+      <td>Yuklanish paytida elementlarning siljishi. Yaxshi natija —
+          0.1 dan kichik.</td>
+    </tr>
+    <tr>
+      <td><strong>Protsentil</strong></td>
+      <td>75-protsentil — foydalanuvchilarning 75 % i shundan yaxshi
+          natija oladi. O'rtachadan farqli o'laroq eng yomon holatlarni
+          yashirmaydi.</td>
+    </tr>
+    <tr>
+      <td><strong>Throttling</strong></td>
+      <td>Sekin tarmoq va kuchsiz protsessorni sun'iy yaratish
+          (DevTools).</td>
+    </tr>
+    <tr>
+      <td><strong>Lab va field o'lchov</strong></td>
+      <td>Nazorat qilinadigan sharoitdagi o'lchov (Lighthouse) va real
+          foydalanuvchilardan yig'ilgan ma'lumot.</td>
+    </tr>
+    <tr>
+      <td><strong>Load testing</strong></td>
+      <td>Kutilayotgan real yukni ko'tara olishini tekshirish.</td>
+    </tr>
+    <tr>
+      <td><strong>Stress testing</strong></td>
+      <td>Chegarada va undan tashqarida tizim qanday ishlashini
+          tekshirish.</td>
+    </tr>
+    <tr>
+      <td><strong>Spike testing</strong></td>
+      <td>To'satdan ko'tarilgan yukka javob berish va normal holatga
+          qaytish.</td>
+    </tr>
+    <tr>
+      <td><strong>Endurance testing</strong></td>
+      <td>Uzoq vaqt davomidagi barqarorlik — xotira sizishi, ulanishlar
+          tugashi.</td>
+    </tr>
+    <tr>
+      <td><strong>Xotira sizishi</strong><br><span class="cite">memory leak</span></td>
+      <td>Ishlatilgan xotira bo'shatilmasligi; vaqt o'tishi bilan tizim
+          sekinlashadi yoki yiqiladi.</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Accessibility atamalari</h2>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Atama</th><th>Ma'nosi</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Accessibility</strong><br><span class="cite">a11y</span></td>
+      <td>Mahsulotning imkoniyati cheklangan foydalanuvchilar uchun ham
+          ishlashi. Cheklov doimiy, vaqtinchalik yoki vaziyatga bog'liq
+          bo'lishi mumkin.</td>
+    </tr>
+    <tr>
+      <td><strong>WCAG</strong></td>
+      <td>Web Content Accessibility Guidelines — W3C ning xalqaro
+          standarti. Ko'p mamlakat qonunchiligida unga havola qilinadi.</td>
+    </tr>
+    <tr>
+      <td><strong>POUR</strong></td>
+      <td>WCAG ning to'rt tamoyili: Perceivable (idrok etiladigan),
+          Operable (boshqariladigan), Understandable (tushunarli),
+          Robust (mustahkam).</td>
+    </tr>
+    <tr>
+      <td><strong>Ekran o'quvchi</strong><br><span class="cite">screen reader</span></td>
+      <td>Ekrandagi matnni ovoz bilan o'qiydigan dastur: NVDA, VoiceOver,
+          TalkBack. Asosan klaviatura bilan boshqariladi.</td>
+    </tr>
+    <tr>
+      <td><strong><code>alt</code> matni</strong></td>
+      <td>Rasmning matnli muqobili. Bo'lishi emas, <em>mazmunli</em>
+          bo'lishi muhim.</td>
+    </tr>
+    <tr>
+      <td><strong>Fokus</strong></td>
+      <td>Klaviatura hozir qaysi elementda turgani. Ko'rinib turishi
+          shart.</td>
+    </tr>
+    <tr>
+      <td><strong>Fokus tuzog'i</strong><br><span class="cite">focus trap</span></td>
+      <td>Modal oynadan <kbd>Tab</kbd> bilan chiqib bo'lmaydigan holat.</td>
+    </tr>
+    <tr>
+      <td><strong>Kontrast nisbati</strong></td>
+      <td>Matn va fon rangi orasidagi farq. Oddiy matn uchun kamida
+          4.5:1.</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Xavfsizlik atamalari</h2>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Atama</th><th>Ma'nosi</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>OWASP</strong></td>
+      <td>Veb-ilovalar xavfsizligi bo'yicha xalqaro nodavlat tashkilot.
+          Uning <em>Top 10</em> ro'yxati sohaning umumiy tili.</td>
+    </tr>
+    <tr>
+      <td><strong>Zaiflik</strong><br><span class="cite">vulnerability</span></td>
+      <td>Tizimdagi kamchilik bo'lib, undan foydalanib ruxsatsiz harakat
+          qilish mumkin.</td>
+    </tr>
+    <tr>
+      <td><strong>Kirish nazorati</strong><br><span class="cite">access control</span></td>
+      <td>Foydalanuvchi o'ziga berilgan ruxsatdan tashqarida harakat qila
+          olmasligini ta'minlash.</td>
+    </tr>
+    <tr>
+      <td><strong>IDOR</strong></td>
+      <td>Manzil yoki so'rovdagi identifikatorni o'zgartirib, boshqa
+          odamning ma'lumotiga kirish.</td>
+    </tr>
+    <tr>
+      <td><strong>Forced browsing</strong></td>
+      <td>Ichki sahifa manzilini to'g'ridan-to'g'ri yozib, ruxsatsiz
+          kirishga urinish.</td>
+    </tr>
+    <tr>
+      <td><strong>Imtiyoz oshirish</strong><br><span class="cite">privilege escalation</span></td>
+      <td>Oddiy foydalanuvchining admin darajasidagi amalni bajara
+          olishi.</td>
+    </tr>
+    <tr>
+      <td><strong>Sessiya</strong></td>
+      <td>Tizimga kirgandan keyingi tanilgan holat. Chiqishda bekor
+          qilinishi shart.</td>
+    </tr>
+    <tr>
+      <td><strong>Injection</strong></td>
+      <td>Kiritilgan matnning buyruq sifatida bajarilishi.</td>
+    </tr>
+    <tr>
+      <td><strong>Bug bounty</strong></td>
+      <td>Kompaniyaning zaiflik topganlarga mukofot to'lash dasturi —
+          zaiflikni qonuniy xabar qilish yo'li.</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h2>CI/CD atamalari</h2>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Atama</th><th>Ma'nosi</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>CI</strong><br><span class="cite">continuous integration</span></td>
+      <td>Har bir kod o'zgarishi avtomatik yig'ilib tekshiriladigan
+          jarayon.</td>
+    </tr>
+    <tr>
+      <td><strong>CD</strong><br><span class="cite">continuous delivery / deployment</span></td>
+      <td>Tekshiruvdan o'tgan versiyaning avtomatik tarqatilishi.</td>
+    </tr>
+    <tr>
+      <td><strong>Workflow</strong></td>
+      <td>Qachon, qayerda va nima bajarilishini belgilovchi avtomatik
+          jarayon tavsifi (YAML fayl).</td>
+    </tr>
+    <tr>
+      <td><strong>Job va step</strong></td>
+      <td>Bitta serverda bajariladigan qadamlar to'plami va uning har bir
+          qadami.</td>
+    </tr>
+    <tr>
+      <td><strong>Runner</strong></td>
+      <td>Workflow ishga tushadigan server.</td>
+    </tr>
+    <tr>
+      <td><strong>Artifact</strong></td>
+      <td>Ishdan keyin saqlanadigan fayl: test hisoboti, skrinshot,
+          video, trace. Yiqilgan build sababini shu yerdan topasiz.</td>
+    </tr>
+    <tr>
+      <td><strong>Trace</strong></td>
+      <td>Test bajarilishining qadamba-qadam yozuvi — Playwright uni
+          yiqilganda saqlaydi.</td>
+    </tr>
+    <tr>
+      <td><strong>Qizil / yashil build</strong></td>
+      <td>Testlar yiqilgan / o'tgan holat. Yashil normal, qizil —
+          favqulodda holat.</td>
+    </tr>
+    <tr>
+      <td><strong>Secrets</strong></td>
+      <td>Parol va tokenlarni kodga yozmasdan saqlash mexanizmi.</td>
+    </tr>
+    <tr>
+      <td><strong>Smoke test</strong></td>
+      <td>Qisqa tekshiruv to'plami: asosiy yo'l umuman ishlayaptimi?
+          Har bir commit'da yuradi.</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Playwright atamalari</h2>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Atama</th><th>Ma'nosi</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Playwright</strong></td>
+      <td>Brauzerni dastur orqali boshqaradigan test asbobi. Testlar
+          JavaScript, TypeScript, Python yoki C# da yoziladi.</td>
+    </tr>
+    <tr>
+      <td><strong>Lokator</strong><br><span class="cite">locator</span></td>
+      <td>Sahifadagi elementni topish usuli. Test kodi sifatining asosiy
+          ko'rsatkichi.</td>
+    </tr>
+    <tr>
+      <td><strong><code>getByRole</code></strong></td>
+      <td>Elementni roli va nomi bo'yicha topish — tavsiya etilgan
+          birinchi usul. Accessibility ma'lumotiga tayanadi.</td>
+    </tr>
+    <tr>
+      <td><strong>Avtomatik kutish</strong><br><span class="cite">auto-waiting</span></td>
+      <td>Playwright element tayyor bo'lishini o'zi kutadi.
+          Qo'lda <code>sleep</code> qo'shish shart emas va zararli.</td>
+    </tr>
+    <tr>
+      <td><strong>Strict rejim</strong></td>
+      <td>Lokatorga bir nechta element mos kelsa, Playwright xato beradi
+          — tasodifiy birini tanlamaydi.</td>
+    </tr>
+    <tr>
+      <td><strong><code>await</code></strong></td>
+      <td>«Amal tugashini kut». Unutilishi beqaror testning eng ko'p
+          uchraydigan sababi.</td>
+    </tr>
+    <tr>
+      <td><strong><code>beforeEach</code></strong></td>
+      <td>Har bir testdan oldin bajariladigan qadamlar — test case'dagi
+          «dastlabki shart» ning kod ko'rinishi.</td>
+    </tr>
+    <tr>
+      <td><strong><code>codegen</code></strong></td>
+      <td>Harakatlarni yozib olib kodga aylantiradigan rejim. Faqat
+          qoralama uchun — lokatorlarini qayta yozish kerak.</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Avtomatlashtirish atamalari</h2>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Atama</th><th>Ma'nosi</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Test avtomatlashtirish</strong></td>
+      <td>Testlarni dastur orqali bajarish va natijani kutilgan qiymat bilan
+          solishtirish. Yangi xato <em>topmaydi</em> — ma'lum tekshiruvni
+          qayta-qayta bajaradi.</td>
+    </tr>
+    <tr>
+      <td><strong>Test piramidasi</strong></td>
+      <td>Ko'p unit, o'rtacha API, kam UI test. Pastdagi qatlam tezroq,
+          arzonroq va barqarorroq.</td>
+    </tr>
+    <tr>
+      <td><strong>Flaky test</strong></td>
+      <td>Goh o'tadigan, goh yiqiladigan beqaror test. Butun to'plamga
+          ishonchni yo'q qiladi — tuzatiladi yoki o'chiriladi.</td>
+    </tr>
+    <tr>
+      <td><strong>Record &amp; playback</strong></td>
+      <td>Testerning harakatlarini yozib olib qaytarish. Demoda ta'sirli,
+          amalda beqaror va o'lchovlanmaydi.</td>
+    </tr>
+    <tr>
+      <td><strong>Data-driven</strong></td>
+      <td>Bitta umumiy skript, kirish ma'lumotlari va kutilgan natijalar
+          alohida jadvalda.</td>
+    </tr>
+    <tr>
+      <td><strong>Keyword-driven</strong></td>
+      <td>Test «Kirish», «Savatga qo'shish» kabi kalit so'zlardan yig'iladi.</td>
+    </tr>
+    <tr>
+      <td><strong>CI</strong><br><span class="cite">continuous integration</span></td>
+      <td>Har bir kod o'zgarishida testlarni avtomatik yurgizadigan tizim.</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Mobil testing atamalari</h2>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Atama</th><th>Ma'nosi</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Uzilish</strong><br><span class="cite">interruption</span></td>
+      <td>Ilova ishini to'xtatuvchi tashqi hodisa: qo'ng'iroq, bildirishnoma,
+          ekran burilishi, fonga o'tish.</td>
+    </tr>
+    <tr>
+      <td><strong>Hayot sikli</strong><br><span class="cite">lifecycle</span></td>
+      <td>Ilovaning yaratilish, to'xtatilish va yo'q qilinish bosqichlari.
+          Ekran burilganda tizim ilovani yo'q qilib qaytadan quradi.</td>
+    </tr>
+    <tr>
+      <td><strong>Runtime permission</strong></td>
+      <td>Ilova ishlayotgan paytda so'raladigan ruxsat: kamera, joylashuv,
+          kontaktlar. Istalgan payt bekor qilinishi mumkin.</td>
+    </tr>
+    <tr>
+      <td><strong>Qurilma matritsasi</strong></td>
+      <td>Test qilinadigan qurilma va OS versiyalari ro'yxati — hammasini
+          sinash mumkin emasligi uchun tanlab olinadi.</td>
+    </tr>
+    <tr>
+      <td><strong>Emulyator / simulyator</strong></td>
+      <td>Kompyuterdagi virtual qurilma. Tez, lekin haqiqiy tezlik, batareya
+          va tarmoq uzilishlarini ko'rsatmaydi.</td>
+    </tr>
+    <tr>
+      <td><strong>Don't keep activities</strong></td>
+      <td>Android developer sozlamasi: ilova fonga o'tishi bilan darhol
+          o'chiriladi. Kam xotirali qurilmadagi holatni sun'iy yaratadi.</td>
+    </tr>
+    <tr>
+      <td><strong>Build raqami</strong></td>
+      <td>Ilovaning aniq yig'ilish raqami — mobil bug report'da ko'rsatilishi
+          shart.</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h2>API atamalari</h2>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Atama</th><th>Ma'nosi</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>API</strong></td>
+      <td>Interfeys bilan server orasidagi kelishuv. Uni to'g'ridan-to'g'ri
+          sinash mumkin — interfeys tayyor bo'lmasa ham.</td>
+    </tr>
+    <tr>
+      <td><strong>Endpoint</strong></td>
+      <td>API ning muayyan manzili: <code>/api/users/42</code>.</td>
+    </tr>
+    <tr>
+      <td><strong>GET / POST / PUT / PATCH / DELETE</strong></td>
+      <td>O'qish / yaratish / to'liq almashtirish / qisman o'zgartirish /
+          o'chirish.</td>
+    </tr>
+    <tr>
+      <td><strong>Idempotent</strong></td>
+      <td>So'rovni bir marta ham, besh marta ham yuborsangiz natija bir xil.
+          <code>GET</code>, <code>PUT</code>, <code>DELETE</code> —
+          idempotent; <code>POST</code> — yo'q.</td>
+    </tr>
+    <tr>
+      <td><strong>Xavfsiz metod</strong><br><span class="cite">safe</span></td>
+      <td>Server holatini o'zgartirmaydigan metod — faqat
+          <code>GET</code>.</td>
+    </tr>
+    <tr>
+      <td><strong>JSON</strong></td>
+      <td>Ma'lumot uzatish formati: <code>{"id": 42, "phone": null}</code>.</td>
+    </tr>
+    <tr>
+      <td><strong>Header</strong></td>
+      <td>So'rov yoki javobga qo'shiladigan xizmat ma'lumoti: format,
+          avtorizatsiya tokeni.</td>
+    </tr>
+    <tr>
+      <td><strong>Body</strong></td>
+      <td>So'rov yoki javobning asosiy ma'lumot qismi.</td>
+    </tr>
+    <tr>
+      <td><strong>Token</strong></td>
+      <td>Foydalanuvchi kimligini tasdiqlovchi kalit; odatda
+          <code>Authorization</code> header'ida yuboriladi.</td>
+    </tr>
+    <tr>
+      <td><strong>Postman</strong></td>
+      <td>So'rov yuborish va javobni ko'rish uchun dastur; so'rovlar
+          <em>collection</em> ga saqlanadi.</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Ma'lumotlar bazasi atamalari</h2>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Atama</th><th>Ma'nosi</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>SQL</strong></td>
+      <td>Ma'lumotlar bazasiga so'rov yuborish tili. Testerga kerakli qismi —
+          <code>SELECT … FROM … WHERE …</code>.</td>
+    </tr>
+    <tr>
+      <td><strong>Jadval</strong><br><span class="cite">table</span></td>
+      <td>Bir turdagi yozuvlar to'plami: <code>users</code>,
+          <code>orders</code>.</td>
+    </tr>
+    <tr>
+      <td><strong>Ustun / qator</strong><br><span class="cite">column / row</span></td>
+      <td>Bitta xususiyat / bitta yozuv.</td>
+    </tr>
+    <tr>
+      <td><strong>Primary key</strong></td>
+      <td>Qatorni yagona qilib ajratadigan ustun, odatda <code>id</code>.</td>
+    </tr>
+    <tr>
+      <td><strong>Foreign key</strong></td>
+      <td>Boshqa jadvalga havola: <code>orders.user_id</code> →
+          <code>users.id</code>.</td>
+    </tr>
+    <tr>
+      <td><strong>NULL</strong></td>
+      <td>Qiymat yo'q. Nol ham, bo'sh matn ham emas — alohida holat.
+          Faqat <code>IS NULL</code> orqali tekshiriladi.</td>
+    </tr>
+    <tr>
+      <td><strong>JOIN</strong></td>
+      <td>Ikki jadvalni bog'lab birga o'qish.</td>
+    </tr>
+    <tr>
+      <td><strong>COUNT / GROUP BY / HAVING</strong></td>
+      <td>Sanash, bir xil qiymatlarni guruhlash, guruhlarni filtrlash.
+          Dublikat topishning asosiy usuli.</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Test darajalari va turlari</h2>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Atama</th><th>Ma'nosi</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Test darajasi</strong><br><span class="cite">test level</span></td>
+      <td>Birgalikda tashkil etiladigan va boshqariladigan test faoliyatlari
+          guruhi: component, integration, system, acceptance.</td>
+    </tr>
+    <tr>
+      <td><strong>Component testing</strong><br><span class="cite">unit test</span></td>
+      <td>Alohida sinaladigan bitta qismni tekshirish. Odatda dasturchi
+          yozadi.</td>
+    </tr>
+    <tr>
+      <td><strong>Integration testing</strong></td>
+      <td>Qismlar yoki tizimlar <em>orasidagi</em> aloqani tekshirish.</td>
+    </tr>
+    <tr>
+      <td><strong>System testing</strong></td>
+      <td>Butun mahsulotning xulqi va uchidan uchigacha oqimini tekshirish.
+          Qo'lda ishlaydigan testerning asosiy maydoni.</td>
+    </tr>
+    <tr>
+      <td><strong>Acceptance testing</strong></td>
+      <td>Mahsulot haqiqiy ehtiyojga mosligini tasdiqlash. Maqsad — xato
+          topish emas, ishonch hosil qilish.</td>
+    </tr>
+    <tr>
+      <td><strong>UAT / OAT</strong></td>
+      <td>Foydalanuvchi tomonidan qabul testi / administratorlar tomonidan
+          (zaxira, o'rnatish, tiklash).</td>
+    </tr>
+    <tr>
+      <td><strong>Alpha / Beta</strong></td>
+      <td>Ishlab chiquvchi muhitida tashqi odamlar bilan / haqiqiy
+          foydalanuvchilarda o'z muhitida o'tkaziladigan test.</td>
+    </tr>
+    <tr>
+      <td><strong>Funksional testing</strong></td>
+      <td>Tizim <em>nima</em> qilishini baholaydi.</td>
+    </tr>
+    <tr>
+      <td><strong>Nofunksional testing</strong></td>
+      <td>Tizim <em>qanchalik yaxshi</em> ishlashini baholaydi: tezlik,
+          qulaylik, xavfsizlik, moslik, ishonchlilik.</td>
+    </tr>
+    <tr>
+      <td><strong>Oq quti testing</strong><br><span class="cite">white-box</span></td>
+      <td>Ichki tuzilish — kod, arxitektura, ma'lumot oqimi — asosida test
+          tuzish.</td>
+    </tr>
+    <tr>
+      <td><strong>Qamrov</strong><br><span class="cite">coverage</span></td>
+      <td>Testlar qancha element (talab, kod, qurilma) ni qamrab olgani,
+          foizda.</td>
+    </tr>
+    <tr>
+      <td><strong>ISO/IEC 25010</strong></td>
+      <td>Dasturiy mahsulot sifati xususiyatlarining xalqaro modeli —
+          nofunksional turlar shundan olinadi.</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Rejalashtirish atamalari</h2>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Atama</th><th>Ma'nosi</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Test plan</strong></td>
+      <td>Test maqsadlari, resurslari va jarayonini tavsiflovchi hujjat.
+          Nima sinaladi, nima sinalmaydi va qachon to'xtaymiz — shu yerda
+          kelishiladi.</td>
+    </tr>
+    <tr>
+      <td><strong>Qamrov</strong><br><span class="cite">scope</span></td>
+      <td>Testga kiradigan qismlar. «Out of scope» — ongli ravishda
+          sinalmaydigan qismlar va ularning sababi.</td>
+    </tr>
+    <tr>
+      <td><strong>Kirish mezoni</strong><br><span class="cite">entry criteria</span></td>
+      <td>Testni boshlash uchun zarur oldindan shartlar. Agile'dagi
+          «Definition of Ready» bilan bir xil mantiq.</td>
+    </tr>
+    <tr>
+      <td><strong>Chiqish mezoni</strong><br><span class="cite">exit criteria</span></td>
+      <td>Testing tugallandi deb e'lon qilish uchun nimaga erishilishi
+          kerakligi.</td>
+    </tr>
+    <tr>
+      <td><strong>Risk</strong></td>
+      <td>Yuz berishi salbiy oqibatga olib keladigan potentsial hodisa yoki
+          vaziyat.</td>
+    </tr>
+    <tr>
+      <td><strong>Risk darajasi</strong></td>
+      <td>Ehtimollik va ta'sirning birikmasidan chiqadigan o'lchov.</td>
+    </tr>
+    <tr>
+      <td><strong>Risk-based testing</strong></td>
+      <td>Test ishlari risk tahliliga qarab tanlanadigan, prioritetlanadigan
+          va boshqariladigan yondashuv.</td>
+    </tr>
+    <tr>
+      <td><strong>Mahsulot riski</strong><br><span class="cite">product risk</span></td>
+      <td>Mahsulotning o'zi bilan bog'liq risk — ishlamaydigan funksiya,
+          yo'qolgan ma'lumot.</td>
+    </tr>
+    <tr>
+      <td><strong>Loyiha riski</strong><br><span class="cite">project risk</span></td>
+      <td>Boshqaruv bilan bog'liq risk — muddat, odam yetishmasligi,
+          muhit tayyor emasligi.</td>
+    </tr>
+    <tr>
+      <td><strong>Smoke test</strong></td>
+      <td>Qisqa yuzaki tekshiruv: asosiy yo'l umuman ishlayaptimi? Chuqur
+          testdan oldin o'tkaziladi.</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Bug tracker atamalari (Jira)</h2>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Atama</th><th>Ma'nosi</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Bug tracker</strong></td>
+      <td>Xatolar va vazifalar yuritiladigan tizim. Eng tarqalgani — Jira;
+          shuningdek Azure DevOps, YouTrack, Redmine, GitHub Issues.</td>
+    </tr>
+    <tr>
+      <td><strong>Issue</strong><br><span class="cite">work item</span></td>
+      <td>Trackerdagi bitta karta: bitta xato, vazifa yoki story. O'z raqami
+          bo'ladi (<code>SWAG-42</code>).</td>
+    </tr>
+    <tr>
+      <td><strong>Workflow</strong></td>
+      <td>Issue yaratilishdan yopilishgacha bosib o'tadigan yo'l.</td>
+    </tr>
+    <tr>
+      <td><strong>Status</strong></td>
+      <td>Issue workflow ichida <em>hozir qayerda</em> turgani: To Do,
+          In Progress, In Test, Done.</td>
+    </tr>
+    <tr>
+      <td><strong>Transition</strong></td>
+      <td>Issue'ni bir statusdan boshqasiga o'tkazadigan harakat.</td>
+    </tr>
+    <tr>
+      <td><strong>Resolution</strong></td>
+      <td>Issue <em>qanday tugagani</em>: Done, Won't do, Duplicate,
+          Cannot Reproduce. Statusdan farq qiladi.</td>
+    </tr>
+    <tr>
+      <td><strong>Assignee</strong></td>
+      <td>Issue ustida hozir kim ishlayotgani.</td>
+    </tr>
+    <tr>
+      <td><strong>Reporter</strong></td>
+      <td>Issue'ni kim yaratgani — bug bo'lsa, odatda tester.</td>
+    </tr>
+    <tr>
+      <td><strong>Component</strong></td>
+      <td>Mahsulotning qismi: «Savat», «Avtorizatsiya», «To'lov».</td>
+    </tr>
+    <tr>
+      <td><strong>Affects / Fix version</strong></td>
+      <td>Xato topilgan versiya va tuzatilgan versiya.</td>
+    </tr>
+    <tr>
+      <td><strong>Epic</strong></td>
+      <td>Ko'plab story'ni birlashtiruvchi katta yo'nalish.</td>
+    </tr>
+    <tr>
+      <td><strong>JQL</strong><br><span class="cite">Jira Query Language</span></td>
+      <td>Jira'dagi qidiruv tili: <code>type = Bug AND status = "In Test"</code>.</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Umumiy atamalar</h2>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Atama</th><th>Ma'nosi</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>QA</strong><br><span class="cite">Quality Assurance</span></td>
+      <td>Sifatni <em>ta'minlash</em> — jarayonni shunday qurish-ki, xato kamroq
+          tug'ilsin. Testingdan kengroq tushuncha.</td>
+    </tr>
+    <tr>
+      <td><strong>Testing</strong></td>
+      <td>Mahsulotni tekshirib, xato <em>topish</em> va sifat haqida ma'lumot
+          berish. QA ning bir qismi.</td>
+    </tr>
+    <tr>
+      <td><strong>Test case</strong></td>
+      <td>Bitta aniq tekshiruv: shart, qadamlar, kutilgan natija. Bug report ning
+          «aksi» — u xato yo'qligini tasdiqlash uchun yoziladi.</td>
+    </tr>
+    <tr>
+      <td><strong>Exploratory testing</strong></td>
+      <td>Oldindan yozilgan ssenariysiz, o'rganib-o'ylab-sinab boradigan testlash.
+          Tayyor test case bo'yicha yurishning teskarisi.</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="ask-teacher">
+  <p><strong>Atama tushunarsizmi?</strong> Menga yozing — men sizning
+  o'qituvchingizman. Ta'rifni misol bilan ochib beraman yoki lug'atga yangi
+  atama qo'shaman.</p>
+</div>
+
+<nav class="nav">
+  <a href="../lessons/index.html">Barcha darslar</a>
+  <a href="./bug-report-shabloni.html">Bug report shabloni</a>
+  <a href="./test-dizayn-texnikalari.html">Test dizayn texnikalari</a>
+  <a href="./test-case-shabloni.html">Test case shabloni</a>
+  <a href="./exploratory-sessiya.html">Exploratory sessiya</a>
+  <a href="./devtools-shpargalka.html">DevTools shpargalkasi</a>
+  <a href="./jira-shpargalka.html">Jira shpargalkasi</a>
+  <a href="./test-plan-shabloni.html">Test plan shabloni</a>
+  <a href="./test-darajalari-va-turlari.html">Darajalar va turlar</a>
+  <a href="./sql-shpargalka.html">SQL shpargalkasi</a>
+  <a href="./api-testing-shpargalka.html">API testing shpargalkasi</a>
+  <a href="./mobil-testing-shpargalka.html">Mobil testing shpargalkasi</a>
+  <a href="./avtomatlashtirish-qarori.html">Avtomatlashtirish qarori</a>
+  <a href="./portfolio-va-suhbat.html">Portfolio va suhbat</a>
+  <a href="./xavfsizlik-checklist.html">Xavfsizlik checklist</a>
+  <a href="./accessibility-checklist.html">Accessibility checklist</a>
+  <a href="./performance-shpargalka.html">Performance shpargalkasi</a>
+  <a href="./playwright-shpargalka.html">Playwright shpargalkasi</a>
+  <a href="./ci-shpargalka.html">CI shpargalkasi</a>
+</nav>
+
+</body>
+</html>

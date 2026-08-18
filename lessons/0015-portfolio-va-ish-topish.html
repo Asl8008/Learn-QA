@@ -1,0 +1,390 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>15-dars: Portfolio va ish topish — Learn-QA</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<p class="crumbs"><a href="./index.html">Darslar</a> ·
+<a href="./0014-avtomatlashtirish.html">← 14-dars</a></p>
+
+<p class="eyebrow">15-dars · taxminan 40 daqiqa</p>
+<h1>Bilim bor — endi uni ko'rsatish kerak</h1>
+<p class="subtitle">Yangi boshlovchining eng katta muammosi bilim
+yetishmasligi emas. Muammo shundaki, uni <em>isbotlab bo'lmaydi</em>. Bu
+darsda o'rgangan hamma narsangizni ko'rsatiladigan shaklga keltiramiz.</p>
+
+<h2>Yopiq halqa</h2>
+
+<div class="box box--bad">
+  <p class="box-title">Har bir yangi boshlovchi duch keladigan halqa</p>
+  <p>Ishga olishmaydi — chunki tajriba yo'q.<br>
+  Tajriba yo'q — chunki ishga olishmaydi.</p>
+</div>
+
+<p>Bu halqani bitta narsa uzadi: <strong>ko'rsatiladigan ish</strong>.
+Diplom emas, sertifikat emas, kurs tugatgani haqidagi qog'oz emas — siz
+o'z qo'lingiz bilan yozgan hujjatlar.</p>
+
+<blockquote>
+  Portfolio — bajarilgan ishlar to'plami, o'quv kursidan olingan yozuvlar
+  yoki o'rganganingiz haqidagi mulohazalar bo'lishi mumkin… u siz o'tgan
+  tayyorgarlikning dalili sifatida xizmat qiladi va tushunganingizni
+  namoyish etadi.
+  <cite>Ministry of Testing — Portfolio</cite>
+</blockquote>
+
+<h2>Yaxshi xabar: portfolioyingiz deyarli tayyor</h2>
+
+<p>Agar darslardagi amaliy topshiriqlarni bajargan bo'lsangiz, sizda
+allaqachon quyidagilar bor:</p>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Dars</th><th>Portfolio uchun nima qoladi</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><a href="./0001-bug-report-yozish.html">1</a></td>
+        <td>Takrorlanadigan, dalilli bug report'lar</td></tr>
+    <tr><td><a href="./0002-ekvivalentlik-va-chegaralar.html">2</a></td>
+        <td>Test qiymatlari jadvali — ekvivalentlik va chegaralar bilan</td></tr>
+    <tr><td><a href="./0003-test-case-yozish.html">3</a></td>
+        <td>To'liq yozilgan test case'lar to'plami</td></tr>
+    <tr><td><a href="./0005-exploratory-testing.html">5</a></td>
+        <td>Sessiya varaqalari: charter, topilmalar, savollar</td></tr>
+    <tr><td><a href="./0007-user-story-va-acceptance-criteria.html">7</a></td>
+        <td>Story uchun savollar ro'yxati va acceptance criteria</td></tr>
+    <tr><td><a href="./0008-jira-bug-tracker.html">8</a></td>
+        <td><strong>Jira loyihasi</strong> — real hisobotlar bilan</td></tr>
+    <tr><td><a href="./0009-test-plan.html">9</a></td>
+        <td>Risk jadvali bilan bir betlik test plan</td></tr>
+    <tr><td><a href="./0011-sql-testerlar-uchun.html">11</a></td>
+        <td>Bazani tekshirish so'rovlari</td></tr>
+    <tr><td><a href="./0012-api-testing-postman.html">12</a></td>
+        <td>API test holatlari jadvali va Postman collection</td></tr>
+    <tr><td><a href="./0013-mobil-testing.html">13</a></td>
+        <td>Mobil sessiya hisoboti</td></tr>
+    <tr><td><a href="./0014-avtomatlashtirish.html">14</a></td>
+        <td>Avtomatlashtirish qarori jadvali</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="box box--key">
+  <p class="box-title">Bu ro'yxat nima uchun kuchli</p>
+  <p>Ko'pchilik nomzod «kurs tugatdim» deydi. Siz esa: «mana test planim,
+  mana risk jadvalim, mana 18 ta bug report'im, mana API test holatlarim»
+  deysiz. Suhbatdoshning savoli ham o'zgaradi: «nima bilasiz?» o'rniga
+  «bu qarorni nega shunday qabul qildingiz?» — bu esa ancha qulay savol.</p>
+</div>
+
+<h2>Portfolio qanday ko'rinishda bo'ladi</h2>
+
+<p>Murakkab narsa kerak emas. Uchta oddiy variant:</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Joy</th><th>Kimga mos</th></tr></thead>
+  <tbody>
+    <tr><td><strong>GitHub</strong></td><td>Eng ishonchli. Fayllar
+        papkalarga bo'linadi, README bosh sahifa bo'ladi. Keyinchalik
+        avtomatlashtirish kodini ham shu yerga qo'yasiz</td></tr>
+    <tr><td><strong>Notion / Google Docs</strong></td><td>Tezroq boshlash.
+        Havolani ochiq qiling va tekshiring</td></tr>
+    <tr><td><strong>Jira loyihasi</strong></td><td>Bug report'lar uchun eng
+        ishonarli — skrinshotlarda ko'rsatiladi</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>Bosh sahifada quyidagilar bo'lsin: kim ekaningiz (2–3 gap), nimalarni
+qilganingiz (ro'yxat), har bir ishga havola va <em>nima uchun</em> shunday
+qilganingiz haqida qisqa izoh. Izoh — eng qimmatli qism: u fikrlashingizni
+ko'rsatadi.</p>
+
+<h2>Rezyume: tajriba yo'q bo'lsa nima yozasiz</h2>
+
+<div class="compare">
+  <div class="box box--bad">
+    <p class="box-title">✗ Bo'sh so'zlar</p>
+    <p>«Mas'uliyatli, tirishqoq, tez o'rganaman»</p>
+    <p>«Jamoada ishlay olaman»</p>
+    <p>«Kommunikabelman»</p>
+    <p class="cite">Bularni har bir nomzod yozadi — hech narsa
+    ajratmaydi.</p>
+  </div>
+  <div class="box box--good">
+    <p class="box-title">✓ Dalil</p>
+    <p>«saucedemo va 3 ta real mobil ilovada 20+ bug report yozdim —
+    [havola]»</p>
+    <p>«Risk asosida test plan tuzdim — [havola]»</p>
+    <p>«API uchun 25 ta test holati loyihaladim — [havola]»</p>
+  </div>
+</div>
+
+<p>Rezyume tuzilishi (bir bet, ko'p emas):</p>
+
+<ol class="steps">
+  <li><strong>Ism, aloqa, joylashuv, havolalar</strong> — portfolio va
+      LinkedIn.</li>
+  <li><strong>Qisqa xulosa (3 gap).</strong> Kim ekaningiz, nimani
+      qilganingiz, nimani qidirayotganingiz.</li>
+  <li><strong>Ko'nikmalar</strong> — halol darajalar bilan: test dizayn
+      texnikalari, bug report, Jira, DevTools, SQL (asoslar), Postman
+      (asoslar).</li>
+  <li><strong>Loyihalar</strong> — portfolio ishlaringiz. Har biriga
+      1–2 gap: nima qildingiz va natija nima bo'ldi.</li>
+  <li><strong>Ta'lim va kurslar.</strong> Eng pastda — bu eng kam
+      qiziqtiradigan qism.</li>
+</ol>
+
+<div class="box box--warn">
+  <p class="box-title">Qat'iy qoida: yolg'on yozmang</p>
+  <p>«Selenium bilan 2 yil ishlaganman» deb yozsangiz, suhbatda birinchi
+  savoldayoq ma'lum bo'ladi. Bu faqat ishni yo'qotmaydi — obro'ni ham
+  yo'qotadi, va IT jamiyati kichik.</p>
+  <p>To'g'ri yo'l — darajani aniq ko'rsatish: «SQL — <code>SELECT</code>,
+  <code>WHERE</code>, oddiy <code>JOIN</code> darajasida». Bu halollik
+  ishonch uyg'otadi va sizni himoya qiladi.</p>
+</div>
+
+<h2>Suhbat: uch xil savol</h2>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Turi</th><th>Namuna</th><th>Qayerdan tayyorlanasiz</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Ta'rif</strong></td>
+      <td>Severity va priority farqi? Test darajalari? Regression nima?</td>
+      <td>1, 4, 10-darslar va <a href="../reference/lugat.html">lug'at</a></td>
+    </tr>
+    <tr>
+      <td><strong>Amaliy</strong></td>
+      <td>«Mana shu formani qanday test qilasiz?» «Mana bu story'ga
+          savollaringiz bormi?»</td>
+      <td>2, 7, 9-darslar</td>
+    </tr>
+    <tr>
+      <td><strong>Xulq-atvor</strong></td>
+      <td>«Dasturchi bu bug emas dedi — nima qilasiz?» «Muddat yetmayapti,
+          nimani tashlaysiz?»</td>
+      <td>4, 9-darslar</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Eng ko'p beriladigan amaliy savol</h2>
+
+<p><strong>«Mana bu narsani qanday test qilasiz?»</strong> — forma, tugma,
+qidiruv, lift, ruchka. Ko'pchilik nomzod shu yerda adashadi: darhol tasodifiy
+holatlarni sanay boshlaydi.</p>
+
+<p>Sizda esa tayyor tuzilma bor. Shu tartibda yuring:</p>
+
+<ol class="steps">
+  <li><strong>Savol bering</strong> (7-dars). «Bu kim uchun? Qanday
+      cheklovlar bor? Qaysi brauzer va qurilmalar qo'llab-quvvatlanadi?»
+      Bu birinchi qadam — va u eng ko'p ball keltiradi.</li>
+  <li><strong>Riskni ayting</strong> (9-dars). «Eng qimmat xato qayerda
+      bo'lishi mumkin? Shundan boshlayman.»</li>
+  <li><strong>Asosiy yo'l</strong> — happy path.</li>
+  <li><strong>Ekvivalentlik va chegaralar</strong> (2-dars) — aniq
+      qiymatlar bilan.</li>
+  <li><strong>Xato yo'llari</strong> — bo'sh, noto'g'ri tur, juda uzun,
+      maxsus belgilar, internet uzilishi.</li>
+  <li><strong>Nofunksional</strong> (10-dars) — tezlik, qulaylik,
+      xavfsizlik, moslik.</li>
+  <li><strong>Muhit</strong> — brauzerlar, qurilmalar, ekran o'lchamlari.</li>
+  <li><strong>Qayerda to'xtayman</strong> — vaqt cheklangan bo'lsa nimani
+      tashlayman va nima uchun.</li>
+</ol>
+
+<div class="box box--key">
+  <p class="box-title">Nima baholanadi</p>
+  <p>Suhbatdosh sizdan to'liq ro'yxat kutmaydi — u <strong>tizimli
+  fikrlash</strong>ni qidiradi. Yuqoridagi sakkiz qadamni ovoz chiqarib
+  aytish, tasodifiy 30 ta holatni sanashdan ancha kuchliroq taassurot
+  qoldiradi. Ayniqsa birinchi va oxirgi qadam: savol berish va ongli
+  ravishda to'xtash.</p>
+</div>
+
+<h2>Sertifikat kerakmi?</h2>
+
+<p>Eng ko'p tarqalgani — <strong>ISTQB Foundation Level</strong>. Faktlar:</p>
+
+<div class="table-wrap">
+<table>
+  <tbody>
+    <tr><td>Savollar</td><td>40 ta test savoli</td></tr>
+    <tr><td>Vaqt</td><td>60 daqiqa (ona tili ingliz bo'lmasa — 75)</td></tr>
+    <tr><td>O'tish bali</td><td>65 % va undan yuqori</td></tr>
+    <tr><td>Talab</td><td>Oldindan shart yo'q</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p class="cite">Manba: <a href="https://astqb.org/certifications/foundation-level/">ASTQB
+— Foundation Level</a>.</p>
+
+<p>Halol javob: <strong>sertifikat ish bermaydi, lekin ba'zi joylarda
+rezyumeni birinchi filtrdan o'tkazadi.</strong> U bilimingizni tasdiqlaydi,
+ko'nikmangizni emas. Tanlash kerak bo'lsa: avval portfolio, keyin
+sertifikat. Portfolioyi bor, sertifikatsiz nomzod har doim
+sertifikati bor, ko'rsatadigan ishi yo'q nomzoddan kuchliroq.</p>
+
+<p>Yaxshi tomoni: bu kurs ISTQB sillabusining asosiy qismlariga tayangan —
+ya'ni tayyorgarlikning katta qismini allaqachon qildingiz.</p>
+
+<h2>Tekshirib ko'ramiz</h2>
+
+<section class="quiz">
+  <p class="quiz-prompt">1. Suhbatda «bu qidiruv maydonini qanday test
+  qilasiz?» deb so'rashdi. Eng kuchli birinchi qadam qaysi?</p>
+  <div class="quiz-options">
+    <button class="quiz-option" data-explain="Bu ham kerak, lekin ikkinchi-uchinchi qadamda. Darhol holat sanash tizimsizlik taassurotini beradi.">Darhol test holatlarini sanay boshlash</button>
+    <button class="quiz-option" data-correct data-explain="To'g'ri. Savol berish testerning eng qimmatli hissasi — va suhbatdosh aynan shuni kutadi.">Aniqlashtiruvchi savollar berish</button>
+    <button class="quiz-option" data-explain="Avtomatlashtirish haqida gapirish erta — avval nimani tekshirish kerakligi aniqlanadi.">Buni qanday avtomatlashtirishni aytish</button>
+    <button class="quiz-option" data-explain="Bo'sh maydon — bitta holat, xolos. Tizim kerak, bitta misol emas.">Bo'sh maydonni yuborishni aytish</button>
+  </div>
+  <p class="quiz-feedback" hidden></p>
+</section>
+
+<section class="quiz">
+  <p class="quiz-prompt">2. Rezyumede ko'nikmalarni qanday ko'rsatish
+  to'g'ri?</p>
+  <div class="quiz-options">
+    <button class="quiz-option" data-explain="Bilmagan narsani yozish suhbatda birinchi savoldayoq ochiladi va ishonchni yo'qotadi.">Ko'proq texnologiya nomini yozish</button>
+    <button class="quiz-option" data-correct data-explain="To'g'ri. «SQL — SELECT, WHERE, oddiy JOIN darajasida» degan yozuv halol va ishonch uyg'otadi.">Har birining darajasini aniq ko'rsatish</button>
+    <button class="quiz-option" data-explain="Shaxsiy sifatlarni har bir nomzod yozadi — ular ajratmaydi.">Shaxsiy sifatlarni batafsil yozish</button>
+    <button class="quiz-option" data-explain="Ko'nikmalarni yashirish ham foyda bermaydi — ular ko'rinib turishi kerak.">Ko'nikmalarni umuman yozmaslik</button>
+  </div>
+  <p class="quiz-feedback" hidden></p>
+</section>
+
+<section class="quiz">
+  <p class="quiz-prompt">3. Ikki nomzod: birida ISTQB sertifikati bor,
+  ko'rsatadigan ishi yo'q; ikkinchisida sertifikat yo'q, lekin 20 ta bug
+  report, test plan va API test holatlari bor. Odatda kim kuchliroq?</p>
+  <div class="quiz-options">
+    <button class="quiz-option" data-explain="Sertifikat bilimni tasdiqlaydi, lekin ko'nikmani ko'rsatmaydi.">Birinchisi — sertifikat rasmiy hujjat</button>
+    <button class="quiz-option" data-correct data-explain="To'g'ri. Portfolio ko'nikmani ko'rsatadi va suhbatni «nima bilasiz?» dan «bu qarorni nega qabul qildingiz?» ga o'zgartiradi.">Ikkinchisi — ko'rsatadigan ishi bor</button>
+    <button class="quiz-option" data-explain="Amalda farq katta: ish beruvchi ko'rsatiladigan natijaga qaraydi.">Ikkalasi ham teng</button>
+    <button class="quiz-option" data-explain="Tajriba yillari muhim, lekin bu yerda ikkalasi ham yangi boshlovchi.">Faqat tajriba yillari muhim</button>
+  </div>
+  <p class="quiz-feedback" hidden></p>
+</section>
+
+<section class="recall">
+  <p class="recall-q">Eslab ko'ring — <em>14-darsdan</em>: nima uchun
+  avtomatlashtirishni API darajasidan boshlash tavsiya qilinadi?</p>
+  <button class="recall-btn">Javobni ko'rsatish</button>
+  <p class="recall-a" hidden>Chunki API testlari <strong>tezroq</strong>
+  ishlaydi, dizayn o'zgarganda <strong>sinmaydi</strong> va o'rganish
+  osonroq. Interfeys orqali uchidan uchigacha ishlaydigan testlar esa mo'rt,
+  qimmat va sekin — piramidaning eng tor qismi.</p>
+</section>
+
+<h2>Amaliyot: uch topshiriq</h2>
+
+<h3>A — Portfolio yig'ing (2–3 soat)</h3>
+
+<ol class="steps">
+  <li>GitHub yoki Notion'da papka oching. Nomi: <code>QA-Portfolio</code>.</li>
+  <li>Yuqoridagi jadval bo'yicha bajarilgan ishlaringizni joylashtiring.
+      Bajarilmagani bo'lsa — shu ro'yxat sizning ish rejangiz.</li>
+  <li>Bosh sahifa yozing: kim ekaningiz, nima qilganingiz, har bir ishga
+      havola va qisqa izoh.</li>
+  <li>Havolani boshqa qurilmadan, tizimga kirmagan holda oching —
+      ochilishiga ishonch hosil qiling.</li>
+</ol>
+
+<h3>B — Bir betlik rezyume (1 soat)</h3>
+
+<p>Yuqoridagi besh bo'lim bo'yicha yozing. Bo'sh sifatlarni butunlay olib
+tashlang. Har bir ko'nikmaga daraja qo'shing.</p>
+
+<h3>C — Ovozli mashq (30 daqiqa)</h3>
+
+<p>Telefoningizga o'zingizni yozib oling. Savol:
+<em>«saucedemo.com'ning checkout jarayonini qanday test qilasiz?»</em>
+Sakkiz qadamli tuzilma bo'yicha, 5 daqiqada javob bering.</p>
+
+<p>Keyin eshiting. Odatda uchta narsa ko'rinadi: savol berishni unutasiz,
+nofunksional qismni tashlab ketasiz, va «qayerda to'xtayman» degan qismni
+aytmaysiz. Ikkinchi marta yozib oling — farq sezilarli bo'ladi.</p>
+
+<div class="box box--key">
+  <p class="box-title">Bu mashq nima uchun noqulay va nima uchun kerak</p>
+  <p>O'z ovozini eshitish yoqimsiz — shuning uchun deyarli hech kim buni
+  qilmaydi. Aynan shu sababdan u eng katta farqni beradi. Suhbatda
+  bilimning o'zi yetmaydi: uni <em>ovoz chiqarib, tartib bilan</em> aytish
+  kerak, va bu alohida ko'nikma.</p>
+</div>
+
+<h2>Keyingi qadamlar</h2>
+
+<ul>
+  <li><strong>Amaliyotni to'xtatmang.</strong> Har hafta bitta sessiya —
+      yangi ilova, yangi topilmalar, portfolio o'sadi.</li>
+  <li><strong>Hamjamiyatga qo'shiling.</strong>
+      <a href="https://www.ministryoftesting.com/">Ministry of Testing</a>,
+      <a href="https://www.reddit.com/r/QualityAssurance/">r/QualityAssurance</a>.
+      Ishingizni ko'rsating va fikr oling.</li>
+  <li><strong>Ish e'lonlarini o'qing</strong> — hozirdan. Nima talab
+      qilinayotganini ko'rasiz va o'rganish rejangizni shunga
+      moslaysiz.</li>
+  <li><strong>Rad javobiga tayyor turing.</strong> Birinchi ish uchun
+      o'nlab ariza normal. Har bir suhbatdan keyin savollarni yozib qo'ying
+      — bu sizning shaxsiy tayyorgarlik ro'yxatingiz bo'ladi.</li>
+</ul>
+
+<h2>O'qish uchun (birlamchi manba)</h2>
+
+<blockquote>
+  <a href="https://www.ministryoftesting.com/software-testing-glossary/portfolio">Ministry
+  of Testing — Portfolio</a>
+  <cite>Portfolio nima, nimalardan iborat bo'ladi va karyerada qanday
+  yordam beradi. Ingliz tilida.</cite>
+</blockquote>
+
+<p class="cite">ISTQB Foundation Level imtihoni haqida:
+<a href="https://astqb.org/certifications/foundation-level/">ASTQB —
+Foundation Level</a>.</p>
+
+<div class="ask-teacher">
+  <p><strong>Rezyume va portfolio havolangizni yuboring.</strong> Men ularni
+  suhbatdosh ko'zi bilan o'qib chiqaman: qaysi joyda savol tug'iladi, qaysi
+  gap bo'sh, qaysi ish eng kuchli. So'ng sizga <em>soxta suhbat</em>
+  o'tkazamiz — men savol beraman, siz javob berasiz, keyin har bir javobni
+  birga tahlil qilamiz.</p>
+</div>
+
+<nav class="nav">
+  <a href="../reference/portfolio-va-suhbat.html">Reference: Portfolio va suhbat</a>
+  <a href="../reference/lugat.html">Reference: Lug'at</a>
+  <a href="./index.html">Barcha darslar</a>
+</nav>
+
+<nav class="lesson-nav">
+  <a class="lesson-nav-link lesson-nav-prev" href="./0014-avtomatlashtirish.html">
+    <span class="lesson-nav-dir">← Oldingi dars</span>
+    <span class="lesson-nav-title">14. Avtomatlashtirish: nima, qachon va qachon emas</span>
+  </a>
+  <a class="lesson-nav-link lesson-nav-next" href="./0016-xavfsizlik-asoslari.html">
+    <span class="lesson-nav-dir">Keyingi dars →</span>
+    <span class="lesson-nav-title">16. Eshik yopiqmi yoki shunchaki yopiq ko'rinadimi?</span>
+  </a>
+  <a class="lesson-nav-home" href="./index.html">Barcha darslar</a>
+</nav>
+
+<script src="../assets/lesson.js"></script>
+</body>
+</html>

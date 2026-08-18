@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mobil testing shpargalkasi — Learn-QA</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<p class="crumbs"><a href="../lessons/index.html">Darslar</a> ·
+<a href="./lugat.html">Lug'at</a></p>
+
+<p class="eyebrow">Reference · chop etsa bo'ladi</p>
+<h1>Mobil testing shpargalkasi</h1>
+<p class="subtitle">Telefonda sessiya o'tkazayotganda shu ro'yxatdan yuring.
+Mobil ilovadagi xatolarning katta qismi shu uch bo'limda yashiringan:
+uzilishlar, ruxsatlar, tarmoq.</p>
+
+<h2>1. Uzilishlar</h2>
+
+<ul class="checklist">
+  <li>Ekranni buring — har bir muhim ekranda</li>
+  <li>Formani yarim to'ldirib buring — ma'lumot qoldimi?</li>
+  <li>Jarayon o'rtasida qo'ng'iroq keltiring</li>
+  <li>Home tugmasi → 1 daqiqa → qayting</li>
+  <li>Ekranni qulflang → oching (bank ilovasida qayta kirish so'ralsin)</li>
+  <li>Bildirishnoma keltiring va ustiga bosing</li>
+  <li>Batareya tejash rejimini yoqing</li>
+  <li>Bir nechta og'ir ilova ochib, xotirani to'ldiring</li>
+  <li>Ko'p oynali (split screen) rejimda oching</li>
+</ul>
+
+<div class="box box--warn">
+  <p class="box-title">«Don't keep activities»</p>
+  <p>Android → Settings → Developer options. Yoqilganda tizim ilovani fonga
+  o'tishi bilan darhol o'chiradi — kam xotirali qurilmadagi holat sun'iy
+  yaratiladi. Bir sessiyani shu rejimda o'tkazing.</p>
+  <p class="cite">Developer options ochilmagan bo'lsa: Settings → About phone
+  → Build number ni 7 marta bosing.</p>
+</div>
+
+<h2>2. Ruxsatlar</h2>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Test</th><th>Kutilgan xulq</th></tr></thead>
+  <tbody>
+    <tr><td>Ruxsat berildi</td><td>Funksiya ishlaydi</td></tr>
+    <tr><td>Rad etildi</td><td>Ilova yiqilmaydi, sabab tushuntiriladi</td></tr>
+    <tr><td>Butunlay rad etildi («qayta so'rama»)</td>
+        <td>Sozlamalarga yo'naltiradi</td></tr>
+    <tr><td><strong>Ishlab turganda bekor qilindi</strong></td>
+        <td>Ilova yiqilmaydi — eng ko'p unutiladigan holat</td></tr>
+    <tr><td>Ruxsat so'rovi matni</td><td>Nima uchun kerakligi tushunarli</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>3. Tarmoq</h2>
+
+<ul class="checklist">
+  <li>Internet umuman yo'q — tushunarli xabar</li>
+  <li>Sekin internet — indikator bor, tugma qayta bosilmaydi</li>
+  <li>So'rov o'rtasida uzilish — xato va qayta urinish imkoni</li>
+  <li>Wi-Fi → mobil internetga o'tish — sessiya uzilmaydi</li>
+  <li>Samolyot rejimi — yarim bajarilgan amal qolmaydi</li>
+  <li>To'lov so'rovi uzilsa — pul ikki marta yechilmaydi</li>
+</ul>
+
+<h2>4. O'rnatish va yangilash</h2>
+
+<ul class="checklist">
+  <li>Toza o'rnatish — birinchi ochilish ekrani</li>
+  <li>Eski versiya ustiga yangilash — ma'lumot saqlandimi?</li>
+  <li>Yangilashdan keyin qayta kirish so'raladimi?</li>
+  <li>O'chirib qayta o'rnatish — eski ma'lumot qolmadimi?</li>
+  <li>Internetsiz birinchi ochilish</li>
+</ul>
+
+<h2>5. Interfeys va qulaylik</h2>
+
+<ul class="checklist">
+  <li>Klaviatura ochilganda maydon ko'rinib turadimi?</li>
+  <li>Tizim shrifti kattalashtirilganda matn kesilmaydimi?</li>
+  <li>Qorong'i rejimda o'qish mumkinmi?</li>
+  <li>Uzun matn va uzun ism sig'adimi?</li>
+  <li>Tugmalar barmoq bilan bosishga yetarli kattami?</li>
+  <li>Orqaga qaytish (back) har doim kutilgan joyga olib boradimi?</li>
+  <li>Bir marta bosishga mo'ljallangan tugma ikki marta bosilsa?</li>
+</ul>
+
+<h2>Qurilma matritsasi</h2>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>O'lchov</th><th>Tanlov qoidasi</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>OS versiyasi</td><td>Eng yangi + eng ko'p tarqalgan +
+        qo'llab-quvvatlanadigan eng eski</td></tr>
+    <tr><td>Ekran</td><td>Eng kichik + eng katta</td></tr>
+    <tr><td>Ishlab chiqaruvchi</td><td>Foydalanuvchilar orasida eng
+        ko'pi</td></tr>
+    <tr><td>Quvvat</td><td>Bitta kuchsiz eski qurilma — majburiy</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="compare">
+  <div class="box">
+    <p class="box-title">Emulyator</p>
+    <p>Tez, bepul, ko'p versiya. Interfeys va mantiq uchun.</p>
+  </div>
+  <div class="box">
+    <p class="box-title">Haqiqiy qurilma</p>
+    <p>Tezlik, batareya, kamera, tarmoq uzilishlari. Reliz oldidan
+    majburiy.</p>
+  </div>
+</div>
+
+<h2>Mobil bug report'da nima bo'lishi shart</h2>
+
+<ul class="checklist">
+  <li>Qurilma modeli (masalan: Samsung Galaxy A54)</li>
+  <li>OS versiyasi (Android 14 / iOS 17.4)</li>
+  <li>Ilova versiyasi va build raqami</li>
+  <li>Tarmoq turi (Wi-Fi / 4G / internetsiz)</li>
+  <li>Toza o'rnatishmi yoki yangilashdan keyingi holat</li>
+  <li>Video yozuv — mobil xatolarda skrinshotdan ko'ra foydaliroq</li>
+</ul>
+
+<p class="cite">Manbalar:
+<a href="https://developer.android.com/guide/components/activities/activity-lifecycle">Android
+— The activity lifecycle</a>,
+<a href="https://developer.android.com/guide/topics/permissions/overview">Permissions
+on Android</a>.</p>
+
+<div class="ask-teacher">
+  <p><strong>Sessiya natijasini yuboring.</strong> Mobil hisobotlarda eng
+  ko'p yetishmaydigan ikki narsa — qurilma ma'lumoti va uzilish qadamlarining
+  aniq ketma-ketligi. Men shularni tekshiraman.</p>
+</div>
+
+<nav class="nav">
+  <a href="../lessons/0013-mobil-testing.html">13-dars</a>
+  <a href="./bug-report-shabloni.html">Bug report shabloni</a>
+  <a href="./exploratory-sessiya.html">Exploratory sessiya</a>
+  <a href="./lugat.html">Lug'at</a>
+</nav>
+
+</body>
+</html>

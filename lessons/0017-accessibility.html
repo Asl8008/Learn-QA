@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>17-dars: Accessibility — Learn-QA</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<p class="crumbs"><a href="./index.html">Darslar</a> ·
+<a href="./0016-xavfsizlik-asoslari.html">← 16-dars</a></p>
+
+<p class="eyebrow">17-dars · taxminan 35 daqiqa</p>
+<h1>Sichqonchasiz o'tib ko'ring</h1>
+<p class="subtitle">Ba'zi foydalanuvchilar ekranni ko'rmaydi. Ba'zilari
+sichqonchani ishlata olmaydi. Ba'zilari esa shunchaki qo'lida chaqaloq
+tutib turibdi. Accessibility — mahsulot ular uchun ham ishlashini
+ta'minlash.</p>
+
+<h2>Bu kimga kerak</h2>
+
+<p>«Imkoniyati cheklangan foydalanuvchilar» degan iborani eshitganda
+odatda doimiy holat tasavvur qilinadi. Aslida cheklov uch xil bo'ladi:</p>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Turi</th><th>Misol</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Doimiy</strong></td><td>Ko'rmaydigan, eshitmaydigan
+        yoki qo'l harakati cheklangan odam</td></tr>
+    <tr><td><strong>Vaqtinchalik</strong></td><td>Qo'li singan, ko'z
+        operatsiyasidan keyingi odam</td></tr>
+    <tr><td><strong>Vaziyatga bog'liq</strong></td><td>Yorqin quyoshda
+        telefonga qarayotgan, bir qo'lida chaqaloq tutgan, shovqinli
+        joyda videoni ovozsiz ko'rayotgan odam</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>Uchinchi qator muhim: <strong>vaziyatga bog'liq cheklov har birimizda
+har kuni bo'ladi.</strong> Shuning uchun accessibility «kichik guruh uchun
+qo'shimcha ish» emas — u hamma uchun sifatni oshiradi.</p>
+
+<div class="box box--key">
+  <p class="box-title">Yana ikkita sabab</p>
+  <p><strong>Qonun.</strong> WCAG — xalqaro standart bo'lib, ko'p
+  mamlakatlarning qonunchiligida unga havola qilinadi. Ya'ni bu ba'zan
+  ixtiyoriy emas.</p>
+  <p><strong>Sifat.</strong> Accessibility talablarining aksariyati
+  oddiygina yaxshi muhandislik: aniq sarlavhalar, tushunarli xato
+  xabarlari, klaviatura bilan ishlash. Bular hamma foydalanuvchiga
+  foyda beradi.</p>
+</div>
+
+<h2>To'rt tamoyil: POUR</h2>
+
+<p>WCAG standarti to'rt tamoyilga tayanadi. Ularning bosh harflari
+<strong>POUR</strong> so'zini beradi:</p>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Tamoyil</th><th>Ma'nosi</th><th>Amaliy talab</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Perceivable</strong><br><span class="cite">idrok etiladigan</span></td>
+      <td>Ma'lumot foydalanuvchining sezgilariga yetib borishi kerak</td>
+      <td>Rasmlarga matn muqobili, videoga subtitr, yetarli kontrast</td>
+    </tr>
+    <tr>
+      <td><strong>Operable</strong><br><span class="cite">boshqariladigan</span></td>
+      <td>Interfeys turli kirish usullari bilan boshqarilishi kerak</td>
+      <td>«Sichqoncha bilan mavjud bo'lgan har qanday funksiya klaviatura
+          bilan ham mavjud»</td>
+    </tr>
+    <tr>
+      <td><strong>Understandable</strong><br><span class="cite">tushunarli</span></td>
+      <td>Matn va ishlash tartibi tushunarli bo'lishi kerak</td>
+      <td>Bir xil navigatsiya bir xil joyda; xatolarni tushuntirish va
+          tuzatish yo'li</td>
+    </tr>
+    <tr>
+      <td><strong>Robust</strong><br><span class="cite">mustahkam</span></td>
+      <td>Kontent turli texnologiyalar tomonidan to'g'ri o'qilishi kerak</td>
+      <td>Har bir elementning nomi, roli va qiymati bo'lishi</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p class="cite">Manba: <a href="https://www.w3.org/WAI/fundamentals/accessibility-principles/">W3C
+WAI — Accessibility Principles</a>.</p>
+
+<h2>To'qqizta oddiy tekshiruv</h2>
+
+<p>W3C mutaxassis bo'lmaganlar uchun «Easy Checks» ro'yxatini tayyorlagan.
+Bu — testerga to'g'ridan-to'g'ri mos keladigan ish:</p>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Tekshiruv</th><th>Qanday</th><th>Nima kutiladi</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>1. Sahifa sarlavhasi</strong></td>
+      <td>Brauzer tabiga qarang</td>
+      <td>Har bir sahifada noyob va mazmunni bildiruvchi sarlavha</td>
+    </tr>
+    <tr>
+      <td><strong>2. Rasm matni</strong><br><span class="cite">alt</span></td>
+      <td>Asbob bilan <code>alt</code> siz rasmlarni belgilang</td>
+      <td>Har bir rasmda mazmunni yetkazuvchi matn muqobili</td>
+    </tr>
+    <tr>
+      <td><strong>3. Sarlavhalar</strong></td>
+      <td>Sahifaning sarlavhalar tuzilmasini ko'ring</td>
+      <td>Sarlavhalar bor, mantiqiy tartibda, daraja tashlab
+          ketilmagan</td>
+    </tr>
+    <tr>
+      <td><strong>4. Kontrast</strong></td>
+      <td>Kontrast tekshirgich yoki sahifani oq-qora qilib ko'ring</td>
+      <td>Oddiy matn uchun kamida <strong>4.5:1</strong></td>
+    </tr>
+    <tr>
+      <td><strong>5. Matnni kattalashtirish</strong></td>
+      <td>Brauzerda matnni <strong>200 %</strong> ga kattalashtiring</td>
+      <td>Hech narsa yo'qolmaydi, ustma-ust tushmaydi, gorizontal
+          aylantirish talab qilinmaydi</td>
+    </tr>
+    <tr>
+      <td><strong>6. Klaviatura va fokus</strong></td>
+      <td>Faqat <kbd>Tab</kbd> va <kbd>Shift+Tab</kbd> bilan yuring</td>
+      <td>Barcha havola, maydon va tugmalarga yetish mumkin; fokus
+          ko'rinib turadi; tartib mantiqiy</td>
+    </tr>
+    <tr>
+      <td><strong>7. Formalar va xatolar</strong></td>
+      <td>Formani klaviatura bilan to'ldiring, bo'sh yuboring</td>
+      <td>Har bir maydonda bog'langan yorliq; majburiylar belgilangan;
+          xato aniq va nima qilishni aytadi</td>
+    </tr>
+    <tr>
+      <td><strong>8. Video va audio</strong></td>
+      <td>Pleyer boshqaruvini va subtitrni tekshiring</td>
+      <td>Boshqaruv klaviaturadan ishlaydi; subtitr bor (avtomatik
+          emas); transkript yaqin joyda</td>
+    </tr>
+    <tr>
+      <td><strong>9. Asosiy tuzilma</strong></td>
+      <td>Rasmlarni va CSS ni o'chiring</td>
+      <td>Ma'lumot ko'rsatilgan tartibda o'qilganda mantiqli qoladi</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p class="cite">Manba: <a href="https://www.w3.org/WAI/test-evaluate/preliminary/">W3C
+WAI — Easy Checks</a>. W3C ta'kidlaydi: bu tekshiruvlar boshlang'ich va
+to'liq emas — to'liq baholash qo'shimcha ish talab qiladi.</p>
+
+<h2>Eng samarali bitta tekshiruv: sichqonchani olib qo'ying</h2>
+
+<div class="box">
+  <p class="box-title">20 daqiqalik mashq</p>
+  <p>Sichqonchani stoldan olib qo'ying yoki qo'lingizni tortib oling.
+  Endi butun oqimni faqat klaviatura bilan bosib o'ting:</p>
+  <ul>
+    <li><kbd>Tab</kbd> — keyingi elementga</li>
+    <li><kbd>Shift+Tab</kbd> — orqaga</li>
+    <li><kbd>Enter</kbd> — havola yoki tugmani bosish</li>
+    <li><kbd>Space</kbd> — tugma, katakcha, aylantirish</li>
+    <li><kbd>Esc</kbd> — modal oynani yopish</li>
+  </ul>
+</div>
+
+<p>Bu mashqda odatda topiladigan xatolar:</p>
+
+<ul class="checklist">
+  <li><strong>Fokus ko'rinmaydi</strong> — qayerda turganingizni bilib
+      bo'lmaydi (dizayner «chiroyli emas» deb olib tashlagan)</li>
+  <li><strong>Fokus tuzoqqa tushadi</strong> — modal oyna ochiladi, undan
+      <kbd>Tab</kbd> bilan chiqib bo'lmaydi</li>
+  <li><strong>Tartib mantiqsiz</strong> — fokus sahifa bo'ylab sakraydi</li>
+  <li><strong>Yetib bo'lmaydigan element</strong> — tugmaga umuman
+      <kbd>Tab</kbd> qilib bo'lmaydi (chunki u <code>&lt;div&gt;</code>,
+      tugma emas)</li>
+  <li><strong>Yashirin element fokus oladi</strong> — ko'rinmayotgan
+      menyudagi havolalarga fokus tushadi</li>
+</ul>
+
+<div class="box box--warn">
+  <p class="box-title">Nima uchun aynan klaviatura</p>
+  <p>Ekran o'quvchi dasturlar ham asosan klaviatura bilan ishlaydi. Ya'ni
+  klaviatura bilan yetib bo'lmaydigan element ko'rmaydigan foydalanuvchi
+  uchun ham <strong>umuman mavjud emas</strong>. Bitta tekshiruv, ikki
+  guruhga foyda.</p>
+</div>
+
+<h2>Asboblar</h2>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Asbob</th><th>Nima qiladi</th></tr></thead>
+  <tbody>
+    <tr><td><a href="https://developer.chrome.com/docs/lighthouse/accessibility/scoring">Lighthouse</a></td>
+        <td>Chrome DevTools ichida (6-dars). Sahifani tekshirib ball va
+            muammolar ro'yxatini beradi</td></tr>
+    <tr><td><a href="https://www.deque.com/axe/devtools/">axe DevTools</a></td>
+        <td>Brauzer kengaytmasi, aniqroq natija va tushuntirishlar</td></tr>
+    <tr><td><a href="https://wave.webaim.org/">WAVE</a></td>
+        <td>Muammolarni to'g'ridan-to'g'ri sahifa ustida ko'rsatadi</td></tr>
+    <tr><td><a href="https://www.nvaccess.org/download/">NVDA</a></td>
+        <td>Windows uchun bepul ekran o'quvchi</td></tr>
+    <tr><td>VoiceOver / TalkBack</td>
+        <td>iOS va Mac / Android'da o'rnatilgan ekran o'quvchilar</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="box box--warn">
+  <p class="box-title">Avtomatik asbobga ishonib qolmang</p>
+  <p>Lighthouse «100 ball» bersa ham, sahifa ishlatib bo'lmaydigan bo'lishi
+  mumkin. Asbob <code>alt</code> atributi <em>borligini</em> tekshiradi,
+  lekin uning <em>mazmunli</em> ekanini tekshira olmaydi. <code>alt="rasm
+  1"</code> — asbob uchun to'g'ri, foydalanuvchi uchun foydasiz.</p>
+  <p>Shuning uchun tartib shunday: avval avtomatik asbob (tez g'alabalar),
+  keyin <strong>klaviatura bilan qo'lda o'tish</strong> (asosiy ish).</p>
+</div>
+
+<h2>Accessibility bug report'i</h2>
+
+<p>Oddiy hisobotga (1-dars) uchta narsa qo'shiladi:</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Qo'shimcha</th><th>Namuna</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Kim ta'sirlanadi</strong></td>
+        <td>«Klaviatura bilan ishlaydigan va ekran o'quvchi
+            foydalanuvchilar»</td></tr>
+    <tr><td><strong>Qaysi talab buzilgan</strong></td>
+        <td>«WCAG 2.2 — Operable: klaviatura bilan yetib bo'lmaydi»</td></tr>
+    <tr><td><strong>Qanday tekshirildi</strong></td>
+        <td>«Chrome + faqat klaviatura» yoki «NVDA 2024 + Firefox»</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>Namuna sarlavha: <em>«Checkout sahifasida "Buyurtma berish" tugmasiga
+klaviatura bilan yetib bo'lmaydi»</em>. Ta'sir aniq, takrorlash oson,
+munozara qisqa.</p>
+
+<h2>Tekshirib ko'ramiz</h2>
+
+<section class="quiz">
+  <p class="quiz-prompt">1. Lighthouse accessibility bo'yicha 100 ball
+  berdi. Bu nimani anglatadi?</p>
+  <div class="quiz-options">
+    <button class="quiz-option" data-explain="Avtomatik asboblar muammolarning faqat bir qismini ko'radi — qolgani odam tekshiruvini talab qiladi.">Sahifa to'liq qulay, qo'shimcha tekshiruv kerak emas</button>
+    <button class="quiz-option" data-correct data-explain="To'g'ri. Asbob alt atributi borligini ko'radi, lekin uning mazmunli ekanini emas. Klaviatura bilan qo'lda o'tish baribir kerak.">Avtomatik topiladigan muammolar yo'q, qo'lda tekshirish qoladi</button>
+    <button class="quiz-option" data-explain="Aksincha, ball foydali — u tez g'alabalarni ko'rsatadi. Faqat u yetarli emas.">Ball hech qanday ma'no bermaydi</button>
+    <button class="quiz-option" data-explain="Ekran o'quvchi bilan tekshirish alohida ish — ball uni almashtirmaydi.">Ekran o'quvchi bilan tekshirilgan degani</button>
+  </div>
+  <p class="quiz-feedback" hidden></p>
+</section>
+
+<section class="quiz">
+  <p class="quiz-prompt">2. Dizayner fokus ramkasini «chiroyli emas» deb
+  olib tashladi. Nima bo'ladi?</p>
+  <div class="quiz-options">
+    <button class="quiz-option" data-explain="Element baribir fokus oladi — faqat foydalanuvchi buni ko'rmaydi.">Klaviatura bilan yurish umuman to'xtaydi</button>
+    <button class="quiz-option" data-correct data-explain="To'g'ri. Fokus bor, lekin ko'rinmaydi — foydalanuvchi qayerda turganini bilmaydi va ko'r-ko'rona bosishga majbur bo'ladi.">Foydalanuvchi qayerda turganini bilmaydi</button>
+    <button class="quiz-option" data-explain="Sichqoncha bilan ishlaydiganlarga ta'sir kam, lekin klaviatura foydalanuvchilariga jiddiy.">Hech narsa — bu faqat dizayn masalasi</button>
+    <button class="quiz-option" data-explain="Sahifa tezligiga aloqasi yo'q.">Sahifa sekinlashadi</button>
+  </div>
+  <p class="quiz-feedback" hidden></p>
+</section>
+
+<section class="quiz">
+  <p class="quiz-prompt">3. Nima uchun klaviatura tekshiruvi ekran o'quvchi
+  foydalanuvchilariga ham foyda beradi?</p>
+  <div class="quiz-options">
+    <button class="quiz-option" data-explain="Ekran o'quvchilar matnni ovoz bilan o'qiydi, lekin harakat baribir klaviatura orqali bo'ladi.">Chunki ular ham matnni ko'radi</button>
+    <button class="quiz-option" data-correct data-explain="To'g'ri. Ekran o'quvchilar asosan klaviatura bilan boshqariladi — klaviatura bilan yetib bo'lmaydigan element ular uchun umuman mavjud emas.">Chunki ekran o'quvchilar klaviatura bilan boshqariladi</button>
+    <button class="quiz-option" data-explain="Kontrast alohida tekshiruv — u ko'rish qiyinchiligi bo'lganlarga tegishli.">Chunki kontrast avtomatik yaxshilanadi</button>
+    <button class="quiz-option" data-explain="Aloqa bor va u bevosita: boshqaruv usuli bir xil.">Aloqasi yo'q, bu ikki alohida masala</button>
+  </div>
+  <p class="quiz-feedback" hidden></p>
+</section>
+
+<section class="recall">
+  <p class="recall-q">Eslab ko'ring — <em>16-darsdan</em>: nega interfeysda
+  tugmani yashirish yetarli himoya emas?</p>
+  <button class="recall-btn">Javobni ko'rsatish</button>
+  <p class="recall-a" hidden>Chunki tugmani yashirish so'rovni yuborishga
+  to'sqinlik qilmaydi — uni to'g'ridan-to'g'ri API orqali yuborish mumkin.
+  <strong>Server har bir so'rovda ruxsatni qayta tekshirishi shart.</strong>
+  Interfeysdagi yashirish — qulaylik, himoya emas.</p>
+</section>
+
+<h2>Amaliyot</h2>
+
+<h3>A — Klaviatura sessiyasi (25 daqiqa)</h3>
+
+<ol class="steps">
+  <li><a href="https://www.saucedemo.com/">saucedemo.com</a> ni oching va
+      sichqonchani chetga surib qo'ying.</li>
+  <li>Faqat klaviatura bilan: kiring → mahsulot tanlang → savatga
+      qo'shing → checkout ni to'ldiring → buyurtmani yakunlang.</li>
+  <li>Har bir to'siqni yozib boring: qayerda fokus yo'qoldi, qayerda
+      yetib bo'lmadi, qayerda tartib mantiqsiz edi.</li>
+  <li>Xuddi shuni <strong>o'zingiz kunda ishlatadigan bitta
+      saytda</strong> takrorlang — masalan bank yoki yetkazib berish
+      ilovasining veb-versiyasida.</li>
+</ol>
+
+<h3>B — To'qqiz tekshiruv (30 daqiqa)</h3>
+
+<p>Yuqoridagi jadval bo'yicha bitta sahifani to'liq tekshiring. Natijani
+jadval ko'rinishida yozing: tekshiruv, natija (o'tdi / o'tmadi), izoh.</p>
+
+<h3>C — Uchta hisobot</h3>
+
+<p>Eng jiddiy uchta topilmani bug report qilib yozing. Har birida:
+kim ta'sirlanadi, qaysi tamoyil buzilgan (POUR), qanday tekshirildi.</p>
+
+<div class="box box--key">
+  <p class="box-title">Nima uchun bu ko'nikma qimmat</p>
+  <p>Accessibility bilan ishlay oladigan tester kam. Ko'p jamoada bu
+  mavzuni umuman biladigan odam yo'q, shuning uchun uni ko'taradigan
+  odam darhol sezilarli qiymat beradi. Portfolioyingizda «WCAG bo'yicha
+  to'qqiz tekshiruv o'tkazdim, uchta muammo hujjatlashtirdim» degan
+  qator ko'p nomzoddan ajratib turadi.</p>
+</div>
+
+<h2>O'qish uchun (birlamchi manba)</h2>
+
+<blockquote>
+  <a href="https://www.w3.org/WAI/test-evaluate/preliminary/">W3C WAI —
+  Easy Checks: A First Review of Web Accessibility</a>
+  <cite>Mutaxassis bo'lmaganlar uchun to'qqizta tekshiruv, har biri
+  batafsil qadamlar bilan. Ingliz tilida.</cite>
+</blockquote>
+
+<p class="cite">Tamoyillar:
+<a href="https://www.w3.org/WAI/fundamentals/accessibility-principles/">Accessibility
+Principles</a>. To'liq mezonlar ro'yxati:
+<a href="https://www.w3.org/WAI/WCAG22/quickref/">WCAG 2.2 Quick
+Reference</a>.</p>
+
+<div class="ask-teacher">
+  <p><strong>Klaviatura sessiyangiz natijasini yuboring.</strong>
+  Ayniqsa o'zingiz ishlatadigan saytdagi topilmalarni — odatda u yerda
+  saucedemo'dagidan ko'ra ko'proq muammo chiqadi va bu sizga
+  accessibility'ning haqiqiy ahvolini ko'rsatadi.</p>
+</div>
+
+<nav class="nav">
+  <a href="../reference/accessibility-checklist.html">Reference: Accessibility checklist</a>
+  <a href="../reference/devtools-shpargalka.html">Reference: DevTools shpargalkasi</a>
+  <a href="../reference/lugat.html">Reference: Lug'at</a>
+</nav>
+
+<nav class="lesson-nav">
+  <a class="lesson-nav-link lesson-nav-prev" href="./0016-xavfsizlik-asoslari.html">
+    <span class="lesson-nav-dir">← Oldingi dars</span>
+    <span class="lesson-nav-title">16. Eshik yopiqmi yoki shunchaki yopiq ko'rinadimi?</span>
+  </a>
+  <a class="lesson-nav-link lesson-nav-next" href="./0018-performance-testing.html">
+    <span class="lesson-nav-dir">Keyingi dars →</span>
+    <span class="lesson-nav-title">18. «Sekin» — bu bug report emas</span>
+  </a>
+  <a class="lesson-nav-home" href="./index.html">Barcha darslar</a>
+</nav>
+
+<script src="../assets/lesson.js"></script>
+</body>
+</html>

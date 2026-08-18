@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DevTools shpargalkasi — Learn-QA</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<p class="crumbs"><a href="../lessons/index.html">Darslar</a> ·
+<a href="./lugat.html">Lug'at</a></p>
+
+<p class="eyebrow">Reference · chop etsa bo'ladi</p>
+<h1>DevTools shpargalkasi</h1>
+<p class="subtitle">Testerga kerak bo'ladigan qismi. DevTools da o'nlab panel
+bor — sizga ulardan uchtasi kifoya.</p>
+
+<h2>Tugmalar</h2>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Amal</th><th>Windows / Linux</th><th>macOS</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>DevTools ni ochish</td><td><code>F12</code> · <code>Ctrl+Shift+I</code></td><td><code>Cmd+Option+I</code></td></tr>
+    <tr><td>To'g'ridan Console ga</td><td><code>Ctrl+Shift+J</code></td><td><code>Cmd+Option+J</code></td></tr>
+    <tr><td>Element tanlash</td><td><code>Ctrl+Shift+C</code></td><td><code>Cmd+Shift+C</code></td></tr>
+    <tr><td>Telefon rejimi</td><td><code>Ctrl+Shift+M</code></td><td><code>Cmd+Shift+M</code></td></tr>
+    <tr><td>Console ni tozalash</td><td><code>Ctrl+L</code></td><td><code>Cmd+K</code></td></tr>
+    <tr><td>Kesh siz yangilash</td><td><code>Ctrl+Shift+R</code></td><td><code>Cmd+Shift+R</code></td></tr>
+  </tbody>
+</table>
+</div>
+
+<p class="cite">Manba: <a href="https://developer.chrome.com/docs/devtools/shortcuts">Chrome
+for Developers — Keyboard shortcuts</a>.</p>
+
+<h2>HTTP status kodlari</h2>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Kod</th><th>Nomi</th><th>Tester uchun ma'nosi</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>200</strong></td><td>OK</td><td>Hammasi joyida</td></tr>
+    <tr><td><strong>201</strong></td><td>Created</td><td>Yangi narsa yaratildi (ro'yxatdan o'tish, buyurtma)</td></tr>
+    <tr><td><strong>301 / 302</strong></td><td>Redirect</td><td>Boshqa manzilga yo'naltirildi — odatda normal</td></tr>
+    <tr><td><strong>400</strong></td><td>Bad Request</td><td>So'rovda noto'g'ri ma'lumot yuborildi</td></tr>
+    <tr><td><strong>401</strong></td><td>Unauthorized</td><td>Tizimga kirilmagan</td></tr>
+    <tr><td><strong>403</strong></td><td>Forbidden</td><td>Kirilgan, lekin ruxsat yo'q. <em>Ruxsatlarni sinashda muhim</em></td></tr>
+    <tr><td><strong>404</strong></td><td>Not Found</td><td>Manzil topilmadi — buzilgan havola</td></tr>
+    <tr><td><strong>409</strong></td><td>Conflict</td><td>Ziddiyat — masalan email allaqachon band</td></tr>
+    <tr><td><strong>422</strong></td><td>Unprocessable</td><td>Ma'lumot formati to'g'ri, lekin qoidaga zid</td></tr>
+    <tr><td><strong>500</strong></td><td>Internal Server Error</td><td><strong>Deyarli har doim bug.</strong> Darhol hisobot</td></tr>
+    <tr><td><strong>502 / 503</strong></td><td>Bad Gateway / Unavailable</td><td>Server ishlamayapti yoki ortiqcha yuklangan</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="box box--key">
+  <p class="box-title">Tez qoida</p>
+  <p><strong>4xx</strong> — «sen noto'g'ri so'rading». <strong>5xx</strong> —
+  «men buzildim». Ikkinchisi deyarli har doim haqiqiy bug, birinchisi esa
+  kontekstga qarab.</p>
+</div>
+
+<h2>Bug report uchun DevTools dan nima olinadi</h2>
+
+<ul class="checklist">
+  <li><strong>Console:</strong> qizil xato matni — <em>to'liq</em>, qisqartirmasdan</li>
+  <li><strong>Network:</strong> muvaffaqiyatsiz so'rovning metodi, manzili va statusi
+      (masalan <code>POST /api/orders → 500</code>)</li>
+  <li><strong>Response:</strong> server qaytargan xato matni</li>
+  <li><strong>Skrinshot:</strong> DevTools ochiq holda — panel ham ko'rinsin</li>
+  <li><strong>Vaqt:</strong> so'rov qancha davom etdi (sekinlik haqidagi hisobotlarda)</li>
+</ul>
+
+<h2>Sessiya oldidan sozlash</h2>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Sozlama</th><th>Qayerda</th><th>Nega</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Preserve log</strong></td><td>Network paneli tepasida</td>
+        <td>Sahifa yangilanganda yozuvlar o'chmasin</td></tr>
+    <tr><td><strong>Disable cache</strong></td><td>Network paneli tepasida</td>
+        <td>Eski nusxa emas, yangi kod sinalsin</td></tr>
+    <tr><td><strong>Fetch/XHR filtri</strong></td><td>Network filtrlar qatorida</td>
+        <td>Rasm va stillar aralashmasin</td></tr>
+    <tr><td><strong>Console ni tozalash</strong></td><td>Har sinovdan oldin</td>
+        <td>Qaysi xato sizniki ekani aniq bo'lsin</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Elements paneli — testerga foydali holatlar</h2>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Nima qidiriladi</th><th>Nega muhim</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>maxlength</code></td>
+        <td>Chegara brauzerda qo'yilganmi? Unda server ham tekshiradimi degan
+            savol tug'iladi</td></tr>
+    <tr><td><code>disabled</code></td>
+        <td>Tugma o'chirilganmi yoki shunchaki ko'rinmaydimi</td></tr>
+    <tr><td><code>type="number"</code></td>
+        <td>Maydoncha turi to'g'ri tanlanganmi — mobil klaviaturaga ta'sir qiladi</td></tr>
+    <tr><td><code>alt</code>, <code>aria-label</code></td>
+        <td>Ekran o'quvchisi uchun matn bormi (foydalanish qulayligi)</td></tr>
+    <tr><td>Yashirilgan elementlar</td>
+        <td>Ko'rinmayotgan tugma sahifada bormi — DOM da qolib ketganmi</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="box box--warn">
+  <p class="box-title">Chegara qayerda — muhim savol</p>
+  <p>Brauzerdagi tekshiruv (<code>maxlength</code>, <code>required</code>)
+  chetlab o'tilishi mumkin. Agar server ham tekshirmasa — bu jiddiy nuqson.
+  Shuning uchun <a href="../lessons/0002-ekvivalentlik-va-chegaralar.html">chegara
+  qiymatlarini</a> sinaganda «bu chegara qayerda qo'yilgan?» deb so'rang.</p>
+</div>
+
+<div class="ask-teacher">
+  <p><strong>Tushunmagan xato xabarini menga tashlang.</strong> Konsoldagi
+  matnni nusxalab yuboring — sodda tilda tushuntiraman va bu qanday bugga
+  ishora qilishini aytaman.</p>
+</div>
+
+<nav class="nav">
+  <a href="../lessons/0006-devtools.html">6-dars</a>
+  <a href="./bug-report-shabloni.html">Bug report shabloni</a>
+  <a href="./exploratory-sessiya.html">Exploratory sessiya</a>
+  <a href="./lugat.html">Lug'at</a>
+</nav>
+
+</body>
+</html>

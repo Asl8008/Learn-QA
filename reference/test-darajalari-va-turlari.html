@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Test darajalari va turlari — Learn-QA</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<p class="crumbs"><a href="../lessons/index.html">Darslar</a> ·
+<a href="./lugat.html">Lug'at</a></p>
+
+<p class="eyebrow">Reference · chop etsa bo'ladi</p>
+<h1>Test darajalari va turlari</h1>
+<p class="subtitle">Ikki mustaqil o'lchov: <strong>daraja</strong> — nima
+sinalayotgani, <strong>tur</strong> — qaysi savolga javob izlayotganingiz.
+Har qanday turni har qanday darajada o'tkazish mumkin.</p>
+
+<h2>Darajalar</h2>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Daraja</th><th>Test obyekti</th><th>Kim</th><th>Tipik xatolar</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Component</strong><br><span class="cite">unit / module</span></td>
+      <td>Alohida sinaladigan bitta qism</td>
+      <td>Dasturchi</td>
+      <td>Noto'g'ri hisob, shart xatosi, chegara ishlovi</td>
+    </tr>
+    <tr>
+      <td><strong>Integration</strong></td>
+      <td>Qismlar yoki tizimlar orasidagi interfeys</td>
+      <td>Dasturchi, tester</td>
+      <td>Noto'g'ri uzatilgan ma'lumot, format nomuvofiqligi, javob
+          kutilmagani</td>
+    </tr>
+    <tr>
+      <td><strong>System</strong></td>
+      <td>Butun mahsulot, uchidan uchigacha oqim</td>
+      <td>Tester</td>
+      <td>Buzilgan foydalanuvchi yo'li, noto'g'ri holat, yo'qolgan ma'lumot</td>
+    </tr>
+    <tr>
+      <td><strong>Acceptance</strong></td>
+      <td>Mahsulotning ehtiyojga mosligi</td>
+      <td>Mijoz, biznes, tester</td>
+      <td>Noto'g'ri tushunilgan talab, yetishmayotgan ssenariy</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p class="cite">ISTQB 4.0 da integration ikkiga bo'linadi: <em>component
+integration</em> va <em>system integration</em>.</p>
+
+<h3>Acceptance testing shakllari</h3>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Shakl</th><th>Kim va nimaga qaraydi</th></tr></thead>
+  <tbody>
+    <tr><td>UAT</td><td>Foydalanuvchi: «ishimga yaraydimi?»</td></tr>
+    <tr><td>OAT</td><td>Administrator: zaxira, o'rnatish, yangilash, tiklash</td></tr>
+    <tr><td>Shartnoma / me'yoriy</td><td>Kelishuv yoki qonun talablari</td></tr>
+    <tr><td>Alpha</td><td>Ishlab chiquvchi muhitida, tashqi odamlar bilan</td></tr>
+    <tr><td>Beta</td><td>Haqiqiy foydalanuvchida, o'z muhitida</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Turlar</h2>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Tur</th><th>Savol</th><th>Namuna</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Funksional</strong></td><td>Nima qiladi?</td>
+        <td>Savatga qo'shish ishlaydimi</td></tr>
+    <tr><td><strong>Nofunksional</strong></td><td>Qanchalik yaxshi qiladi?</td>
+        <td>Necha soniyada, qanchalik qulay, qanchalik xavfsiz</td></tr>
+    <tr><td><strong>Qora quti</strong></td><td>Tashqaridan, kodsiz</td>
+        <td>Ekvivalentlik, chegara qiymatlari</td></tr>
+    <tr><td><strong>Oq quti</strong></td><td>Ichki tuzilishga qarab</td>
+        <td>Kod qamrovi, tarmoqlar</td></tr>
+    <tr><td><strong>O'zgarishga bog'liq</strong></td><td>O'zgarish nima qildi?</td>
+        <td>Confirmation (retest) va regression</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Nofunksional tekshiruv ro'yxati</h2>
+
+<p>Har bir sessiyaning oxirida shu ro'yxatdan yuring — funksional test
+tugagach 15 daqiqa yetadi.</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Xususiyat</th><th>Savollar</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><strong>Performance</strong></td>
+      <td>Sahifa necha soniyada ochiladi? Ko'p ma'lumot bo'lsa-chi? Sekin
+          internetda? (DevTools → Network → throttling)</td>
+    </tr>
+    <tr>
+      <td><strong>Usability</strong></td>
+      <td>Xato xabari nima qilishni aytadimi? Yordamsiz maqsadga yetiladimi?
+          Muhim tugma ko'rinadigan joydami?</td>
+    </tr>
+    <tr>
+      <td><strong>Security</strong></td>
+      <td>Chiqqandan keyin «orqaga» nima ko'rsatadi? Manzilni qo'lda yozib
+          kirsa? Boshqa odamning ID si bilan? Parol ekranda ko'rinadimi?</td>
+    </tr>
+    <tr>
+      <td><strong>Compatibility</strong></td>
+      <td>Boshqa brauzerda? Telefon o'lchamida? Kichik ekranda matn
+          kesilmaydimi?</td>
+    </tr>
+    <tr>
+      <td><strong>Reliability</strong></td>
+      <td>Internet uzilsa? Ikki marta bosilsa? Sahifa o'rtada yangilansa?</td>
+    </tr>
+    <tr>
+      <td><strong>Portability</strong></td>
+      <td>O'rnatish, yangilash, o'chirish ishlaydimi? Sozlamalar saqlanadimi?</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p class="cite">Xususiyatlar ISO/IEC 25010 sifat modeliga asoslangan;
+manba — <a href="https://astqb.org/2-2-test-levels-and-test-types/">ISTQB CTFL
+Syllabus, Test Levels and Test Types</a>.</p>
+
+<div class="box box--key">
+  <p class="box-title">Unit test nima uchun yetarli emas</p>
+  <p>Component testing qismning <em>ichi</em> to'g'riligini isbotlaydi.
+  Xatoning katta qismi esa qismlar <em>orasida</em> tug'iladi: format
+  nomuvofiqligi, noto'g'ri tartib, kutilmagan holat. Bu joylarni faqat
+  integration va system darajasida ko'rish mumkin.</p>
+</div>
+
+<div class="box box--warn">
+  <p class="box-title">Nofunksional testni kechga qoldirmang</p>
+  <p>ISTQB ta'kidlaydi: nofunksional xatoning kech topilishi loyiha uchun
+  juda xavfli. Sekin ishlaydigan arxitekturani reliz oldidan tuzatib
+  bo'lmaydi — u qayta yozishni talab qiladi.</p>
+</div>
+
+<div class="ask-teacher">
+  <p><strong>Topilmalaringizni tasniflab yuboring:</strong> har biri qaysi
+  darajada topildi va qaysi turga tegishli. Men tekshiraman.</p>
+</div>
+
+<nav class="nav">
+  <a href="../lessons/0010-test-darajalari-va-turlari.html">10-dars</a>
+  <a href="./test-plan-shabloni.html">Test plan shabloni</a>
+  <a href="./devtools-shpargalka.html">DevTools shpargalkasi</a>
+  <a href="./lugat.html">Lug'at</a>
+</nav>
+
+</body>
+</html>

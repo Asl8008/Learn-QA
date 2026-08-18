@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Avtomatlashtirish qarori — Learn-QA</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<p class="crumbs"><a href="../lessons/index.html">Darslar</a> ·
+<a href="./lugat.html">Lug'at</a></p>
+
+<p class="eyebrow">Reference · chop etsa bo'ladi</p>
+<h1>Avtomatlashtirish qarori</h1>
+<p class="subtitle">«Buni avtomatlashtiraymi?» degan savol tug'ilganda shu
+sahifani oching. Qaror kod yozishdan oldin qabul qilinadi.</p>
+
+<h2>Beshta savol</h2>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Savol</th><th>Avtomatlashtirish foydasiga</th><th>Qarshi</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Yiliga necha marta bajariladi?</td><td>Ko'p (regression)</td>
+        <td>Bir yoki ikki marta</td></tr>
+    <tr><td>Barqarormi?</td><td>Interfeys o'zgarmaydi</td>
+        <td>Hali qurilyapti</td></tr>
+    <tr><td>Natijani kim baholaydi?</td><td>Dastur: ha/yo'q</td>
+        <td>Odam: qulaylik, dizayn</td></tr>
+    <tr><td>Riski qanday?</td><td>Yuqori: to'lov, avtorizatsiya</td>
+        <td>Past va kam ishlatiladi</td></tr>
+    <tr><td>Qo'lda qilish qanchalik og'ir?</td>
+        <td>1000 ta yozuv, ko'p ma'lumot</td><td>Ikki bosishda tugaydi</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Oddiy hisob</h2>
+
+<div class="report">
+  <dl>
+    <dt>Qo'lda</dt>
+    <dd>bir marta bajarish vaqti × yiliga necha marta</dd>
+
+    <dt>Avtomat</dt>
+    <dd>yozish vaqti + yiliga qo'llab-quvvatlash vaqti</dd>
+
+    <dt>Qaror</dt>
+    <dd>Ikkinchisi birinchisidan kichik bo'lsa — avtomatlashtiring.
+        Bunga risk va barqarorlikni ham qo'shing.</dd>
+  </dl>
+</div>
+
+<h2>Piramida qoidasi</h2>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Qatlam</th><th>Soni</th><th>Xususiyati</th></tr></thead>
+  <tbody>
+    <tr><td>UI testlar</td><td>Kam</td>
+        <td>Sekin, mo'rt, qimmat. Faqat eng muhim oqimlar</td></tr>
+    <tr><td>API testlar</td><td>O'rtacha</td>
+        <td>Tez, barqaror. Testerning asosiy maydoni</td></tr>
+    <tr><td>Unit testlar</td><td>Ko'p</td>
+        <td>Eng tez va arzon. Dasturchi yozadi</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="box box--key">
+  <p class="box-title">Amaliy qoida</p>
+  <p>Avtomatlashtirmoqchi bo'lgan har bir testni so'rang: <strong>«buni
+  API darajasida qilib bo'ladimi?»</strong> Ha bo'lsa — pastga tushiring.
+  Faqat foydalanuvchi yo'lini uchidan uchigacha tekshirish kerak bo'lgandagina
+  UI darajasida qoldiring.</p>
+</div>
+
+<h2>Nima avtomatlashtirilmaydi</h2>
+
+<ul class="checklist">
+  <li>Exploratory sessiyalar</li>
+  <li>Qulaylik va dizayn bahosi</li>
+  <li>Bir marta bajariladigan tekshiruv</li>
+  <li>Hali o'zgarib turgan yangi ekran</li>
+  <li>Natijasi «chiroyli/qulay» kabi so'zlar bilan o'lchanadigan test</li>
+</ul>
+
+<h2>Xavflar ro'yxati</h2>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Xavf</th><th>Belgisi</th></tr></thead>
+  <tbody>
+    <tr><td>Real bo'lmagan kutish</td>
+        <td>«Bir oyda hammasini avtomatlashtiramiz»</td></tr>
+    <tr><td>Qo'llab-quvvatlash kam baholangan</td>
+        <td>Har relizda testlarni tuzatishga kun ketadi</td></tr>
+    <tr><td>Asbobga ortiqcha ishonish</td>
+        <td>Exploratory testing butunlay to'xtagan</td></tr>
+    <tr><td>Egasi yo'q</td><td>Qizil testlar haftalab tuzatilmaydi</td></tr>
+    <tr><td>Flaky testlar</td><td>«Yana o'sha test, e'tibor bermang»</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="box box--warn">
+  <p class="box-title">Flaky test qoidasi</p>
+  <p>Goh o'tadigan, goh yiqiladigan testni <strong>tuzating yoki
+  o'chiring</strong>. Uchinchi yo'l yo'q. Beqaror test butun to'plamga
+  bo'lgan ishonchni yo'q qiladi va haqiqiy xatolarni yashiradi.</p>
+</div>
+
+<h2>Yondashuvlar</h2>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Yondashuv</th><th>Baho</th></tr></thead>
+  <tbody>
+    <tr><td>Yozib olish (record &amp; playback)</td>
+        <td>Demoda hayratlanarli, amalda o'lchovlanmaydi va tez sinadi</td></tr>
+    <tr><td>Data-driven</td>
+        <td>Bitta skript + ma'lumot jadvali. Tester jadvalni to'ldira oladi</td></tr>
+    <tr><td>Keyword-driven</td>
+        <td>Qurilishi qimmat, keyin qulay va o'qish oson</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>O'rganish tartibi</h2>
+
+<ol class="steps">
+  <li>Bitta til: Python yoki JavaScript (asoslari yetadi)</li>
+  <li>API avtomatlashtirish — eng arzon boshlanish</li>
+  <li>UI avtomatlashtirish: Playwright yoki Selenium</li>
+  <li>CI — testlarni har o'zgarishda avtomatik yurgizish</li>
+</ol>
+
+<p class="cite">Manbalar:
+<a href="https://astqb.org/6-1-tool-support-for-testing/">ISTQB CTFL —
+Tool Support for Testing</a>,
+<a href="https://martinfowler.com/bliki/TestPyramid.html">Martin Fowler —
+TestPyramid</a>.</p>
+
+<div class="ask-teacher">
+  <p><strong>Qarorlaringizni yuboring.</strong> Ayniqsa
+  «avtomatlashtirilmaydi» deb belgilaganlaringizni — yangi boshlovchilar
+  odatda juda ko'p narsani avtomatlashtirishga urinadi.</p>
+</div>
+
+<nav class="nav">
+  <a href="../lessons/0014-avtomatlashtirish.html">14-dars</a>
+  <a href="./test-darajalari-va-turlari.html">Darajalar va turlar</a>
+  <a href="./api-testing-shpargalka.html">API testing shpargalkasi</a>
+  <a href="./lugat.html">Lug'at</a>
+</nav>
+
+</body>
+</html>

@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>16-dars: Xavfsizlik testi asoslari — Learn-QA</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<p class="crumbs"><a href="./index.html">Darslar</a> ·
+<a href="./0015-portfolio-va-ish-topish.html">← 15-dars</a></p>
+
+<p class="eyebrow">16-dars · taxminan 35 daqiqa</p>
+<h1>Eshik yopiqmi yoki shunchaki yopiq ko'rinadimi?</h1>
+<p class="subtitle">Siz xavfsizlik mutaxassisi bo'lmaysiz. Lekin bir necha
+oddiy tekshiruvni bilgan tester eng qimmat xatolar sinfini ushlaydi —
+va bu tekshiruvlar maxsus asbob talab qilmaydi.</p>
+
+<div class="box box--bad">
+  <p class="box-title">⚠ Avval chegara: nima mumkin va nima mumkin emas</p>
+  <p>Bu darsdagi tekshiruvlar <strong>faqat</strong> quyidagi hollarda
+  bajariladi:</p>
+  <ul>
+    <li>o'zingiz ishlayotgan mahsulotda, ish vazifangiz doirasida;</li>
+    <li>mashq uchun maxsus ochilgan demo saytlarda;</li>
+    <li>o'z hisobingiz va o'z ma'lumotingiz bilan.</li>
+  </ul>
+  <p><strong>Hech qachon:</strong> begona saytni ruxsatsiz sinamang;
+  boshqa odamlarning ma'lumotini ko'chirmang yoki o'qimang; tizimni
+  ishdan chiqarishga urinmang (yuk berish, DoS); topilgan zaiflikni
+  ommaga e'lon qilmang.</p>
+  <p>Zaiflik topsangiz — <em>faqat</em> jamoangizga yoki kompaniyaning
+  rasmiy manzili / bug bounty dasturi orqali xabar bering. Ruxsatsiz
+  tekshirish ko'p mamlakatda jinoyat hisoblanadi, niyat yaxshi
+  bo'lgan taqdirda ham.</p>
+</div>
+
+<h2>Nima uchun bu testerning ishi</h2>
+
+<p>Xavfsizlik xatolari boshqa xatolardan uch narsa bilan farq qiladi:</p>
+
+<ul>
+  <li><strong>Ko'rinmaydi.</strong> Interfeys mukammal ishlaydi. Xato faqat
+      kimdir «noto'g'ri» yo'ldan yurganda ochiladi.</li>
+  <li><strong>Qimmat.</strong> Ma'lumot sizib chiqsa, natija bitta buzilgan
+      tugmadan minglab marta og'irroq.</li>
+  <li><strong>Kech topiladi.</strong> Ko'pincha foydalanuvchi yoki hujumchi
+      tomonidan — ya'ni eng yomon vaqtda.</li>
+</ul>
+
+<p>Sizga to'liq xavfsizlik auditi kerak emas. Kerak bo'ladigan narsa —
+<strong>bir necha savol</strong>ni har bir muhim ekranda berish odati.</p>
+
+<h2>OWASP Top 10 — sohaning umumiy tili</h2>
+
+<p><strong>OWASP</strong> — veb-ilovalar xavfsizligi bo'yicha xalqaro
+nodavlat tashkilot. Ularning <strong>Top 10</strong> ro'yxati eng jiddiy
+xavflarni sanaydi va butun soha shu atamalar bilan gaplashadi.</p>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>№</th><th>Nomi</th><th>Oddiy tilda</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>A01</td><td>Broken Access Control</td>
+        <td>Ruxsati yo'q odam kira oladi</td></tr>
+    <tr><td>A02</td><td>Security Misconfiguration</td>
+        <td>Sozlamalar noto'g'ri: ochiq panel, standart parol</td></tr>
+    <tr><td>A03</td><td>Software Supply Chain Failures</td>
+        <td>Ishlatilgan tashqi kutubxona xavfli</td></tr>
+    <tr><td>A04</td><td>Cryptographic Failures</td>
+        <td>Maxfiy ma'lumot himoyasiz saqlanadi yoki uzatiladi</td></tr>
+    <tr><td>A05</td><td>Injection</td>
+        <td>Kiritilgan matn buyruq sifatida bajariladi</td></tr>
+    <tr><td>A06</td><td>Insecure Design</td>
+        <td>Xavfsizlik loyihaning o'zida o'ylanmagan</td></tr>
+    <tr><td>A07</td><td>Authentication Failures</td>
+        <td>Tizim boshqa odamni siz deb qabul qiladi</td></tr>
+    <tr><td>A08</td><td>Software or Data Integrity Failures</td>
+        <td>Ma'lumot yoki yangilanish yo'lda o'zgartirilishi mumkin</td></tr>
+    <tr><td>A09</td><td>Security Logging and Alerting Failures</td>
+        <td>Hujum sodir bo'ladi, lekin hech kim bilmaydi</td></tr>
+    <tr><td>A10</td><td>Mishandling of Exceptional Conditions</td>
+        <td>Xato holati noto'g'ri boshqariladi, ortiqcha ma'lumot ochiladi</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p class="cite">Manba: <a href="https://owasp.org/Top10/2025/">OWASP
+Top 10:2025</a>. Ro'yxat bir necha yilda bir yangilanadi.</p>
+
+<div class="box box--key">
+  <p class="box-title">Sizga qaysi uchtasi kerak</p>
+  <p>Qo'lda ishlaydigan tester maxsus asbobsiz asosan uchtasini tekshira
+  oladi: <strong>A01</strong> (kirish nazorati), <strong>A07</strong>
+  (autentifikatsiya va sessiya) va <strong>A10</strong> (xato holatlari).
+  Qolganlari dasturchi, DevOps yoki xavfsizlik mutaxassisining ishi.
+  Shu uchtasi esa ro'yxatning eng yuqorisida turadi.</p>
+</div>
+
+<h2>A01 — Kirish nazorati: eng ko'p uchraydigan xato</h2>
+
+<blockquote>
+  Kirish nazorati foydalanuvchilar o'zlariga berilgan ruxsatlardan tashqarida
+  harakat qila olmasligini ta'minlaydi. Buzilishi odatda ruxsatsiz
+  ma'lumot oshkor bo'lishiga, o'zgartirilishiga yoki yo'q qilinishiga olib
+  keladi.
+  <cite>OWASP Top 10:2025 — A01</cite>
+</blockquote>
+
+<p>OWASP sanaydigan shakllardan testerga eng foydalilari:</p>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Shakli</th><th>Qanday tekshiriladi</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>IDOR</strong><br><span class="cite">boshqa obyektga
+          to'g'ridan-to'g'ri murojaat</span></td>
+      <td>Manzildagi raqamni o'zgartiring: <code>/orders/1042</code> →
+          <code>/orders/1041</code>. Boshqa odamning buyurtmasi ochilsa —
+          jiddiy zaiflik</td>
+    </tr>
+    <tr>
+      <td><strong>Forced browsing</strong></td>
+      <td>Tizimga kirmagan holda ichki sahifa manzilini to'g'ridan-to'g'ri
+          yozing: <code>/admin</code>, <code>/inventory</code>,
+          <code>/profile</code></td>
+    </tr>
+    <tr>
+      <td><strong>Parametr o'zgartirish</strong></td>
+      <td>So'rovdagi qiymatni o'zgartiring: narx, miqdor, foydalanuvchi
+          ID si, rol</td>
+    </tr>
+    <tr>
+      <td><strong>API da nazorat yo'q</strong></td>
+      <td>Interfeys tugmani yashiradi, lekin <code>POST</code> /
+          <code>DELETE</code> so'rovini to'g'ridan-to'g'ri yuborsangiz
+          bajariladimi? (12-dars)</td>
+    </tr>
+    <tr>
+      <td><strong>Imtiyoz oshirish</strong></td>
+      <td>Oddiy foydalanuvchi admin funksiyasiga yeta oladimi?</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="box box--warn">
+  <p class="box-title">Eng ko'p qilinadigan xato: interfeysga ishonish</p>
+  <p>Dasturchi «o'chirish» tugmasini oddiy foydalanuvchidan yashiradi va
+  vazifa bajarildi deb hisoblaydi. Lekin tugmani yashirish —
+  <strong>himoya emas</strong>. Server har bir so'rovda «bu odamning
+  ruxsati bormi?» deb qayta tekshirishi shart. Buni faqat so'rovni
+  to'g'ridan-to'g'ri yuborib bilish mumkin — ya'ni 12-darsdagi ko'nikma
+  bilan.</p>
+</div>
+
+<h2>A07 — Sessiya va autentifikatsiya</h2>
+
+<p>OWASP nomlaydigan zaifliklardan testerga tegishlilari:</p>
+
+<ul class="checklist">
+  <li>Chiqishdan (logout) keyin sessiya bekor qilinmaydi — «orqaga»
+      tugmasi ma'lumotni ko'rsatadi</li>
+  <li>Kirishdan keyin ham eski sessiya identifikatori ishlatiladi</li>
+  <li>Sessiya identifikatori manzilda yoki yashirin maydonda ko'rinadi</li>
+  <li>Zaif yoki standart parol qabul qilinadi («Password1», «admin»)</li>
+  <li>Ketma-ket noto'g'ri urinishlar cheklanmaydi</li>
+  <li>Parolni tiklash havolasi eskirmaydi yoki qayta ishlatilishi mumkin</li>
+  <li>Uzoq vaqt harakatsizlikdan keyin sessiya tugamaydi</li>
+</ul>
+
+<div class="box">
+  <p class="box-title">Ikki daqiqalik tekshiruv</p>
+  <p>Tizimga kiring → ichki sahifani oching → manzilni nusxalang →
+  chiqing (logout) → nusxalangan manzilni yopishtiring.</p>
+  <p>Ma'lumot ko'rinsa — bu zaiflik. Xuddi shunday: chiqqandan keyin
+  brauzerning «orqaga» tugmasini bosing.</p>
+</div>
+
+<h2>A10 — Xato xabarlari nima aytib qo'yadi</h2>
+
+<p>Xato holati noto'g'ri boshqarilganda ilova ortiqcha ma'lumot ochib
+qo'yadi. Testerning ishi — <strong>xato xabarini o'qish</strong>:</p>
+
+<div class="compare">
+  <div class="box box--bad">
+    <p class="box-title">✗ Ko'p narsa aytadi</p>
+    <p><code>SQLException: table users_prod, column password_hash</code></p>
+    <p><code>/var/www/app/src/auth/login.php:142</code></p>
+    <p>«Bunday email topilmadi» / «Parol noto'g'ri» — alohida xabarlar</p>
+  </div>
+  <div class="box box--good">
+    <p class="box-title">✓ Yetarli va xavfsiz</p>
+    <p>«Ichki xato yuz berdi. Kod: 8412»</p>
+    <p>«Email yoki parol noto'g'ri»</p>
+    <p class="cite">Batafsil ma'lumot faqat serverning logida
+    qoladi.</p>
+  </div>
+</div>
+
+<p>Uchinchi misolga e'tibor bering: «bunday email topilmadi» degan xabar
+hujumchiga qaysi emaillar ro'yxatdan o'tganini aytib beradi. Ikkala holat
+uchun bir xil xabar bo'lishi kerak.</p>
+
+<h2>Yana uchta oddiy tekshiruv</h2>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Nima</th><th>Qanday</th></tr></thead>
+  <tbody>
+    <tr><td>HTTPS</td><td>Manzil <code>https://</code> bilan boshlanadimi?
+        <code>http://</code> ga o'tsa nima bo'ladi?</td></tr>
+    <tr><td>Javobda maxfiy ma'lumot</td>
+        <td>DevTools → Network → javob body'sida parol, token yoki
+            boshqa odamning ma'lumoti qaytmayaptimi? (6-dars)</td></tr>
+    <tr><td>Parol maydoni</td>
+        <td>Ekranda yulduzcha bilan yashiriladimi? Brauzer uni saqlab
+            qo'yayaptimi? Nusxalash mumkinmi?</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Xavfsizlik xatosini qanday xabar qilasiz</h2>
+
+<p>Oddiy bug report'dan uch farqi bor (1 va 8-darslar asosida):</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Farq</th><th>Nima uchun</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><strong>Ko'rinishi cheklanadi</strong></td>
+      <td>Hisobotni hamma ko'radigan joyga yozmang. Jira'da cheklangan
+          ko'rinishli issue yoki xavfsizlik jamoasining kanali</td>
+    </tr>
+    <tr>
+      <td><strong>Ta'sir yoziladi</strong></td>
+      <td>«Ishlamayapti» emas: <em>kim</em> nimaga kira oladi va
+          <em>oqibati</em> nima</td>
+    </tr>
+    <tr>
+      <td><strong>Tarqatilmaydi</strong></td>
+      <td>Skrinshot va qadamlarni chatlarga, ekran ulashishga yoki
+          ommaga chiqarmang</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Tekshirib ko'ramiz</h2>
+
+<section class="quiz">
+  <p class="quiz-prompt">1. Dasturchi «o'chirish» tugmasini oddiy
+  foydalanuvchidan yashirdi. Bu yetarli himoyami?</p>
+  <div class="quiz-options">
+    <button class="quiz-option" data-explain="Tugma ko'rinmasligi so'rovni yuborishga to'sqinlik qilmaydi — uni to'g'ridan-to'g'ri yuborish mumkin.">Ha, tugma ko'rinmasa bosib bo'lmaydi</button>
+    <button class="quiz-option" data-correct data-explain="To'g'ri. Server har bir so'rovda ruxsatni qayta tekshirishi shart. Interfeysdagi yashirish — qulaylik, himoya emas.">Yo'q, server ham ruxsatni tekshirishi kerak</button>
+    <button class="quiz-option" data-explain="Brauzerga bog'liq emas — so'rovni istalgan vositadan yuborish mumkin.">Faqat ba'zi brauzerlarda yetarli</button>
+    <button class="quiz-option" data-explain="Bu kirish nazorati masalasi — parol bilan bog'liq emas.">Parol kuchli bo'lsa yetarli</button>
+  </div>
+  <p class="quiz-feedback" hidden></p>
+</section>
+
+<section class="quiz">
+  <p class="quiz-prompt">2. Kirish formasi ikki xil xabar beradi: «bunday
+  email topilmadi» va «parol noto'g'ri». Bu nega muammo?</p>
+  <div class="quiz-options">
+    <button class="quiz-option" data-explain="Aksincha — foydalanuvchi uchun aniqroq. Muammo boshqa tomonda.">Foydalanuvchi uchun tushunarsiz</button>
+    <button class="quiz-option" data-correct data-explain="To'g'ri. Hujumchi shu farq orqali qaysi emaillar ro'yxatdan o'tganini aniqlab oladi. Ikkala holatda bir xil xabar bo'lishi kerak.">Qaysi email mavjudligini oshkor qiladi</button>
+    <button class="quiz-option" data-explain="Bu matn masalasi — sahifa tezligiga ta'sir qilmaydi.">Sahifani sekinlashtiradi</button>
+    <button class="quiz-option" data-explain="Muammo yo'q emas — bu ma'lum zaiflik turi.">Muammo yo'q, bu normal</button>
+  </div>
+  <p class="quiz-feedback" hidden></p>
+</section>
+
+<section class="quiz">
+  <p class="quiz-prompt">3. Ish jarayonida real mahsulotda jiddiy zaiflik
+  topdingiz. Birinchi qadam qanday?</p>
+  <div class="quiz-options">
+    <button class="quiz-option" data-explain="Ommaga chiqarish zaiflikni hujumchilarga ochib beradi va sizni javobgarlikka tortishi mumkin.">Ijtimoiy tarmoqda ogohlantirish yozish</button>
+    <button class="quiz-option" data-correct data-explain="To'g'ri. Cheklangan ko'rinishda hisobot, ta'sir tavsifi bilan — va tarqatmasdan.">Cheklangan ko'rinishli hisobot yozib, jamoaga xabar berish</button>
+    <button class="quiz-option" data-explain="Boshqa foydalanuvchilarning ma'lumotiga kirish — chegaradan chiqish, hatto tekshirish maqsadida ham.">Boshqa foydalanuvchilar ma'lumotini ko'chirib, dalil to'plash</button>
+    <button class="quiz-option" data-explain="Umumiy chatda yozish zaiflikni keraksiz keng doiraga tarqatadi.">Umumiy jamoa chatiga skrinshot tashlash</button>
+  </div>
+  <p class="quiz-feedback" hidden></p>
+</section>
+
+<section class="recall">
+  <p class="recall-q">Eslab ko'ring — <em>15-darsdan</em>: «buni qanday test
+  qilasiz?» savoliga javobning birinchi va oxirgi qadami nima edi?</p>
+  <button class="recall-btn">Javobni ko'rsatish</button>
+  <p class="recall-a" hidden><strong>Birinchi</strong> — aniqlashtiruvchi
+  savollar berish (kim uchun, qanday cheklovlar, qaysi muhitlar).
+  <strong>Oxirgi</strong> — to'xtash nuqtasini aytish: vaqt yetmasa nimani
+  tashlayman va nima uchun. Aynan shu ikkisi eng ko'p ball keltiradi va eng
+  ko'p unutiladi.</p>
+</section>
+
+<h2>Amaliyot</h2>
+
+<h3>A — Sessiya va kirish nazorati (30 daqiqa)</h3>
+
+<p><a href="https://www.saucedemo.com/">saucedemo.com</a> — mashq uchun
+ochilgan demo sayt, ya'ni ruxsat masalasi yo'q.</p>
+
+<ol class="steps">
+  <li>Tizimga kiring, ichki sahifani oching, manzilni nusxalang.</li>
+  <li>Chiqing va nusxalangan manzilni yopishtiring. Nima bo'ldi?
+      Yozib qo'ying.</li>
+  <li>Chiqqandan keyin brauzerning «orqaga» tugmasini bosing. Nima
+      ko'rinadi?</li>
+  <li>Umuman kirmagan holda ichki sahifa manzillarini yozib ko'ring.</li>
+  <li>Kirish formasiga noto'g'ri parol kiriting va xato xabarini
+      diqqat bilan o'qing: u qaysi ma'lumotni oshkor qiladi?</li>
+  <li>DevTools → Network ni ochib, kirish so'rovining javobiga qarang:
+      parol yoki token ochiq qaytyaptimi?</li>
+</ol>
+
+<h3>B — Xavfsizlik test holatlarini loyihalang (30 daqiqa)</h3>
+
+<p>12-darsdagi ro'yxatdan o'tish API si uchun endi <em>xavfsizlik</em>
+holatlarini yozing:</p>
+
+<ol class="steps">
+  <li>Tokensiz so'rov yuborilsa</li>
+  <li>Boshqa foydalanuvchining ID si bilan so'ralsa</li>
+  <li>Zaif parol («12345678») yuborilsa</li>
+  <li>Ketma-ket 20 marta noto'g'ri parol yuborilsa</li>
+  <li>Javobda parol yoki hash qaytsa</li>
+  <li>Chiqishdan keyin eski token bilan so'rov yuborilsa</li>
+</ol>
+
+<p>Har biriga kutilgan natijani yozing — nafaqat status kodini, balki
+<em>nima qaytmasligi</em> kerakligini ham.</p>
+
+<div class="box box--key">
+  <p class="box-title">Bu sizni qanday ajratib turadi</p>
+  <p>Junior testerlarning aksariyati xavfsizlik haqida umuman o'ylamaydi.
+  Suhbatda «logout'dan keyin orqaga tugmasini tekshiraman va API'ga
+  to'g'ridan-to'g'ri so'rov yuborib server ruxsatni qayta tekshirishini
+  ko'raman» deb aytsangiz — bu darhol sezilarli farq.</p>
+</div>
+
+<h2>O'qish uchun (birlamchi manba)</h2>
+
+<blockquote>
+  <a href="https://owasp.org/Top10/2025/">OWASP Top 10:2025</a>
+  <cite>Veb-ilovalar uchun eng jiddiy xavflar ro'yxati. Har bir bo'limda
+  tavsif, misollar va oldini olish choralari bor. Ingliz tilida.</cite>
+</blockquote>
+
+<p class="cite">Chuqurroq: <a href="https://owasp.org/www-project-web-security-testing-guide/">OWASP
+Web Security Testing Guide</a> — tekshirish usullarining batafsil
+qo'llanmasi. Hozircha kerak emas, keyingi bosqich uchun.</p>
+
+<div class="ask-teacher">
+  <p><strong>A va B qismlar natijasini yuboring.</strong> Xavfsizlik
+  holatlarini loyihalash alohida ko'nikma — men sizning ro'yxatingizga
+  o'zimnikini qo'shaman. Eslatma: real mahsulotda topilgan narsani menga
+  ham batafsil yubormang, faqat mashq saytlaridagi natijalarni.</p>
+</div>
+
+<nav class="nav">
+  <a href="../reference/xavfsizlik-checklist.html">Reference: Xavfsizlik checklist</a>
+  <a href="../reference/api-testing-shpargalka.html">Reference: API testing</a>
+  <a href="../reference/lugat.html">Reference: Lug'at</a>
+</nav>
+
+<nav class="lesson-nav">
+  <a class="lesson-nav-link lesson-nav-prev" href="./0015-portfolio-va-ish-topish.html">
+    <span class="lesson-nav-dir">← Oldingi dars</span>
+    <span class="lesson-nav-title">15. Bilim bor — endi uni ko'rsatish kerak</span>
+  </a>
+  <a class="lesson-nav-link lesson-nav-next" href="./0017-accessibility.html">
+    <span class="lesson-nav-dir">Keyingi dars →</span>
+    <span class="lesson-nav-title">17. Sichqonchasiz o'tib ko'ring</span>
+  </a>
+  <a class="lesson-nav-home" href="./index.html">Barcha darslar</a>
+</nav>
+
+<script src="../assets/lesson.js"></script>
+</body>
+</html>

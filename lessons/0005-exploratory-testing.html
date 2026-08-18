@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>5-dars: Exploratory testing — Learn-QA</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<p class="crumbs"><a href="./index.html">Darslar</a> ·
+<a href="./0004-bug-hayot-sikli.html">← 4-dars</a></p>
+
+<p class="eyebrow">5-dars · taxminan 30 daqiqa (shundan 30 daqiqa amaliyot)</p>
+<h1>Talab yo'q — nimadan boshlaysiz?</h1>
+<p class="subtitle">Kitobda hamma narsa oson: talab bor, undan test case chiqadi.
+Haqiqiy ishda esa ko'pincha sizga shunchaki havola beriladi: «mana, ko'rib
+chiqing». Bu darsda o'sha holatda tizimli ishlashni o'rganamiz.</p>
+
+<h2>Muammo: yozilgan test case yetmaydi</h2>
+
+<p>Faraz qiling, 3-darsdagidek 40 ta test case yozdingiz va hammasi «o'tdi».
+Mahsulot xatosizmi? Yo'q. Test case'lar faqat siz <em>o'ylab topgan</em>
+narsalarni tekshiradi. Foydalanuvchi esa siz o'ylamagan ishni qiladi.</p>
+
+<p>Shu bo'shliqni <strong>exploratory testing</strong> to'ldiradi: o'rganish,
+o'ylash va sinash bir vaqtda ketadi. Har bir natija keyingi qadamni belgilaydi.</p>
+
+<div class="box box--warn">
+  <p class="box-title">Bu «shunchaki bosib ko'rish» emas</p>
+  <p>Eng ko'p uchraydigan tushunmovchilik shu. Exploratory testing — tartibsiz
+  ish emas, <strong>tartibi boshqacha</strong> ish. Farqi shundaki, reja
+  oldindan emas, ish davomida tug'iladi — lekin maqsad, vaqt chegarasi va
+  yozuvlar baribir bo'ladi.</p>
+</div>
+
+<h2>Uchta ustun: charter, timebox, yozuvlar</h2>
+
+<h3>1. Charter — sessiyaning maqsadi</h3>
+
+<p><strong>Charter</strong> — bir-uch gapdan iborat vazifa: shu sessiyada nimani
+o'rganasiz. U tor bo'lsa — diqqat yig'iladi; keng bo'lsa — adashasiz.</p>
+
+<div class="compare">
+  <div class="box box--bad">
+    <p class="box-title">✗ Juda keng</p>
+    <p>«Saytni test qilish»</p>
+    <p>«Savatni ko'rib chiqish»</p>
+  </div>
+  <div class="box box--good">
+    <p class="box-title">✓ Ishlaydigan charter</p>
+    <p>«Savatda mahsulot sonini o'zgartirishni o'rganish — hisoblagich, narx
+    va buyurtma jami qanday yangilanishini kuzatish»</p>
+  </div>
+</div>
+
+<p class="cite">Charter tushunchasi Jonathan va James Bach ning
+<em>session-based test management</em> usulidan kelib chiqqan
+(<a href="https://en.wikipedia.org/wiki/Session-based_testing">Session-based testing</a>).</p>
+
+<h3>2. Timebox — vaqt chegarasi</h3>
+
+<p>Sessiya <strong>30–45 daqiqa</strong>ga cheklanadi. Taymer qo'yiladi.
+Sabab oddiy: chegarasiz ish cho'ziladi va diqqat tarqaladi. Vaqt tugagach —
+to'xtaysiz va yozganingizni ko'rib chiqasiz.</p>
+
+<h3>3. Yozuvlar — sessiya davomida</h3>
+
+<p>Keyin emas, <em>davomida</em>. Uch xil narsa yoziladi:</p>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Belgi</th><th>Nima yoziladi</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>BUG</strong></td>
+        <td>Xato deb hisoblagan narsangiz. Keyin to'liq hisobotga aylanadi.</td></tr>
+    <tr><td><strong>SAVOL</strong></td>
+        <td>Javobini bilmagan narsangiz: «bu shunday bo'lishi kerakmi?»
+            Bular jamoaga beriladigan savollar.</td></tr>
+    <tr><td><strong>G'OYA</strong></td>
+        <td>Sinab ko'rishga ulgurmagan fikringiz — keyingi sessiya uchun.</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Nimani sinashni qanday o'ylab topasiz?</h2>
+
+<p>Bo'sh ekran oldida turib qolmaslik uchun <strong>evristika</strong> —
+tayyor savollar to'plami ishlatiladi. Ular «nima qilsam?» degan savolni
+yo'qotadi.</p>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Evristika</th><th>Savol</th><th>Savat misolida</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Nol · Bitta · Ko'p</strong></td>
+      <td>Hech nima, bitta, juda ko'p bo'lsa nima bo'ladi?</td>
+      <td>Bo'sh savat · 1 mahsulot · 100 nusxa</td>
+    </tr>
+    <tr>
+      <td><strong>CRUD</strong></td>
+      <td>Yaratish, ko'rish, o'zgartirish, o'chirish — hammasi ishlaydimi?</td>
+      <td>Qo'shish · ko'rish · sonini o'zgartirish · o'chirish</td>
+    </tr>
+    <tr>
+      <td><strong>Uzilish</strong></td>
+      <td>O'rtada to'xtatsam nima bo'ladi?</td>
+      <td>To'lov paytida sahifani yangilash yoki «orqaga» bosish</td>
+    </tr>
+    <tr>
+      <td><strong>Ketma-ketlik</strong></td>
+      <td>Tartibni buzsam?</td>
+      <td>Avval checkout, keyin savatga qo'shish</td>
+    </tr>
+    <tr>
+      <td><strong>Ikki oyna</strong></td>
+      <td>Bir vaqtda ikki joyda ishlasam?</td>
+      <td>Ikki tabda bir hisob — biri savatni tozalaydi</td>
+    </tr>
+    <tr>
+      <td><strong>Orqaga qaytish</strong></td>
+      <td>Brauzerning «orqaga» tugmasi holatni buzadimi?</td>
+      <td>Buyurtmadan keyin «orqaga» — takror buyurtma bo'ladimi?</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p class="cite">Bu evristikalar Hendrickson, Lyndsay va Emery ning
+<a href="https://blog.tentamen.eu/testing-heuristics-cheat-sheet/">Test Heuristics
+Cheat Sheet</a> idan olingan — to'liq ro'yxat
+<a href="../reference/exploratory-sessiya.html">reference hujjatda</a>.</p>
+
+<div class="box box--key">
+  <p class="box-title">Oracle — «bu xato» deb qanday bilasiz?</p>
+  <p>Talab yo'q bo'lsa, nimaga tayanasiz? Uch manbaga: <strong>izchillik</strong>
+  (saytning boshqa joyida bu boshqacha ishlaydi), <strong>foydalanuvchi
+  kutgani</strong> (hech kim bunday bo'lishini kutmaydi), <strong>o'xshash
+  mahsulotlar</strong> (boshqa do'konlarda bunday emas). Hisobotda aynan shu
+  asosni yozing — shunda «bu xato emas» deyilmaydi.</p>
+</div>
+
+<h2>Tekshirib ko'ramiz</h2>
+
+<section class="quiz">
+  <p class="quiz-prompt">1. Exploratory testing ning asosiy farqi nimada?</p>
+  <div class="quiz-options">
+    <button class="quiz-option" data-explain="Yozuvlar shart. Yozuvsiz sessiya — natijasi yo'qoladigan ish.">Hech qanday hujjat yozilmaydi</button>
+    <button class="quiz-option" data-correct data-explain="O'rganish, o'ylash va sinash bir vaqtda ketadi — har bir natija keyingi qadamni belgilaydi.">Reja ish davomida tug'iladi</button>
+    <button class="quiz-option" data-explain="Aksincha — vaqt chegarasi (timebox) uning asosiy ustunlaridan biri.">Vaqt chegarasi qo'yilmaydi</button>
+    <button class="quiz-option" data-explain="Bu texnikaning maqsadi emas. U test case'lar qoldirgan bo'shliqni to'ldiradi.">Test case'lar o'rnini bosadi</button>
+  </div>
+  <p class="quiz-feedback" hidden></p>
+</section>
+
+<section class="quiz">
+  <p class="quiz-prompt">2. Qaysi charter yaxshi yozilgan?</p>
+  <div class="quiz-options">
+    <button class="quiz-option" data-explain="Juda keng. Bir sessiyaga sig'maydi va diqqat tarqaladi.">Butun saytni sinchiklab tekshirish</button>
+    <button class="quiz-option" data-explain="Juda tor va aniq — bu charter emas, oddiy test case.">«Continue» tugmasini bosib ko'rish</button>
+    <button class="quiz-option" data-correct data-explain="Aniq maydon, aniq kuzatiladigan narsa, lekin o'rganishga joy qoldiradi.">Savatda son o'zgarishi narxga ta'sirini o'rganish</button>
+    <button class="quiz-option" data-explain="Bu maqsad emas, natija. Charter nimani o'rganishni aytadi.">Iloji boricha ko'proq xato topish</button>
+  </div>
+  <p class="quiz-feedback" hidden></p>
+</section>
+
+<section class="quiz">
+  <p class="quiz-prompt">3. Talab yozilmagan. «Bu xato» deb nimaga tayanasiz?</p>
+  <div class="quiz-options">
+    <button class="quiz-option" data-explain="Shaxsiy did asos bo'lolmaydi — hisobot darhol rad etiladi.">O'zimga yoqmagani asos bo'ladi</button>
+    <button class="quiz-option" data-correct data-explain="Izchillik, foydalanuvchi kutgani va o'xshash mahsulotlar — uchala asos ham hisobotda yoziladi.">Izchillik va foydalanuvchi kutgani</button>
+    <button class="quiz-option" data-explain="Talab yo'q bo'lsa ham xato aniqlanadi — aks holda hech narsa topilmasdi.">Talab yo'q bo'lsa xato ham yo'q</button>
+    <button class="quiz-option" data-explain="Dasturchining fikri foydali, lekin bu tekshiruvdan keyingi qadam.">Dasturchining fikriga tayanaman</button>
+  </div>
+  <p class="quiz-feedback" hidden></p>
+</section>
+
+<section class="recall">
+  <p class="recall-q">Eslab ko'ring — <em>4-darsdan</em>: xato tuzatilgach siz
+  ikkita ish qilasiz. Ular qaysi va farqi nimada?</p>
+  <button class="recall-btn">Javobni ko'rsatish</button>
+  <p class="recall-a" hidden><strong>Confirmation testing (retest)</strong> —
+  o'sha xato tuzatilganini tasdiqlash, hisobotdagi qadamlarni aynan qaytarib.
+  <strong>Regression testing</strong> — tuzatish boshqa narsani buzmaganini
+  tekshirish, atrofdagi funksiyalarni ko'rib.</p>
+</section>
+
+<h2>Amaliyot: birinchi sessiyangiz</h2>
+
+<p>Bu darsning amaliyoti — asosiy qismi. 30 daqiqa vaqt ajrating va taymer
+qo'ying.</p>
+
+<ol class="steps">
+  <li><strong>Charter yozing.</strong> Masalan:
+      <em>«saucedemo.com savatida mahsulot sonini o'zgartirish va o'chirishni
+      o'rganish — hisoblagich, narx va buyurtma jami qanday yangilanishini
+      kuzatish»</em>. O'zingiznikini yozsangiz yanada yaxshi.</li>
+  <li><strong>Taymerni 30 daqiqaga qo'ying.</strong> Telefonda ham bo'ladi.</li>
+  <li><strong>Sinang va yozing.</strong> Yuqoridagi evristikalar jadvalini
+      yoningizda ochib qo'ying. Har bir topilmani BUG / SAVOL / G'OYA deb
+      belgilang.</li>
+  <li><strong>Taymer tugaganda to'xtang.</strong> Qiziq bo'lsa ham. Bu — intizom
+      mashqi.</li>
+  <li><strong>Yozuvlarni ko'rib chiqing.</strong> BUG larni
+      <a href="./0001-bug-report-yozish.html">1-dars shabloni</a> bo'yicha to'liq
+      hisobotga aylantiring. SAVOL larni alohida ro'yxat qiling.</li>
+  <li>Sessiya yozuvlaringizni va hisobotlarni menga yuboring.</li>
+</ol>
+
+<div class="box box--key">
+  <p class="box-title">Nolta xato topsangiz ham normal</p>
+  <p>Sessiyaning maqsadi — xato soni emas, <strong>o'rganilgan hudud</strong>.
+  «Savatning bu qismini 30 daqiqa sinadim, quyidagilarni ko'rdim, mana bu
+  savollarim bor» — bu to'liq natija. Ish beruvchi ham aynan shu ishlash
+  usulini ko'rmoqchi bo'ladi.</p>
+</div>
+
+<h2>O'qish uchun (birlamchi manba)</h2>
+
+<blockquote>
+  <a href="https://satisfice.us/articles/et-article.pdf">Exploratory Testing
+  Explained</a> — James Bach (PDF)
+  <cite>Bu sohaning asoschisi yozgan asosiy maqola. Qisqa va tushunarli.
+  Exploratory testing haqidagi eng ishonchli manba.</cite>
+</blockquote>
+
+<p class="cite">Chuqurroq: Elisabeth Hendrickson ning
+<a href="https://pragprog.com/titles/ehxta/explore-it/"><em>Explore It!</em></a>
+kitobi — shu mavzudagi eng yaxshi amaliy qo'llanma.</p>
+
+<div class="ask-teacher">
+  <p><strong>Sessiya yozuvlaringizni yuboring.</strong> Men ularni o'qib,
+  qaysi evristikani ishlatmaganingizni va qaysi hududni ochmay qolganingizni
+  ko'rsataman. Bir necha sessiyadan keyin bu o'z-o'zidan kela boshlaydi.</p>
+</div>
+
+<nav class="nav">
+  <a href="../reference/exploratory-sessiya.html">Reference: Exploratory sessiya</a>
+  <a href="../reference/test-dizayn-texnikalari.html">Reference: Test dizayn</a>
+  <a href="../reference/lugat.html">Reference: Lug'at</a>
+</nav>
+
+<nav class="lesson-nav">
+  <a class="lesson-nav-link lesson-nav-prev" href="./0004-bug-hayot-sikli.html">
+    <span class="lesson-nav-dir">← Oldingi dars</span>
+    <span class="lesson-nav-title">4. Hisobot yuborildi — endi nima bo'ladi?</span>
+  </a>
+  <a class="lesson-nav-link lesson-nav-next" href="./0006-devtools.html">
+    <span class="lesson-nav-dir">Keyingi dars →</span>
+    <span class="lesson-nav-title">6. Ekranning orqasini ko'rish: DevTools</span>
+  </a>
+  <a class="lesson-nav-home" href="./index.html">Barcha darslar</a>
+</nav>
+
+<script src="../assets/lesson.js"></script>
+</body>
+</html>

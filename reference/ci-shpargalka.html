@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CI shpargalkasi — Learn-QA</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<p class="crumbs"><a href="../lessons/index.html">Darslar</a> ·
+<a href="./lugat.html">Lug'at</a></p>
+
+<p class="eyebrow">Reference · chop etsa bo'ladi</p>
+<h1>CI shpargalkasi</h1>
+<p class="subtitle">Testlarni jarayonga ulaganda va qizil build'ni
+tahlil qilganda shu sahifani oching.</p>
+
+<h2>Tushunchalar</h2>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Atama</th><th>Ma'nosi</th></tr></thead>
+  <tbody>
+    <tr><td>Workflow</td><td>Avtomatik jarayon: qachon, qayerda, nima
+        bajarilishi</td></tr>
+    <tr><td>Event</td><td>Workflow'ni ishga tushiradigan hodisa
+        (push, pull request, jadval)</td></tr>
+    <tr><td>Job</td><td>Bitta serverda bajariladigan qadamlar
+        to'plami</td></tr>
+    <tr><td>Step</td><td>Bitta buyruq yoki tayyor action</td></tr>
+    <tr><td>Action</td><td>Qayta ishlatiladigan tayyor qism</td></tr>
+    <tr><td>Runner</td><td>Workflow ishlaydigan server</td></tr>
+    <tr><td>Artifact</td><td>Ish natijasida saqlanadigan fayl: hisobot,
+        skrinshot, video, trace</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Tayyor workflow (Playwright)</h2>
+
+<pre><code>name: Playwright Tests
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+jobs:
+  test:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v6
+    - uses: actions/setup-node@v6
+      with:
+        node-version: lts/*
+    - name: Install dependencies
+      run: npm ci
+    - name: Install Playwright Browsers
+      run: npx playwright install --with-deps
+    - name: Run Playwright tests
+      run: npx playwright test
+    - uses: actions/upload-artifact@v4
+      if: ${{ !cancelled() }}
+      with:
+        name: playwright-report
+        path: playwright-report/
+        retention-days: 30</code></pre>
+
+<p>Fayl joyi: <code>.github/workflows/playwright.yml</code></p>
+
+<p class="cite">Manba: <a href="https://playwright.dev/docs/ci-intro">Playwright
+Docs — Setting up CI</a>.</p>
+
+<h2>Qaysi testlar qachon</h2>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Qachon</th><th>Nima</th><th>Vaqt chegarasi</th></tr></thead>
+  <tbody>
+    <tr><td>Har commit</td><td>Unit + API + smoke UI</td>
+        <td>5–10 daqiqa</td></tr>
+    <tr><td>Pull request</td><td>+ asosiy UI oqimlari</td>
+        <td>15–20 daqiqa</td></tr>
+    <tr><td>Kechasi</td><td>To'liq to'plam, bir necha brauzer</td>
+        <td>Cheklanmagan</td></tr>
+    <tr><td>Reliz oldidan</td><td>To'liq regression + exploratory</td>
+        <td>Reja bo'yicha</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="box box--warn">
+  <p class="box-title">10 daqiqa qoidasi</p>
+  <p>Har commit'da yuradigan to'plam 10 daqiqadan uzun bo'lsa,
+  dasturchilar natijani kutmay qo'yadi va CI ma'nosini yo'qotadi. Tez
+  to'plamni qisqa ushlab turish — testerning doimiy vazifasi.</p>
+</div>
+
+<h2>Qizil build'ni tahlil qilish</h2>
+
+<ol class="steps">
+  <li>Qaysi qadamda to'xtadi — o'rnatishda yoki testda?</li>
+  <li>Xato xabarini o'qing: nima kutilgan, nima topilgan?</li>
+  <li>Artifact'ni yuklab oling (hisobot, skrinshot, video, trace)</li>
+  <li><code>npx playwright show-report</code> bilan oching</li>
+  <li>Tasnif qiling: <strong>haqiqiy bug</strong> / <strong>test
+      xatosi</strong> / <strong>muhit muammosi</strong></li>
+</ol>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Tasnif</th><th>Harakat</th></tr></thead>
+  <tbody>
+    <tr><td>Haqiqiy bug</td><td>Bug report yozing (1-dars), testni
+        o'zgartirmang</td></tr>
+    <tr><td>Test xatosi</td><td>Lokator yoki kutilgan natijani
+        tuzating</td></tr>
+    <tr><td>Muhit muammosi</td><td>Sozlamani tuzating; takrorlansa,
+        alohida vazifa qiling</td></tr>
+    <tr><td>Beqaror (flaky)</td><td>Tuzating yoki o'chiring — oraliq
+        yo'q</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Tuzoqlar</h2>
+
+<ul class="checklist">
+  <li>Test mahalliy ma'lumotga bog'lanmasin — CI da toza server
+      bo'ladi</li>
+  <li>Parol va token kodda yozilmasin — Secrets ishlating</li>
+  <li><code>node_modules</code> <code>.gitignore</code> da bo'lsin</li>
+  <li>Testlar bir-biriga va bajarilish tartibiga bog'liq bo'lmasin</li>
+  <li>Hisobot artifact sifatida saqlansin — yiqilganda ham</li>
+  <li>Qizil build darhol tuzatilsin: yashil normal, qizil hodisa</li>
+</ul>
+
+<div class="box box--bad">
+  <p class="box-title">Repozitoriyga tushgan parol</p>
+  <p>Uni o'chirib tashlash yetmaydi — u git tarixida qoladi. Shuning
+  uchun umuman yozmaslik kerak. Agar tushib qolgan bo'lsa: parolni
+  <strong>almashtiring</strong>, faqat o'chirish bilan
+  cheklanmang.</p>
+</div>
+
+<div class="ask-teacher">
+  <p><strong>Repozitoriy havolangizni yuboring.</strong> Workflow
+  faylingizni va qizil build'ni tahlil qilish tajribangizni ko'rib
+  chiqaman.</p>
+</div>
+
+<nav class="nav">
+  <a href="../lessons/0020-ci-cd.html">20-dars</a>
+  <a href="./playwright-shpargalka.html">Playwright shpargalkasi</a>
+  <a href="./avtomatlashtirish-qarori.html">Avtomatlashtirish qarori</a>
+  <a href="./lugat.html">Lug'at</a>
+</nav>
+
+</body>
+</html>

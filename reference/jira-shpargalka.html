@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Jira shpargalkasi — Learn-QA</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<p class="crumbs"><a href="../lessons/index.html">Darslar</a> ·
+<a href="./lugat.html">Lug'at</a></p>
+
+<p class="eyebrow">Reference · chop etsa bo'ladi</p>
+<h1>Jira shpargalkasi</h1>
+<p class="subtitle">Bug yaratayotganda shu hujjatni yoningizda saqlang.
+Maydonlar, statuslar, bog'lanish turlari va JQL — bir sahifada.</p>
+
+<h2>Bug yaratish tartibi</h2>
+
+<ul class="checklist">
+  <li><strong>Issue type</strong> = Bug</li>
+  <li><strong>Summary</strong> — bitta gap: qayerda + nima bo'ladi</li>
+  <li><strong>Description</strong> — qadamlar, kutilgan natija, haqiqiy natija</li>
+  <li><strong>Environment</strong> — brauzer, OS, qurilma, versiya</li>
+  <li><strong>Priority</strong> — quyidagi shkala bo'yicha</li>
+  <li><strong>Attachment</strong> — skrinshot yoki video; konsol xatosi bo'lsa u ham</li>
+  <li><strong>Labels / Components</strong> — mahsulotning qaysi qismi</li>
+  <li><strong>Link</strong> — tegishli story yoki oldingi bug</li>
+</ul>
+
+<h2>Maydonlar jadvali</h2>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Maydon</th><th>Nima yoziladi</th><th>Kim to'ldiradi</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Summary</td><td>Qisqa sarlavha, bitta gap</td><td>Tester</td></tr>
+    <tr><td>Description</td><td>Qadamlar + kutilgan + haqiqiy</td><td>Tester</td></tr>
+    <tr><td>Priority</td><td>Navbat darajasi</td><td>Tester → lead tuzatadi</td></tr>
+    <tr><td>Environment</td><td>Brauzer, OS, versiya</td><td>Tester</td></tr>
+    <tr><td>Attachments</td><td>Dalil fayllari</td><td>Tester</td></tr>
+    <tr><td>Labels</td><td>Erkin teglar</td><td>Tester</td></tr>
+    <tr><td>Components</td><td>Mahsulot qismi</td><td>Tester</td></tr>
+    <tr><td>Affects version</td><td>Xato topilgan versiya</td><td>Tester</td></tr>
+    <tr><td>Fix version</td><td>Tuzatilgan versiya</td><td>Dasturchi</td></tr>
+    <tr><td>Assignee</td><td>Hozir kim ishlayapti</td><td>Lead / dasturchi</td></tr>
+    <tr><td>Reporter</td><td>Kim yozgan</td><td>Avtomatik</td></tr>
+    <tr><td>Resolution</td><td>Qanday yopildi</td><td>Yopayotgan odam</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Status va Resolution</h2>
+
+<div class="compare">
+  <div class="box">
+    <p class="box-title">Status — qayerda turibdi</p>
+    <p>To Do · In Progress · In Review · In Test · Done</p>
+  </div>
+  <div class="box">
+    <p class="box-title">Resolution — qanday tugadi</p>
+    <p>Done · Won't do · Duplicate · Cannot Reproduce</p>
+  </div>
+</div>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Resolution</th><th>Ma'nosi</th><th>Sizning javobingiz</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Done</td><td>Tuzatildi</td>
+        <td>Retest qiling, so'ng regression</td></tr>
+    <tr><td>Duplicate</td><td>Boshqa issue'ning nusxasi</td>
+        <td>Asl issue raqamini so'rang, uni kuzating</td></tr>
+    <tr><td>Cannot Reproduce</td><td>Takrorlab bo'lmadi</td>
+        <td>Video yozing, aniq muhitni yozing</td></tr>
+    <tr><td>Won't do</td><td>Tuzatilmaydi</td>
+        <td>Ta'sirini raqam bilan tushuntiring yoki qabul qiling</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Prioritet shkalasi</h2>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Daraja</th><th>Ta'rif</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Highest</td><td>Ishning oldini to'sadi</td></tr>
+    <tr><td>High</td><td>Jiddiy, to'sishi mumkin</td></tr>
+    <tr><td>Medium</td><td>Ta'sir qilish ehtimoli bor</td></tr>
+    <tr><td>Low</td><td>Kichik yoki chetlab o'tiladi</td></tr>
+    <tr><td>Lowest</td><td>Arzimas</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p class="cite">Manba:
+<a href="https://support.atlassian.com/jira-cloud-administration/docs/what-are-issue-statuses-priorities-and-resolutions/">Atlassian
+— statuses, priorities and resolutions</a>.</p>
+
+<h2>Bog'lanish turlari</h2>
+
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr><th>Link</th><th>Qachon ishlatiladi</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>relates to</code></td><td>Bug ↔ o'sha story</td></tr>
+    <tr><td><code>blocks</code> / <code>is blocked by</code></td>
+        <td>Bu xato tufayli boshqa ish to'xtab turibdi</td></tr>
+    <tr><td><code>duplicates</code></td><td>Xuddi shu xato allaqachon bor</td></tr>
+    <tr><td><code>is caused by</code></td><td>Bu xato boshqa o'zgarishdan chiqqan</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Foydali JQL so'rovlari</h2>
+
+<div class="report">
+  <dl>
+    <dt>Mening ochiq hisobotlarim</dt>
+    <dd><code>reporter = currentUser() AND statusCategory != Done</code></dd>
+
+    <dt>Menga biriktirilgan ishlar</dt>
+    <dd><code>assignee = currentUser() ORDER BY priority DESC</code></dd>
+
+    <dt>Retest kutayotganlar</dt>
+    <dd><code>project = SWAG AND status = "In Test"</code></dd>
+
+    <dt>Muayyan qismdagi buglar</dt>
+    <dd><code>type = Bug AND labels = checkout</code></dd>
+
+    <dt>Oxirgi haftada yaratilganlar</dt>
+    <dd><code>created &gt;= -7d ORDER BY created DESC</code></dd>
+  </dl>
+</div>
+
+<p class="cite">To'liq qo'llanma:
+<a href="https://support.atlassian.com/jira-software-cloud/docs/use-advanced-search-with-jira-query-language-jql/">Advanced
+search with JQL</a>.</p>
+
+<div class="box box--warn">
+  <p class="box-title">Har bir jamoada boshqacha</p>
+  <p>Jira juda moslashuvchan: statuslar, maydonlar va workflow admin tomonidan
+  o'zgartiriladi. Yangi ishga kirganingizda birinchi kunlarda so'rang:
+  «Bug qaysi statuslardan o'tadi? Severity qayerda yoziladi? Retest kim
+  qiladi?» Bu savollar sizni professional ko'rsatadi.</p>
+</div>
+
+<div class="ask-teacher">
+  <p><strong>Yaratgan bug'ingizni yuboring.</strong> Skrinshot ham bo'ladi.
+  Men maydonlar to'g'ri to'ldirilganini va hisobot dasturchi uchun yetarli
+  ekanini tekshiraman.</p>
+</div>
+
+<nav class="nav">
+  <a href="../lessons/0008-jira-bug-tracker.html">8-dars</a>
+  <a href="./bug-report-shabloni.html">Bug report shabloni</a>
+  <a href="./test-case-shabloni.html">Test case shabloni</a>
+  <a href="./lugat.html">Lug'at</a>
+</nav>
+
+</body>
+</html>
