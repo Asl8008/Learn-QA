@@ -28,7 +28,7 @@ qilib yeta oladigan va buni ish/portfolio darajasida ko'rsata oladigan tester bo
 
 ## Kurs holati
 
-Kurs yozib tugatildi: **25 dars va 22 ta reference hujjat**.
+Kurs yozib tugatildi: **25 dars va 24 ta reference hujjat**.
 
 - **1–15-darslar** — asosiy zanjir: xato topishdan ish topishgacha
 - **16–24-darslar** — ixtisoslashgan yo'nalishlar: xavfsizlik, accessibility,

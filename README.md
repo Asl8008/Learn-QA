@@ -74,7 +74,7 @@ va 30 kunlik jadval.
 
 ```
 lessons/     25 ta dars + index.html (kurs xaritasi)
-reference/   22 ta reference hujjat
+reference/   24 ta reference hujjat
 assets/      style.css va lesson.js (umumiy dizayn va quizlar)
 MISSION.md   kursning maqsadi va qamrovi
 RESOURCES.md barcha birlamchi manbalar, izohlar bilan
